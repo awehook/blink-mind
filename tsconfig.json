@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "suppressExcessPropertyErrors": true,
+    "allowJs": true,
+    "declaration": true,
+    "target": "esnext",
+    "strictNullChecks": false,
+    "pretty": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "lib": ["esnext","dom"],
+    "module": "commonjs",
+    "jsx": "react",
+    "baseUrl": ".",
+    "rootDir": ".",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "paths": {
+      "@blink-mind/core": ["packages/core/src"]
+    }
+  }
+}

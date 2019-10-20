@@ -3,9 +3,40 @@
   "files": [
     "lib/"
   ],
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+
+  },
+  "dependencies": {
+    "@blink-mind/core": "^0.0.1",
+    "debug": "^4.1.1",
+    "lodash": "^4.17.15",
+    "memoize-one": "^5.1.1",
+    "react": "^16.10.2",
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^4.4.0",
+    "tiny-invariant": "^1.0.6",
+    "tiny-warning": "^1.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "babel-loader": "^8.0.6",
+    "@types/react": "^16.9.9",
+    "@types/styled-components": "^4.1.19",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "typescript-plugin-styled-components": "^1.4.3",
+    "webpack": "^4.7.0",
+    "webpack-cli": "^3.3.5",
+    "source-map-loader": "^0.2.3"
+  },
+  "peerDependencies": {
+    "@blink-mind/core": "^0.0.1"
   }
 }

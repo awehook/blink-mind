@@ -3,7 +3,7 @@ import { Record } from 'immutable';
 
 type BlockRecordType = {
   type: string;
-  key: KeyType;
+  key?: KeyType;
   data: any;
 };
 
@@ -13,4 +13,16 @@ const defaultBlockRecord: BlockRecordType = {
   data: null
 };
 
-export class Block extends Record(defaultBlockRecord) {}
+export class Block extends Record(defaultBlockRecord) {
+  get data() {
+    return this.get('data');
+  }
+
+  get type() {
+    return this.get('type')
+  }
+
+  static create(obj: BlockRecordType): Block {
+    return new Block(obj);
+  }
+}

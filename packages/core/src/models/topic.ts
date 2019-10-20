@@ -1,4 +1,4 @@
-import { KeyType } from '../types';
+import { BlockType, KeyType } from '../types';
 import { List, Record } from 'immutable';
 import { Block } from './block';
 import { Relation } from './relation';
@@ -6,19 +6,80 @@ import { Relation } from './relation';
 type TopicRecordType = {
   key: KeyType;
   parentKey: KeyType;
+  collapse: boolean;
   subKeys: List<KeyType>;
   blocks: List<Block>;
   relations: List<Relation>;
   style: string;
 };
 
+type CreateTopicArg = {
+  key: KeyType;
+  parentKey?: KeyType;
+  collapse?: boolean;
+  content?: any;
+  subKeys?: List<KeyType>;
+  style?: string;
+};
+
 const defaultTopicRecord: TopicRecordType = {
   key: null,
   parentKey: null,
+  collapse: false,
   subKeys: null,
   blocks: null,
   relations: null,
   style: null
 };
 
-export class Topic extends Record(defaultTopicRecord) {}
+export class Topic extends Record(defaultTopicRecord) {
+  get key() {
+    return this.get('key');
+  }
+  get parentKey() {
+    return this.get('parentKey');
+  }
+  get collapse() {
+    return this.get('collapse');
+  }
+  get subKeys() {
+    return this.get('subKeys');
+  }
+  get blocks() {
+    return this.get('blocks');
+  }
+  get relations() {
+    return this.get('relations');
+  }
+  get style() {
+    return this.get('style');
+  }
+
+  getBlock(type: string): { index: number; block: Block } {
+    let index = this.blocks.findIndex(b => b.type === type);
+    if (index === -1) return { index, block: null };
+    return { index, block: this.blocks.get(index) };
+  }
+
+  static create({
+    key,
+    parentKey = null,
+    content = 'new node',
+    subKeys = [],
+    collapse = false
+  }: CreateTopicArg): Topic {
+    let block = Block.create({
+      type: BlockType.CONTENT,
+      data: content,
+      key: null
+    });
+    const blocks = List([block]);
+    return new Topic({
+      key,
+      parentKey,
+      blocks,
+      subKeys: List(subKeys),
+      collapse
+    });
+  }
+}

@@ -1,14 +1,20 @@
 {
   "name": "@blink-mind/core",
   "files": [
-    "lib/"
+    "lib/",
+    "src/"
   ],
-  "version": "0.0.0",
+  "main": "src/index.ts",
+  "version": "0.0.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
-    "immutable": "^4.0.0-rc.12"
+    "immutable": "^4.0.0-rc.12",
+    "is-plain-object": "^3.0.0"
   }
 }
