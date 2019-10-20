@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "blink-mind",
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "0.0.0",
+  "author": "awehook <awehook@163.com>",
+  "license": "MIT",
+  "scripts": {
+  },
+  "devDependencies": {
+    "lerna": "^3.18.1",
+    "prettier": "^1.18.2"
+  }
+}

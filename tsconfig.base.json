@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "suppressExcessPropertyErrors": true,
+    "allowJs": true,
+    "declaration": true,
+    "target": "es5",
+    "strictNullChecks": false,
+    "pretty": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "lib": ["es2018"]
+  }
+}

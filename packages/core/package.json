@@ -1,0 +1,14 @@
+{
+  "name": "@blink-mind/core",
+  "files": [
+    "lib/"
+  ],
+  "version": "0.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12"
+  }
+}
