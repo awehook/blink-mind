@@ -11,6 +11,9 @@
     "storybook": "start-storybook -p 6007",
     "test": "lerna run test"
   },
+  "dependencies": {
+    "debug": "^4.1.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",

@@ -3,20 +3,18 @@
     "suppressExcessPropertyErrors": true,
     "allowJs": true,
     "declaration": true,
-    "target": "esnext",
+    "outDir": ".",
+    "target": "es5",
     "strictNullChecks": false,
-    "pretty": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "lib": ["esnext","dom"],
-    "module": "commonjs",
     "jsx": "react",
     "baseUrl": ".",
-    "rootDir": ".",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "lib": ["dom", "es2015"],
     "paths": {
       "@blink-mind/core": ["packages/core/src"]
     }
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["stories/", "node_modules", "**/*.spec.ts", "./dist"]
 }
