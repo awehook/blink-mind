@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Diagram } from '../../src';
 import { Model } from '@blink-mind/core';
-
+import './index.css';
 interface Props {
 
 }
@@ -38,7 +38,7 @@ export class SimpleDemo extends React.Component<Props,State> {
   }
   render() {
     return (
-      <div>
+      <div className='app'>
         <Diagram model={this.state.model}/>
       </div>
     )
