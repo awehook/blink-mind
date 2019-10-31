@@ -17,7 +17,7 @@ export const BlockType = {
   DESC: 'DESC'
 };
 
-export const FocusItemMode = {
+export const FocusMode = {
   NORMAL: 'NORMAL',
   EDITING_CONTENT: 'EDITING_CONTENT',
   EDITING_DESC: 'EDITING_DESC',

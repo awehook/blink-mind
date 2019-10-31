@@ -61,9 +61,14 @@ export class RootNodeWidget extends React.Component<Props> {
 
   render() {
     log('render');
-    const { model, topicKey, saveRef, getRef } = this.props;
+    const props = this.props;
+    const { model, topicKey, saveRef, getRef, controller } = props;
     const config = model.config;
-
-    return null;
+    const topicContent = controller.run('renderTopicContent', { props });
+    return (
+      <>
+        <Topic ref={saveRef(`topic-${topicKey}`)}>{topicContent}</Topic>
+      </>
+    );
   }
 }

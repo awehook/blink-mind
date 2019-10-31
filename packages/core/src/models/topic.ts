@@ -42,10 +42,10 @@ export class Topic extends Record(defaultTopicRecord) {
   get collapse() {
     return this.get('collapse');
   }
-  get subKeys() {
+  get subKeys() : List<KeyType> {
     return this.get('subKeys');
   }
-  get blocks() {
+  get blocks() : List<Block> {
     return this.get('blocks');
   }
   get relations() {

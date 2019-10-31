@@ -26,10 +26,10 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3",
-    "@storybook/addon-actions": "5.1.9",
-    "@storybook/addon-links": "5.1.9",
-    "@storybook/addons": "5.1.9",
-    "@storybook/react": "5.1.9",
+    "@storybook/addon-actions": "5.2.5",
+    "@storybook/addon-links": "5.2.5",
+    "@storybook/addons": "5.2.5",
+    "@storybook/react": "5.2.5",
     "awesome-typescript-loader": "5.2.1"
   }
 }

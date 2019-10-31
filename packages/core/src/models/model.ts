@@ -1,7 +1,7 @@
 import { Map, Record } from 'immutable';
 import isPlainObject from 'is-plain-object';
 import { Data } from './data';
-import { KeyType } from '../types';
+import { FocusMode, KeyType } from '../types';
 import { Config } from './config';
 import { Topic } from './topic';
 import { createKey } from '../utils';
@@ -106,6 +106,14 @@ export class Model extends Record(defaultModelRecord) {
 
   get focusMode(): KeyType {
     return this.get('focusMode');
+  }
+
+  get editingContentKey(): KeyType {
+    return this.focusMode === FocusMode.EDITING_CONTENT ? this.focusKey : null;
+  }
+
+  get editingDescKey(): KeyType {
+    return this.focusMode === FocusMode.EDITING_DESC ? this.focusKey : null;
   }
 
   getTopic(key: KeyType): Topic {

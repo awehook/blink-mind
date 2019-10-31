@@ -1,4 +1,4 @@
-import { BlockType, FocusItemMode } from '../../types';
+import { BlockType, FocusMode } from '../../types';
 import { Topic } from '../topic';
 import { Block } from '../block';
 import { IModifierArg, IModifierResult } from '../../interfaces';
@@ -51,7 +51,7 @@ function addChild({ model, topicKey }: IModifierArg): IModifierResult {
     return focusTopic({
       model,
       topicKey: child.key,
-      focusMode: FocusItemMode.EDITING_CONTENT
+      focusMode: FocusMode.EDITING_CONTENT
     });
   }
   return model;
@@ -72,7 +72,7 @@ function addSibling({ model, topicKey }: IModifierArg): IModifierResult {
     return focusTopic({
       model,
       topicKey: sibling.key,
-      focusMode: FocusItemMode.EDITING_CONTENT
+      focusMode: FocusMode.EDITING_CONTENT
     });
   }
   return model;
@@ -119,7 +119,7 @@ function setContent({
     return focusTopic({
       model,
       topicKey,
-      focusMode: FocusItemMode.EDITING_CONTENT
+      focusMode: FocusMode.EDITING_CONTENT
     });
   }
   return model;
@@ -149,7 +149,7 @@ function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
     return focusTopic({
       model,
       topicKey,
-      focusMode: FocusItemMode.EDITING_DESC
+      focusMode: FocusMode.EDITING_DESC
     });
   }
   return model;

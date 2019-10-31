@@ -42,7 +42,7 @@ export class Diagram extends React.Component<Props> {
     const children = (
       <SaveRef>
         {(saveRef, getRef) => (
-          <Theme theme>
+          <Theme theme={model.config.theme}>
             <DiagramRoot>
               <MindDragScrollWidget
                 controller={this.controller}
