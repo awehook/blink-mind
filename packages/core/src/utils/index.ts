@@ -5,4 +5,3 @@ export function createKey() {
     return v.toString(16);
   });
 }
-

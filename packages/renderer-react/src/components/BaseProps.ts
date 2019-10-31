@@ -1,15 +1,11 @@
-import {
-  Controller,
-  Model,
-  TopicWidgetDirection,
-  KeyType
-} from '@blink-mind/core';
+import {Controller, Model, TopicDirection, KeyType, TopicStyle} from '@blink-mind/core';
 
 export interface BaseProps {
   model: Model;
   topicKey?: KeyType;
+  topicStyle?: TopicStyle;
   controller?: Controller;
-  dir?: TopicWidgetDirection;
+  dir?: string;
   saveRef?: Function;
   getRef?: Function;
 }

@@ -1,9 +1,7 @@
-import {KeyType, Model} from "..";
-import {Topic} from "../models/topic";
+import { KeyType, Model, OnChangeFunction } from '..';
+import { Topic } from '../models/topic';
 
-export interface IDiagram {
-
-}
+export interface IDiagram {}
 
 export interface IControllerOption {
   diagram?: IDiagram;
@@ -12,16 +10,17 @@ export interface IControllerOption {
   commands?: Array<any>;
   model?: Model;
   readOnly?: boolean;
+  onChange?: OnChangeFunction;
 }
 
 export interface IModifierArg {
   model: Model;
   topicKey?: KeyType;
-  topic?: Topic,
+  topic?: Topic;
   focusMode?: string;
   content?: any;
   desc?: any;
+  style?: string;
 }
 
-
-export type IModifierResult  = Model;
+export type IModifierResult = Model;

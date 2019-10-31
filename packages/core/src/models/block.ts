@@ -19,7 +19,7 @@ export class Block extends Record(defaultBlockRecord) {
   }
 
   get type() {
-    return this.get('type')
+    return this.get('type');
   }
 
   static create(obj: BlockRecordType): Block {

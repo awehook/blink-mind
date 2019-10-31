@@ -3,8 +3,24 @@ import { Controller } from './controller';
 
 import ModelModifier from './models/modifiers';
 
-import { KeyType, TopicWidgetDirection, DiagramLayoutDirection } from './types';
+import {
+  KeyType,
+  TopicDirection,
+  DiagramLayoutType,
+  TopicVisualLevel,
+  OnChangeFunction
+} from './types';
 
-export { Model, Controller, KeyType, TopicWidgetDirection, DiagramLayoutDirection, ModelModifier };
+import { TopicStyle } from './configs/theme';
 
-
+export {
+  Model,
+  Controller,
+  ModelModifier,
+  KeyType,
+  TopicDirection,
+  DiagramLayoutType,
+  TopicVisualLevel,
+  OnChangeFunction,
+  TopicStyle
+};

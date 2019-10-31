@@ -1,11 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {
-  Controller,
-  Model,
-  TopicWidgetDirection,
-  KeyType
-} from '@blink-mind/core';
+import { Controller, Model, TopicDirection, KeyType } from '@blink-mind/core';
 import { BaseProps } from '../../../components/BaseProps';
 import debug from 'debug';
 
@@ -16,6 +11,4 @@ interface Props extends BaseProps {
   toKey: KeyType;
 }
 
-export class LinkWidget extends React.Component<Props> {
-
-}
+export class LinkWidget extends React.Component<Props> {}

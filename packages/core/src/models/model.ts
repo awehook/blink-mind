@@ -120,6 +120,21 @@ export class Model extends Record(defaultModelRecord) {
     return this.topics.get(key);
   }
 
+  getParentTopic(key: KeyType): Topic {
+    const topic = this.getTopic(key);
+    return topic.parentKey ? this.getTopic(topic.parentKey) : null;
+  }
+
+  getTopicVisualLevel(key: KeyType): number {
+    let topic = this.getTopic(key);
+    let level = 0;
+    while (topic && topic.key !== this.editorRootTopicKey) {
+      level++;
+      topic = this.getParentTopic(topic.key);
+    }
+    return level;
+  }
+
   get rootTopic() {
     return this.getTopic(this.rootTopicKey);
   }

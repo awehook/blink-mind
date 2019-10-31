@@ -1,5 +1,4 @@
 .app {
-    width: 100vw;
-    height: 100vh;
-    /*height: calc(100vh - 36px);*/
+  width: calc(100vw - 10px);
+  height: calc(100vh - 20px);
 }

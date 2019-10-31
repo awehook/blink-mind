@@ -4,6 +4,7 @@ import { CommandsPlugin } from './plugins/commands';
 import { IDiagram, IControllerOption } from './interfaces';
 
 import debug from 'debug';
+import {OnChangeFunction} from "./types";
 
 const log = debug('core:controller');
 
@@ -34,6 +35,7 @@ function registerPlugin(controller: Controller, plugin: any) {
 export class Controller {
   diagram: IDiagram;
   middleware: Map<string, any[]>;
+  onChange: OnChangeFunction;
   readOnly: boolean;
 
   constructor(options: IControllerOption = {}) {
@@ -42,10 +44,12 @@ export class Controller {
       construct = true,
       plugins = [],
       readOnly = false,
-      model = Model.create()
+      model = Model.create(),
+      onChange
     } = options;
 
     this.diagram = diagram;
+    this.onChange = onChange;
     this.middleware = new Map();
     const corePlugin = CorePlugin({ plugins });
     registerPlugin(this, corePlugin);
@@ -84,6 +88,10 @@ export class Controller {
     const obj = { type, args };
     this.run('onCommand', obj);
     return diagram;
+  }
+
+  change(model: Model) {
+    this.onChange(model);
   }
 
   registerCommand(type: string) {

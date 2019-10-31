@@ -1,19 +1,25 @@
 import * as React from 'react';
 import memoizeOne from 'memoize-one';
-import { Model, Controller } from '@blink-mind/core';
-import { ReactPlugin } from '../plugins/react';
+import { Model, Controller, OnChangeFunction } from '@blink-mind/core';
+import { DefaultPlugin } from '../plugins';
+import { LayoutPlugin } from '../plugins/layout';
 import { SaveRef, DragScrollWidget } from './common';
 import { MindDragScrollWidget } from './mind-drag-scroll-widget';
 import Theme from './theme';
 import styled from 'styled-components';
+import './diagram.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
 
 const DiagramRoot = styled.div`
   width: 100%;
   height: 100%;
+  background: ${props => props.theme.background};
+  position: relative;
 `;
 
 interface Props {
   model: Model;
+  onChange: OnChangeFunction;
   commands?: any;
   plugins?: any;
 }
@@ -21,23 +27,20 @@ interface Props {
 export class Diagram extends React.Component<Props> {
   controller: Controller;
 
-  resolveController = memoizeOne((plugins = [], commands, TheReactPlugin) => {
-    const reactPlugin = TheReactPlugin({
-      ...this.props,
-      diagram: this,
-      model: this.props.model
-    });
+  resolveController = memoizeOne((plugins = [], commands, TheDefaultPlugin) => {
+    const defaultPlugin = TheDefaultPlugin();
     this.controller = new Controller({
-      plugins: [reactPlugin],
+      plugins: [defaultPlugin],
       commands,
-      construct: false
+      construct: false,
+      onChange: this.props.onChange
     });
     this.controller.run('onConstruct');
   });
 
   render() {
     const { commands, plugins, model } = this.props;
-    this.resolveController(plugins, commands, ReactPlugin);
+    this.resolveController(plugins, commands, DefaultPlugin);
 
     const children = (
       <SaveRef>
@@ -50,6 +53,11 @@ export class Diagram extends React.Component<Props> {
                 saveRef={saveRef}
                 getRef={getRef}
               />
+              {this.controller.run('renderStyleEditor', {
+                model,
+                topicKey: model.focusKey,
+                controller: this.controller
+              })}
             </DiagramRoot>
           </Theme>
         )}

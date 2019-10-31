@@ -25,7 +25,10 @@ interface DragScrollWidgetProps {
   ) => React.ReactNode;
 }
 
-export class DragScrollWidget extends BaseWidget<DragScrollWidgetProps> {
+export class DragScrollWidget extends React.Component<
+  DragScrollWidgetProps,
+  any
+> {
   constructor(props: DragScrollWidgetProps) {
     super(props);
     this.state = {

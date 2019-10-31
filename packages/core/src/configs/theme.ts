@@ -1,3 +1,22 @@
+export type LinkStyle = {
+  lineType?: string;
+  lineWidth?: number;
+  lineColor?: string;
+};
+
+export type TopicStyle = {
+  background?: string;
+  color?: string;
+  fontSize?: string;
+  borderRadius: string;
+  borderWidth?: string;
+  borderStyle?: string;
+  borderColor?: string;
+  padding?: string;
+
+  linkStyle?: LinkStyle;
+};
+
 export type ThemeType = {
   name: string;
   background: string;
@@ -13,50 +32,10 @@ export type ThemeType = {
   italic: boolean;
   textAlign: string;
 
-  linkStyle: {
-    lineWidth: number;
-    lineColor: string;
-    color: string;
-  };
-
-  rootTopic: {
-    backgroundColor: string;
-    color: string;
-    fontSize: string;
-    borderRadius?: string;
-    border?: string;
-    padding?: string;
-  };
-
-  primaryTopic: {
-    backgroundColor: string;
-    color: string;
-    fontSize: string;
-    borderRadius: string;
-    border: string;
-    padding: string;
-
-    linkStyle: {
-      lineType: string;
-      lineWidth: number;
-      lineColor: string;
-    };
-  };
-
-  normalTopic: {
-    backgroundColor: string;
-    color: string;
-    fontSize: string;
-    borderRadius: string;
-    border: string;
-    padding: string;
-
-    linkStyle: {
-      lineType: string;
-      lineWidth: number;
-      lineColor: string;
-    };
-  };
+  linkStyle?: LinkStyle;
+  rootTopic?: TopicStyle;
+  primaryTopic?: TopicStyle;
+  normalTopic?: TopicStyle;
 };
 
 interface Themes {
@@ -66,7 +45,7 @@ interface Themes {
 export const themes: Themes = {
   default: {
     name: 'default',
-    background: '#f8f8f8',
+    background: 'rgb(57,60,65)',
     marginH: 26,
     marginV: 60,
     subMarginH: 10,
@@ -81,34 +60,36 @@ export const themes: Themes = {
       color: '#ffffff'
     },
     rootTopic: {
-      backgroundColor: 'red',
+      background: '#ff8200',
       color: '#fff',
-      fontSize: '26px',
-      borderRadius: '5px',
-      padding: '14px'
+      fontSize: '34px',
+      borderRadius: '35px',
+      padding: '16px 18px 16px 18px'
     },
     primaryTopic: {
-      backgroundColor: '#fff',
-      border: '1px solid rgb(187,187,187)',
-      borderRadius: '5px',
+      background: '#e8eaec',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: 'rgb(187,187,187)',
+      borderRadius: '20px',
       color: 'rgb(68,68,68)',
       fontSize: '17px',
-      padding: '12px',
+      padding: '10px 15px 10px 15px',
 
       linkStyle: {
         lineType: 'curve',
-        lineWidth: 1,
+        lineWidth: 3,
         lineColor: 'rgb(113, 203, 45)'
       }
     },
 
     normalTopic: {
-      backgroundColor: '#fff',
-      border: '1px solid rgb(187,187,187)',
-      borderRadius: '5px',
+      background: '#fff',
+      border: '1px solid #e8eaec',
+      borderRadius: '20px',
       color: 'rgb(68,68,68)',
       fontSize: '17px',
-      padding: '12px',
+      padding: '4px 10px',
 
       linkStyle: {
         lineType: 'curve',

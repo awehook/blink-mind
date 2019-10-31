@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Controller, Model } from '@blink-mind/core';
 import { DragScrollWidget } from './common';
-import { RootNodeWidget } from './root-node-widget';
 
 const NodeLayer = styled.div`
   position: relative;
@@ -44,23 +43,26 @@ export class MindDragScrollWidget<
   }
 
   render() {
-    const { saveRef, model } = this.props;
+    const { saveRef, model, controller } = this.props;
     const nodeKey = model.editorRootTopicKey;
     return (
       <DragScrollWidget {...this.state} ref={saveRef('DragScrollWidget')}>
         {(
           setViewBoxScroll: (left: number, top: number) => void,
           setViewBoxScrollDelta: (left: number, top: number) => void
-        ) => (
-          <NodeLayer ref={saveRef('node-layer')}>
-            <RootNodeWidget
-              topicKey={nodeKey}
-              {...this.props}
-              setViewBoxScroll={setViewBoxScroll}
-              setViewBoxScrollDelta={setViewBoxScrollDelta}
-            />
-          </NodeLayer>
-        )}
+        ) => {
+          const rootWidgetProps = {
+            ...this.props,
+            topicKey: nodeKey,
+            setViewBoxScroll,
+            setViewBoxScrollDelta
+          };
+          return (
+            <NodeLayer ref={saveRef('node-layer')}>
+              {controller.run('renderRootWidget', rootWidgetProps)}
+            </NodeLayer>
+          );
+        }}
       </DragScrollWidget>
     );
   }

@@ -1,21 +1,21 @@
-import { DiagramLayoutDirection } from '../types';
+import { DiagramLayoutType } from '../types';
 import { Record } from 'immutable';
-import {ThemeType, themes}  from "../configs/theme";
+import { ThemeType, themes } from '../configs/theme';
 
 type ConfigRecordType = {
   readOnly?: boolean;
-  layoutDir?: DiagramLayoutDirection;
-  theme?: ThemeType
+  layoutDir?: DiagramLayoutType;
+  theme?: ThemeType;
 };
 
 const defaultConfigRecord: ConfigRecordType = {
   readOnly: false,
-  layoutDir: DiagramLayoutDirection.LEFT_TO_RIGHT,
+  layoutDir: DiagramLayoutType.LEFT_TO_RIGHT,
   theme: themes['default']
 };
 
 export class Config extends Record(defaultConfigRecord) {
-  get layoutDir(): DiagramLayoutDirection {
+  get layoutDir(): DiagramLayoutType {
     return this.get('layoutDir');
   }
 
@@ -23,11 +23,11 @@ export class Config extends Record(defaultConfigRecord) {
     return this.get('readOnly');
   }
 
-  get theme() : ThemeType {
+  get theme(): ThemeType {
     return this.get('theme');
   }
 
-  static fromJSON(obj){
+  static fromJSON(obj) {
     return new Config(obj);
   }
 }

@@ -3,15 +3,13 @@ import * as React from 'react';
 import { Diagram } from '../../src';
 import { Model } from '@blink-mind/core';
 import './index.css';
-interface Props {
-
-}
+interface Props {}
 
 interface State {
   model: Model;
 }
 
-export class SimpleDemo extends React.Component<Props,State> {
+export class SimpleDemo extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -36,11 +34,17 @@ export class SimpleDemo extends React.Component<Props,State> {
       model
     };
   }
+  onChange = (model: Model) => {
+    this.setState({
+      model
+    });
+  };
+
   render() {
     return (
-      <div className='app'>
-        <Diagram model={this.state.model}/>
+      <div className="app">
+        <Diagram model={this.state.model} onChange={this.onChange} />
       </div>
-    )
+    );
   }
 }

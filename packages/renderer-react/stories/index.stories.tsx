@@ -1,14 +1,10 @@
-import * as React from "react";
-import { storiesOf } from "@storybook/react";
+import * as React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import { SimpleDemo } from "./SimpleDemo";
+import { SimpleDemo } from './SimpleDemo';
 
-const debugNameSpaces = [
-  "node:*",
-  "plugin:*"
-];
+const debugNameSpaces = ['node:*', 'plugin:*', 'modifier'];
 
-localStorage.debug = debugNameSpaces.join(",");
+localStorage.debug = debugNameSpaces.join(',');
 
-storiesOf("blink-mind",module)
-  .add('SimpleDemo',()=><SimpleDemo/>);
+storiesOf('blink-mind', module).add('SimpleDemo', () => <SimpleDemo />);

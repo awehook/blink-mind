@@ -39,6 +39,7 @@ function focusTopic({
 }
 
 function addChild({ model, topicKey }: IModifierArg): IModifierResult {
+  log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
   if (topic) {
     let child = Topic.create({ key: createKey(), parentKey: topic.key });
@@ -125,6 +126,16 @@ function setContent({
   return model;
 }
 
+function setStyle({ model, topicKey, style }: IModifierArg): IModifierResult {
+  let topic = model.getTopic(topicKey);
+  if (topic) {
+    if (style !== topic.style) {
+      model = model.updateIn(['topics', topicKey, 'style'], s => style);
+    }
+  }
+  return model;
+}
+
 function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
   let topic = model.getTopic(topicKey);
   if (topic) {
@@ -162,5 +173,6 @@ export default {
   focusTopic,
   deleteTopic,
   setContent,
-  setDesc
+  setDesc,
+  setStyle
 };

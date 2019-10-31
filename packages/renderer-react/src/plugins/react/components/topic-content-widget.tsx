@@ -3,13 +3,24 @@ import styled from 'styled-components';
 import {
   Controller,
   Model,
-  TopicWidgetDirection,
-  KeyType
+  TopicDirection,
+  KeyType,
+  TopicVisualLevel
 } from '@blink-mind/core';
 import { BaseProps } from '../../../components/BaseProps';
 import debug from 'debug';
+import { ThemeType } from '@blink-mind/core/src/configs/theme';
+import { BaseWidget } from '../../../components/common';
+import { FocusMode } from '@blink-mind/core/src/types';
+import { OpType } from '../../operation';
 
 const log = debug('node:topic-content-widget');
+
+function getTopicTheme(visualLevel: number, theme: ThemeType) {
+  if (visualLevel === TopicVisualLevel.ROOT) return theme.rootTopic;
+  if (visualLevel === TopicVisualLevel.PRIMARY) return theme.primaryTopic;
+  return theme.normalTopic;
+}
 
 const DropArea = styled.div`
   height: 20px;
@@ -18,7 +29,6 @@ const DropArea = styled.div`
 
 interface TopicContentProps {
   dragEnter?: boolean;
-  isRoot?: boolean;
 }
 
 const TopicContent = styled.div<TopicContentProps>`
@@ -28,8 +38,6 @@ const TopicContent = styled.div<TopicContentProps>`
   white-space: pre-line;
   cursor: pointer;
   overflow: hidden;
-  //@ts-ignore
-  padding: ${props => (props.isRoot ? '6px 0 6px 20px' : '6px 20px 6px 0')};
 `;
 
 interface Props extends BaseProps {
@@ -38,13 +46,18 @@ interface Props extends BaseProps {
 
 interface State {
   dragEnter: boolean;
+  showPopMenu: boolean;
 }
 
 let dragSrcItemKey: KeyType = null;
 
-export class TopicContentWidget extends React.Component<Props, State> {
+export class TopicContentWidget extends BaseWidget<Props, State> {
   constructor(props) {
     super(props);
+    this.state = {
+      dragEnter: false,
+      showPopMenu: false
+    };
   }
 
   onDragStart = e => {
@@ -65,20 +78,54 @@ export class TopicContentWidget extends React.Component<Props, State> {
     log('onDrop');
   };
 
-  onClick = () => {};
+  isDoubleClick: boolean;
 
-  onDoubleClick = () => {};
+  onClick = e => {
+    this.isDoubleClick = false;
+    log(e.nativeEvent);
+    setTimeout(() => {
+      if (!this.isDoubleClick) {
+        this.operation(OpType.FOCUS_TOPIC, {
+          ...this.props,
+          focusMode: FocusMode.NORMAL
+        });
+      }
+    });
+  };
+
+  onDoubleClick = () => {
+    this.isDoubleClick = true;
+  };
+
+  onContextMenu = e => {
+    log(e);
+    this.operation(OpType.FOCUS_TOPIC, {
+      ...this.props,
+      focusMode: FocusMode.SHOW_POPUP
+    });
+    this.setState({
+      showPopMenu: true
+    });
+  };
+
+  handlePopMenuVisibleChange = visible => {
+    this.setState({
+      showPopMenu: visible
+    });
+  };
 
   render() {
     const props = this.props;
-    const { dir, draggable, saveRef, topicKey ,controller} = props;
-    log('saveRef:',saveRef);
+    const { draggable, saveRef, topicKey, controller, topicStyle } = props;
+    const showPopMenu = this.state.showPopMenu;
+    log(topicStyle);
     return (
       <div>
         <DropArea />
         <TopicContent
-          isRoot={dir === TopicWidgetDirection.ROOT}
+          // theme={getTopicTheme(visualLevel, model.config.theme)}
           // dragEnter={this.state.dragEnter}
+          style={topicStyle}
           draggable={draggable}
           ref={saveRef(`content-${topicKey}`)}
           onDragStart={this.onDragStart}
@@ -88,9 +135,17 @@ export class TopicContentWidget extends React.Component<Props, State> {
           onDrop={this.onDrop}
           onClick={this.onClick}
           onDoubleClick={this.onDoubleClick}
+          onContextMenu={this.onContextMenu}
         >
-          {controller.run('renderBlocks',{props})}
+          {controller.run('renderBlocks', { props })}
+          {showPopMenu &&
+            controller.run('renderTopicPopupMenu', {
+              ...props,
+              handleVisibleChange: this.handlePopMenuVisibleChange,
+              visible: true
+            })}
         </TopicContent>
+        <DropArea />
       </div>
     );
   }

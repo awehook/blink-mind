@@ -8,11 +8,13 @@ import debug from 'debug';
 
 const log = debug('node:topic-content-editor');
 
-const NodeContent = styled.div`
+interface NodeContentProps {
+  readOnly?: boolean;
+}
+
+const NodeContent = styled.div<NodeContentProps>`
   padding: 6px 6px;
-  //@ts-ignore
   background-color: ${props => (props.readOnly ? null : '#e0e0e0')};
-  //@ts-ignore
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
 `;
 
@@ -29,13 +31,7 @@ export class TopicContentEditor extends React.Component<Props> {
     const readOnly = !(topicKey === editingContentKey);
     const key = `editor-${topicKey}`;
     return (
-
-      <NodeContent
-        key={key}
-        //@ts-ignore
-        readOnly={readOnly}
-        ref={saveRef(key)}
-      >
+      <NodeContent key={key} readOnly={readOnly} ref={saveRef(key)}>
         <RichMarkDownEditor editorValue={content} readOnly={readOnly} />
       </NodeContent>
     );
