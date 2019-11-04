@@ -1,10 +1,23 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import * as cx from 'classnames';
+import { TopicDirection } from '@blink-mind/core/src';
+import { OpType } from '../../operation';
+import { collapseRefKey } from '../../../utils/keys';
 
 const Icon = styled.div`
-  position: relative;
-  top: -8px;
-  left: 5px;
+  position: absolute;
+  top: calc(50% - 10px);
+  ${({ dir }) => {
+    if (dir === TopicDirection.RIGHT)
+      return css`
+        right: -25px;
+      `;
+    if (dir === TopicDirection.LEFT)
+      return css`
+        left: -25px;
+      `;
+  }};
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -15,12 +28,23 @@ const Icon = styled.div`
   font-size: 14px;
   line-height: 20px;
   border: 0;
+  z-index: 2;
 `;
 
 export function TopicCollapseIcon(props) {
-  const { model, topicKey, topicStyle } = props;
+  const { model, topicKey, topicStyle, dir, saveRef, onClickCollapse } = props;
   const topic = model.getTopic(topicKey);
   return topic.subKeys.size > 0 ? (
-    <Icon background={topicStyle.background} />
+    <Icon
+      ref={saveRef(collapseRefKey(topicKey))}
+      onClick={onClickCollapse}
+      background={topicStyle.background}
+      dir={dir}
+      className={cx({
+        icon: true,
+        iconfont: true,
+        [`bm-${topic.collapse ? 'plus' : 'minus'}`]: true
+      })}
+    />
   ) : null;
 }

@@ -2,6 +2,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { TopicDirection } from '@blink-mind/core';
 import { BaseProps } from '../../../components/BaseProps';
+import { TopicSubLinks } from './topic-sublinks';
+import debug from 'debug';
+import { linksRefKey, topicRefKey } from '../../../utils/keys';
+
+const log = debug('node:topic-widget');
 
 type NodeProps = {
   topicDirection: string;
@@ -10,15 +15,22 @@ type NodeProps = {
 const Node = styled.div<NodeProps>`
   display: flex;
   align-items: center;
-  padding: 0px 10px;
   flex-direction: ${props =>
     props.topicDirection === TopicDirection.RIGHT ? 'row' : 'row-reverse'};
 `;
 
+interface NodeChildrenProps {
+  dir: string;
+  marginH: number;
+}
+
 // TODO
-const NodeChildren = styled.div`
+const NodeChildren = styled.div<NodeChildrenProps>`
   position: relative;
-  padding: 11px 0px;
+  padding: ${props =>
+    props.dir === TopicDirection.RIGHT
+      ? `0 0 0 ${props.marginH}px`
+      : `0 ${props.marginH}px 0 0`};
 `;
 
 interface NodeTopicProps {
@@ -44,27 +56,47 @@ export class TopicWidget extends React.Component<Props> {
     const props = this.props;
     const { controller, model, topicKey, dir, saveRef, getRef } = props;
     const topics = model.getTopic(topicKey).subKeys.toArray();
-    const res = controller.run('createSubTopicsAndSubLinks', { props, topics });
+    const res = controller.run('createSubTopics', { props, topics });
     if (!res) return null;
     const { subTopics } = res;
-    return <NodeChildren>{subTopics}</NodeChildren>;
-  }
-  render() {
-    const props = this.props;
-    const { controller, model, topicKey, dir, saveRef, getRef } = props;
-    const topicStyle = controller.run('getTopicStyle', props);
-    const topicContent = controller.run('renderTopicContent',
-{ ...props, topicStyle }
+    const subLinks = controller.run('renderSubLinks', props);
+    return (
+      <NodeChildren dir={dir} marginH={model.config.theme.marginH}>
+        {subTopics} {subLinks}
+      </NodeChildren>
     );
+  }
 
-    const collapseIcon = controller.run('renderTopicCollapseIcon',)
+  componentDidUpdate(): void {
+    this.layoutLinks();
+  }
+
+  componentDidMount(): void {
+    this.layoutLinks();
+  }
+
+  layoutLinks() {
+    const { getRef, topicKey } = this.props;
+    const links: TopicSubLinks = getRef(linksRefKey(topicKey));
+    links && links.layout();
+  }
+
+  render() {
+    log('render');
+    const props = this.props;
+    const { controller, topicKey, dir, saveRef } = props;
+    const topicStyle = controller.run('getTopicStyle', props);
+    const propsMore = {
+      ...props,
+      topicStyle
+    };
+    const topicContent = controller.run('renderTopicContent', propsMore);
 
     return (
       <Node topicDirection={dir}>
-        <NodeTopic topicDirection={dir} ref={saveRef(`topic-${topicKey}`)}>
+        <NodeTopic topicDirection={dir} ref={saveRef(topicRefKey(topicKey))}>
           {topicContent}
         </NodeTopic>
-
         {this.renderSubTopics()}
       </Node>
     );

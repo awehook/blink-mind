@@ -45,8 +45,9 @@ interface Themes {
 export const themes: Themes = {
   default: {
     name: 'default',
+    randomColor: true,
     background: 'rgb(57,60,65)',
-    marginH: 26,
+    marginH: 60,
     marginV: 60,
     subMarginH: 10,
     subMarginV: 20,
@@ -93,8 +94,8 @@ export const themes: Themes = {
 
       linkStyle: {
         lineType: 'curve',
-        lineWidth: 1,
-        lineColor: 'rgb(113, 203, 45)'
+        lineWidth: 3,
+        lineColor: 'white'
       }
     }
   }

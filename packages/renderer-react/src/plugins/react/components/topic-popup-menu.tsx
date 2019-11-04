@@ -21,7 +21,7 @@ const PopupMenu = styled.ul`
   color: black;
   //box-shadow: rgb(170, 170, 170) 5px 5px 10px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 3;
   min-width: 230px;
 `;
 

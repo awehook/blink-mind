@@ -111,7 +111,23 @@ export class StyleEditor extends BaseWidget {
     }
   };
 
-  handleBorderWithChange = value => {
+  setLinkStyle = obj => {
+    const style = this.topic.style;
+    const styleObj = style ? JSON.parse(style) : {};
+    const newStyleObj = {
+      ...styleObj,
+      linkStyle: {
+        ...styleObj.linkStyle,
+        ...obj
+      }
+    };
+    if (!isEqual(styleObj, newStyleObj)) {
+      const newStyleStr = JSON.stringify(newStyleObj);
+      this.operation(OpType.SET_STYLE, { ...this.props, style: newStyleStr });
+    }
+  };
+
+  handleBorderWidthChange = value => {
     log('handleBorderWithChange:', value);
     this.setStyle({ borderWidth: `${value}px` });
   };
@@ -125,6 +141,11 @@ export class StyleEditor extends BaseWidget {
     this.setStyle({ borderRadius: `${value}px` });
   };
 
+  handleLinkWidthChange = value => {
+    log('handleBorderRadiusChange:', value);
+    this.setLinkStyle({ lineWidth: `${value}px` });
+  };
+
   handleBorderColorChange = color => {
     log(color);
     this.setStyle({ borderColor: color.hex });
@@ -135,11 +156,17 @@ export class StyleEditor extends BaseWidget {
     this.setStyle({ background: color.hex });
   };
 
+  handleLinkColorChange = color => {
+    log(color);
+    this.setLinkStyle({ lineColor: color.hex });
+  };
+
   render() {
     const props = this.props;
     const { controller, model } = props;
     if (!model.focusKey) return null;
     const topicStyle = controller.run('getTopicStyle', props);
+    const linkStyle = topicStyle.linkStyle;
     if (!this.state.showPanel) {
       return (
         <StyleEditorRoot>
@@ -156,7 +183,10 @@ export class StyleEditor extends BaseWidget {
     return (
       <StyleEditorRoot>
         <Title>
-          <CloseIcon className="icon iconfont bm-close" onClick={this.setShowPanel(false)} />
+          <CloseIcon
+            className="icon iconfont bm-close"
+            onClick={this.setShowPanel(false)}
+          />
         </Title>
         <PopRoot>
           <SettingTitle>Border</SettingTitle>
@@ -166,7 +196,7 @@ export class StyleEditor extends BaseWidget {
                 items={borderWidthItems}
                 itemRenderer={renderItem('px')}
                 filterable={false}
-                onItemSelect={this.handleBorderWithChange}
+                onItemSelect={this.handleBorderWidthChange}
               >
                 <Button
                   text={`width: ${
@@ -226,6 +256,35 @@ export class StyleEditor extends BaseWidget {
                   <SketchPicker
                     color={topicStyle.background}
                     onChangeComplete={this.handleBackgroundColorChange}
+                  />
+                </div>
+              </Popover>
+            </SettingItem>
+          </div>
+          <SettingTitle>Link</SettingTitle>
+          <div>
+            <SettingItem>
+              <PxSelect
+                items={borderWidthItems}
+                itemRenderer={renderItem('px')}
+                filterable={false}
+                onItemSelect={this.handleLinkWidthChange}
+              >
+                <Button
+                  text={`width: ${linkStyle ? linkStyle.lineWidth : '0px'}`}
+                />
+              </PxSelect>
+            </SettingItem>
+            <SettingItem>
+              <Popover>
+                <WithBorder>
+                  <div className="icon iconfont bm-color-picker" />
+                  <ColorBar color={topicStyle.background} />
+                </WithBorder>
+                <div>
+                  <SketchPicker
+                    color={topicStyle.background}
+                    onChangeComplete={this.handleLinkColorChange}
                   />
                 </div>
               </Popover>

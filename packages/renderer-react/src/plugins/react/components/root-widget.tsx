@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { DiagramLayoutType, KeyType, TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import { BaseProps } from '../../../components/BaseProps';
+import { TopicSubLinks } from './topic-sublinks';
+import { linksRefKey, topicRefKey } from '../../../utils/keys';
 
 const log = debug('RootNode');
 
@@ -26,6 +28,7 @@ const Topic = styled.div`
   display: flex;
   position: relative;
   align-items: center;
+  z-index: 3;
 `;
 
 interface Props extends BaseProps {
@@ -36,7 +39,7 @@ interface Props extends BaseProps {
 export class RootWidget extends React.Component<Props> {
   renderPartTopics(topics: KeyType[], dir: string) {
     const { controller, saveRef } = this.props;
-    const res = controller.run('createSubTopicsAndSubLinks', {
+    const res = controller.run('createSubTopics', {
       props: { ...this.props, dir, isRoot: true },
       topics
     });
@@ -51,6 +54,22 @@ export class RootWidget extends React.Component<Props> {
     );
   }
 
+  componentDidMount(): void {
+    this.layoutSubLinks();
+  }
+
+  componentDidUpdate(): void {
+    this.layoutSubLinks();
+  }
+
+  layoutSubLinks() {
+    const { getRef, topicKey } = this.props;
+    const links = getRef(linksRefKey(topicKey));
+    const highlight = getRef('focus-highlight');
+    links && links.layout();
+    highlight && highlight.layout();
+  }
+
   render() {
     log('render');
     const props = this.props;
@@ -59,41 +78,55 @@ export class RootWidget extends React.Component<Props> {
     const config = model.config;
     const topicContent = controller.run('renderTopicContent', {
       ...props,
-      topicStyle
+      topicStyle,
+      dir: TopicDirection.MAIN
     });
     const partTopics = controller.run('getPartTopics', {
       layout: config.layoutDir,
       model,
       topicKey
     });
+    const rootTopic = (
+      <Topic ref={saveRef(topicRefKey(topicKey))}>{topicContent}</Topic>
+    );
+    const subLinks = controller.run('renderRootSubLinks', props);
+    const focusHighlight = controller.run('renderFocusItemHighlight',props)
     switch (config.layoutDir) {
       case DiagramLayoutType.LEFT_AND_RIGHT:
         return (
           <>
             {this.renderPartTopics(partTopics.L, 'L')}
-            <Topic ref={saveRef(`topic-${topicKey}`)}>{topicContent}</Topic>
+            {rootTopic}
             {this.renderPartTopics(partTopics.R, 'R')}
+            {subLinks}
+            {focusHighlight}
           </>
         );
       case DiagramLayoutType.LEFT_TO_RIGHT:
         return (
           <>
-            <Topic ref={saveRef(`topic-${topicKey}`)}>{topicContent}</Topic>
+            {rootTopic}
             {this.renderPartTopics(partTopics.R, 'R')}
+            {subLinks}
+            {focusHighlight}
           </>
         );
       case DiagramLayoutType.RIGHT_TO_LEFT:
         return (
           <>
             {this.renderPartTopics(partTopics.L, 'L')}
-            <Topic ref={saveRef(`topic-${topicKey}`)}>{topicContent}</Topic>
+            {rootTopic}
+            {subLinks}
+            {focusHighlight}
           </>
         );
       case DiagramLayoutType.TOP_TO_BOTTOM:
         return (
           <>
-            <Topic ref={saveRef(`topic-${topicKey}`)}>{topicContent}</Topic>
+            {rootTopic}
             {this.renderPartTopics(partTopics.B, 'B')}
+            {subLinks}
+            {focusHighlight}
           </>
         );
     }

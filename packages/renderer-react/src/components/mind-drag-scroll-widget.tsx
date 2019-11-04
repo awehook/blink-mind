@@ -2,11 +2,16 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Controller, Model } from '@blink-mind/core';
 import { DragScrollWidget } from './common';
-
+import { topicRefKey } from '../utils/keys';
 const NodeLayer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+`;
+
+const DIV = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 export interface MindDragScrollWidgetProps {
@@ -25,7 +30,9 @@ export class MindDragScrollWidget<
 
   componentDidMount(): void {
     const { getRef, model } = this.props;
-    const rootTopic: HTMLElement = getRef(`topic-${model.editorRootTopicKey}`);
+    const rootTopic: HTMLElement = getRef(
+      topicRefKey(model.editorRootTopicKey)
+    );
     const nodeLayer: HTMLElement = getRef('node-layer');
     const rootTopicRect = rootTopic.getBoundingClientRect();
     const nodeLayerRect = nodeLayer.getBoundingClientRect();
@@ -42,28 +49,38 @@ export class MindDragScrollWidget<
     return this.props.getRef('DragScrollWidget');
   }
 
+  onClick = e => {
+    console.log('diagram onClick');
+  };
+
   render() {
     const { saveRef, model, controller } = this.props;
     const nodeKey = model.editorRootTopicKey;
     return (
-      <DragScrollWidget {...this.state} ref={saveRef('DragScrollWidget')}>
-        {(
-          setViewBoxScroll: (left: number, top: number) => void,
-          setViewBoxScrollDelta: (left: number, top: number) => void
-        ) => {
-          const rootWidgetProps = {
-            ...this.props,
-            topicKey: nodeKey,
-            setViewBoxScroll,
-            setViewBoxScrollDelta
-          };
-          return (
-            <NodeLayer ref={saveRef('node-layer')}>
-              {controller.run('renderRootWidget', rootWidgetProps)}
-            </NodeLayer>
-          );
-        }}
-      </DragScrollWidget>
+      <DIV onClick={this.onClick}>
+        <DragScrollWidget
+          {...this.state}
+          ref={saveRef('DragScrollWidget')}
+
+        >
+          {(
+            setViewBoxScroll: (left: number, top: number) => void,
+            setViewBoxScrollDelta: (left: number, top: number) => void
+          ) => {
+            const rootWidgetProps = {
+              ...this.props,
+              topicKey: nodeKey,
+              setViewBoxScroll,
+              setViewBoxScrollDelta
+            };
+            return (
+              <NodeLayer ref={saveRef('node-layer')}>
+                {controller.run('renderRootWidget', rootWidgetProps)}
+              </NodeLayer>
+            );
+          }}
+        </DragScrollWidget>
+      </DIV>
     );
   }
 }

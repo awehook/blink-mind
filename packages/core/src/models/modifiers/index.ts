@@ -97,6 +97,8 @@ function deleteTopic({ model, topicKey }: IModifierArg): IModifierResult {
       m.updateIn(['topics', item.parentKey, 'subKeys'], subKeys =>
         subKeys.delete(subKeys.indexOf(topicKey))
       );
+      if(m.focusKey === topicKey)
+        m.set('focusKey',null).set('focusMode',null);
     });
   }
 

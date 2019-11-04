@@ -44,22 +44,16 @@ export function LayoutPlugin() {
       }
     },
 
-    createSubTopicsAndSubLinks({ props, topics }) {
-      const { model, topicKey, controller } = props;
+    createSubTopics({ props, topics }) {
+      const { model, topicKey } = props;
       const topic = model.getTopic(topicKey);
       if (topics.size === 0 || topic.collapse) return null;
-      const subTopics = [],
-        subLinks = [],
-        subLinksKeys = [];
+      const subTopics = [];
       topics.forEach(tKey => {
         const subTopicProps = { ...props, topicKey: tKey };
         subTopics.push(<TopicWidget key={tKey} {...subTopicProps} />);
-        let linkKey = getLinkKey(topicKey, tKey);
-        const subLinkProps = { ...props, fromKey: topicKey, toKey: tKey };
-        subLinks.push(controller.run('renderLink', { ...subLinkProps }));
-        subLinksKeys.push(linkKey);
       });
-      return { subTopics, subLinks, subLinksKeys };
+      return { subTopics };
     }
   };
 }

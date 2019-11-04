@@ -1,4 +1,10 @@
-import {Controller, Model, TopicDirection, KeyType, TopicStyle} from '@blink-mind/core';
+import {
+  Controller,
+  Model,
+  TopicDirection,
+  KeyType,
+  TopicStyle
+} from '@blink-mind/core';
 
 export interface BaseProps {
   model: Model;
@@ -8,4 +14,5 @@ export interface BaseProps {
   dir?: string;
   saveRef?: Function;
   getRef?: Function;
+  setViewBoxScrollDelta?: Function;
 }

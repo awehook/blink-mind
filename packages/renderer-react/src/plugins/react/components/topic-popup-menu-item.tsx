@@ -39,6 +39,7 @@ const MenuItemLabel = styled.span`
 
 export class TopicPopupMenuItem extends BaseWidget<Props> {
   onClick = e => {
+    e.stopPropagation();
     const { config } = this.props;
     config.opType && this.operation(config.opType, this.props);
   };

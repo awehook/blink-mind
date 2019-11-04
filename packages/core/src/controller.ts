@@ -94,6 +94,10 @@ export class Controller {
     this.onChange(model);
   }
 
+  operation(props) {
+    this.run('operation',props);
+  }
+
   registerCommand(type: string) {
     const { diagram } = this;
   }
