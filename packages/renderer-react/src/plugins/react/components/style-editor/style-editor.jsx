@@ -8,6 +8,7 @@ import { SketchPicker } from 'react-color';
 import { isEqual } from 'lodash';
 import debug from 'debug';
 import { OpType } from '../../../operation';
+import { iconClassName, IconName } from '../../../../utils';
 
 const log = debug('node:style-editor');
 
@@ -171,7 +172,7 @@ export class StyleEditor extends BaseWidget {
       return (
         <StyleEditorRoot>
           <IconBg onClick={this.setShowPanel(true)}>
-            <ShowMenuIcon className="icon iconfont bm-show-menu" />
+            <ShowMenuIcon className={iconClassName(IconName.SHOW_MENU)} />
           </IconBg>
         </StyleEditorRoot>
       );
@@ -184,7 +185,7 @@ export class StyleEditor extends BaseWidget {
       <StyleEditorRoot>
         <Title>
           <CloseIcon
-            className="icon iconfont bm-close"
+            className={iconClassName(IconName.CLOSE)}
             onClick={this.setShowPanel(false)}
           />
         </Title>
@@ -232,7 +233,7 @@ export class StyleEditor extends BaseWidget {
             <SettingItem>
               <Popover>
                 <WithBorder>
-                  <div className="icon iconfont bm-color-picker" />
+                  <div className={iconClassName(IconName.COLOR_PICKER)} />
                   <ColorBar color={topicStyle.borderColor} />
                 </WithBorder>
                 <div>
@@ -249,7 +250,7 @@ export class StyleEditor extends BaseWidget {
             <SettingItem>
               <Popover>
                 <WithBorder>
-                  <div className="icon iconfont bm-color-picker" />
+                  <div className={iconClassName(IconName.COLOR_PICKER)} />
                   <ColorBar color={topicStyle.background} />
                 </WithBorder>
                 <div>
@@ -278,7 +279,7 @@ export class StyleEditor extends BaseWidget {
             <SettingItem>
               <Popover>
                 <WithBorder>
-                  <div className="icon iconfont bm-color-picker" />
+                  <div className={iconClassName(IconName.COLOR_PICKER)} />
                   <ColorBar color={topicStyle.background} />
                 </WithBorder>
                 <div>

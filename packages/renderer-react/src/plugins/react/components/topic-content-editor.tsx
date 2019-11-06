@@ -2,10 +2,10 @@ import * as React from 'react';
 import { BaseProps } from '../../../components/BaseProps';
 import styled from 'styled-components';
 import RichMarkDownEditor from 'awehook-rich-markdown-editor';
-import { BlockType } from '@blink-mind/core/src/types';
 import { Block } from '@blink-mind/core/src/models/block';
+import { BaseWidget } from '../../../components/common';
+import { OpType } from '../../operation';
 import debug from 'debug';
-
 const log = debug('node:topic-content-editor');
 
 interface NodeContentProps {
@@ -13,8 +13,8 @@ interface NodeContentProps {
 }
 
 const NodeContent = styled.div<NodeContentProps>`
-  padding: 6px 6px;
-  background-color: ${props => (props.readOnly ? null : '#e0e0e0')};
+  padding: 6px;
+  background-color: ${props => (props.readOnly ? null : 'white')};
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
 `;
 
@@ -22,7 +22,21 @@ interface Props extends BaseProps {
   block: Block;
 }
 
-export class TopicContentEditor extends React.Component<Props> {
+export class TopicContentEditor extends BaseWidget<Props> {
+  onMouseDown = e => {
+    console.log('onMouseDown');
+    e.stopPropagation();
+  };
+
+  onMouseMove = e => {
+    console.log('onMouseDown');
+    e.stopPropagation();
+  };
+  onChange = (value: () => string) => {
+    const { topicKey } = this.props;
+    this.operation(OpType.SET_TOPIC_CONTENT, { ...this.props, content: value });
+  };
+
   render() {
     const { model, topicKey, saveRef, block } = this.props;
     const content = block.data;
@@ -31,8 +45,18 @@ export class TopicContentEditor extends React.Component<Props> {
     const readOnly = !(topicKey === editingContentKey);
     const key = `editor-${topicKey}`;
     return (
-      <NodeContent key={key} readOnly={readOnly} ref={saveRef(key)}>
-        <RichMarkDownEditor editorValue={content} readOnly={readOnly} />
+      <NodeContent
+        key={key}
+        readOnly={readOnly}
+        ref={saveRef(key)}
+        onMouseDown={this.onMouseDown}
+        onMouseMove={this.onMouseMove}
+      >
+        <RichMarkDownEditor
+          editorValue={content}
+          readOnly={readOnly}
+          onChange={this.onChange}
+        />
       </NodeContent>
     );
   }

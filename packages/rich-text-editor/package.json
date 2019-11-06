@@ -1,5 +1,5 @@
 {
-  "name": "@blink-mind/renderer-react",
+  "name": "@blink-mind/rich-text-editor",
   "files": [
     "lib/"
   ],
@@ -8,34 +8,20 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "src/index.ts",
   "scripts": {},
   "dependencies": {
     "@blink-mind/core": "^0.0.1",
-    "@blueprintjs/core": "^3.19.1",
-    "@blueprintjs/select": "^3.11.1",
-    "awehook-rich-markdown-editor": "^1.0.1",
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.15",
-    "memoize-one": "^5.1.1",
-    "react": "^16.10.2",
-    "react-color": "^2.17.3",
-    "resize-observer-polyfill": "^1.5.1",
-    "styled-components": "^4.4.0",
-    "tiny-invariant": "^1.0.6",
-    "tiny-warning": "^1.0.3"
+    "awehook-rich-markdown-editor": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/preset-typescript": "^7.6.0",
     "@types/react": "^16.9.9",
-    "@types/styled-components": "^4.1.19",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "source-map-loader": "^0.2.3",
     "style-loader": "^1.0.0",
-    "typescript-plugin-styled-components": "^1.4.3",
     "webpack": "^4.7.0",
     "webpack-cli": "^3.3.5"
   },

@@ -38,8 +38,8 @@ export class TopicPopupMenu extends BaseWidget<Props> {
         type: TopicPopupMenuItemType.ITEM,
         icon: 'edit',
         label: 'edit',
-        rootCanUse: true
-        // opType: OpType.START_EDITING_CONTENT
+        rootCanUse: true,
+        opType: OpType.START_EDITING_CONTENT
       },
       {
         type: TopicPopupMenuItemType.ITEM,
@@ -57,8 +57,8 @@ export class TopicPopupMenu extends BaseWidget<Props> {
       {
         type: TopicPopupMenuItemType.ITEM,
         icon: 'notes',
-        label: 'edit notes'
-        // opType: OpType.START_EDITING_DESC
+        label: 'edit notes',
+        opType: OpType.START_EDITING_DESC
       },
       {
         type: TopicPopupMenuItemType.ITEM,

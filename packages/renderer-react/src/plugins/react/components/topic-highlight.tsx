@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
-import { contentRefKey } from '../../../utils/keys';
+import { contentRefKey } from '../../../utils';
 import { BaseProps } from '../../../components/BaseProps';
 
 const SVG = styled.svg`
@@ -47,7 +47,7 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
           width={width}
           height={height}
           fill="none"
-          stroke="#50C9CE"
+          stroke={model.config.theme.highlightColor}
           strokeWidth={2}
         />
       )

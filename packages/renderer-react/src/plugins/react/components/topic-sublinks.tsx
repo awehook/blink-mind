@@ -10,12 +10,8 @@ import {
   centerPointX,
   centerPointY
 } from '../../../utils';
-import debug from 'debug';
-import {
-  collapseRefKey,
-  contentRefKey,
-  linksSvgRefKey
-} from '../../../utils/keys';
+
+import { collapseRefKey, contentRefKey, linksSvgRefKey } from '../../../utils';
 const SVG = styled.svg`
   width: 100%;
   height: 100%;
@@ -25,7 +21,7 @@ const SVG = styled.svg`
   z-index: 1;
   pointer-events: none;
 `;
-
+import debug from 'debug';
 const log = debug('node:topic-sub-links');
 
 interface Props extends BaseProps {}

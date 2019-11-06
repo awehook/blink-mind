@@ -4,7 +4,7 @@ import { TopicDirection } from '@blink-mind/core';
 import { BaseProps } from '../../../components/BaseProps';
 import { TopicSubLinks } from './topic-sublinks';
 import debug from 'debug';
-import { linksRefKey, topicRefKey } from '../../../utils/keys';
+import { linksRefKey, topicRefKey } from '../../../utils';
 
 const log = debug('node:topic-widget');
 

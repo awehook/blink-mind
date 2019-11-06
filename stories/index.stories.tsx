@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import { SimpleDemo } from './SimpleDemo';
 
-const debugNameSpaces = ['node:*', 'plugin:*', 'modifier'];
+const debugNameSpaces = ['core:*', 'node:*', 'plugin:*', 'modifier'];
 
 localStorage.debug = debugNameSpaces.join(',');
 

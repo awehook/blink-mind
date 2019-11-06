@@ -168,6 +168,7 @@ function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
   return model;
 }
 
+
 export default {
   addChild,
   addSibling,
@@ -176,5 +177,5 @@ export default {
   deleteTopic,
   setContent,
   setDesc,
-  setStyle
+  setStyle,
 };

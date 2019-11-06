@@ -1,23 +1,98 @@
 import * as React from 'react';
 import { TopicContentWidget } from './components/topic-content-widget';
-import { BlockType } from '@blink-mind/core/src/types';
+import { BlockType, FocusMode } from '@blink-mind/core/src/types';
 import { TopicContentEditor } from './components/topic-content-editor';
 import { RootWidget } from './components/root-widget';
 import { TopicWidget } from './components/topic-widget';
 import { TopicPopupMenu } from './components/topic-popup-menu';
 import { TopicCollapseIcon } from './components/topic-collapse-icon';
 import { StyleEditor } from './components/style-editor/style-editor';
-import debug from 'debug';
 import { TopicSubLinks } from './components/topic-sublinks';
 import { RootSubLinks } from './components/root-sublinks';
-import { linksRefKey } from '../../utils/keys';
+import { linksRefKey } from '../../utils';
 import { TopicHighlight } from './components/topic-highlight';
+import styled from 'styled-components';
+import { SaveRef } from '../../components/common';
+import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
+import Theme from './theme';
+import debug from 'debug';
+import { Modals } from './components/modals';
+import { TopicDescEditor } from './components/topic-desc-editor';
+import { TopicDescIcon } from './components/topic-desc-icon';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
+  const DiagramRoot = styled.div`
+    width: 100%;
+    height: 100%;
+    background: ${props => props.theme.background};
+    position: relative;
+  `;
   return {
-    renderDiagram({ children }) {
-      return children;
+    renderDiagram(props) {
+      const { model, controller } = props;
+      return (
+        <SaveRef>
+          {(saveRef, getRef) => {
+            const widgetProps = {
+              ...props,
+              saveRef,
+              getRef
+            };
+            return (
+              <Theme theme={model.config.theme}>
+                <DiagramRoot>
+                  <MindDragScrollWidget {...widgetProps} />
+                  {controller.run('renderDiagramCustomize', widgetProps)}
+                </DiagramRoot>
+              </Theme>
+            );
+          }}
+        </SaveRef>
+      );
+    },
+
+    renderDiagramCustomize(props) {
+      const { controller, model } = props;
+      const styleEditor = controller.run('renderStyleEditor', {
+        ...props,
+        topicKey: model.focusKey
+      });
+      const modals = controller.run('renderModals', {
+        ...props,
+        topicKey: model.focusKey
+      });
+      return [styleEditor, modals];
+    },
+
+    renderModals(props) {
+      return <Modals key="modals" {...props} />;
+    },
+
+    renderModal(props) {
+      const { controller, model } = props;
+      const activeModalProps = controller.run('getActiveModalProps', props);
+      if (activeModalProps) {
+        if (activeModalProps.name === 'edit-desc') {
+          const modalProps = { ...props, topicKey: model.focusKey };
+          return <TopicDescEditor {...modalProps} />;
+        }
+      }
+      return null;
+    },
+
+    getActiveModalProps(props) {
+      const { model } = props;
+      if (model.focusKey && model.focusMode === FocusMode.EDITING_DESC)
+        return {
+          name: 'edit-desc',
+          title: 'Edit Notes',
+          style: {
+            width: '50%',
+            minHeight: '500px'
+          }
+        };
+      return null;
     },
 
     renderDoc({ children }) {
@@ -74,6 +149,8 @@ export function RenderingPlugin() {
       switch (block.type) {
         case BlockType.CONTENT:
           return controller.run('renderTopicContentEditor', props);
+        case BlockType.DESC:
+          return <TopicDescIcon {...props} />;
         default:
           break;
       }
@@ -100,8 +177,7 @@ export function RenderingPlugin() {
     },
 
     renderStyleEditor(props) {
-
-      return <StyleEditor {...props} />;
+      return <StyleEditor key="style-editor" {...props} />;
     }
   };
 }

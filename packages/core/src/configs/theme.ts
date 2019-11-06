@@ -20,6 +20,7 @@ export type TopicStyle = {
 export type ThemeType = {
   name: string;
   background: string;
+  highlightColor: string;
   randomColor?: boolean;
   marginH: number;
   marginV: number;
@@ -47,6 +48,7 @@ export const themes: Themes = {
     name: 'default',
     randomColor: true,
     background: 'rgb(57,60,65)',
+    highlightColor: '#50C9CE',
     marginH: 60,
     marginV: 60,
     subMarginH: 10,

@@ -24,3 +24,10 @@ export function centerPointX(p1, p2) {
 export function centerPointY(p1, p2) {
   return (p1.y + p2.y) / 2;
 }
+
+export function iconClassName(name) {
+  return `icon iconfont bm-${name}`;
+}
+
+export * from './const';
+export * from './keys';

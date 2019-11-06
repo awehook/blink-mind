@@ -13,7 +13,7 @@ import { ThemeType } from '@blink-mind/core/src/configs/theme';
 import { BaseWidget } from '../../../components/common';
 import { FocusMode } from '@blink-mind/core/src/types';
 import { OpType } from '../../operation';
-import { collapseRefKey, contentRefKey } from '../../../utils/keys';
+import { collapseRefKey, contentRefKey } from '../../../utils';
 
 const log = debug('node:topic-content-widget');
 
@@ -98,6 +98,8 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   onDoubleClick = () => {
     this.isDoubleClick = true;
+    const { controller } = this.props;
+    controller.run('handleTopicDoubleClick', this.props);
   };
 
   onContextMenu = e => {

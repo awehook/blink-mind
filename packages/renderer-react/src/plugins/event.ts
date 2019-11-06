@@ -8,7 +8,13 @@ const log = debug('plugin:event');
 export function EventPlugin() {
   return {
     handleTopicClick(props) {
-      const { controller } = props;
+      log('handleTopicClick');
+      const { controller, model, topicKey } = props;
+      if (
+        model.focusKey === topicKey &&
+        model.focusMode === FocusMode.EDITING_CONTENT
+      )
+        return;
       controller.run('operation', {
         ...props,
         opType: OpType.FOCUS_TOPIC,
@@ -16,7 +22,14 @@ export function EventPlugin() {
       });
     },
 
-    handleDoubleClickTopic(props) {},
+    handleTopicDoubleClick(props) {
+      const { controller } = props;
+      controller.run('operation', {
+        ...props,
+        opType: OpType.FOCUS_TOPIC,
+        focusMode: FocusMode.EDITING_CONTENT
+      });
+    },
 
     handleTopicContextMenu(props) {
       const { controller } = props;
@@ -25,6 +38,20 @@ export function EventPlugin() {
         opType: OpType.FOCUS_TOPIC,
         focusMode: FocusMode.SHOW_POPUP
       });
+    },
+
+    handleActiveModalClose(props) {
+      const { controller } = props;
+      const activeModalProps = controller.run('getActiveModalProps', props);
+      if (activeModalProps.name === 'edit-desc') {
+        return function() {
+          controller.run('operation', {
+            ...props,
+            focusMode: FocusMode.NORMAL,
+            opType: OpType.FOCUS_TOPIC
+          });
+        };
+      }
     }
   };
 }

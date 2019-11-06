@@ -12,7 +12,7 @@ import {
 } from '../../../utils';
 
 import debug from 'debug';
-import { contentRefKey, linksSvgRefKey } from '../../../utils/keys';
+import { contentRefKey, linksSvgRefKey } from '../../../utils';
 const SVG = styled.svg`
   width: 100%;
   height: 100%;

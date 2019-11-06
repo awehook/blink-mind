@@ -1,10 +1,9 @@
 import { Model } from './models/model';
 import { CorePlugin } from './plugins/core';
-import { CommandsPlugin } from './plugins/commands';
 import { IDiagram, IControllerOption } from './interfaces';
-
+import memoizeOne from 'memoize-one';
 import debug from 'debug';
-import {OnChangeFunction} from "./types";
+import { OnChangeFunction } from './types';
 
 const log = debug('core:controller');
 
@@ -18,18 +17,38 @@ function registerPlugin(controller: Controller, plugin: any) {
     return;
   }
 
-  const { commands, ...rest } = plugin;
-
-  if (commands) {
-    const commandsPlugin = CommandsPlugin(commands);
-    registerPlugin(controller, commandsPlugin);
-  }
-
-  for (const key in rest) {
-    const fn = rest[key];
+  for (const key in plugin) {
+    const fn = plugin[key];
     controller.middleware[key] = controller.middleware[key] || [];
     controller.middleware[key].push(fn);
   }
+}
+
+function compose(middleware) {
+  if (!Array.isArray(middleware))
+    throw new TypeError('Middleware stack must be an array!');
+  for (const fn of middleware) {
+    if (typeof fn !== 'function')
+      throw new TypeError('Middleware must be composed of functions!');
+  }
+
+  return function(context, next) {
+    // last called middleware #
+    let index = -1;
+    return dispatch(0);
+    function dispatch(i) {
+      if (i <= index) throw new Error('next() called multiple times');
+      index = i;
+      let fn = middleware[i];
+      if (i === middleware.length) fn = next;
+      if (!fn) return null;
+      try {
+        return fn(context, dispatch.bind(null, i + 1));
+      } catch (err) {
+        return err;
+      }
+    }
+  };
 }
 
 export class Controller {
@@ -39,75 +58,29 @@ export class Controller {
   readOnly: boolean;
 
   constructor(options: IControllerOption = {}) {
-    const {
-      diagram = this,
-      construct = true,
-      plugins = [],
-      readOnly = false,
-      model = Model.create(),
-      onChange
-    } = options;
+    const { diagram = this, plugins = [], onChange } = options;
 
     this.diagram = diagram;
     this.onChange = onChange;
     this.middleware = new Map();
     const corePlugin = CorePlugin({ plugins });
     registerPlugin(this, corePlugin);
-
-    if (construct) {
-      this.run('onConstruct');
-      this.setReadOnly(readOnly);
-      this.setModel(model, options);
-    }
   }
 
   run(key: string, ...args: any[]) {
-    log('run:', ...args);
-    const { diagram, middleware } = this;
+    const { middleware } = this;
     const fns = middleware[key] || [];
     let i = 0;
-
-    function next(...overrides) {
-      const fn = fns[i++];
-      if (!fn) return;
-
-      if (overrides.length) {
-        args = overrides;
-      }
-
-      const ret = fn(...args, diagram, next);
-      return ret;
-    }
-
-    return next();
-  }
-
-  command(type, ...args) {
-    const { diagram } = this;
-    log('command', { type, args });
-    const obj = { type, args };
-    this.run('onCommand', obj);
-    return diagram;
+    const composedFn = memoizeOne(compose)(fns);
+    // @ts-ignore
+    return composedFn(...args);
   }
 
   change(model: Model) {
     this.onChange(model);
   }
 
-  operation(props) {
-    this.run('operation',props);
-  }
-
-  registerCommand(type: string) {
-    const { diagram } = this;
-  }
-
-  setReadOnly(readOnly) {
-    this.readOnly = readOnly;
-    return this;
-  }
-
-  setModel(model: Model, options) {
-    return this;
-  }
+  // operation(props) {
+  //   this.run('operation', props);
+  // }
 }

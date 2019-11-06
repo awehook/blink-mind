@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Controller, Model } from '@blink-mind/core';
-import { DragScrollWidget } from './common';
-import { topicRefKey } from '../utils/keys';
+import { DragScrollWidget } from '../../../components/common';
+import { topicRefKey } from '../../../utils';
 const NodeLayer = styled.div`
   position: relative;
   display: flex;
@@ -12,6 +12,7 @@ const NodeLayer = styled.div`
 const DIV = styled.div`
   width: 100%;
   height: 100%;
+  background: ${props => props.theme.background};
 `;
 
 export interface MindDragScrollWidgetProps {
@@ -57,7 +58,9 @@ export class MindDragScrollWidget<
     const { saveRef, model, controller } = this.props;
     const nodeKey = model.editorRootTopicKey;
     return (
-      <DIV onClick={this.onClick}>
+      <DIV
+        // onClick={this.onClick}
+      >
         <DragScrollWidget
           {...this.state}
           ref={saveRef('DragScrollWidget')}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Diagram } from '../../src';
+import { Diagram } from '@blink-mind/renderer-react';
 import { Model } from '@blink-mind/core';
 import './index.css';
 interface Props {}

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import * as cx from 'classnames';
 import { TopicDirection } from '@blink-mind/core/src';
 import { OpType } from '../../operation';
-import { collapseRefKey } from '../../../utils/keys';
+import { collapseRefKey } from '../../../utils';
 
 const Icon = styled.div`
   position: absolute;

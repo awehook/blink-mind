@@ -4,7 +4,7 @@ import { DiagramLayoutType, KeyType, TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import { BaseProps } from '../../../components/BaseProps';
 import { TopicSubLinks } from './topic-sublinks';
-import { linksRefKey, topicRefKey } from '../../../utils/keys';
+import { linksRefKey, topicRefKey } from '../../../utils';
 
 const log = debug('RootNode');
 
