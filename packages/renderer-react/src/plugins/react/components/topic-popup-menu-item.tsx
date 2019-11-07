@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as cx from 'classnames';
 import { BaseWidget } from '../../../components/common';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import styled from 'styled-components';
 
 export type TopicPopupMenuItemConfig = {

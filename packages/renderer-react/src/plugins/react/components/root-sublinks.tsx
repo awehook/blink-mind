@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { TopicDirection, TopicStyle } from '@blink-mind/core';
 import { BaseWidget } from '../../../components/common';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import {
   Point,
   centerX,

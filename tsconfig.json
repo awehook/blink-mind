@@ -13,7 +13,9 @@
     "baseUrl": ".",
     "lib": ["dom", "es2015"],
     "paths": {
-      "@blink-mind/core": ["packages/core/src"]
+      "@blink-mind/core": ["packages/core/src"],
+      "@blink-mind/renderer-react": ["packages/renderer-react/src"],
+      "@blink-mind/rich-text-editor-plugin": ["packages/rich-text-editor-plugin/src"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

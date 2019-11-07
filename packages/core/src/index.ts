@@ -1,15 +1,11 @@
-import { Model } from './models/model';
+import models from './models';
 import { Controller } from './controller';
 
 import ModelModifier from './models/modifiers';
 
 export * from './types';
+export * from './models';
 
 import { TopicStyle } from './configs/theme';
 
-export {
-  Model,
-  Controller,
-  ModelModifier,
-  TopicStyle
-};
+export { models, Controller, ModelModifier, TopicStyle };

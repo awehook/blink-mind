@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { BaseProps } from '../../../components/BaseProps';
+import { Block } from '@blink-mind/core';
+import { BaseProps } from '../../../components/base-props';
 import styled from 'styled-components';
 import RichMarkDownEditor from 'awehook-rich-markdown-editor';
-import { Block } from '@blink-mind/core/src/models/block';
 import { BaseWidget } from '../../../components/common';
 import { OpType } from '../../operation';
 import debug from 'debug';
@@ -33,7 +33,6 @@ export class TopicContentEditor extends BaseWidget<Props> {
     e.stopPropagation();
   };
   onChange = (value: () => string) => {
-    const { topicKey } = this.props;
     this.operation(OpType.SET_TOPIC_CONTENT, { ...this.props, content: value });
   };
 

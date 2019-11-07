@@ -2,7 +2,7 @@ import * as React from 'react';
 import { OpType } from '../../operation';
 import styled from 'styled-components';
 import debug from 'debug';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import { BaseWidget } from '../../../components/common';
 import {
   TopicPopupMenuItem,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 import { contentRefKey } from '../../../utils';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import {FocusMode} from "@blink-mind/core";
 
 const SVG = styled.svg`

@@ -1,4 +1,4 @@
-import { Model } from './models/model';
+import { Model } from './models';
 import { CorePlugin } from './plugins/core';
 import { IDiagram, IControllerOption } from './interfaces';
 import memoizeOne from 'memoize-one';

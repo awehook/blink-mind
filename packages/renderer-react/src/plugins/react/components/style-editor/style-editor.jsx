@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, MenuItem, Popover } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/select';
 import { BaseWidget } from '../../../../components/common';
-import { BaseProps } from '../../../../components/BaseProps';
+import { BaseProps } from '../../../../components/base-props';
 import { SketchPicker } from 'react-color';
 import { isEqual } from 'lodash';
 import debug from 'debug';

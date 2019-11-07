@@ -18,7 +18,7 @@ export class Diagram extends React.Component<Props> {
   resolveController = memoizeOne((plugins = [], commands, TheDefaultPlugin) => {
     const defaultPlugin = TheDefaultPlugin();
     this.controller = new Controller({
-      plugins: [defaultPlugin],
+      plugins: [plugins, defaultPlugin],
       commands,
       construct: false,
       onChange: this.props.onChange

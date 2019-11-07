@@ -7,7 +7,7 @@ import {
   KeyType,
   TopicVisualLevel
 } from '@blink-mind/core';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import debug from 'debug';
 import { ThemeType } from '@blink-mind/core/src/configs/theme';
 import { BaseWidget } from '../../../components/common';

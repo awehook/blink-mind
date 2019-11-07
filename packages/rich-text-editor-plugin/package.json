@@ -1,8 +1,9 @@
 {
-  "name": "@blink-mind/rich-text-editor",
+  "name": "@blink-mind/rich-text-editor-plugin",
   "files": [
     "lib/"
   ],
+  "main": "./src/index.ts",
   "version": "0.0.1",
   "license": "MIT",
   "publishConfig": {
@@ -11,6 +12,7 @@
   "scripts": {},
   "dependencies": {
     "@blink-mind/core": "^0.0.1",
+    "@blink-mind/renderer-react": "^0.0.1",
     "awehook-rich-markdown-editor": "^1.0.1"
   },
   "devDependencies": {

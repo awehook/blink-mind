@@ -1,5 +1,5 @@
 import { KeyType, Model, OnChangeFunction } from '..';
-import { Topic } from '../models/topic';
+import { Topic } from '../models';
 
 export interface IDiagram {}
 

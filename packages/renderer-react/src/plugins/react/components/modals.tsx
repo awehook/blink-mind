@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Classes, Dialog } from '@blueprintjs/core';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import { BaseWidget } from '../../../components/common';
 
 interface Props extends BaseProps {

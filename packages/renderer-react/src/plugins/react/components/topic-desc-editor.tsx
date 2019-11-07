@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BaseProps } from '../../../components/BaseProps';
+import { BaseProps } from '../../../components/base-props';
 import styled from 'styled-components';
 import RichMarkDownEditor from 'awehook-rich-markdown-editor';
 import { BlockType } from '@blink-mind/core';

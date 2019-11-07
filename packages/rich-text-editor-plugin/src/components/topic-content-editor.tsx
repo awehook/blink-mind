@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { BaseProps } from '../../../components/base-props';
+import { BaseProps,BaseWidget,OpType } from '@blink-mind/renderer-react';
 import styled from 'styled-components';
+import RichMarkDownEditor from 'awehook-rich-markdown-editor';
 import { Block } from '@blink-mind/core';
-import { BaseWidget } from '../../../components/common';
-import { OpType } from '../../operation';
 import debug from 'debug';
-import { SimpleTextEditor } from './simple-text-editor';
 const log = debug('node:topic-content-editor');
 
 interface NodeContentProps {
@@ -15,7 +13,6 @@ interface NodeContentProps {
 const NodeContent = styled.div<NodeContentProps>`
   padding: 6px;
   background-color: ${props => (props.readOnly ? null : 'white')};
-  color: black;
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
 `;
 
@@ -23,7 +20,7 @@ interface Props extends BaseProps {
   block: Block;
 }
 
-export class SimpleTopicContentEditor extends BaseWidget<Props> {
+export class TopicContentEditor extends BaseWidget<Props> {
   onMouseDown = e => {
     console.log('onMouseDown');
     e.stopPropagation();
@@ -33,7 +30,7 @@ export class SimpleTopicContentEditor extends BaseWidget<Props> {
     console.log('onMouseDown');
     e.stopPropagation();
   };
-  onChange = value => {
+  onChange = (value: () => string) => {
     this.operation(OpType.SET_TOPIC_CONTENT, { ...this.props, content: value });
   };
 
@@ -52,7 +49,7 @@ export class SimpleTopicContentEditor extends BaseWidget<Props> {
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
       >
-        <SimpleTextEditor
+        <RichMarkDownEditor
           editorValue={content}
           readOnly={readOnly}
           onChange={this.onChange}
