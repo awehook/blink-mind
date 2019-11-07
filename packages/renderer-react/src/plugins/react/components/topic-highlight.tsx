@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 import { contentRefKey } from '../../../utils';
 import { BaseProps } from '../../../components/BaseProps';
+import {FocusMode} from "@blink-mind/core";
 
 const SVG = styled.svg`
   width: 100%;
@@ -26,7 +27,8 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
   layout() {
     const { getRef, model } = this.props;
     const focusKey = model.focusKey;
-    if (!focusKey) {
+    const focusMode = model.focusMode;
+    if (!focusKey || focusMode===FocusMode.EDITING_CONTENT) {
       this.setState({
         content: null
       });

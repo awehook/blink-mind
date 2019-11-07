@@ -14,16 +14,16 @@ interface NodeContentProps {
 }
 
 const DescEditor = styled.div`
-  width: 100%;
   height: 100%;
+  flex: 1;
+  display: flex;
   overflow: auto;
 `;
 
 const NodeContent = styled.div<NodeContentProps>`
   padding: 6px;
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  //overflow: auto;
   background-color: ${props => (props.readOnly ? null : 'white')};
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
 `;

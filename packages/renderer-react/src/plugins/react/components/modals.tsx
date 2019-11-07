@@ -42,7 +42,7 @@ export class Modals extends BaseWidget<Props> {
         title={activeModalProps && activeModalProps.title}
         style={activeModalProps && activeModalProps.style}
       >
-        <div className={Classes.DIALOG_BODY}>{activeModal}</div>
+        <div className={Classes.DIALOG_BODY} style={{minHeight:0}}>{activeModal}</div>
       </Dialog>
     );
   }

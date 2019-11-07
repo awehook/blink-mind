@@ -19,6 +19,7 @@ import debug from 'debug';
 import { Modals } from './components/modals';
 import { TopicDescEditor } from './components/topic-desc-editor';
 import { TopicDescIcon } from './components/topic-desc-icon';
+import {SimpleTopicContentEditor} from "./components/simple-topic-content-editor";
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -89,7 +90,7 @@ export function RenderingPlugin() {
           title: 'Edit Notes',
           style: {
             width: '50%',
-            minHeight: '500px'
+            height: '600px',
           }
         };
       return null;
@@ -117,7 +118,8 @@ export function RenderingPlugin() {
 
     renderTopicContentEditor(props) {
       log('renderTopicContentEditor', props);
-      return <TopicContentEditor {...props} />;
+      // return <TopicContentEditor {...props} />;
+      return <SimpleTopicContentEditor {...props}/>
     },
 
     renderTopicCollapseIcon(props) {
