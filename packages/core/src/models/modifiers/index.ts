@@ -42,7 +42,7 @@ function addChild({ model, topicKey }: IModifierArg): IModifierResult {
   log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
   if (topic) {
-    let child = Topic.create({ key: createKey(), parentKey: topic.key });
+    const child = Topic.create({ key: createKey(), parentKey: topic.key });
     topic = topic
       .set('collapse', false)
       .update('subKeys', subKeys => subKeys.push(child.key));
@@ -60,11 +60,11 @@ function addChild({ model, topicKey }: IModifierArg): IModifierResult {
 
 function addSibling({ model, topicKey }: IModifierArg): IModifierResult {
   if (topicKey === model.rootTopicKey) return model;
-  let topic = model.getTopic(topicKey);
+  const topic = model.getTopic(topicKey);
   if (topic) {
-    let pItem = model.getTopic(topic.parentKey);
-    let idx = pItem.subKeys.indexOf(topicKey);
-    let sibling = Topic.create({ key: createKey(), parentKey: pItem.key });
+    const pItem = model.getTopic(topic.parentKey);
+    const idx = pItem.subKeys.indexOf(topicKey);
+    const sibling = Topic.create({ key: createKey(), parentKey: pItem.key });
     model = model
       .update('topics', topics => topics.set(sibling.key, sibling))
       .updateIn(['topics', pItem.key, 'subKeys'], subKeys =>
@@ -110,7 +110,7 @@ function setContent({
   topicKey,
   content
 }: IModifierArg): IModifierResult {
-  let topic = model.getTopic(topicKey);
+  const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(BlockType.CONTENT);
     if (block.data !== content) {
@@ -129,7 +129,7 @@ function setContent({
 }
 
 function setStyle({ model, topicKey, style }: IModifierArg): IModifierResult {
-  let topic = model.getTopic(topicKey);
+  const topic = model.getTopic(topicKey);
   if (topic) {
     if (style !== topic.style) {
       model = model.updateIn(['topics', topicKey, 'style'], s => style);
@@ -139,7 +139,7 @@ function setStyle({ model, topicKey, style }: IModifierArg): IModifierResult {
 }
 
 function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
-  let topic = model.getTopic(topicKey);
+  const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(BlockType.DESC);
     if (index === -1) {

@@ -47,8 +47,8 @@ export class Model extends Record(defaultModelRecord) {
   }
 
   static createEmpty(): Model {
-    let model = new Model();
-    let rootTopic = Topic.create({ key: createKey() });
+    const model = new Model();
+    const rootTopic = Topic.create({ key: createKey() });
     return model
       .update('topics', topics => topics.set(rootTopic.key, rootTopic))
       .set('rootTopicKey', rootTopic.key);
@@ -56,13 +56,8 @@ export class Model extends Record(defaultModelRecord) {
 
   static fromJSON(object) {
     let model = new Model();
-    let {
-      data = {},
-      topics = [],
-      config = {},
-      rootTopicKey,
-      editorRootTopicKey
-    } = object;
+    const { data = {}, topics = [], config = {}, rootTopicKey } = object;
+    let { editorRootTopicKey } = object;
 
     if (editorRootTopicKey === undefined) editorRootTopicKey = rootTopicKey;
 

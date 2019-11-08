@@ -8,7 +8,7 @@ describe('Modifier test', () => {
   beforeEach(() => {});
   it('addChild', () => {
     let model = Model.create();
-    let topicKey = model.rootTopicKey;
+    const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     let childKey = model.focusKey;
     expect(childKey).toBe(model.rootTopic.subKeys.last());
@@ -26,13 +26,13 @@ describe('Modifier test', () => {
 
   it('addSibling', () => {
     let model = Model.create();
-    let topicKey = model.rootTopicKey;
+    const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
-    let key1 = model.focusKey;
+    const key1 = model.focusKey;
     model = addChild({ model, topicKey });
 
     model = addSibling({ model, topicKey: key1 });
-    let key2 = model.focusKey;
+    const key2 = model.focusKey;
 
     expect(model.rootTopic.subKeys.indexOf(key2)).toBe(1);
     expect(model.getTopic(key2).parentKey).toBe(model.rootTopic.key);
@@ -40,10 +40,10 @@ describe('Modifier test', () => {
 
   it('deleteTopic', () => {
     let model = Model.create();
-    let topicKey = model.rootTopicKey;
+    const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     model = addChild({ model, topicKey });
-    let key = model.focusKey;
+    const key = model.focusKey;
     model = addChild({ model, topicKey: model.focusKey });
     model = addChild({ model, topicKey: model.focusKey });
 
@@ -55,9 +55,9 @@ describe('Modifier test', () => {
 
   it('toggleCollapse', () => {
     let model = Model.create();
-    let topicKey = model.rootTopicKey;
+    const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
-    let childKey = model.focusKey;
+    const childKey = model.focusKey;
     model = addChild({ model, topicKey: childKey });
     expect(model.getTopic(childKey).collapse).toBe(false);
     model = toggleCollapse({ model, topicKey: childKey });

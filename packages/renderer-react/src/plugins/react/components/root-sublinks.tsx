@@ -56,7 +56,7 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         ...props,
         topicKey: key
       });
-      let rect = getRef(contentRefKey(key)).getBoundingClientRect();
+      const rect = getRef(contentRefKey(key)).getBoundingClientRect();
       if (rect.left > contentRect.right) {
         p2 = {
           x: rect.left,

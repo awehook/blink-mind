@@ -68,11 +68,11 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         y: p1.y
       };
     }
-    let curves = [];
+    const curves = [];
 
     topic.subKeys.forEach(key => {
       let curve;
-      let linkStyle = controller.run('getLinkStyle', {
+      const linkStyle = controller.run('getLinkStyle', {
         ...props,
         topicKey: key
       });

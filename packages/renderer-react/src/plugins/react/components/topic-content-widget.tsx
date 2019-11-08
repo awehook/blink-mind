@@ -1,18 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { ContextMenuTarget } from '@blueprintjs/core';
-import {
-  Controller,
-  Model,
-  TopicDirection,
-  KeyType,
-  TopicVisualLevel
-} from '@blink-mind/core';
+import { TopicDirection, KeyType, TopicVisualLevel } from '@blink-mind/core';
 import { BaseProps } from '../../../components/base-props';
 import debug from 'debug';
-import { ThemeType } from '@blink-mind/core/src/configs/theme';
+import { ThemeType } from '@blink-mind/core';
 import { BaseWidget } from '../../../components/common';
-import { FocusMode } from '@blink-mind/core/src/types';
 import { OpType } from '../../operation';
 import { collapseRefKey, contentRefKey } from '../../../utils';
 

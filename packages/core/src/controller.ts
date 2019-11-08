@@ -70,7 +70,7 @@ export class Controller {
   run(key: string, ...args: any[]) {
     const { middleware } = this;
     const fns = middleware[key] || [];
-    let i = 0;
+    const i = 0;
     const composedFn = memoizeOne(compose)(fns);
     // @ts-ignore
     return composedFn(...args);

@@ -34,7 +34,7 @@ export function StylePlugin() {
       if (!topic.style) {
         return themeStyle;
       }
-      let customStyle = JSON.parse(topic.style);
+      const customStyle = JSON.parse(topic.style);
 
       return {
         ...themeStyle,
@@ -75,7 +75,7 @@ export function StylePlugin() {
       if (!topic.style) {
         return linkStyle;
       }
-      let customStyle = JSON.parse(topic.style);
+      const customStyle = JSON.parse(topic.style);
 
       return {
         ...linkStyle,

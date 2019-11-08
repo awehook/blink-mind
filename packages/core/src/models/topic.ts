@@ -56,7 +56,7 @@ export class Topic extends Record(defaultTopicRecord) {
   }
 
   getBlock(type: string): { index: number; block: Block } {
-    let index = this.blocks.findIndex(b => b.type === type);
+    const index = this.blocks.findIndex(b => b.type === type);
     if (index === -1) return { index, block: null };
     return { index, block: this.blocks.get(index) };
   }
@@ -68,7 +68,7 @@ export class Topic extends Record(defaultTopicRecord) {
     subKeys = [],
     collapse = false
   }: CreateTopicArg): Topic {
-    let block = Block.create({
+    const block = Block.create({
       type: BlockType.CONTENT,
       data: content,
       key: null

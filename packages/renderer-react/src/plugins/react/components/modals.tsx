@@ -17,13 +17,12 @@ const DescWrapper = styled.div`
 
 export class Modals extends BaseWidget<Props> {
   handleClose = () => {
-    console.log('handleClose');
     const { controller } = this.props;
     const handleActiveModalClose = controller.run(
       'handleActiveModalClose',
       this.props
     );
-    console.log(handleActiveModalClose);
+
     handleActiveModalClose && handleActiveModalClose();
   };
 

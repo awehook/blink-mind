@@ -2,7 +2,7 @@ import { Model, ModelModifier } from '../../src';
 import {BlockType} from "../../src/types";
 describe('Modifier test', () => {
   it('Model create test', () => {
-    let model = Model.create({
+    const model = Model.create({
       rootTopicKey: 'root',
       topics: [
         { key: 'root', content: 'MainTopic', subKeys: ['sub1', 'sub2'] },
@@ -42,6 +42,6 @@ describe('Modifier test', () => {
       ...props,
       topic: 'topic2'
     };
-    console.log(temp);
+
   })
 });

@@ -24,12 +24,10 @@ interface CustomizeProps {
 
 export class RichTextEditor extends BaseWidget {
   onMouseDown = e => {
-    console.log('onMouseDown');
     e.stopPropagation();
   };
 
   onMouseMove = e => {
-    console.log('onMouseDown');
     e.stopPropagation();
   };
   onChange = (value: () => string) => {};
@@ -42,7 +40,7 @@ export class RichTextEditor extends BaseWidget {
     const { topicKey, saveRef } = this.props;
     const { block, readOnly, refKeyPrefix } = this.getCustomizeProps();
     const content = block.data;
-    if (!content) return null;
+    if (content === null || content === undefined) return null;
     const key = `${refKeyPrefix}-${topicKey}`;
     return (
       <NodeContent

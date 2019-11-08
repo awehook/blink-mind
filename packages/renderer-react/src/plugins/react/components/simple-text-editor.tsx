@@ -37,7 +37,6 @@ export class SimpleTextEditor extends React.Component<Props> {
 
   lastHtml: any;
   emitChange = () => {
-    console.log('emitChange');
     const html = this.domNode.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       this.props.onChange(html);

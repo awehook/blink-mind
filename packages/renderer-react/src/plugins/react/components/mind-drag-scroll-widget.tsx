@@ -50,9 +50,7 @@ export class MindDragScrollWidget<
     return this.props.getRef('DragScrollWidget');
   }
 
-  onClick = e => {
-    console.log('diagram onClick');
-  };
+  onClick = e => {};
 
   render() {
     const { saveRef, model, controller } = this.props;

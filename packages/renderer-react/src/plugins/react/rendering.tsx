@@ -1,6 +1,7 @@
 import * as React from 'react';
+import styled from 'styled-components';
+import { BlockType, FocusMode } from '@blink-mind/core';
 import { TopicContentWidget } from './components/topic-content-widget';
-import { BlockType, FocusMode } from '@blink-mind/core/src/types';
 import { TopicContentEditor } from './components/topic-content-editor';
 import { RootWidget } from './components/root-widget';
 import { TopicWidget } from './components/topic-widget';
@@ -11,7 +12,6 @@ import { TopicSubLinks } from './components/topic-sublinks';
 import { RootSubLinks } from './components/root-sublinks';
 import { linksRefKey } from '../../utils';
 import { TopicHighlight } from './components/topic-highlight';
-import styled from 'styled-components';
 import { SaveRef } from '../../components/common';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import Theme from './theme';
@@ -138,8 +138,8 @@ export function RenderingPlugin() {
       const { model, topicKey, controller } = props;
       const topic = model.getTopic(topicKey);
       const blocks = topic.blocks;
-      let res = [],
-        i = 0;
+      const res = [];
+      let i = 0;
       blocks.forEach(block => {
         const b = controller.run('renderBlock', {
           ...props,

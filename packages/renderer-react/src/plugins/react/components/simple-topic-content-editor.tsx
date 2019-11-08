@@ -25,12 +25,10 @@ interface Props extends BaseProps {
 
 export class SimpleTopicContentEditor extends BaseWidget<Props> {
   onMouseDown = e => {
-    console.log('onMouseDown');
     e.stopPropagation();
   };
 
   onMouseMove = e => {
-    console.log('onMouseDown');
     e.stopPropagation();
   };
   onChange = value => {

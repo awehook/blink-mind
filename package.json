@@ -10,8 +10,10 @@
   "scripts": {
     "storybook": "start-storybook -p 6007",
     "prettier": "prettier --write 'packages/*/src/**'",
-    "pre-commit": "yarn prettier",
-    "test": "lerna run test"
+    "pre-commit": "yarn prettier && yarn lint:ts",
+    "test": "lerna run test",
+    "lint:ts": "tslint 'packages/**/*.ts{,x}'",
+    "lint:fix": "tslint --fix 'packages/**/*.ts{,x}'"
   },
   "dependencies": {
     "debug": "^4.1.1"
@@ -32,7 +34,7 @@
     "lerna": "^3.18.1",
     "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",
-    "tslint": "^5.10.0",
+    "tslint": "5.10.0",
     "typescript": "^2.8.3"
   },
   "husky": {

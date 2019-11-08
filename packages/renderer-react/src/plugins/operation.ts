@@ -1,7 +1,5 @@
-import { ModelModifier } from '@blink-mind/core';
+import { ModelModifier, BlockType, FocusMode } from '@blink-mind/core';
 import debug from 'debug';
-import { IModifierArg, IModifierResult } from '@blink-mind/core/src/interfaces';
-import { BlockType, FocusMode } from '@blink-mind/core/src/types';
 const log = debug('plugin:operation');
 export const OpType = {
   TOGGLE_COLLAPSE: 'TOGGLE_COLLAPSE',

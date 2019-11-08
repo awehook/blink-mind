@@ -36,7 +36,7 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
     }
     const contentRect = getRef(contentRefKey(focusKey)).getBoundingClientRect();
     const svgRect = getRef('svg-highlight').getBoundingClientRect();
-    let padding = 3;
+    const padding = 3;
     const x = contentRect.left - svgRect.left - padding;
     const y = contentRect.top - svgRect.top - padding;
     const width = contentRect.width + 2 * padding;
