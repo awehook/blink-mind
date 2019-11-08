@@ -4,7 +4,7 @@ import { BlockType, FocusMode } from '@blink-mind/core/src/types';
 import { TopicContentEditor } from './components/topic-content-editor';
 import { RootWidget } from './components/root-widget';
 import { TopicWidget } from './components/topic-widget';
-import { TopicPopupMenu } from './components/topic-popup-menu';
+import { TopicContextMenu } from './components/topic-context-menu';
 import { TopicCollapseIcon } from './components/topic-collapse-icon';
 import { StyleEditor } from './components/style-editor/style-editor';
 import { TopicSubLinks } from './components/topic-sublinks';
@@ -76,7 +76,7 @@ export function RenderingPlugin() {
       if (activeModalProps) {
         if (activeModalProps.name === 'edit-desc') {
           const modalProps = { ...props, topicKey: model.focusKey };
-          return <TopicDescEditor {...modalProps} />;
+          return controller.run('renderTopicDescEditor',modalProps);
         }
       }
       return null;
@@ -112,14 +112,22 @@ export function RenderingPlugin() {
       return <TopicContentWidget {...props} />;
     },
 
-    renderTopicPopupMenu(props) {
-      return <TopicPopupMenu {...props} />;
+    renderTopicContextMenu(props) {
+      return <TopicContextMenu {...props} />;
+    },
+
+    customizeTopicContextMenus(props) {
+      return null;
     },
 
     renderTopicContentEditor(props) {
       log('renderTopicContentEditor', props);
       // return <TopicContentEditor {...props} />;
       return <SimpleTopicContentEditor {...props}/>
+    },
+
+    renderTopicDescEditor(props) {
+      return <TopicDescEditor {...props}/>
     },
 
     renderTopicCollapseIcon(props) {

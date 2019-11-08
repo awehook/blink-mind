@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "suppressExcessPropertyErrors": true,
     "downlevelIteration": true,
     "allowJs": true,

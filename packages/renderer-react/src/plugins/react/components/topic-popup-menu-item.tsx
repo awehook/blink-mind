@@ -4,7 +4,7 @@ import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/base-props';
 import styled from 'styled-components';
 
-export type TopicPopupMenuItemConfig = {
+export type TopicContextMenuItemConfig = {
   type: string;
   icon?: string;
   label?: string;
@@ -19,7 +19,7 @@ export const TopicPopupMenuItemType = {
 };
 
 interface Props extends BaseProps {
-  config: TopicPopupMenuItemConfig;
+  config: TopicContextMenuItemConfig;
 }
 
 const MenuItem = styled.li`

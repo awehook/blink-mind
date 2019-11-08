@@ -1,4 +1,4 @@
-import { KeyType, Model } from '@blink-mind/core';
+import { KeyType } from '@blink-mind/core';
 
 export function getLinkKey(fromKey: KeyType, toKey: KeyType) {
   return `link-${fromKey}-${toKey}`;
@@ -25,9 +25,7 @@ export function centerPointY(p1, p2) {
   return (p1.y + p2.y) / 2;
 }
 
-export function iconClassName(name) {
-  return `icon iconfont bm-${name}`;
-}
 
-export * from './const';
+
+export * from './icon';
 export * from './keys';

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { ContextMenuTarget } from '@blueprintjs/core';
 import {
   Controller,
   Model,
@@ -56,6 +57,7 @@ interface State {
 
 let dragSrcItemKey: KeyType = null;
 
+@ContextMenuTarget
 export class TopicContentWidget extends BaseWidget<Props, State> {
   constructor(props) {
     super(props);
@@ -82,6 +84,15 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   onDrop = e => {
     log('onDrop');
   };
+
+  public renderContextMenu() {
+    const { controller } = this.props;
+    return controller.run('renderTopicContextMenu',this.props);
+  }
+
+  public onContextMenuClose() {
+    // Optional method called once the context menu is closed.
+  }
 
   isDoubleClick: boolean;
 
