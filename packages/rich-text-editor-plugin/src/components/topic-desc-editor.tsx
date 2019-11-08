@@ -18,7 +18,7 @@ export class TopicDescEditor extends RichTextEditor {
   onChange = (value: () => string) => {
     this.operation(OpType.SET_TOPIC_DESC, {
       ...this.props,
-      content: value
+      desc: value
     });
   };
 }

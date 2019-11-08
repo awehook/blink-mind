@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BlockType, FocusMode } from '@blink-mind/core';
 import { TopicContentWidget } from './components/topic-content-widget';
-import { TopicContentEditor } from './components/topic-content-editor';
 import { RootWidget } from './components/root-widget';
 import { TopicWidget } from './components/topic-widget';
 import { TopicContextMenu } from './components/topic-context-menu';
@@ -17,9 +16,10 @@ import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import Theme from './theme';
 import debug from 'debug';
 import { Modals } from './components/modals';
-import { TopicDescEditor } from './components/topic-desc-editor';
 import { TopicDescIcon } from './components/topic-desc-icon';
 import { SimpleTopicContentEditor } from './components/simple-topic-content-editor';
+import { ModalBody, ModalDescEditor } from './components/modal-body';
+import {SimpleTopicDescEditor} from "./components/simple-topic-desc-editor";
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -40,6 +40,7 @@ export function RenderingPlugin() {
               saveRef,
               getRef
             };
+            log('renderDiagram',model);
             return (
               <Theme theme={model.config.theme}>
                 <DiagramRoot>
@@ -76,7 +77,13 @@ export function RenderingPlugin() {
       if (activeModalProps) {
         if (activeModalProps.name === 'edit-desc') {
           const modalProps = { ...props, topicKey: model.focusKey };
-          return controller.run('renderTopicDescEditor', modalProps);
+          return (
+            <ModalBody>
+              <ModalDescEditor>
+                {controller.run('renderTopicDescEditor', modalProps)}
+              </ModalDescEditor>
+            </ModalBody>
+          );
         }
       }
       return null;
@@ -127,7 +134,7 @@ export function RenderingPlugin() {
     },
 
     renderTopicDescEditor(props) {
-      return <TopicDescEditor {...props} />;
+      return <SimpleTopicDescEditor {...props} />;
     },
 
     renderTopicCollapseIcon(props) {

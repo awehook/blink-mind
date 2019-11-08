@@ -23,7 +23,7 @@ export class SimpleTextEditor extends React.Component<Props> {
       <ContentEditable
         ref={this.domNodeRef}
         // onInput={this.emitChange}
-        onBlur={this.emitChange}
+        onBlur={this.emitChange.bind(this)}
         contentEditable={!this.props.readOnly}
         suppressContentEditableWarning
       >
