@@ -3,6 +3,9 @@ import { BaseWidget } from './base-widget';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 
+import debug from 'debug';
+const log = debug('node:drag-scroll-widget');
+
 const DragScrollView = styled.div`
   position: relative;
   width: 100%;
@@ -101,7 +104,7 @@ export class DragScrollWidget extends React.Component<
   };
 
   setViewBoxScroll = (left: number, top: number) => {
-    // console.error(`setViewBoxScroll`);
+    log(`setViewBoxScroll ${left} ${top}`);
     if (this.viewBox) {
       this.viewBox.scrollLeft = left;
       this.viewBox.scrollTop = top;
@@ -109,7 +112,7 @@ export class DragScrollWidget extends React.Component<
   };
 
   setViewBoxScrollDelta = (deltaLeft: number, deltaTop: number) => {
-    // log(`setViewBoxScrollDelta ${deltaLeft} ${deltaTop}`);
+    log(`setViewBoxScrollDelta ${deltaLeft} ${deltaTop}`);
     if (this.viewBox) {
       this.viewBox.scrollLeft += deltaLeft;
       this.viewBox.scrollTop += deltaTop;
@@ -152,6 +155,7 @@ export class DragScrollWidget extends React.Component<
   onMouseMove = (e: MouseEvent) => {
     this.viewBox.scrollLeft = this._lastCoordX - e.clientX;
     this.viewBox.scrollTop = this._lastCoordY - e.clientY;
+    log(`onMouseMove ${this.viewBox.scrollLeft} ${this.viewBox.scrollTop}`);
   };
 
   handleContextMenu = e => {
