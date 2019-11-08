@@ -19,7 +19,7 @@ import debug from 'debug';
 import { Modals } from './components/modals';
 import { TopicDescEditor } from './components/topic-desc-editor';
 import { TopicDescIcon } from './components/topic-desc-icon';
-import {SimpleTopicContentEditor} from "./components/simple-topic-content-editor";
+import { SimpleTopicContentEditor } from './components/simple-topic-content-editor';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -76,7 +76,7 @@ export function RenderingPlugin() {
       if (activeModalProps) {
         if (activeModalProps.name === 'edit-desc') {
           const modalProps = { ...props, topicKey: model.focusKey };
-          return controller.run('renderTopicDescEditor',modalProps);
+          return controller.run('renderTopicDescEditor', modalProps);
         }
       }
       return null;
@@ -90,7 +90,7 @@ export function RenderingPlugin() {
           title: 'Edit Notes',
           style: {
             width: '50%',
-            height: '600px',
+            height: '600px'
           }
         };
       return null;
@@ -123,11 +123,11 @@ export function RenderingPlugin() {
     renderTopicContentEditor(props) {
       log('renderTopicContentEditor', props);
       // return <TopicContentEditor {...props} />;
-      return <SimpleTopicContentEditor {...props}/>
+      return <SimpleTopicContentEditor {...props} />;
     },
 
     renderTopicDescEditor(props) {
-      return <TopicDescEditor {...props}/>
+      return <TopicDescEditor {...props} />;
     },
 
     renderTopicCollapseIcon(props) {

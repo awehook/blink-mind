@@ -1,7 +1,7 @@
 import { ModelModifier } from '@blink-mind/core';
 import debug from 'debug';
 import { IModifierArg, IModifierResult } from '@blink-mind/core/src/interfaces';
-import {BlockType, FocusMode} from '@blink-mind/core/src/types';
+import { BlockType, FocusMode } from '@blink-mind/core/src/types';
 const log = debug('plugin:operation');
 export const OpType = {
   TOGGLE_COLLAPSE: 'TOGGLE_COLLAPSE',
@@ -13,7 +13,7 @@ export const OpType = {
   SET_TOPIC_CONTENT: 'SET_TOPIC_CONTENT',
   SET_TOPIC_DESC: 'SET_TOPIC_DESC',
   START_EDITING_CONTENT: 'START_EDITING_CONTENT',
-  START_EDITING_DESC: 'START_EDITING_DESC',
+  START_EDITING_DESC: 'START_EDITING_DESC'
 };
 
 export function OperationPlugin() {
@@ -46,7 +46,7 @@ export function OperationPlugin() {
     [OpType.SET_TOPIC_CONTENT, ModelModifier.setContent],
     [OpType.SET_TOPIC_DESC, ModelModifier.setDesc],
     [OpType.START_EDITING_CONTENT, startEditingContent],
-    [OpType.START_EDITING_DESC,startEditingDesc]
+    [OpType.START_EDITING_DESC, startEditingDesc]
   ]);
   return {
     beforeOperation(props) {},

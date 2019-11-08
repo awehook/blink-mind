@@ -3,7 +3,6 @@ import { OpType } from '@blink-mind/renderer-react';
 import { RichTextEditor } from './rich-text-editor';
 import { BlockType } from '@blink-mind/core';
 
-
 export class TopicContentEditor extends RichTextEditor {
   getCustomizeProps = () => {
     const { model, topicKey } = this.props;

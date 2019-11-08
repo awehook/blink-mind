@@ -97,8 +97,8 @@ function deleteTopic({ model, topicKey }: IModifierArg): IModifierResult {
       m.updateIn(['topics', item.parentKey, 'subKeys'], subKeys =>
         subKeys.delete(subKeys.indexOf(topicKey))
       );
-      if(m.focusKey === topicKey)
-        m.set('focusKey',null).set('focusMode',null);
+      if (m.focusKey === topicKey)
+        m.set('focusKey', null).set('focusMode', null);
     });
   }
 
@@ -168,7 +168,6 @@ function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
   return model;
 }
 
-
 export default {
   addChild,
   addSibling,
@@ -177,5 +176,5 @@ export default {
   deleteTopic,
   setContent,
   setDesc,
-  setStyle,
+  setStyle
 };

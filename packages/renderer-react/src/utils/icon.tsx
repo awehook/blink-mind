@@ -11,5 +11,5 @@ export function iconClassName(name) {
 }
 
 export function Icon(iconName) {
-  return <span className={iconClassName(iconName)}/>
+  return <span className={iconClassName(iconName)} />;
 }

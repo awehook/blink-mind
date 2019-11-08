@@ -90,7 +90,7 @@ export class RootWidget extends React.Component<Props> {
       <Topic ref={saveRef(topicRefKey(topicKey))}>{topicContent}</Topic>
     );
     const subLinks = controller.run('renderRootSubLinks', props);
-    const focusHighlight = controller.run('renderFocusItemHighlight',props)
+    const focusHighlight = controller.run('renderFocusItemHighlight', props);
     switch (config.layoutDir) {
       case DiagramLayoutType.LEFT_AND_RIGHT:
         return (

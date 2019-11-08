@@ -32,7 +32,7 @@ export class RichTextEditor extends BaseWidget {
     console.log('onMouseDown');
     e.stopPropagation();
   };
-  onChange = (value: () => string) => {}
+  onChange = (value: () => string) => {};
 
   getCustomizeProps = () => {
     return null;

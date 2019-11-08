@@ -25,7 +25,5 @@ export function centerPointY(p1, p2) {
   return (p1.y + p2.y) / 2;
 }
 
-
-
 export * from './icon';
 export * from './keys';

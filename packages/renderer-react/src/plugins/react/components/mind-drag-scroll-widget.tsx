@@ -59,13 +59,9 @@ export class MindDragScrollWidget<
     const nodeKey = model.editorRootTopicKey;
     return (
       <DIV
-        // onClick={this.onClick}
+      // onClick={this.onClick}
       >
-        <DragScrollWidget
-          {...this.state}
-          ref={saveRef('DragScrollWidget')}
-
-        >
+        <DragScrollWidget {...this.state} ref={saveRef('DragScrollWidget')}>
           {(
             setViewBoxScroll: (left: number, top: number) => void,
             setViewBoxScrollDelta: (left: number, top: number) => void

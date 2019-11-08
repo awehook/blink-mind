@@ -87,7 +87,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   public renderContextMenu() {
     const { controller } = this.props;
-    return controller.run('renderTopicContextMenu',this.props);
+    return controller.run('renderTopicContextMenu', this.props);
   }
 
   public onContextMenuClose() {

@@ -1,18 +1,17 @@
 import * as React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ContentEditable = styled.span`
-  &:focus{
+  &:focus {
     outline: 0px;
   }
-`
+`;
 
 interface Props {
   editorValue: any;
   readOnly: boolean;
   onChange: Function;
 }
-
 
 export class SimpleTextEditor extends React.Component<Props> {
   domNode;
