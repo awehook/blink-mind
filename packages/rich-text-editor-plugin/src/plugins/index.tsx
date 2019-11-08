@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { TopicContentEditor } from '../components/topic-content-editor';
-import { TopicContentEditor2 } from '../components/topic-content-editor-2';
-import { TopicContentEditor3 } from '../components/topic-content-editor-3';
+import {TopicDescEditor} from "../components/topic-desc-editor";
 export default function RichTextEditorPlugin() {
   return {
     renderTopicContentEditor(props) {
-      return <TopicContentEditor3 {...props} />;
+      return <TopicContentEditor {...props} />;
+    },
+
+    renderTopicDescEditor(props) {
+      return <TopicDescEditor {...props} />;
     }
   };
 }

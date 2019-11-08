@@ -155,7 +155,7 @@ export class DragScrollWidget extends React.Component<
   onMouseMove = (e: MouseEvent) => {
     this.viewBox.scrollLeft = this._lastCoordX - e.clientX;
     this.viewBox.scrollTop = this._lastCoordY - e.clientY;
-    log(`onMouseMove ${this.viewBox.scrollLeft} ${this.viewBox.scrollTop}`);
+    // log(`onMouseMove ${this.viewBox.scrollLeft} ${this.viewBox.scrollTop}`);
   };
 
   handleContextMenu = e => {

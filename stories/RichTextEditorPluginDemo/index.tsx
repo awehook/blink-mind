@@ -10,6 +10,8 @@ interface State {
   model: Model;
 }
 
+const plugins = [richTextEditorPlugin];
+
 export class RichTextEditorPluginDemo extends React.Component<Props, State> {
   constructor(props) {
     super(props);
@@ -73,7 +75,7 @@ export class RichTextEditorPluginDemo extends React.Component<Props, State> {
         <Diagram
           model={this.state.model}
           onChange={this.onChange}
-          plugins={[richTextEditorPlugin]}
+          plugins={plugins}
         />
       </div>
     );

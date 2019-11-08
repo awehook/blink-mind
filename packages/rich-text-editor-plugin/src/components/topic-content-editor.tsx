@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { OpType } from '@blink-mind/renderer-react';
-
-import debug from 'debug';
 import { RichTextEditor } from './rich-text-editor';
 import { BlockType } from '@blink-mind/core';
-const log = debug('node:topic-content-editor');
+
 
 export class TopicContentEditor extends RichTextEditor {
   getCustomizeProps = () => {
