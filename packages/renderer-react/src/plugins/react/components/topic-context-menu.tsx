@@ -60,7 +60,7 @@ export class TopicContextMenu extends BaseWidget<Props> {
   }
 
   render() {
-    const { items, topicKey, model } = this.props;
+    const { items, topicKey, model, controller } = this.props;
     const isRoot = topicKey === model.editorRootTopicKey;
     return (
       <Menu>
@@ -74,6 +74,7 @@ export class TopicContextMenu extends BaseWidget<Props> {
             />
           )
         )}
+        {controller.run('customizeTopicContextMenu', this.props)}
       </Menu>
     );
   }
