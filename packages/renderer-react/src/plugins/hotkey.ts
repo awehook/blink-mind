@@ -8,7 +8,8 @@ interface HotKeyConfig {
 export const HotKeyName = {
   ADD_CHILD: 'ADD_CHILD',
   ADD_SIBLING: 'ADD_SIBLING',
-  DELETE_TOPIC: 'DELETE_TOPIC'
+  DELETE_TOPIC: 'DELETE_TOPIC',
+  EDIT_NOTES: 'EDIT_NOTES'
 };
 
 function op(opType: string, props) {
@@ -50,6 +51,16 @@ export function HotKeyPlugin() {
             combo: 'del',
             onKeyDown: e => {
               op(OpType.DELETE_TOPIC, props);
+            }
+          }
+        ],
+        [
+          HotKeyName.EDIT_NOTES,
+          {
+            label: 'edit notes',
+            combo: 'alt + d',
+            onKeyDown: e => {
+              op(OpType.START_EDITING_DESC, props);
             }
           }
         ]

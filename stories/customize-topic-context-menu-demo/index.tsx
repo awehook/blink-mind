@@ -5,13 +5,14 @@ import { MenuItem, MenuDivider } from '@blueprintjs/core';
 
 function CustomizeTopicContextMenuPlugin() {
   return {
-    customizeTopicContextMenu(props) {
+    customizeTopicContextMenu(props,next) {
       function onClickMyMenu() {
         const {topicKey} = props;
         alert(`this topic key is ${topicKey}`);
       }
       return (
         <>
+          {next()}
           <MenuDivider />
           <MenuItem icon="group-objects" text="my customize menu"  onClick={onClickMyMenu}/>
         </>

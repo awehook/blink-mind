@@ -5,7 +5,7 @@ import { BaseProps } from '../base-props';
 export class BaseWidget<
   P extends BaseProps = BaseProps,
   S = any
-> extends React.Component<P, S> {
+> extends React.PureComponent<P, S> {
   constructor(props: P) {
     super(props);
   }

@@ -14,12 +14,13 @@ import { TopicHighlight } from './components/topic-highlight';
 import { SaveRef } from '../../components/common';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import Theme from './theme';
-import debug from 'debug';
+import { customizeTopicContextMenu } from './context-menus';
 import { Modals } from './components/modals';
 import { TopicDescIcon } from './components/topic-desc-icon';
 import { SimpleTopicContentEditor } from './components/simple-topic-content-editor';
 import { ModalBody, ModalDescEditor } from './components/modal-body';
 import { SimpleTopicDescEditor } from './components/simple-topic-desc-editor';
+import debug from 'debug';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -123,9 +124,7 @@ export function RenderingPlugin() {
       return <TopicContextMenu {...props} />;
     },
 
-    customizeTopicContextMenus(props) {
-      return null;
-    },
+    customizeTopicContextMenu,
 
     renderTopicContentEditor(props) {
       log('renderTopicContentEditor', props);
