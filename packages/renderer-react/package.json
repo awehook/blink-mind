@@ -14,7 +14,6 @@
     "@blink-mind/core": "^0.0.1",
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/select": "^3.11.1",
-    "awehook-rich-markdown-editor": "^1.0.1",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "memoize-one": "^5.1.1",
