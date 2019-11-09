@@ -1,8 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-
-
 export const ModalBody = styled.div`
   height: 100%;
   flex: 1;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseProps } from '../../../components/base-props';
 import styled from 'styled-components';
-import {Block, BlockType} from '@blink-mind/core';
+import { Block, BlockType } from '@blink-mind/core';
 import { BaseWidget } from '../../../components/common';
 import { OpType } from '../../operation';
 import debug from 'debug';

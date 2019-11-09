@@ -19,7 +19,7 @@ import { Modals } from './components/modals';
 import { TopicDescIcon } from './components/topic-desc-icon';
 import { SimpleTopicContentEditor } from './components/simple-topic-content-editor';
 import { ModalBody, ModalDescEditor } from './components/modal-body';
-import {SimpleTopicDescEditor} from "./components/simple-topic-desc-editor";
+import { SimpleTopicDescEditor } from './components/simple-topic-desc-editor';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -40,7 +40,7 @@ export function RenderingPlugin() {
               saveRef,
               getRef
             };
-            log('renderDiagram',model);
+            log('renderDiagram', model);
             return (
               <Theme theme={model.config.theme}>
                 <DiagramRoot>

@@ -3,12 +3,15 @@ import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
 import { StylePlugin } from './style';
 import { EventPlugin } from './event';
+import { HotKeyPlugin } from './hotkey';
 
 export function DefaultPlugin() {
-  const reactPlugin = ReactPlugin();
-  const layoutPlugin = LayoutPlugin();
-  const operationPlugin = OperationPlugin();
-  const stylePlugin = StylePlugin();
-  const eventPlugin = EventPlugin();
-  return [reactPlugin, layoutPlugin, operationPlugin, stylePlugin, eventPlugin];
+  return [
+    ReactPlugin(),
+    LayoutPlugin(),
+    OperationPlugin(),
+    StylePlugin(),
+    EventPlugin(),
+    HotKeyPlugin()
+  ];
 }
