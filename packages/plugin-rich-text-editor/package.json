@@ -1,0 +1,23 @@
+{
+  "name": "@blink-mind/plugin-rich-text-editor",
+  "files": [
+    "lib/"
+  ],
+  "main": "./lib/main.js",
+  "module": "lib/main.es.js",
+  "umd": "dist/main.js",
+  "version": "0.0.1",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@blink-mind/core": "link:../core",
+    "@blink-mind/renderer-react": "link:../renderer-react",
+    "awehook-rich-markdown-editor": "^1.0.1",
+    "debug": "^4.1.1",
+    "react": "^16.10.2",
+    "styled-components": "^4.4.0"
+  }
+}

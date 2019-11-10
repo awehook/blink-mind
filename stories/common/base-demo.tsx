@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Model } from '@blink-mind/core';
-import richTextEditorPlugin from '@blink-mind/rich-text-editor-plugin';
+import richTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import {generateSimpleModel} from "../utils";
 import './base-demo.css';
 

@@ -4,8 +4,8 @@
     "suppressExcessPropertyErrors": true,
     "downlevelIteration": true,
     "allowJs": true,
-    "declaration": true,
-    "outDir": ".",
+//    "declaration": true,
+    "outDir": "./lib",
     "target": "es5",
     "strictNullChecks": false,
     "sourceMap": true,
@@ -16,9 +16,9 @@
     "paths": {
       "@blink-mind/core": ["packages/core/src"],
       "@blink-mind/renderer-react": ["packages/renderer-react/src"],
-      "@blink-mind/rich-text-editor-plugin": ["packages/rich-text-editor-plugin/src"]
+      "@blink-mind/plugin-rich-text-editor": ["packages/plugin-rich-text-editor/src"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["packages/*/src"],
   "exclude": ["stories/", "node_modules", "**/*.spec.ts", "./dist"]
 }

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Button, MenuItem, Popover } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/select';
 import { BaseWidget } from '../../../../components/common';
-import { BaseProps } from '../../../../components/base-props';
 import { SketchPicker } from 'react-color';
 import { isEqual } from 'lodash';
 import debug from 'debug';
@@ -78,12 +77,6 @@ const renderItem = unit => (width, { handleClick, modifiers, query }) => {
     <MenuItem text={`${width}${unit}`} key={width} onClick={handleClick} />
   );
 };
-
-// interface Props extends BaseProps {}
-//
-// interface State {
-//   showPanel: boolean;
-// }
 
 export class StyleEditor extends BaseWidget {
   constructor(props) {

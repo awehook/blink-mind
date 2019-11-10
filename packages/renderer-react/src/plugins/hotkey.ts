@@ -1,6 +1,6 @@
-import { OpType } from '@blink-mind/renderer-react';
+import { OpType } from './operation';
 
-interface HotKeyConfig {
+export interface HotKeyConfig {
   combo: string;
   onKeyDown: Function;
 }

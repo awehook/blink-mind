@@ -64,7 +64,7 @@ export class DragScrollWidget extends React.Component<
 
   contentResizeObserver = new ResizeObserver(this.contentResizeCallback);
   // oldScroll: { left: number; top: number };
-  oldContentRect: DOMRectReadOnly;
+  oldContentRect: any;
   content: HTMLElement;
   contentRef = ref => {
     if (ref) {

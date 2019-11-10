@@ -18,7 +18,7 @@ type CreateTopicArg = {
   parentKey?: KeyType;
   collapse?: boolean;
   content?: any;
-  subKeys?: List<KeyType>;
+  subKeys?: List<KeyType> | KeyType[];
   style?: string;
 };
 

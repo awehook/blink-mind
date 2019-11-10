@@ -4,7 +4,9 @@
     "lib/",
     "src/"
   ],
-  "main": "src/index.ts",
+  "main": "lib/main.js",
+  "module": "lib/main.es.js",
+  "umd": "dist/main.js",
   "version": "0.0.1",
   "license": "MIT",
   "publishConfig": {
@@ -15,6 +17,8 @@
   },
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
-    "is-plain-object": "^3.0.0"
+    "is-plain-object": "^3.0.0",
+    "debug": "^4.1.1",
+    "memoize-one": "^5.1.1"
   }
 }

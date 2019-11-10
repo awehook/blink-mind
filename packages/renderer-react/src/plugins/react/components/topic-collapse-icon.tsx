@@ -1,8 +1,7 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
-import * as cx from 'classnames';
-import { TopicDirection } from '@blink-mind/core/src';
-import { OpType } from '../../operation';
+import cx from 'classnames';
+import { TopicDirection } from '@blink-mind/core';
 import { collapseRefKey } from '../../../utils';
 
 const Icon = styled.div`
@@ -22,6 +21,7 @@ const Icon = styled.div`
   width: 20px;
   height: 20px;
   text-align: center;
+  //@ts-ignore
   background: ${props => props.background};
   cursor: pointer;
   padding: 0;

@@ -39,7 +39,7 @@ module.exports = {
   resolve: {
     alias: {
       "@blink-mind/renderer-react": path.join(__dirname, "../packages/renderer-react/src/index"),
-      "@blink-mind/rich-text-editor-plugin": path.join(__dirname, "../packages/rich-text-editor-plugin/src/index"),
+      "@blink-mind/plugin-rich-text-editor": path.join(__dirname, "../packages/plugin-rich-text-editor/src/index"),
       "styled-components": path.join(__dirname,"..", "node_modules", "styled-components"),
     },
     extensions: [".tsx", ".ts", ".js"]

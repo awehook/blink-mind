@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Model,
-  TopicDirection,
-  KeyType,
-  TopicStyle
-} from '@blink-mind/core';
+import { Controller, Model, KeyType, TopicStyle } from '@blink-mind/core';
 
 export interface BaseProps {
   model: Model;

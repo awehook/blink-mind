@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { BaseProps, BaseWidget, OpType } from '@blink-mind/renderer-react';
+import { BaseWidget, OpType } from '@blink-mind/renderer-react';
 import styled from 'styled-components';
 import RichMarkDownEditor from 'awehook-rich-markdown-editor';
-import { Block } from '@blink-mind/core';
 import debug from 'debug';
 const log = debug('node:topic-content-editor');
 
@@ -15,12 +14,6 @@ const NodeContent = styled.div<NodeContentProps>`
   background-color: ${props => (props.readOnly ? null : 'white')};
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
 `;
-
-interface CustomizeProps {
-  block: Block;
-  readOnly: boolean;
-  refKeyPrefix: string;
-}
 
 export class RichTextEditor extends BaseWidget {
   onMouseDown = e => {

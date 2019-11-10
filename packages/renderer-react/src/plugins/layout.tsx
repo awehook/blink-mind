@@ -8,12 +8,12 @@ import {
 import { TopicWidget } from './react/components/topic-widget';
 import { getLinkKey } from '../utils';
 
-type _GetPartTopicsArg = {
+export type GetPartTopicsArg = {
   layout: DiagramLayoutType;
   model: Model;
   topicKey: KeyType;
 };
-interface _GetPartTopicsRes {
+export interface GetPartTopicsRes {
   [part: number]: KeyType[];
 }
 
@@ -23,7 +23,7 @@ export function LayoutPlugin() {
       layout,
       model,
       topicKey
-    }: _GetPartTopicsArg): _GetPartTopicsRes {
+    }: GetPartTopicsArg): GetPartTopicsRes {
       const topic = model.getTopic(topicKey);
       const subTopicCount = topic.subKeys.size;
       const topics = topic.subKeys.toArray();
