@@ -9,6 +9,8 @@
   "license": "MIT",
   "scripts": {
     "storybook": "start-storybook -p 6007",
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages",
     "prettier": "prettier --write 'packages/*/src/**'",
     "pre-commit": "yarn prettier && yarn lint:ts",
     "test": "lerna run test",
@@ -27,6 +29,7 @@
     "@storybook/addon-links": "5.2.5",
     "@storybook/addons": "5.2.5",
     "@storybook/react": "5.2.5",
+    "@storybook/storybook-deployer": "^2.8.1",
     "@types/jest": "^24.0.19",
     "@types/node": "^12.11.2",
     "awesome-typescript-loader": "5.2.1",
