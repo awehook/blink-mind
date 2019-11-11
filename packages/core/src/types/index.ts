@@ -31,7 +31,8 @@ export const FocusMode = {
   NORMAL: 'NORMAL',
   EDITING_CONTENT: 'EDITING_CONTENT',
   EDITING_DESC: 'EDITING_DESC',
-  SHOW_POPUP: 'SHOW_POPUP'
+  SHOW_POPUP: 'SHOW_POPUP',
+  DRAGGING: 'DRAGGING'
 };
 
 export type OnChangeFunction = (model: Model) => void;

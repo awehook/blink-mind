@@ -48,8 +48,6 @@ interface State {
   showPopMenu: boolean;
 }
 
-let dragSrcItemKey: KeyType = null;
-
 @ContextMenuTarget
 export class TopicContentWidget extends BaseWidget<Props, State> {
   constructor(props) {
@@ -60,10 +58,8 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     };
   }
 
-  onDragStart = e => {
-    log('onDragStart');
-    dragSrcItemKey = this.props.topicKey;
-    e.stopPropagation();
+  onDragStart = ev => {
+    this.run('handleTopicDragStart', { ...this.props, ev });
   };
 
   onDragOver = e => {
@@ -74,8 +70,8 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   onDragLeave = e => {};
 
-  onDrop = e => {
-    log('onDrop');
+  onDrop = ev => {
+    this.run('handleTopicDrop', { ...this.props, ev });
   };
 
   public renderContextMenu() {
@@ -89,26 +85,27 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   isDoubleClick: boolean;
 
-  onClick = e => {
+  onClick = ev => {
     this.isDoubleClick = false;
-    log(e.nativeEvent);
-    const { controller } = this.props;
+    log(ev.nativeEvent);
+    const props = this.props;
+    const { controller } = props;
     setTimeout(() => {
       if (!this.isDoubleClick) {
-        controller.run('handleTopicClick', this.props);
+        controller.run('handleTopicClick', { ...props, ev });
       }
     });
   };
 
-  onDoubleClick = () => {
+  onDoubleClick = ev => {
     this.isDoubleClick = true;
     const { controller } = this.props;
-    controller.run('handleTopicDoubleClick', this.props);
+    controller.run('handleTopicDoubleClick', { ...this.props, ev });
   };
 
-  onContextMenu = e => {
+  onContextMenu = ev => {
     const { controller } = this.props;
-    controller.run('handleTopicContextMenu', this.props);
+    controller.run('handleTopicContextMenu', { ...this.props, ev });
     this.setState({
       showPopMenu: true
     });
@@ -149,16 +146,25 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   render() {
     const props = this.props;
-    const { draggable, saveRef, topicKey, controller, topicStyle, dir } = props;
+    const { saveRef, topicKey, controller, topicStyle, dir } = props;
+    const draggable = true;
     const showPopMenu = this.state.showPopMenu;
     const collapseIcon = controller.run('renderTopicCollapseIcon', {
       ...props,
       onClickCollapse: this.onClickCollapse.bind(this)
     });
     log(dir);
+    const prevDropArea = controller.run('renderTopicDropArea', {
+      ...props,
+      dir: 'prev'
+    });
+    const nextDropArea = controller.run('renderTopicDropArea', {
+      ...props,
+      dir: 'next'
+    });
     return (
       <TopicContentWithDropArea>
-        <DropArea />
+        {prevDropArea}
         <TopicContent
           // theme={getTopicTheme(visualLevel, model.config.theme)}
           // dragEnter={this.state.dragEnter}
@@ -182,7 +188,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
               visible: true
             })}
         </TopicContent>
-        <DropArea />
+        {nextDropArea}
         {dir !== TopicDirection.MAIN && collapseIcon}
       </TopicContentWithDropArea>
     );

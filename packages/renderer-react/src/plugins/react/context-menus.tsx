@@ -2,7 +2,6 @@ import { OpType } from '../operation';
 import { MenuItem } from '@blueprintjs/core';
 import { Icon } from '../../utils';
 import * as React from 'react';
-import styled from 'styled-components';
 
 export type TopicContextMenuItemConfig = {
   icon?: string;

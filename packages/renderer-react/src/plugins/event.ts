@@ -52,6 +52,21 @@ export function EventPlugin() {
           });
         };
       }
+    },
+
+    handleTopicDragStart(props) {
+      const { controller, ev } = props;
+      ev.stopPropagation();
+      controller.run('operation', {
+        ...props,
+        opType: OpType.FOCUS_TOPIC,
+        focusMode: FocusMode.DRAGGING
+      });
+    },
+
+    handleTopicDrop(props) {
+      log('handleTopicDrop');
+      // const { controller, ev } = props;
     }
   };
 }

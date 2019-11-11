@@ -17,6 +17,10 @@ export class BaseWidget<
     });
   }
 
+  run(name: string, arg: any) {
+    this.props.controller.run(name, arg);
+  }
+
   get topic() {
     return this.props.model.getTopic(this.props.topicKey);
   }
