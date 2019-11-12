@@ -20,7 +20,6 @@ import { ModalBody, ModalDescEditor } from './components/modal-body';
 import { SimpleTopicDescEditor } from './components/simple-topic-desc-editor';
 import Theme from './theme';
 import { customizeTopicContextMenu } from './context-menus';
-import { renderTopicDropArea } from './drag-and-drop';
 import debug from 'debug';
 const log = debug('plugin:rendering');
 
@@ -193,9 +192,19 @@ export function RenderingPlugin() {
       return <TopicHighlight ref={saveRef('focus-highlight')} {...props} />;
     },
 
+    renderRootWidgetOtherChildren(props) {
+      const { controller } = props;
+      return (
+        <>
+          {controller.run('renderRootSubLinks', props)}
+          {controller.run('renderFocusItemHighlight', props)}
+          {controller.run('renderDragAndDropEffect', props)}
+        </>
+      );
+    },
+
     renderStyleEditor(props) {
       return <StyleEditor key="style-editor" {...props} />;
-    },
-    renderTopicDropArea
+    }
   };
 }

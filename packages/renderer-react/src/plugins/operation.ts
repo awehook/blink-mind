@@ -1,4 +1,5 @@
 import { ModelModifier, BlockType, FocusMode } from '@blink-mind/core';
+import { List } from 'immutable';
 import debug from 'debug';
 const log = debug('plugin:operation');
 export const OpType = {
@@ -11,7 +12,8 @@ export const OpType = {
   SET_TOPIC_CONTENT: 'SET_TOPIC_CONTENT',
   SET_TOPIC_DESC: 'SET_TOPIC_DESC',
   START_EDITING_CONTENT: 'START_EDITING_CONTENT',
-  START_EDITING_DESC: 'START_EDITING_DESC'
+  START_EDITING_DESC: 'START_EDITING_DESC',
+  DRAG_AND_DROP: 'DRAG_AND_DROP'
 };
 
 export function OperationPlugin() {
@@ -34,6 +36,73 @@ export function OperationPlugin() {
       focusMode: FocusMode.EDITING_DESC
     });
   };
+
+  function dragAndDrop(props) {
+    const { srcKey, dstKey, dropDir } = props;
+    let { model } = props;
+    const srcTopic = model.getTopic(srcKey);
+    const dstTopic = model.getTopic(dstKey);
+
+    const srcParentKey = srcTopic.parentKey;
+    const srcParentTopic = model.getTopic(srcParentKey);
+    let srcParentSubKeys = srcParentTopic.subKeys;
+    const srcIndex = srcParentSubKeys.indexOf(srcKey);
+
+    srcParentSubKeys = srcParentSubKeys.delete(srcIndex);
+
+    if (dropDir === 'in') {
+      let dstSubKeys = dstTopic.subKeys;
+      dstSubKeys = dstSubKeys.push(srcKey);
+      model = model.withMutations(m => {
+        m.setIn(['topics', srcParentKey, 'subKeys'], srcParentSubKeys)
+          .setIn(['topics', srcKey, 'parentKey'], dstKey)
+          .setIn(['topics', dstKey, 'subKeys'], dstSubKeys)
+          .setIn(['topics', dstKey, 'collapse'], false);
+      });
+    } else {
+      const dstParentKey = dstTopic.parentKey;
+      const dstParentItem = model.getTopic(dstParentKey);
+      let dstParentSubKeys = dstParentItem.subKeys;
+      const dstIndex = dstParentSubKeys.indexOf(dstKey);
+      //src 和 dst 的父亲相同，这种情况要做特殊处理
+      if (srcParentKey === dstParentKey) {
+        let newDstParentSubKeys = List();
+        dstParentSubKeys.forEach(key => {
+          if (key !== srcKey) {
+            if (key === dstKey) {
+              if (dropDir === 'prev') {
+                newDstParentSubKeys = newDstParentSubKeys
+                  .push(srcKey)
+                  .push(key);
+              } else {
+                newDstParentSubKeys = newDstParentSubKeys
+                  .push(key)
+                  .push(srcKey);
+              }
+            } else {
+              newDstParentSubKeys = newDstParentSubKeys.push(key);
+            }
+          }
+        });
+        model = model.withMutations(m => {
+          m.setIn(['topics', dstParentKey, 'subKeys'], newDstParentSubKeys);
+        });
+      } else {
+        if (dropDir === 'prev') {
+          dstParentSubKeys = dstParentSubKeys.insert(dstIndex, srcKey);
+        } else if (dropDir === 'next') {
+          dstParentSubKeys = dstParentSubKeys.insert(dstIndex + 1, srcKey);
+        }
+        model = model.withMutations(m => {
+          m.setIn(['topics', srcParentKey, 'subKeys'], srcParentSubKeys)
+            .setIn(['topics', srcKey, 'parentKey'], dstParentKey)
+            .setIn(['topics', dstParentKey, 'subKeys'], dstParentSubKeys)
+            .setIn(['topics', dstParentKey, 'collapse'], false);
+        });
+      }
+    }
+    return model;
+  }
   const OpMap = new Map([
     [OpType.TOGGLE_COLLAPSE, ModelModifier.toggleCollapse],
     [OpType.ADD_CHILD, ModelModifier.addChild],
@@ -44,7 +113,8 @@ export function OperationPlugin() {
     [OpType.SET_TOPIC_CONTENT, ModelModifier.setContent],
     [OpType.SET_TOPIC_DESC, ModelModifier.setDesc],
     [OpType.START_EDITING_CONTENT, startEditingContent],
-    [OpType.START_EDITING_DESC, startEditingDesc]
+    [OpType.START_EDITING_DESC, startEditingDesc],
+    [OpType.DRAG_AND_DROP, dragAndDrop]
   ]);
   return {
     beforeOperation(props) {},

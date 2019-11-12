@@ -1,5 +1,5 @@
 import { Model, ModelModifier } from '../../src';
-import { getAllSubItemKeys } from '../../src/models/utils';
+import { getAllSubTopicKeys } from '../../src/models/utils';
 
 const { addChild, addSibling, toggleCollapse, deleteTopic } = ModelModifier;
 
@@ -48,7 +48,7 @@ describe('Modifier test', () => {
     model = addChild({ model, topicKey: model.focusKey });
 
     expect(model.topics.size).toBe(5);
-    expect(getAllSubItemKeys(model,key).length).toBe(2);
+    expect(getAllSubTopicKeys(model,key).length).toBe(2);
     model = deleteTopic({model,topicKey: key});
     expect(model.topics.size).toBe(2);
   });

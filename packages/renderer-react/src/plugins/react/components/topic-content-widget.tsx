@@ -4,23 +4,11 @@ import { ContextMenuTarget } from '@blueprintjs/core';
 import { TopicDirection, KeyType, TopicVisualLevel } from '@blink-mind/core';
 import { BaseProps } from '../../../components/base-props';
 import debug from 'debug';
-import { ThemeType } from '@blink-mind/core';
 import { BaseWidget } from '../../../components/common';
 import { OpType } from '../../operation';
 import { collapseRefKey, contentRefKey } from '../../../utils';
 
 const log = debug('node:topic-content-widget');
-
-function getTopicTheme(visualLevel: number, theme: ThemeType) {
-  if (visualLevel === TopicVisualLevel.ROOT) return theme.rootTopic;
-  if (visualLevel === TopicVisualLevel.PRIMARY) return theme.primaryTopic;
-  return theme.normalTopic;
-}
-
-const DropArea = styled.div`
-  height: 20px;
-  width: 100%;
-`;
 
 interface TopicContentProps {
   dragEnter?: boolean;
@@ -62,16 +50,20 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     this.run('handleTopicDragStart', { ...this.props, ev });
   };
 
-  onDragOver = e => {
-    e.preventDefault();
+  onDragOver = ev => {
+    ev.preventDefault();
   };
 
-  onDragEnter = e => {};
+  onDragEnter = ev => {
+    this.run('handleTopicDragEnter', { ...this.props, ev, dropDir: 'in' });
+  };
 
-  onDragLeave = e => {};
+  onDragLeave = ev => {
+    this.run('handleTopicDragLeave', { ...this.props, ev, dropDir: 'in' });
+  };
 
   onDrop = ev => {
-    this.run('handleTopicDrop', { ...this.props, ev });
+    this.run('handleTopicDrop', { ...this.props, ev, dropDir: 'in' });
   };
 
   public renderContextMenu() {
@@ -156,12 +148,18 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     log(dir);
     const prevDropArea = controller.run('renderTopicDropArea', {
       ...props,
-      dir: 'prev'
+      dropDir: 'prev'
     });
     const nextDropArea = controller.run('renderTopicDropArea', {
       ...props,
-      dir: 'next'
+      dropDir: 'next'
     });
+    const dropEventHandlers = {
+      onDragEnter: this.onDragEnter,
+      onDragLeave: this.onDragLeave,
+      onDragOver: this.onDragOver,
+      onDrop: this.onDrop
+    };
     return (
       <TopicContentWithDropArea>
         {prevDropArea}
@@ -172,13 +170,10 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
           draggable={draggable}
           ref={saveRef(contentRefKey(topicKey))}
           onDragStart={this.onDragStart}
-          onDragEnter={this.onDragEnter}
-          onDragLeave={this.onDragLeave}
-          onDragOver={this.onDragOver}
-          onDrop={this.onDrop}
           onClick={this.onClick}
           onDoubleClick={this.onDoubleClick}
           onContextMenu={this.onContextMenu}
+          {...dropEventHandlers}
         >
           {controller.run('renderBlocks', props)}
           {showPopMenu &&

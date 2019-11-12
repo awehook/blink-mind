@@ -1,12 +1,7 @@
 import * as React from 'react';
-import {
-  DiagramLayoutType,
-  Model,
-  KeyType,
-  TopicDirection
-} from '@blink-mind/core';
+import { DiagramLayoutType, Model, KeyType } from '@blink-mind/core';
 import { TopicWidget } from './react/components/topic-widget';
-import { getLinkKey } from '../utils';
+import { linksRefKey } from '../utils';
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;
@@ -54,6 +49,16 @@ export function LayoutPlugin() {
         subTopics.push(<TopicWidget key={tKey} {...subTopicProps} />);
       });
       return { subTopics };
+    },
+
+    layout(props) {
+      const { getRef, topicKey } = props;
+      const links = getRef(linksRefKey(topicKey));
+      const highlight = getRef('focus-highlight');
+      const dropEffect = getRef('drop-effect');
+      links && links.layout();
+      highlight && highlight.layout();
+      dropEffect && dropEffect.layout();
     }
   };
 }

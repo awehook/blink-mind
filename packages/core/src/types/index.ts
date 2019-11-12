@@ -36,3 +36,10 @@ export const FocusMode = {
 };
 
 export type OnChangeFunction = (model: Model) => void;
+
+export const TopicRelationship = {
+  ANCESTOR: 'ANCESTOR',
+  DESCENDANT: 'DESCENDANT',
+  SIBLING: 'SIBLING',
+  NONE: 'NONE'
+};

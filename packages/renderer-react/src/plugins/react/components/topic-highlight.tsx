@@ -5,7 +5,7 @@ import { contentRefKey } from '../../../utils';
 import { BaseProps } from '../../../components/base-props';
 import { FocusMode } from '@blink-mind/core';
 
-const SVG = styled.svg`
+const FocusHighlightSvg = styled.svg`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -58,6 +58,10 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
 
   render() {
     const { saveRef } = this.props;
-    return <SVG ref={saveRef('svg-highlight')}>{this.state.content}</SVG>;
+    return (
+      <FocusHighlightSvg ref={saveRef('svg-highlight')}>
+        {this.state.content}
+      </FocusHighlightSvg>
+    );
   }
 }

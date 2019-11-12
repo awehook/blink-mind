@@ -4,6 +4,7 @@ import { OperationPlugin } from './operation';
 import { StylePlugin } from './style';
 import { EventPlugin } from './event';
 import { HotKeyPlugin } from './hotkey';
+import { DragAndDrop } from './drag-and-drop';
 
 export function DefaultPlugin() {
   return [
@@ -12,6 +13,7 @@ export function DefaultPlugin() {
     OperationPlugin(),
     StylePlugin(),
     EventPlugin(),
-    HotKeyPlugin()
+    HotKeyPlugin(),
+    DragAndDrop()
   ];
 }

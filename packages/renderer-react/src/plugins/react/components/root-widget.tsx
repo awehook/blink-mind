@@ -55,19 +55,16 @@ export class RootWidget extends React.Component<Props> {
   }
 
   componentDidMount(): void {
-    this.layoutSubLinks();
+    this.layout();
   }
 
   componentDidUpdate(): void {
-    this.layoutSubLinks();
+    this.layout();
   }
 
-  layoutSubLinks() {
-    const { getRef, topicKey } = this.props;
-    const links = getRef(linksRefKey(topicKey));
-    const highlight = getRef('focus-highlight');
-    links && links.layout();
-    highlight && highlight.layout();
+  layout() {
+    const { controller } = this.props;
+    controller.run('layout', this.props);
   }
 
   render() {
@@ -89,8 +86,7 @@ export class RootWidget extends React.Component<Props> {
     const rootTopic = (
       <Topic ref={saveRef(topicRefKey(topicKey))}>{topicContent}</Topic>
     );
-    const subLinks = controller.run('renderRootSubLinks', props);
-    const focusHighlight = controller.run('renderFocusItemHighlight', props);
+    const children = controller.run('renderRootWidgetOtherChildren', props);
     switch (config.layoutDir) {
       case DiagramLayoutType.LEFT_AND_RIGHT:
         return (
@@ -98,8 +94,7 @@ export class RootWidget extends React.Component<Props> {
             {this.renderPartTopics(partTopics.L, 'L')}
             {rootTopic}
             {this.renderPartTopics(partTopics.R, 'R')}
-            {subLinks}
-            {focusHighlight}
+            {children}
           </>
         );
       case DiagramLayoutType.LEFT_TO_RIGHT:
@@ -107,8 +102,7 @@ export class RootWidget extends React.Component<Props> {
           <>
             {rootTopic}
             {this.renderPartTopics(partTopics.R, 'R')}
-            {subLinks}
-            {focusHighlight}
+            {children}
           </>
         );
       case DiagramLayoutType.RIGHT_TO_LEFT:
@@ -116,8 +110,7 @@ export class RootWidget extends React.Component<Props> {
           <>
             {this.renderPartTopics(partTopics.L, 'L')}
             {rootTopic}
-            {subLinks}
-            {focusHighlight}
+            {children}
           </>
         );
       case DiagramLayoutType.TOP_TO_BOTTOM:
@@ -125,8 +118,7 @@ export class RootWidget extends React.Component<Props> {
           <>
             {rootTopic}
             {this.renderPartTopics(partTopics.B, 'B')}
-            {subLinks}
-            {focusHighlight}
+            {children}
           </>
         );
     }

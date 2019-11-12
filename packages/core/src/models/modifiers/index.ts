@@ -3,7 +3,7 @@ import { Topic } from '../topic';
 import { Block } from '../block';
 import { IModifierArg, IModifierResult } from '../../interfaces';
 import { createKey } from '../../utils';
-import { getAllSubItemKeys } from '../utils';
+import { getAllSubTopicKeys } from '../utils';
 import debug from 'debug';
 
 const log = debug('modifier');
@@ -86,7 +86,7 @@ function deleteTopic({ model, topicKey }: IModifierArg): IModifierResult {
     model = model.withMutations(m => {
       m.update('topics', topics => {
         topics = topics.delete(topicKey);
-        const deleteKeys = getAllSubItemKeys(model, topicKey);
+        const deleteKeys = getAllSubTopicKeys(model, topicKey);
         topics = topics.withMutations(t => {
           deleteKeys.forEach(dKey => {
             t.delete(dKey);

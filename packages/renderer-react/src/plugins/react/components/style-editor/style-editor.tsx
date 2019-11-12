@@ -17,6 +17,7 @@ const StyleEditorRoot = styled.div`
   right: 30px;
   top: 20px;
   border-radius: 2px;
+  z-index: 4;
 `;
 
 const Title = styled.div`
