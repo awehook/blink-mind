@@ -5,9 +5,7 @@ export interface IDiagram {}
 
 export interface IControllerOption {
   diagram?: IDiagram;
-  construct?: boolean;
   plugins?: Array<any>;
-  commands?: Array<any>;
   model?: Model;
   readOnly?: boolean;
   onChange?: OnChangeFunction;

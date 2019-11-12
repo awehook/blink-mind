@@ -16,7 +16,7 @@
 
 4. Runtime data is saved through the immutable.js data structure, optimizing performance based on immutable.js and component's shouldComponentUpdate.
 
-### Run Demo
+### Run Demo Locally
 ```
 yarn install
 yarn storybook

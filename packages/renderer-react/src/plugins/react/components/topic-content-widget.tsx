@@ -146,8 +146,8 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   render() {
     const props = this.props;
-    const { saveRef, topicKey, controller, topicStyle, dir } = props;
-    const draggable = true;
+    const { saveRef, topicKey, model, controller, topicStyle, dir } = props;
+    const draggable = model.editingContentKey !== topicKey;
     const showPopMenu = this.state.showPopMenu;
     const collapseIcon = controller.run('renderTopicCollapseIcon', {
       ...props,

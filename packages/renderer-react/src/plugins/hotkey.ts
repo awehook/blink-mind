@@ -22,7 +22,7 @@ function op(opType: string, props) {
 
 export function HotKeyPlugin() {
   return {
-    getHotKeys(props) {
+    customizeHotKeys(props) {
       const hotKeyMap = new Map<string, HotKeyConfig>([
         [
           HotKeyName.ADD_CHILD,

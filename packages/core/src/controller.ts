@@ -24,6 +24,7 @@ function registerPlugin(controller: Controller, plugin: any) {
   }
 }
 
+// modified from koa-compose
 function compose(middleware) {
   if (!Array.isArray(middleware))
     throw new TypeError('Middleware stack must be an array!');
@@ -58,9 +59,10 @@ export class Controller {
   readOnly: boolean;
 
   constructor(options: IControllerOption = {}) {
-    const { diagram = this, plugins = [], onChange } = options;
+    const { diagram = this, plugins = [], onChange, readOnly } = options;
 
     this.diagram = diagram;
+    this.readOnly = readOnly;
     this.onChange = onChange;
     this.middleware = new Map();
     const corePlugin = CorePlugin({ plugins });
@@ -79,8 +81,4 @@ export class Controller {
   change(model: Model) {
     this.onChange(model);
   }
-
-  // operation(props) {
-  //   this.run('operation', props);
-  // }
 }

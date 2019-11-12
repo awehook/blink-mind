@@ -5,8 +5,9 @@
 // IMPORTANT
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
-const path = require("path");
-const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const path = require('path');
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components')
+  .default;
 const styledComponentsTransformer = createStyledComponentsTransformer();
 module.exports = {
   plugins: [
@@ -17,32 +18,59 @@ module.exports = {
       // add your custom rules.
       {
         test: /\.css$/,
-        loaders: ["style-loader", "css-loader"],
-        include: path.resolve(__dirname, "../")
+        loaders: ['style-loader', 'css-loader'],
+        include: path.resolve(__dirname, '../')
       },
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
-        loader: "source-map-loader",
+        loader: 'source-map-loader',
         exclude: [/node_modules\//]
       },
       {
         test: /\.tsx?$/,
-        loader: "awesome-typescript-loader?declaration=false",
-        options: {
-          declaration: false,
-          getCustomTransformers: () => ({ before: [styledComponentsTransformer] })
-        }
+        use: [
+          {
+            loader: 'awesome-typescript-loader?declaration=false',
+            options: {
+              declaration: false,
+              getCustomTransformers: () => ({
+                before: [styledComponentsTransformer]
+              })
+            }
+          }
+        ]
+      },
+      {
+        test: /\.stories\.tsx?$/,
+        loaders: [
+          {
+            loader: require.resolve('@storybook/source-loader'),
+            options: { parser: 'typescript' },
+          },
+        ],
+        enforce: 'pre',
       }
     ]
   },
   resolve: {
     alias: {
-      "@blink-mind/core": path.join(__dirname, "../packages/core/src/index"),
-      "@blink-mind/renderer-react": path.join(__dirname, "../packages/renderer-react/src/index"),
-      "@blink-mind/plugin-rich-text-editor": path.join(__dirname, "../packages/plugin-rich-text-editor/src/index"),
-      "styled-components": path.join(__dirname,"..", "node_modules", "styled-components"),
+      '@blink-mind/core': path.join(__dirname, '../packages/core/src/index'),
+      '@blink-mind/renderer-react': path.join(
+        __dirname,
+        '../packages/renderer-react/src/index'
+      ),
+      '@blink-mind/plugin-rich-text-editor': path.join(
+        __dirname,
+        '../packages/plugin-rich-text-editor/src/index'
+      ),
+      'styled-components': path.join(
+        __dirname,
+        '..',
+        'node_modules',
+        'styled-components'
+      )
     },
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: ['.tsx', '.ts', '.js']
   }
 };
