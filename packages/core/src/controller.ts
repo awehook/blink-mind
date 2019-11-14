@@ -55,7 +55,7 @@ function compose(middleware) {
 
 export class Controller {
   diagram: IDiagram;
-  middleware: Map<string, any[]>;
+  middleware: Map<string, Function[]>;
   onChange: OnChangeFunction;
   readOnly: boolean;
 
@@ -74,7 +74,6 @@ export class Controller {
     const { middleware } = this;
     const fns = middleware[key] || [];
     warning(fns.length !== 0, `the middleware function ${key} is not found!`);
-    const i = 0;
     const composedFn = memoizeOne(compose)(fns);
     // @ts-ignore
     return composedFn(...args);

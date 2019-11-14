@@ -161,7 +161,7 @@ export function RenderingPlugin() {
     },
 
     renderBlock(props) {
-      const { controller, block, key } = props;
+      const { controller, block } = props;
       switch (block.type) {
         case BlockType.CONTENT:
           return controller.run('renderTopicContentEditor', props);
