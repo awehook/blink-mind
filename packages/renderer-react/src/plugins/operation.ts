@@ -27,7 +27,7 @@ export function OperationPlugin() {
   const startEditingDesc = ({ model, topicKey }) => {
     const topic = model.getTopic(topicKey);
     const desc = topic.getBlock(BlockType.DESC);
-    if (desc.block === null || desc.block.data === null) {
+    if (desc.block == null || desc.block.data == null) {
       model = ModelModifier.setDesc({ model, topicKey, desc: '' });
     }
     return ModelModifier.focusTopic({

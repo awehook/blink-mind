@@ -31,7 +31,7 @@ export class Model extends Record(defaultModelRecord) {
     return obj instanceof Model;
   }
   static create(attrs: any = null): Model {
-    if (attrs === null) return Model.createEmpty();
+    if (attrs == null) return Model.createEmpty();
 
     if (Model.isModel(attrs)) {
       return attrs;
