@@ -19,6 +19,7 @@ export interface IModifierArg {
   content?: any;
   desc?: any;
   style?: string;
+  theme?: any;
 }
 
 export type IModifierResult = Model;

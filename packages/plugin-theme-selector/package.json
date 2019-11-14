@@ -1,0 +1,22 @@
+{
+  "name": "@blink-mind/plugin-theme-selector",
+  "files": [
+    "lib/"
+  ],
+  "main": "./lib/main.js",
+  "module": "lib/main.es.js",
+  "umd": "dist/main.js",
+  "version": "0.0.1",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@blink-mind/core": "link:../core",
+    "@blink-mind/renderer-react": "link:../renderer-react",
+    "debug": "^4.1.1",
+    "react": "^16.10.2",
+    "styled-components": "^4.4.0"
+  }
+}

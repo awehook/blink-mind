@@ -168,6 +168,11 @@ function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
   return model;
 }
 
+function setTheme({ model, theme }: IModifierArg): IModifierResult {
+  model = model.setIn(['config', 'theme'], theme);
+  return model;
+}
+
 export default {
   addChild,
   addSibling,
@@ -176,5 +181,6 @@ export default {
   deleteTopic,
   setContent,
   setDesc,
-  setStyle
+  setStyle,
+  setTheme
 };

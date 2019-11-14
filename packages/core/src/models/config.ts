@@ -1,6 +1,6 @@
 import { DiagramLayoutType } from '../types';
 import { Record } from 'immutable';
-import { ThemeType, themes } from '../configs/theme';
+import { ThemeType, defaultTheme } from '../configs/theme';
 
 type ConfigRecordType = {
   readOnly?: boolean;
@@ -11,7 +11,7 @@ type ConfigRecordType = {
 const defaultConfigRecord: ConfigRecordType = {
   readOnly: false,
   layoutDir: DiagramLayoutType.LEFT_AND_RIGHT,
-  theme: themes['default']
+  theme: defaultTheme
 };
 
 export class Config extends Record(defaultConfigRecord) {

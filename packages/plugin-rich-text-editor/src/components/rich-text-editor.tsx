@@ -33,7 +33,7 @@ export class RichTextEditor extends BaseWidget {
     const { topicKey, saveRef } = this.props;
     const { block, readOnly, refKeyPrefix } = this.getCustomizeProps();
     const content = block.data;
-    if (content == null ) return null;
+    if (content == null) return null;
     const key = `${refKeyPrefix}-${topicKey}`;
     return (
       <NodeContent

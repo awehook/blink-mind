@@ -64,6 +64,10 @@ module.exports = {
         __dirname,
         '../packages/plugin-rich-text-editor/src/index'
       ),
+      '@blink-mind/plugin-theme-selector': path.join(
+        __dirname,
+        '../packages/plugin-theme-selector/src/index'
+      ),
       'styled-components': path.join(
         __dirname,
         '..',

@@ -19,6 +19,10 @@ interface Props {
 export class Diagram extends React.Component<Props> {
   controller: Controller;
 
+  getDiagramProps() {
+    return this.diagramProps;
+  }
+
   diagramProps;
 
   resolveController = memoizeOne((plugins = [], commands, TheDefaultPlugin) => {

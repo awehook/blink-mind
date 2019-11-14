@@ -2,6 +2,7 @@ import { Model } from './models';
 import { CorePlugin } from './plugins/core';
 import { IDiagram, IControllerOption } from './interfaces';
 import memoizeOne from 'memoize-one';
+import warning from 'tiny-warning';
 import debug from 'debug';
 import { OnChangeFunction } from './types';
 
@@ -72,6 +73,7 @@ export class Controller {
   run(key: string, ...args: any[]) {
     const { middleware } = this;
     const fns = middleware[key] || [];
+    warning(fns.length !== 0, `the middleware function ${key} is not found!`);
     const i = 0;
     const composedFn = memoizeOne(compose)(fns);
     // @ts-ignore

@@ -16,7 +16,8 @@
     "paths": {
       "@blink-mind/core": ["packages/core/src"],
       "@blink-mind/renderer-react": ["packages/renderer-react/src"],
-      "@blink-mind/plugin-rich-text-editor": ["packages/plugin-rich-text-editor/src"]
+      "@blink-mind/plugin-rich-text-editor": ["packages/plugin-rich-text-editor/src"],
+      "@blink-mind/plugin-theme-selector": ["packages/plugin-theme-selector/src"]
     }
   },
   "include": ["packages/*/src"],

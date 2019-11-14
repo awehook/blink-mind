@@ -16,9 +16,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "debug": "^4.1.1",
     "immutable": "^4.0.0-rc.12",
     "is-plain-object": "^3.0.0",
-    "debug": "^4.1.1",
-    "memoize-one": "^5.1.1"
+    "memoize-one": "^5.1.1",
+    "tiny-warning": "^1.0.3"
   }
 }
