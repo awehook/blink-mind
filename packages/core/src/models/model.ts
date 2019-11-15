@@ -8,12 +8,12 @@ import { createKey } from '../utils';
 
 type ModelRecordType = {
   topics: Map<KeyType, Topic>;
-  data: Map<any, any>;
+  data?: Map<any, any>;
   config: Config;
   rootTopicKey: KeyType;
-  editorRootTopicKey: KeyType;
-  focusKey: KeyType;
-  focusMode: string;
+  editorRootTopicKey?: KeyType;
+  focusKey?: KeyType;
+  focusMode?: string;
 };
 
 const defaultModelRecord: ModelRecordType = {
@@ -69,7 +69,7 @@ export class Model extends Record(defaultModelRecord) {
     model = model.withMutations(model => {
       topics.forEach(topic => {
         model.update('topics', topics =>
-          topics.set(topic.key, Topic.create(topic))
+          topics.set(topic.key, Topic.fromJSON(topic))
         );
       });
       model.set('config', Config.fromJSON(config));
@@ -77,6 +77,16 @@ export class Model extends Record(defaultModelRecord) {
     });
 
     return model;
+  }
+
+  toJS() {
+    const obj = {
+      rootTopicKey: this.rootTopicKey,
+      topics: Object.values(this.topics.toJS()),
+      config: this.config,
+      data: this.data
+    };
+    return obj;
   }
 
   get topics(): Map<KeyType, Topic> {

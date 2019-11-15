@@ -60,6 +60,10 @@ module.exports = {
         __dirname,
         '../packages/renderer-react/src/index'
       ),
+      '@blink-mind/plugin-json-serializer': path.join(
+        __dirname,
+        '../packages/plugin-json-serializer/src/index'
+      ),
       '@blink-mind/plugin-rich-text-editor': path.join(
         __dirname,
         '../packages/plugin-rich-text-editor/src/index'

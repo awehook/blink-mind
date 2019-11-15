@@ -15,7 +15,7 @@ function configure(pkg, env, target) {
   const isModule = target === 'module';
   const pkgDir = pkg.name.substr('@blink-mind/'.length);
   const input = resolvePackage(`${pkgDir}/src/index.ts`);
-  console.log('input:', input);
+  // console.log('input:', input);
   const deps = []
     .concat(pkg.dependencies ? Object.keys(pkg.dependencies) : [])
     .concat(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : []);

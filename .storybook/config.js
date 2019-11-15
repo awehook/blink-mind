@@ -1,9 +1,6 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
-// import { DocsContainer } from '@storybook/addon-docs/blocks';
-// import DocsPage from './docs-page';
 import { themes } from '@storybook/theming';
-import { addReadme } from 'storybook-multi-readme';
-import {withNotes} from "@storybook/addon-notes";
+import { withNotes } from '@storybook/addon-notes';
 
 addParameters({
   options: {
@@ -11,9 +8,7 @@ addParameters({
   }
 });
 
-addDecorator(addReadme);
-
-addDecorator(withNotes)
+addDecorator(withNotes);
 
 function loadStories() {
   // require('../packages/renderer-react/stories/index.stories')

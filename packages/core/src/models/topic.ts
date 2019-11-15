@@ -5,12 +5,12 @@ import { Relation } from './relation';
 
 type TopicRecordType = {
   key: KeyType;
-  parentKey: KeyType;
-  collapse: boolean;
-  subKeys: List<KeyType>;
-  blocks: List<Block>;
-  relations: List<Relation>;
-  style: string;
+  parentKey?: KeyType;
+  collapse?: boolean;
+  subKeys?: List<KeyType>;
+  blocks?: List<Block>;
+  relations?: List<Relation>;
+  style?: string;
 };
 
 type CreateTopicArg = {
@@ -59,6 +59,23 @@ export class Topic extends Record(defaultTopicRecord) {
     const index = this.blocks.findIndex(b => b.type === type);
     if (index === -1) return { index, block: null };
     return { index, block: this.blocks.get(index) };
+  }
+
+  static fromJSON(obj) {
+    const {
+      key,
+      parentKey = null,
+      blocks,
+      subKeys = [],
+      collapse = false
+    } = obj;
+    return new Topic({
+      key,
+      parentKey,
+      collapse,
+      subKeys: List(subKeys),
+      blocks: Block.createList(blocks)
+    });
   }
 
   static create({

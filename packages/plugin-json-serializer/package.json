@@ -1,5 +1,5 @@
 {
-  "name": "@blink-mind/plugin-rich-text-editor",
+  "name": "@blink-mind/plugin-json-serializer",
   "files": [
     "lib/"
   ],
@@ -14,11 +14,6 @@
   "scripts": {},
   "dependencies": {
     "@blink-mind/core": "link:../core",
-    "@blink-mind/renderer-react": "link:../renderer-react",
-    "awehook-rich-markdown-editor": "^1.0.1",
-    "debug": "^4.1.1",
-    "react": "^16.10.2",
-    "slate-md-serializer": "^5.4.4",
-    "styled-components": "^4.4.0"
+    "debug": "^4.1.1"
   }
 }

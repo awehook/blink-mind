@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Model } from '@blink-mind/core';
-import richTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
-import {generateSimpleModel} from "../utils";
+import { generateSimpleModel } from '../utils';
 import './base-demo.css';
+import debug from 'debug';
+const log = debug('story:base-demo');
 
 interface Props {}
 
@@ -23,20 +24,17 @@ export class BaseDemo extends React.Component<Props, State> {
 
   initModel() {
     const model = generateSimpleModel();
+    log('initModel:', model);
     this.state = {
       model
     };
   }
 
   renderDiagram() {
-    return null
+    return null;
   }
 
   render() {
-    return (
-      <div className="app">
-        {this.renderDiagram()}
-      </div>
-    );
+    return <div className="app">{this.renderDiagram()}</div>;
   }
 }

@@ -1,5 +1,5 @@
 import { KeyType } from '../types';
-import { Record } from 'immutable';
+import { Record, List } from 'immutable';
 
 type BlockRecordType = {
   type: string;
@@ -24,5 +24,15 @@ export class Block extends Record(defaultBlockRecord) {
 
   static create(obj: BlockRecordType): Block {
     return new Block(obj);
+  }
+
+  static createList(obj: any): List<Block> {
+    if (List.isList(obj) || Array.isArray(obj)) {
+      // @ts-ignore
+      return List(obj.map(Block.create));
+    }
+    throw new Error(
+      `Block.createList only accepts Array or List, but you passed it: ${obj}`
+    );
   }
 }
