@@ -5,9 +5,13 @@ import { Diagram } from '@blink-mind/renderer-react';
 import richTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 
 // @ts-ignore
-import simpleTextEditorMd from './simple-text-editor.md';
+import simpleTextEditorMdZh from './simple-text-editor-zh.md';
 // @ts-ignore
-import richTextEditorMd from './plugin-rich-text-editor.md';
+import simpleTextEditorMdEn from './simple-text-editor-en.md';
+// @ts-ignore
+import richTextEditorMdZh from './plugin-rich-text-editor-zh.md';
+// @ts-ignore
+import richTextEditorMdEn from './plugin-rich-text-editor-en.md';
 
 export class SimpleTopicContentEditorDemo extends BaseDemo {
   renderDiagram() {
@@ -31,10 +35,18 @@ export class RichTextEditorPluginDemo extends BaseDemo {
 
 storiesOf('topic-content-editor-demo', module)
   .add('simple-text-editor', () => <SimpleTopicContentEditorDemo />, {
-    readme: { sidebar: simpleTextEditorMd }
+    notes:{
+      markdown:{
+        en: simpleTextEditorMdEn,
+        zh: simpleTextEditorMdZh
+      }
+    }
   })
   .add('rich-text-editor', () => <RichTextEditorPluginDemo />, {
-    readme: {
-      sidebar: richTextEditorMd
+    notes: {
+      markdown: {
+        en: richTextEditorMdEn,
+        zh: richTextEditorMdZh
+      }
     }
   });

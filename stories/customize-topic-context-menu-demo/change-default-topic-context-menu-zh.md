@@ -1,5 +1,6 @@
-通过编写插件改变系统默认的📧context menu：删除edit menu 项，在第二个位置增加自定义项 
-```javascript
+通过编写插件改变系统默认的 📧context menu：删除edit menu 项，在第二个位置增加自定义项 
+
+```jsx
 function ChangeDefaultTopicContextMenuPlugin() {
   return {
     customizeTopicContextMenu(props, next) {

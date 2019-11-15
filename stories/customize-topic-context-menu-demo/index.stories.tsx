@@ -3,10 +3,25 @@ import { Diagram, OpType } from '@blink-mind/renderer-react';
 import { BaseDemo } from '../common/base-demo';
 import { MenuItem, MenuDivider } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';
+import * as marked from 'marked';
 //@ts-ignore
-import addTopicContextMenuMd from './add-topic-context-menu.md';
+import addTopicContextMenuMdEn from './add-topic-context-menu-en.md';
 //@ts-ignore
-import changeDefaultTopicContextMenuMd from './change-default-topic-context-menu.md';
+import addTopicContextMenuMdZh from './add-topic-context-menu-zh.md';
+//@ts-ignore
+import changeDefaultTopicContextMenuMdZh from './change-default-topic-context-menu-zh.md';
+//@ts-ignore
+import changeDefaultTopicContextMenuMdEn from './change-default-topic-context-menu-en.md';
+
+// const addTopicContextMenuMd = {
+//   en: addTopicContextMenuMdEn,
+//   zh: addTopicContextMenuMdZh
+// };
+
+const addTopicContextMenuMd = [
+  addTopicContextMenuMdEn,
+  addTopicContextMenuMdZh
+];
 
 function onClickMyMenu(props) {
   return function() {
@@ -105,14 +120,23 @@ export class ChangeDefaultTopicContextMenuDemo extends BaseDemo {
 
 storiesOf('customize-topic-context-menu-demo', module)
   .add('add-topic-context-menu', () => <AddTopicContextMenuDemo />, {
-    readme: { sidebar: addTopicContextMenuMd }
+    notes: {
+      markdown:{
+        en: addTopicContextMenuMdEn,
+        zh: addTopicContextMenuMdZh
+      },
+
+    }
   })
   .add(
     'change-default-context-menu',
     () => <ChangeDefaultTopicContextMenuDemo />,
     {
-      readme: {
-        sidebar: changeDefaultTopicContextMenuMd
+      notes: {
+        markdown: {
+          en: changeDefaultTopicContextMenuMdEn,
+          zh: changeDefaultTopicContextMenuMdZh
+        }
       }
     }
   );

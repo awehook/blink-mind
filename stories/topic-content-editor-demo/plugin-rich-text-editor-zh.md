@@ -2,7 +2,7 @@ blink-mind 默认提供的topic editor是一个简单的文本编辑器,不支�
 
 如果想要topic节点以及notes 的文本编辑器支持富文本编辑，可以使用框架提供的plugin-rich-text-editor.
 
-```javascript
+```jsx
 import richTextEditorPlugin from "@blink-mind/plugin-rich-text-editor";
 const plugins = [richTextEditorPlugin()];
 
@@ -22,7 +22,7 @@ export class RichTextEditorPluginDemo extends BaseDemo {
 
 框架提供的plugin-rich-text-editor的代码实现如下：
 
-```javascript
+```jsx
 import * as React from 'react';
 import { TopicContentEditor } from '../components/topic-content-editor';
 import { TopicDescEditor } from '../components/topic-desc-editor';
