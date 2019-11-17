@@ -8,6 +8,7 @@
   "author": "awehook <awehook@163.com>",
   "license": "MIT",
   "scripts": {
+    "prepublish": "yarn build",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages",
