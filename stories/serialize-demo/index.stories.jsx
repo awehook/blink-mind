@@ -11,6 +11,9 @@ import { Dialog, MenuItem, Menu, MenuDivider } from '@blueprintjs/core';
 import { downloadFile } from '../utils';
 import debug from 'debug';
 
+import jsonSerializerMdEn from './json-serializer-en.md';
+import jsonSerializerMdZh from './json-serializer-zh.md';
+
 const log = debug('story:json-serializer');
 
 const ToolBar = styled.div`
@@ -156,5 +159,12 @@ class JsonSerializerDemo extends BaseDemo {
 storiesOf('serializer-demo', module).add(
   'json-serializer',
   () => <JsonSerializerDemo />,
-  {}
+  {
+    notes: {
+      markdown: {
+        en: jsonSerializerMdEn,
+        zh: jsonSerializerMdZh
+      }
+    }
+  }
 );
