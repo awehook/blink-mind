@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BaseDemo } from '../common/base-demo';
-import { Model } from '@blink-mind/core';
 import { Diagram, iconClassName } from '@blink-mind/renderer-react';
 import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
@@ -20,8 +19,6 @@ const ToolBar = styled.div`
   width: calc(100% - 18px);
   height: 36px;
   background: white;
-  //border-bottom: 1px solid #e5e5e5;
-  //box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.15);
 `;
 
 const ToolBarItem = styled.div`

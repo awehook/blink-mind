@@ -13,16 +13,6 @@ import changeDefaultTopicContextMenuMdZh from './change-default-topic-context-me
 //@ts-ignore
 import changeDefaultTopicContextMenuMdEn from './change-default-topic-context-menu-en.md';
 
-// const addTopicContextMenuMd = {
-//   en: addTopicContextMenuMdEn,
-//   zh: addTopicContextMenuMdZh
-// };
-
-const addTopicContextMenuMd = [
-  addTopicContextMenuMdEn,
-  addTopicContextMenuMdZh
-];
-
 function onClickMyMenu(props) {
   return function() {
     const { topicKey, controller, model } = props;
@@ -83,9 +73,7 @@ function ChangeDefaultTopicContextMenuPlugin() {
   return {
     customizeTopicContextMenu(props, next) {
       let defaultMenus = next();
-      console.log(defaultMenus);
       defaultMenus.splice(0, 1);
-      console.log(defaultMenus);
       defaultMenus.splice(
         1,
         0,
@@ -96,7 +84,6 @@ function ChangeDefaultTopicContextMenuPlugin() {
           onClick={onClickMyMenu(props)}
         />
       );
-      console.log(defaultMenus);
       return <>{defaultMenus}</>;
     }
   };

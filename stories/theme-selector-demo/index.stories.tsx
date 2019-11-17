@@ -9,8 +9,6 @@ const ToolBar = styled.div`
   width: calc(100% - 18px);
   height: 36px;
   background: white;
-  //border-bottom: 1px solid #e5e5e5;
-  //box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.15);
 `;
 
 const ToolBarItem = styled.div`

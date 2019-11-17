@@ -9,9 +9,7 @@ function ChangeDefaultTopicContextMenuPlugin() {
   return {
     customizeTopicContextMenu(props, next) {
       let defaultMenus = next();
-      console.log(defaultMenus);
       defaultMenus.splice(0, 1);
-      console.log(defaultMenus);
       defaultMenus.splice(
         1,
         0,
@@ -22,7 +20,6 @@ function ChangeDefaultTopicContextMenuPlugin() {
           onClick={onClickMyMenu(props)}
         />
       );
-      console.log(defaultMenus);
       return <>{defaultMenus}</>;
     }
   };
