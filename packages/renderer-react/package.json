@@ -3,7 +3,7 @@
   "files": [
     "lib/"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -17,6 +17,7 @@
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/select": "^3.11.1",
     "classnames": "^2.2.6",
+    "debug": "^4.1.1",
     "lodash": "^4.17.15",
     "memoize-one": "^5.1.1",
     "react": "^16.10.2",
@@ -24,7 +25,6 @@
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^4.4.0",
     "tiny-invariant": "^1.0.6",
-    "tiny-warning": "^1.0.3",
-    "debug": "^4.1.1"
+    "tiny-warning": "^1.0.3"
   }
 }
