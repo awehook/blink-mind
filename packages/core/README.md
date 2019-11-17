@@ -1,0 +1,1 @@
+The package contains  model definition and the middleware infrastructure of the blink-mind.

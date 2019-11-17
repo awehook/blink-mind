@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { OpType } from '@blink-mind/renderer-react';
+import { OpType } from './operation';
 import {
   FocusMode,
   getRelationship,

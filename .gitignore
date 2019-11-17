@@ -4,3 +4,4 @@ yarn.lock
 .vscode/
 lib/
 storybook-static/
+lerna-debug.log

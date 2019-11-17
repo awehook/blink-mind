@@ -1,8 +1,7 @@
 {
   "name": "@blink-mind/core",
   "files": [
-    "lib/",
-    "src/"
+    "lib/"
   ],
   "main": "lib/main.js",
   "module": "lib/main.es.js",
