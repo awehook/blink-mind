@@ -1,28 +1,34 @@
 import { Model, ModelModifier } from '../../src';
 import { BlockType } from '../../src/types';
+
+function createSimpleModel() {
+  const model = Model.create({
+    rootTopicKey: 'root',
+    topics: [
+      {
+        key: 'root',
+        blocks: [{ type: 'CONTENT', data: 'MainTopic' }],
+        subKeys: ['sub1', 'sub2']
+      },
+      {
+        key: 'sub1',
+        parentKey: 'root',
+        blocks: [{ type: 'CONTENT', data: 'SubTopic1' }],
+        collapse: false
+      },
+      {
+        key: 'sub2',
+        parentKey: 'root',
+        blocks: [{ type: 'CONTENT', data: 'SubTopic2' }],
+      }
+    ]
+  });
+  return model;
+}
+
 describe('Modifier test', () => {
   it('Model create test', () => {
-    const model = Model.create({
-      rootTopicKey: 'root',
-      topics: [
-        {
-          key: 'root',
-          blocks: [{ type: 'CONTENT', data: 'MainTopic' }],
-          subKeys: ['sub1', 'sub2']
-        },
-        {
-          key: 'sub1',
-          parentKey: 'root',
-          blocks: [{ type: 'CONTENT', data: 'SubTopic1' }],
-          collapse: false
-        },
-        {
-          key: 'sub2',
-          parentKey: 'root',
-          blocks: [{ type: 'CONTENT', data: 'SubTopic2' }],
-        }
-      ]
-    });
+    const model = createSimpleModel();
 
     expect(model.rootTopicKey).toBe('root');
     expect(model.editorRootTopicKey).toBe('root');
@@ -36,54 +42,14 @@ describe('Modifier test', () => {
   });
 
   it('Model toPlainObject test', () => {
-    const model = Model.create({
-      rootTopicKey: 'root',
-      topics: [
-        {
-          key: 'root',
-          blocks: [{ type: 'CONTENT', data: 'MainTopic' }],
-          subKeys: ['sub1', 'sub2']
-        },
-        {
-          key: 'sub1',
-          parentKey: 'root',
-          blocks: [{ type: 'CONTENT', data: 'SubTopic1' }],
-          collapse: false
-        },
-        {
-          key: 'sub2',
-          parentKey: 'root',
-          blocks: [{ type: 'CONTENT', data: 'SubTopic2' }],
-        }
-      ]
-    });
+    const model = createSimpleModel();
     const obj = model.toJS();
     const str = JSON.stringify(obj);
     const newModel = Model.create(JSON.parse(str));
   });
 
   it('Model topic  test', () => {
-    const model = Model.create({
-      rootTopicKey: 'root',
-      topics: [
-        {
-          key: 'root',
-          blocks: [{ type: 'CONTENT', data: 'MainTopic' }],
-          subKeys: ['sub1', 'sub2']
-        },
-        {
-          key: 'sub1',
-          parentKey: 'root',
-          blocks: [{ type: 'CONTENT', data: 'SubTopic1' }],
-          collapse: false
-        },
-        {
-          key: 'sub2',
-          parentKey: 'root',
-          blocks: [{ type: 'CONTENT', data: 'SubTopic2' }],
-        }
-      ]
-    });
+    const model = createSimpleModel();
     const topics = model.topics.valueSeq().toArray();
     expect(topics.length).toBe(3);
   });
