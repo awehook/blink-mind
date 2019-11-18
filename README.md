@@ -1,3 +1,5 @@
+<a href="https://github.com/awehook/blink-mind"><img src="https://img.shields.io/github/license/awehook/blink-mind.svg" alt="MIT"/></a>
+[![npm version](https://img.shields.io/npm/v/@blink-mind/core.svg?style=flat)](https://www.npmjs.com/package/@blink-mind/core)
 <p align="center">
   A <em>fully</em> customizable mind map framework based on plugin mechanism.
   Customization of any desired effect can be achieved by writing a plugin based on this framework.
