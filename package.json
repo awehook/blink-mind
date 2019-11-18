@@ -17,7 +17,9 @@
     "test": "lerna run test",
     "lint:ts": "tslint 'packages/**/*.ts{,x}'",
     "lint:fix": "tslint --fix 'packages/**/*.ts{,x}'",
-    "build": "rollup --config rollup.config.js"
+    "build": "rollup --config rollup.config.js",
+    "link-package": "cd support && sh yarn-link.sh link",
+    "unlink-package": "cd support && sh yarn-link.sh unlink"
   },
   "dependencies": {
     "debug": "4.1.1",
