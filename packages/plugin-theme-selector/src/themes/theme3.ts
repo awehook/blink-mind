@@ -1,9 +1,9 @@
 import { ThemeType } from '@blink-mind/core';
 
-export const theme1: ThemeType = {
-  name: 'theme1',
+export const theme3: ThemeType = {
+  name: 'theme3',
   randomColor: false,
-  background: 'rgb(250,245,205)',
+  background: '#A9DEF9',
   highlightColor: '#50C9CE',
   marginH: 60,
   marginV: 60,
@@ -13,43 +13,49 @@ export const theme1: ThemeType = {
   bold: false,
   italic: false,
   textAlign: 'left',
+
   rootTopic: {
-    background: 'rgb(221, 170, 68)',
+    background: '#FF99C8',
     color: '#fff',
     fontSize: '34px',
     borderRadius: '5px',
-    padding: '16px 18px 16px 18px'
+    padding: '16px 18px 16px 18px',
+    linkStyle: {
+      lineType: 'curve',
+      lineWidth: 2,
+      lineColor: 'rgb(113, 203, 45)'
+    }
   },
   primaryTopic: {
-    background: '#e8eaec',
+    background: '#FCF6BD',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: 'rgb(221, 170, 68)',
+    borderColor: '#E4C1F9',
     borderRadius: '5px',
-    color: '#ffffff',
-    fontSize: '17px',
-    padding: '10px 15px 10px 15px',
+    color: 'rgb(103,103,103)',
+    fontSize: '14px',
+    padding: '6px 10px 5px 10px',
 
     linkStyle: {
       lineType: 'curve',
       lineWidth: 2,
-      lineColor: 'rgb(187, 136, 34)'
+      lineColor: '#43a9ff'
     }
   },
 
   normalTopic: {
-    background: '#fff',
-    border: '1px solid #e8eaec',
-    borderRadius: '20px',
-    color: 'rgb(187, 136, 34)',
+    background: '#E4FDE1',
+    borderRadius: '5px',
+    color: 'rgb(103,103,103)',
     fontSize: '13px',
-    padding: '4px 10px',
+    padding: '3px 9px 4px',
+    boxShadow: '1px 1px 1px #ccc',
 
     linkStyle: {
       lineType: 'round',
       lineRadius: 5,
       lineWidth: 1,
-      lineColor: 'rgb(187, 136, 34)'
+      lineColor: '#43a9ff'
     }
   }
 };

@@ -13,11 +13,6 @@ export const defaultTheme: ThemeType = {
   bold: false,
   italic: false,
   textAlign: 'left',
-  linkStyle: {
-    lineWidth: 2,
-    lineColor: 'orange',
-    color: '#ffffff'
-  },
   rootTopic: {
     background: '#ff8200',
     color: '#fff',

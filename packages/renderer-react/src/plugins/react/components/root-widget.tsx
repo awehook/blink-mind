@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { DiagramLayoutType, KeyType, TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import { BaseProps } from '../../../components/base-props';
-import { TopicSubLinks } from './topic-sublinks';
+import { TopicSubLinks } from './topic-sub-links';
 import { linksRefKey, topicRefKey } from '../../../utils';
 
 const log = debug('RootNode');

@@ -76,6 +76,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         ...props,
         topicKey: key
       });
+
       const rect = getRef(contentRefKey(key)).getBoundingClientRect();
       if (dir === TopicDirection.RIGHT) {
         p3 = {
@@ -89,10 +90,26 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
           y: centerY(rect) - svgRect.top
         };
       }
-      curve = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y} C ${p2.x} ${centerPointY(
-        p2,
-        p3
-      )} ${centerPointX(p2, p3)} ${p3.y} ${p3.x} ${p3.y}`;
+      if (linkStyle.lineType === 'curve') {
+        curve = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y} C ${p2.x} ${centerPointY(
+          p2,
+          p3
+        )} ${centerPointX(p2, p3)} ${p3.y} ${p3.x} ${p3.y}`;
+      } else if (linkStyle.lineType === 'round') {
+        const vDir = (p3.y - p1.y) / Math.abs(p3.y - p1.y);
+        const hDir = dir === TopicDirection.RIGHT ? 1 : -1;
+        const radius = linkStyle.lineRadius;
+        if (p3.y === p1.y) {
+          curve = `M ${p1.x} ${p1.y} H ${p3.x}`;
+        } else {
+          // 0 表示逆时针 1 表示顺时针
+          curve = `M ${p1.x} ${p1.y} H ${p2.x} V ${p3.y -
+            vDir * radius} A ${radius} ${radius} 0 0 ${
+            vDir * hDir === 1 ? 0 : 1
+          } ${p2.x + radius * hDir} ${p3.y} H ${p3.x}`;
+        }
+      }
+
       curves.push(
         <path
           key={`link-${key}`}

@@ -1,10 +1,14 @@
 import { ThemeType, defaultTheme, ModelModifier } from '@blink-mind/core';
 import { theme1 } from '../themes';
+import { theme2 } from '../themes';
+import { theme3 } from '../themes';
 
 export function ThemeSelectorPlugin() {
   const themeMap = new Map<string, ThemeType>([
     ['default', defaultTheme],
-    ['theme1', theme1]
+    ['theme1', theme1],
+    ['theme2', theme2],
+    ['theme3', theme3]
   ]);
   let currentThemeKey: string = null;
   return {

@@ -2,6 +2,7 @@ export type LinkStyle = {
   lineType?: string;
   lineWidth?: number;
   lineColor?: string;
+  lineRadius?: number;
 };
 
 export type TopicStyle = {

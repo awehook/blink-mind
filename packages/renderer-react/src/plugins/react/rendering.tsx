@@ -7,7 +7,7 @@ import { TopicWidget } from './components/topic-widget';
 import { TopicContextMenu } from './components/topic-context-menu';
 import { TopicCollapseIcon } from './components/topic-collapse-icon';
 import { StyleEditor } from './components/style-editor/style-editor';
-import { TopicSubLinks } from './components/topic-sublinks';
+import { TopicSubLinks } from './components/topic-sub-links';
 import { RootSubLinks } from './components/root-sublinks';
 import { linksRefKey } from '../../utils';
 import { TopicHighlight } from './components/topic-highlight';

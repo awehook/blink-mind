@@ -39,7 +39,7 @@ const DiagramContainer = styled.div`
 
 const plugins = [ThemeSelectorPlugin()];
 class ThemeSelectorDemo extends BaseDemo {
-  themeIndex = 0;
+  themeIndex = 1;
   onClickChangeTheme = () => {
     const props = this.diagram.getDiagramProps();
     const { controller } = props;
