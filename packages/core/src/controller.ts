@@ -47,7 +47,7 @@ function compose(middleware) {
       try {
         return fn(context, dispatch.bind(null, i + 1));
       } catch (err) {
-        return err;
+        throw err;
       }
     }
   };

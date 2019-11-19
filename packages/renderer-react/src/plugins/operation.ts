@@ -1,5 +1,5 @@
-import { ModelModifier, BlockType, FocusMode } from '@blink-mind/core';
-import { List } from 'immutable';
+import { ModelModifier, BlockType, FocusMode, Model } from '@blink-mind/core';
+import { List, Stack } from 'immutable';
 import debug from 'debug';
 const log = debug('plugin:operation');
 export const OpType = {
@@ -116,15 +116,118 @@ export function OperationPlugin() {
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop]
   ]);
+
+  let undoStack = Stack<Model>();
+  let redoStack = Stack<Model>();
+
   return {
+    getAllowUndo(props) {
+      const { model, opType } = props;
+      if (opType) {
+        switch (opType) {
+          case OpType.FOCUS_TOPIC:
+          case OpType.START_EDITING_CONTENT:
+            return false;
+          default:
+            break;
+        }
+      }
+      return model.config.allowUndo;
+    },
+
+    getUndoRedoStack() {
+      return {
+        undoStack,
+        redoStack
+      };
+    },
+
+    setUndoStack(props) {
+      log('setUndoStack', props.undoStack);
+      undoStack = props.undoStack;
+    },
+
+    setRedoStack(props) {
+      log('setRedoStack', props.redoStack);
+      redoStack = props.redoStack;
+    },
+
+    canUndo(props) {
+      const { controller } = props;
+      const { undoStack } = controller.run('getUndoRedoStack', props);
+      const allowUndo = controller.run('getAllowUndo', props);
+      return undoStack.size > 0 && allowUndo;
+    },
+
+    canRedo(props) {
+      const { controller } = props;
+      const { redoStack } = controller.run('getUndoRedoStack', props);
+      const allowUndo = controller.run('getAllowUndo', props);
+      return redoStack.size > 0 && allowUndo;
+    },
+
+    undo(props) {
+      const { controller, model } = props;
+      if (!controller.run('getAllowUndo', props)) {
+        return;
+      }
+      const { undoStack, redoStack } = controller.run(
+        'getUndoRedoStack',
+        props
+      );
+      const newModel = undoStack.peek();
+      if (!newModel) return;
+      controller.run('setUndoStack', {
+        ...props,
+        undoStack: undoStack.shift()
+      });
+      controller.run('setRedoStack', {
+        ...props,
+        redoStack: redoStack.push(model)
+      });
+      log(newModel);
+      controller.change(newModel);
+    },
+
+    redo(props) {
+      const { controller, model } = props;
+      if (!controller.run('getAllowUndo', props)) {
+        return;
+      }
+      const { undoStack, redoStack } = controller.run(
+        'getUndoRedoStack',
+        props
+      );
+      const newModel = redoStack.peek();
+      if (!newModel) return;
+      controller.run('setUndoStack', {
+        ...props,
+        undoStack: undoStack.push(model)
+      });
+      controller.run('setRedoStack', {
+        ...props,
+        redoStack: redoStack.shift()
+      });
+      controller.change(newModel);
+    },
+
     beforeOperation(props) {},
     operation(props) {
-      const { opType, controller } = props;
+      const { opType, controller, model } = props;
       log('operation:', opType);
       controller.run('beforeOperation', props);
       if (OpMap.has(opType)) {
+        if (controller.run('getAllowUndo', props)) {
+          const { undoStack } = controller.run('getUndoRedoStack', props);
+          controller.run('setUndoStack', {
+            ...props,
+            undoStack: undoStack.push(model)
+          });
+        }
+
         const opFunc = OpMap.get(opType);
-        controller.change(opFunc(props));
+        const newModel = opFunc(props);
+        controller.change(newModel);
       }
       controller.run('afterOperation', props);
     },

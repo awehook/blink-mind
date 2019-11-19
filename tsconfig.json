@@ -21,6 +21,6 @@
       "@blink-mind/plugin-theme-selector": ["packages/plugin-theme-selector/src"]
     }
   },
-  "include": ["packages/*/src"],
-  "exclude": ["stories/", "node_modules", "**/*.spec.ts", "./dist"]
+  "include": ["packages/*/src","stories/"],
+  "exclude": [ "node_modules", "**/*.spec.ts", "./dist"]
 }

@@ -4,12 +4,14 @@ import { ThemeType, defaultTheme } from '../configs/theme';
 
 type ConfigRecordType = {
   readOnly?: boolean;
+  allowUndo?: boolean;
   layoutDir?: DiagramLayoutType;
   theme?: ThemeType;
 };
 
 const defaultConfigRecord: ConfigRecordType = {
   readOnly: false,
+  allowUndo: true,
   layoutDir: DiagramLayoutType.LEFT_AND_RIGHT,
   theme: defaultTheme
 };
@@ -21,6 +23,10 @@ export class Config extends Record(defaultConfigRecord) {
 
   get readOnly(): boolean {
     return this.get('readOnly');
+  }
+
+  get allowUndo(): boolean {
+    return this.get('allowUndo');
   }
 
   get theme(): ThemeType {
