@@ -11,7 +11,7 @@ import { TopicDropEffect } from './react/components/topic-drop-effect';
 import { contentRefKey } from '../utils';
 const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
-  height: 20px;
+  height: ${props => `${props.height}px`};
   width: 100%;
   margin: 5px 0px;
 `;
@@ -23,7 +23,7 @@ export function DragAndDrop() {
 
   return {
     renderTopicDropArea(props) {
-      const { topicKey, dropDir, saveRef, controller } = props;
+      const { topicKey, dropDir, saveRef, controller, model } = props;
       const onDragEnter = ev => {
         log('onDragEnter', topicKey, dropDir);
         controller.run('handleTopicDragEnter', { ...props, ev, dropDir });
@@ -47,6 +47,7 @@ export function DragAndDrop() {
       };
       return (
         <DropArea
+          height={model.config.theme.marginV / 2}
           ref={saveRef(`dropArea-${dropDir}-${topicKey}`)}
           {...eventHandlers}
         />

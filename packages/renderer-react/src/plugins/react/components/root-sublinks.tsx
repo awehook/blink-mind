@@ -56,6 +56,7 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         ...props,
         topicKey: key
       });
+      const lineType = style.linkStyle.lineType;
       const rect = getRef(contentRefKey(key)).getBoundingClientRect();
       if (rect.left > contentRect.right) {
         p2 = {
@@ -69,10 +70,15 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         };
       }
       p2 = { x: p2.x - svgRect.left, y: p2.y - svgRect.top };
-      const curve = `M ${p1.x} ${p1.y} C ${p1.x} ${centerPointY(
-        p1,
-        p2
-      )} ${centerPointX(p1, p2)} ${p2.y} ${p2.x} ${p2.y}`;
+      let curve;
+      if (lineType === 'curve') {
+        curve = `M ${p1.x} ${p1.y} C ${p1.x} ${centerPointY(
+          p1,
+          p2
+        )} ${centerPointX(p1, p2)} ${p2.y} ${p2.x} ${p2.y}`;
+      } else if (lineType === 'line') {
+        curve = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
+      }
       curves.push(
         <path
           key={`link-${key}`}

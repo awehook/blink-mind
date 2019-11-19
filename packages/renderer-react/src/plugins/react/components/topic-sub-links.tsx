@@ -90,12 +90,13 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
           y: centerY(rect) - svgRect.top
         };
       }
-      if (linkStyle.lineType === 'curve') {
+      const { lineType } = linkStyle;
+      if (lineType === 'curve') {
         curve = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y} C ${p2.x} ${centerPointY(
           p2,
           p3
         )} ${centerPointX(p2, p3)} ${p3.y} ${p3.x} ${p3.y}`;
-      } else if (linkStyle.lineType === 'round') {
+      } else if (lineType === 'round') {
         const vDir = (p3.y - p1.y) / Math.abs(p3.y - p1.y);
         const hDir = dir === TopicDirection.RIGHT ? 1 : -1;
         const radius = linkStyle.lineRadius;
@@ -108,6 +109,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
             vDir * hDir === 1 ? 0 : 1
           } ${p2.x + radius * hDir} ${p3.y} H ${p3.x}`;
         }
+      } else if (lineType === 'line') {
+        curve = `M ${p1.x} ${p1.y} H ${p2.x} L ${p3.x} ${p3.y}`;
       }
 
       curves.push(

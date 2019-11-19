@@ -26,9 +26,6 @@ export type ThemeType = {
   marginH: number;
   marginV: number;
 
-  subMarginH: number;
-  subMarginV: number;
-
   fontFamily: string;
   bold: boolean;
   italic: boolean;

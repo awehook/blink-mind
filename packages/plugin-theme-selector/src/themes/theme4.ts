@@ -1,18 +1,19 @@
 import { ThemeType } from '@blink-mind/core';
 
-export const theme2: ThemeType = {
-  name: 'theme2',
+export const theme4: ThemeType = {
+  name: 'theme3',
   randomColor: false,
-  background: '#f8f8f8',
+  background: '#A9DEF9',
   highlightColor: '#50C9CE',
-  marginH: 45,
-  marginV: 10,
+  marginH: 50,
+  marginV: 20,
   fontFamily: '',
   bold: false,
   italic: false,
   textAlign: 'left',
+
   rootTopic: {
-    background: '#50C18A',
+    background: '#FF99C8',
     color: '#fff',
     fontSize: '34px',
     borderRadius: '5px',
@@ -24,24 +25,24 @@ export const theme2: ThemeType = {
     }
   },
   primaryTopic: {
-    background: '#ffffff',
+    background: '#FCF6BD',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: 'rgb(221, 170, 68)',
+    borderColor: '#E4C1F9',
     borderRadius: '5px',
     color: 'rgb(103,103,103)',
     fontSize: '14px',
     padding: '6px 10px 5px 10px',
 
     linkStyle: {
-      lineType: 'curve',
+      lineType: 'line',
       lineWidth: 2,
       lineColor: '#43a9ff'
     }
   },
 
   normalTopic: {
-    background: '#fff',
+    background: '#E4FDE1',
     borderRadius: '5px',
     color: 'rgb(103,103,103)',
     fontSize: '13px',
@@ -49,7 +50,7 @@ export const theme2: ThemeType = {
     boxShadow: '1px 1px 1px #ccc',
 
     linkStyle: {
-      lineType: 'round',
+      lineType: 'line',
       lineRadius: 5,
       lineWidth: 1,
       lineColor: '#43a9ff'
