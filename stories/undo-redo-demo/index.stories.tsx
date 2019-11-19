@@ -2,7 +2,6 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BaseDemo } from '../common/base-demo';
 import { Diagram, iconClassName } from '@blink-mind/renderer-react';
-import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
 import styled from 'styled-components';
 
 const ToolBar = styled.div`

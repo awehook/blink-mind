@@ -37,7 +37,7 @@ export function generateSimpleModel() {
       {
         key: 'sub2_1',
         parentKey: 'sub2',
-        blocks: [{ type: 'CONTENT', data: 'SubTopic2' }],
+        blocks: [{ type: 'CONTENT', data: 'SubTopic' }],
         collapse: false
       },
       {
