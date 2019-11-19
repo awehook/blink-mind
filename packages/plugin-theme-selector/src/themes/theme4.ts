@@ -3,7 +3,7 @@ import { ThemeType } from '@blink-mind/core';
 export const theme4: ThemeType = {
   name: 'theme3',
   randomColor: false,
-  background: '#A9DEF9',
+  background: '#CCFBFE',
   highlightColor: '#50C9CE',
   marginH: 50,
   marginV: 20,
@@ -13,7 +13,7 @@ export const theme4: ThemeType = {
   textAlign: 'left',
 
   rootTopic: {
-    background: '#FF99C8',
+    background: '#CD8987',
     color: '#fff',
     fontSize: '34px',
     borderRadius: '5px',
@@ -25,7 +25,7 @@ export const theme4: ThemeType = {
     }
   },
   primaryTopic: {
-    background: '#FCF6BD',
+    background: '#CDACA1',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: '#E4C1F9',
@@ -42,7 +42,7 @@ export const theme4: ThemeType = {
   },
 
   normalTopic: {
-    background: '#E4FDE1',
+    background: '#CDCACC',
     borderRadius: '5px',
     color: 'rgb(103,103,103)',
     fontSize: '13px',

@@ -13,7 +13,7 @@ import {
 
 import debug from 'debug';
 import { contentRefKey, linksSvgRefKey } from '../../../utils';
-const SVG = styled.svg`
+const RootLinksSvg = styled.svg`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -56,7 +56,8 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         ...props,
         topicKey: key
       });
-      const lineType = style.linkStyle.lineType;
+      const { linkStyle } = style;
+      const lineType = linkStyle.lineType;
       const rect = getRef(contentRefKey(key)).getBoundingClientRect();
       if (rect.left > contentRect.right) {
         p2 = {
@@ -78,6 +79,24 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         )} ${centerPointX(p1, p2)} ${p2.y} ${p2.x} ${p2.y}`;
       } else if (lineType === 'line') {
         curve = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
+      } else if (lineType === 'round') {
+        const vDir = p2.y > p1.y ? 1 : -1;
+        const hDir = p2.x > p1.x ? 1 : -1;
+        const radius = linkStyle.lineRadius;
+        if (radius == null) {
+          throw new Error(
+            'link line type is round, but lineRadius is not provided!'
+          );
+        }
+        if (p2.y === p1.y) {
+          curve = `M ${p1.x} ${p1.y} H ${p2.x}`;
+        } else {
+          // 0 表示逆时针 1 表示顺时针
+          curve = `M ${p1.x} ${p1.y}  V ${p2.y -
+            vDir * radius} A ${radius} ${radius} 0 0 ${
+            vDir * hDir === 1 ? 0 : 1
+          } ${p1.x + radius * hDir} ${p2.y} H ${p2.x}`;
+        }
       }
       curves.push(
         <path
@@ -97,9 +116,9 @@ export class RootSubLinks extends BaseWidget<Props, State> {
   render() {
     const { topicKey, saveRef } = this.props;
     return (
-      <SVG ref={saveRef(linksSvgRefKey(topicKey))}>
+      <RootLinksSvg ref={saveRef(linksSvgRefKey(topicKey))}>
         <g>{this.state.curves}</g>
-      </SVG>
+      </RootLinksSvg>
     );
   }
 }

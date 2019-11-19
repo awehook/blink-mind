@@ -173,6 +173,12 @@ function setTheme({ model, theme }: IModifierArg): IModifierResult {
   return model;
 }
 
+function setLayoutDir({ model, layoutDir }: IModifierArg): IModifierResult {
+  if (model.config.layoutDir === layoutDir) return model;
+  model = model.setIn(['config', 'layoutDir'], layoutDir);
+  return model;
+}
+
 export default {
   addChild,
   addSibling,
@@ -182,5 +188,6 @@ export default {
   setContent,
   setDesc,
   setStyle,
-  setTheme
+  setTheme,
+  setLayoutDir
 };

@@ -12,7 +12,7 @@ import {
 } from '../../../utils';
 
 import { collapseRefKey, contentRefKey, linksSvgRefKey } from '../../../utils';
-const SVG = styled.svg`
+const TopicLinksSvg = styled.svg`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -97,8 +97,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
           p3
         )} ${centerPointX(p2, p3)} ${p3.y} ${p3.x} ${p3.y}`;
       } else if (lineType === 'round') {
-        const vDir = (p3.y - p1.y) / Math.abs(p3.y - p1.y);
-        const hDir = dir === TopicDirection.RIGHT ? 1 : -1;
+        const vDir = p3.y > p1.y ? 1 : -1;
+        const hDir = p3.x > p1.x ? 1 : -1;
         const radius = linkStyle.lineRadius;
         if (p3.y === p1.y) {
           curve = `M ${p1.x} ${p1.y} H ${p3.x}`;
@@ -131,11 +131,11 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
   }
 
   render() {
-    const { model, topicKey, saveRef } = this.props;
+    const { topicKey, saveRef } = this.props;
     return (
-      <SVG ref={saveRef(linksSvgRefKey(topicKey))}>
+      <TopicLinksSvg ref={saveRef(linksSvgRefKey(topicKey))}>
         <g>{this.state.curves}</g>
-      </SVG>
+      </TopicLinksSvg>
     );
   }
 }

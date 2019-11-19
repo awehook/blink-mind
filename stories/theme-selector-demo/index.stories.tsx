@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BaseDemo } from '../common/base-demo';
-import { Diagram, iconClassName } from '@blink-mind/renderer-react';
+import { Diagram, iconClassName, Icon } from '@blink-mind/renderer-react';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
+import { Popover, Menu, MenuItem } from '@blueprintjs/core';
 import styled from 'styled-components';
+import { DiagramLayoutType } from '@blink-mind/core';
 
 const ToolBar = styled.div`
   width: calc(100% - 18px);
@@ -16,9 +18,10 @@ const ToolBarItem = styled.div`
   width: 36px;
   height: 36px;
   cursor: pointer;
+  display: inline-block;
 `;
 
-const Icon = styled.div`
+const ToolBarIcon = styled.div`
   width: 26px;
   height: 26px;
   font-size: 26px !important;
@@ -45,16 +48,48 @@ class ThemeSelectorDemo extends BaseDemo {
     const { controller } = props;
     let themeKeys = controller.run('getAllThemes', props).keys();
     themeKeys = Array.from(themeKeys);
-    controller.run('selectTheme', {
+    controller.run('setTheme', {
       ...props,
       themeKey: themeKeys[this.themeIndex++ % themeKeys.length]
     });
   };
+  onClickSetLayout = layoutDir => e => {
+    const props = this.diagram.getDiagramProps();
+    const { controller } = props;
+    controller.run('setLayoutDir', {
+      ...props,
+      layoutDir
+    });
+  };
   renderToolbar() {
+    const layoutDirs = [
+      [
+        DiagramLayoutType.LEFT_AND_RIGHT,
+        'Left And Right',
+        'layout-left-and-right'
+      ],
+      [DiagramLayoutType.LEFT_TO_RIGHT, 'Only Right', 'layout-right'],
+      [DiagramLayoutType.RIGHT_TO_LEFT, 'Only Left', 'layout-left']
+    ];
     return (
       <ToolBar>
         <ToolBarItem onClick={this.onClickChangeTheme}>
-          <Icon className={iconClassName('theme')} />
+          <ToolBarIcon className={iconClassName('theme')} />
+        </ToolBarItem>
+        <ToolBarItem>
+          <Popover enforceFocus={false}>
+            <ToolBarIcon className={iconClassName('layout-left-and-right')} />
+            <Menu>
+              {layoutDirs.map(dir => (
+                <MenuItem
+                  key={dir[1]}
+                  icon={Icon(dir[2])}
+                  text={dir[1]}
+                  onClick={this.onClickSetLayout(dir[0])}
+                />
+              ))}
+            </Menu>
+          </Popover>
         </ToolBarItem>
       </ToolBar>
     );

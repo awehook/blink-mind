@@ -18,12 +18,12 @@ export function ThemeSelectorPlugin() {
       return themeMap;
     },
 
-    selectTheme(props) {
+    setTheme(props) {
       const { model, controller, themeKey } = props;
       currentThemeKey = themeKey;
       const allTheme = controller.run('getAllThemes', props);
       if (!allTheme.has(themeKey)) {
-        throw new Error('selectTheme: the theme key is not correct!');
+        throw new Error('setTheme: the theme key is not correct!');
       }
       const theme = allTheme.get(themeKey);
       const newModel = ModelModifier.setTheme({ model, theme });

@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { DiagramLayoutType, Model, KeyType } from '@blink-mind/core';
+import {
+  DiagramLayoutType,
+  Model,
+  KeyType,
+  ModelModifier
+} from '@blink-mind/core';
 import { TopicWidget } from './react/components/topic-widget';
 import { linksRefKey } from '../utils';
 
@@ -59,6 +64,11 @@ export function LayoutPlugin() {
       links && links.layout();
       highlight && highlight.layout();
       dropEffect && dropEffect.layout();
+    },
+
+    setLayoutDir(props) {
+      const { layoutDir, model, controller } = props;
+      controller.change(ModelModifier.setLayoutDir({ model, layoutDir }));
     }
   };
 }

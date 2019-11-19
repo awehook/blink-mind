@@ -7,6 +7,7 @@ const NodeLayer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  padding: 5px;
 `;
 
 const DIV = styled.div`
