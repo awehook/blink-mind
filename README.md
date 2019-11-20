@@ -5,7 +5,11 @@
   Customization of any desired effect can be achieved by writing a plugin based on this framework.
 </p>
 
-### [Online Demo](https://awehook.github.io/blink-mind/)
+### [Full-featured app based on this library](https://awehook.github.io/react-mindmap)
+
+The app's github repo is https://github.com/awehook/react-mindmap
+
+### [Multiple online demo of specific features](https://awehook.github.io/blink-mind/)
 
 
 ### Design Ideas
