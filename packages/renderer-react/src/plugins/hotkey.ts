@@ -1,4 +1,4 @@
-import { OpType } from './operation';
+import { OpType } from '@blink-mind/core';
 
 export interface HotKeyConfig {
   combo: string;

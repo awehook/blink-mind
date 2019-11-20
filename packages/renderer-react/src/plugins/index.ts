@@ -5,6 +5,7 @@ import { StylePlugin } from './style';
 import { EventPlugin } from './event';
 import { HotKeyPlugin } from './hotkey';
 import { DragAndDrop } from './drag-and-drop';
+import SimpleTextEditorPlugin from '@blink-mind/plugin-simple-text-editor';
 
 export function DefaultPlugin() {
   return [
@@ -14,6 +15,7 @@ export function DefaultPlugin() {
     StylePlugin(),
     EventPlugin(),
     HotKeyPlugin(),
-    DragAndDrop()
+    DragAndDrop(),
+    SimpleTextEditorPlugin()
   ];
 }

@@ -1,5 +1,4 @@
-import { OpType } from './operation';
-import { FocusMode } from '@blink-mind/core';
+import { FocusMode, OpType } from '@blink-mind/core';
 
 import debug from 'debug';
 

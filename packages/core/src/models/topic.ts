@@ -81,7 +81,7 @@ export class Topic extends Record(defaultTopicRecord) {
   static create({
     key,
     parentKey = null,
-    content = 'new node',
+    content = '',
     subKeys = [],
     collapse = false
   }: CreateTopicArg): Topic {

@@ -35,8 +35,8 @@ export class RichTextEditorPluginDemo extends BaseDemo {
 
 storiesOf('topic-content-editor-demo', module)
   .add('simple-text-editor', () => <SimpleTopicContentEditorDemo />, {
-    notes:{
-      markdown:{
+    notes: {
+      markdown: {
         en: simpleTextEditorMdEn,
         zh: simpleTextEditorMdZh
       }

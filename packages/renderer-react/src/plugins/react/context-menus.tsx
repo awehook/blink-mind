@@ -1,4 +1,4 @@
-import { OpType } from '../operation';
+import { OpType } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import { Icon } from '../../utils';
 import * as React from 'react';

@@ -1,11 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { ContextMenuTarget } from '@blueprintjs/core';
-import { TopicDirection, KeyType, TopicVisualLevel } from '@blink-mind/core';
+import { TopicDirection, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../../components/base-props';
 import debug from 'debug';
 import { BaseWidget } from '../../../components/common';
-import { OpType } from '../../operation';
 import { collapseRefKey, contentRefKey } from '../../../utils';
 
 const log = debug('node:topic-content-widget');
@@ -175,7 +174,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
           onContextMenu={this.onContextMenu}
           {...dropEventHandlers}
         >
-          {controller.run('renderBlocks', props)}
+          {controller.run('renderTopicBlocks', props)}
           {showPopMenu &&
             controller.run('renderTopicPopupMenu', {
               ...props,

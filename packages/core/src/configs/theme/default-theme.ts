@@ -13,7 +13,6 @@ export const defaultTheme: ThemeType = {
   textAlign: 'left',
   rootTopic: {
     background: '#ff8200',
-    color: '#fff',
     fontSize: '34px',
     borderRadius: '35px',
     padding: '16px 18px 16px 18px'

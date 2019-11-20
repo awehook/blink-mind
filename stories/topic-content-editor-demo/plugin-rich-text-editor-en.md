@@ -3,11 +3,10 @@ The topic editor provided by blink-mind by default is a simple text editor that 
 If you want the topic editor and the notes editor to support rich text editing, you can use the plugin-rich-text-editor provided by the framework.
 
 ```jsx
-import richTextEditorPlugin from "@blink-mind/plugin-rich-text-editor";
+import richTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 const plugins = [richTextEditorPlugin()];
 
 export class RichTextEditorPluginDemo extends BaseDemo {
-
   renderDiagram() {
     return (
       <Diagram

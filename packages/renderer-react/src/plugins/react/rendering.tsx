@@ -15,9 +15,7 @@ import { SaveRef } from '../../components/common';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { Modals } from './components/modals';
 import { TopicDescIcon } from './components/topic-desc-icon';
-import { SimpleTopicContentEditor } from './components/simple-topic-content-editor';
 import { ModalBody, ModalDescEditor } from './components/modal-body';
-import { SimpleTopicDescEditor } from './components/simple-topic-desc-editor';
 import Theme from './theme';
 import { customizeTopicContextMenu } from './context-menus';
 import debug from 'debug';
@@ -126,21 +124,11 @@ export function RenderingPlugin() {
 
     customizeTopicContextMenu,
 
-    renderTopicContentEditor(props) {
-      log('renderTopicContentEditor', props);
-      // return <TopicContentEditor {...props} />;
-      return <SimpleTopicContentEditor {...props} />;
-    },
-
-    renderTopicDescEditor(props) {
-      return <SimpleTopicDescEditor {...props} />;
-    },
-
     renderTopicCollapseIcon(props) {
       return <TopicCollapseIcon {...props} />;
     },
 
-    renderBlocks(props) {
+    renderTopicBlocks(props) {
       const { model, topicKey, controller } = props;
       const topic = model.getTopic(topicKey);
       const blocks = topic.blocks;

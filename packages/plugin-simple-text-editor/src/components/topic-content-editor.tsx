@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { RichTextEditor } from './rich-text-editor';
+import { SimpleTextEditor } from './simple-text-editor';
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 
-export class TopicContentEditor extends RichTextEditor {
+export class TopicContentEditor extends SimpleTextEditor {
   getCustomizeProps = () => {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
@@ -15,17 +15,31 @@ export class TopicContentEditor extends RichTextEditor {
       placeholder: ' '
     };
   };
-  onChange = (value: () => string) => {
-    this.operation(OpType.SET_TOPIC_CONTENT, {
+  onChange = value => {
+    const { controller, topicKey } = this.props;
+    if (value.value.selection.isBlurred) {
+      controller.run('operation', {
+        ...this.props,
+        opType: OpType.FOCUS_TOPIC,
+        topicKey: topicKey,
+        focusMode: FocusMode.NORMAL
+      });
+      return;
+    }
+
+    controller.run('operation', {
       ...this.props,
+      opType: OpType.SET_TOPIC_CONTENT,
       content: value
     });
   };
 
   onBlur = (value, editor, next) => {
-    const { topicKey } = this.props;
-    this.operation(OpType.FOCUS_TOPIC, {
+    next();
+    const { controller, topicKey } = this.props;
+    controller.run('operation', {
       ...this.props,
+      opType: OpType.FOCUS_TOPIC,
       topicKey: topicKey,
       focusMode: FocusMode.NORMAL
     });

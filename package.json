@@ -22,7 +22,7 @@
     "unlink-package": "cd support && sh yarn-link.sh unlink"
   },
   "dependencies": {
-    "debug": "4.1.1",
+    "debug": "^3.1.0",
     "@blueprintjs/core": "^3.19.1"
   },
   "devDependencies": {

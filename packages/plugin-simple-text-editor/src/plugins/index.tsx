@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { TopicContentEditor } from '../components/topic-content-editor';
 import { TopicDescEditor } from '../components/topic-desc-editor';
-import markdownSerializer from '../markdown-serializer';
+import plainSerializer from 'slate-plain-serializer';
 import { BlockType } from '@blink-mind/core';
-export default function RichTextEditorPlugin() {
+export default function SimpleTextEditorPlugin() {
   return {
     renderTopicContentEditor(props) {
       return <TopicContentEditor {...props} />;
@@ -29,7 +29,7 @@ export default function RichTextEditorPlugin() {
       if (block.type === BlockType.CONTENT || block.type === BlockType.DESC) {
         return typeof block.data === 'string'
           ? block.data
-          : markdownSerializer.serialize(block.data);
+          : plainSerializer.serialize(block.data);
       }
       return next();
     },

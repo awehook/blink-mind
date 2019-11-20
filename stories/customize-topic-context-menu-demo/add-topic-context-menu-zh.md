@@ -1,6 +1,6 @@
-通过编写插件在系统默认的📧context menu 基础上增加内容
+通过编写插件在系统默认的 📧context menu 基础上增加内容
 
-下面的例子演示增加一个menu项, 点击这个menu 弹出提示当前topic 的key 和 style
+下面的例子演示增加一个 menu 项, 点击这个 menu 弹出提示当前 topic 的 key 和 style
 
 ```jsx
 function onClickMyMenu(props) {

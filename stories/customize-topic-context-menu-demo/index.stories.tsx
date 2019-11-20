@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Diagram, OpType } from '@blink-mind/renderer-react';
+import { Diagram } from '@blink-mind/renderer-react';
 import { BaseDemo } from '../common/base-demo';
 import { MenuItem, MenuDivider } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';
@@ -108,11 +108,10 @@ export class ChangeDefaultTopicContextMenuDemo extends BaseDemo {
 storiesOf('customize-topic-context-menu-demo', module)
   .add('add-topic-context-menu', () => <AddTopicContextMenuDemo />, {
     notes: {
-      markdown:{
+      markdown: {
         en: addTopicContextMenuMdEn,
         zh: addTopicContextMenuMdZh
-      },
-
+      }
     }
   })
   .add(

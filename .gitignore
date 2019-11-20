@@ -1,7 +1,7 @@
 node_modules/
-yarn.lock
 .idea/
 .vscode/
 lib/
 storybook-static/
 lerna-debug.log
+yarn-error.log

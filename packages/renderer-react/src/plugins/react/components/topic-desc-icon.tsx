@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { iconClassName, IconName } from '../../../utils';
-import { OpType } from '../../operation';
-import { BlockType } from '@blink-mind/core';
+import { BlockType, OpType } from '@blink-mind/core';
 import styled from 'styled-components';
 
 const DescIcon = styled.div`
@@ -19,6 +18,8 @@ export function TopicDescIcon(props) {
     });
   };
   const desc = model.getTopic(topicKey).getBlock(BlockType.DESC);
+  if (controller.run('isBlockEmpty', { ...props, block: desc.block }))
+    return null;
   return (
     desc.block && (
       <DescIcon

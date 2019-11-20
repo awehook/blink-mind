@@ -1,20 +1,13 @@
-import { ModelModifier, BlockType, FocusMode, Model } from '@blink-mind/core';
+import {
+  ModelModifier,
+  BlockType,
+  FocusMode,
+  Model,
+  OpType
+} from '@blink-mind/core';
 import { List, Stack } from 'immutable';
 import debug from 'debug';
 const log = debug('plugin:operation');
-export const OpType = {
-  TOGGLE_COLLAPSE: 'TOGGLE_COLLAPSE',
-  ADD_CHILD: 'ADD_CHILD',
-  ADD_SIBLING: 'ADD_SIBLING',
-  DELETE_TOPIC: 'DELETE_TOPIC',
-  FOCUS_TOPIC: 'FOCUS_TOPIC',
-  SET_STYLE: 'SET_STYLE',
-  SET_TOPIC_CONTENT: 'SET_TOPIC_CONTENT',
-  SET_TOPIC_DESC: 'SET_TOPIC_DESC',
-  START_EDITING_CONTENT: 'START_EDITING_CONTENT',
-  START_EDITING_DESC: 'START_EDITING_DESC',
-  DRAG_AND_DROP: 'DRAG_AND_DROP'
-};
 
 export function OperationPlugin() {
   const startEditingContent = ({ model, topicKey }) => {

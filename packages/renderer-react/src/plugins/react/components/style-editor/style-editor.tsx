@@ -1,12 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { OpType } from '@blink-mind/core';
 import { Button, MenuItem, Popover } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/select';
 import { BaseWidget } from '../../../../components/common';
 import { SketchPicker } from 'react-color';
 import { isEqual } from 'lodash';
 import debug from 'debug';
-import { OpType } from '../../../operation';
 import { iconClassName, IconName } from '../../../../utils';
 
 const log = debug('node:style-editor');

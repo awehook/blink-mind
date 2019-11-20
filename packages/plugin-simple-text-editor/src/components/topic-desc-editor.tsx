@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { RichTextEditor } from './rich-text-editor';
+import { SimpleTextEditor } from './simple-text-editor';
 import { BlockType, OpType } from '@blink-mind/core';
 
-export class TopicDescEditor extends RichTextEditor {
+export class TopicDescEditor extends SimpleTextEditor {
   getCustomizeProps = () => {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
@@ -16,8 +16,11 @@ export class TopicDescEditor extends RichTextEditor {
     };
   };
   onChange = (value: () => string) => {
-    this.operation(OpType.SET_TOPIC_DESC, {
+    const { controller } = this.props;
+
+    controller.run('operation', {
       ...this.props,
+      opType: OpType.SET_TOPIC_DESC,
       desc: value
     });
   };

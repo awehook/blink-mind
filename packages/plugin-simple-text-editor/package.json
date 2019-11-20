@@ -1,5 +1,5 @@
 {
-  "name": "@blink-mind/plugin-theme-selector",
+  "name": "@blink-mind/plugin-simple-text-editor",
   "files": [
     "lib/"
   ],
@@ -14,9 +14,11 @@
   "scripts": {},
   "dependencies": {
     "@blink-mind/core": "link:../core",
-    "@blink-mind/renderer-react": "link:../renderer-react",
     "debug": "^3.1.0",
     "react": "^16.10.2",
+    "memoize-one": "^5.1.1",
+    "slate-plain-serializer": "^0.7.11",
+    "slate-react": "^0.21.20",
     "styled-components": "^4.4.0"
   }
 }
