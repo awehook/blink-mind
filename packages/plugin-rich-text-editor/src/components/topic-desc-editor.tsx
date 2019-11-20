@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
-import { BlockType, OpType } from '@blink-mind/core';
+import { BlockType } from '@blink-mind/core';
 
 export class TopicDescEditor extends RichTextEditor {
-  getCustomizeProps = () => {
+  getCustomizeProps() {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
     const readOnly = model.editingDescKey !== topicKey;
@@ -14,11 +14,12 @@ export class TopicDescEditor extends RichTextEditor {
       refKeyPrefix,
       placeholder: 'write topic notes here'
     };
-  };
-  onChange = (value: () => string) => {
-    this.operation(OpType.SET_TOPIC_DESC, {
-      ...this.props,
-      desc: value
+  }
+  onChange(value) {
+    const { controller } = this.props;
+    controller.run('setTopicDescTempValue', { value });
+    this.setState({
+      content: value
     });
-  };
+  }
 }

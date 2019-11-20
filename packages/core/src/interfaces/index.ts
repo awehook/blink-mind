@@ -16,7 +16,7 @@ export interface IModifierArg {
   topicKey?: KeyType;
   topic?: Topic;
   focusMode?: string;
-  content?: any;
+  data?: any;
   desc?: any;
   style?: string;
   theme?: any;

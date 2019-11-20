@@ -105,18 +105,14 @@ function deleteTopic({ model, topicKey }: IModifierArg): IModifierResult {
   return model;
 }
 
-function setContent({
-  model,
-  topicKey,
-  content
-}: IModifierArg): IModifierResult {
+function setContent({ model, topicKey, data }: IModifierArg): IModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(BlockType.CONTENT);
-    if (block.data !== content) {
+    if (block.data !== data) {
       model = model.updateIn(
         ['topics', topicKey, 'blocks', index, 'data'],
-        data => content
+        dt => data
       );
     }
     return focusTopic({
@@ -138,7 +134,7 @@ function setStyle({ model, topicKey, style }: IModifierArg): IModifierResult {
   return model;
 }
 
-function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
+function setDesc({ model, topicKey, data }: IModifierArg): IModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(BlockType.DESC);
@@ -147,15 +143,15 @@ function setDesc({ model, topicKey, desc }: IModifierArg): IModifierResult {
         blocks.push(
           Block.create({
             type: BlockType.DESC,
-            data: desc
+            data: data
           })
         )
       );
     } else {
-      if (block.data !== desc) {
+      if (block.data !== data) {
         model = model.updateIn(
           ['topics', topicKey, 'blocks', index, 'data'],
-          data => desc
+          dt => data
         );
       }
     }

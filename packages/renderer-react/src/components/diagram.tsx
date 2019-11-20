@@ -37,17 +37,14 @@ export class Diagram extends React.Component<Props> {
   });
 
   renderHotkeys() {
-    log(`renderHotkeys`);
     const { controller } = this.diagramProps;
     const hotKeys = controller.run('customizeHotKeys', this.diagramProps);
     if (hotKeys === null) return null;
     if (!(hotKeys instanceof Map)) {
       throw new TypeError('customizeHotKeys must return a Map');
     }
-    log(hotKeys);
     const children = [];
     hotKeys.forEach((v, k) => {
-      log(k, v);
       children.push(<Hotkey key={k} {...v} global />);
     });
     return <Hotkeys>{children}</Hotkeys>;

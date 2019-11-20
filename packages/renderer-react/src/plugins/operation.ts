@@ -21,7 +21,7 @@ export function OperationPlugin() {
     const topic = model.getTopic(topicKey);
     const desc = topic.getBlock(BlockType.DESC);
     if (desc.block == null || desc.block.data == null) {
-      model = ModelModifier.setDesc({ model, topicKey, desc: '' });
+      model = ModelModifier.setDesc({ model, topicKey, data: '' });
     }
     return ModelModifier.focusTopic({
       model,
@@ -206,22 +206,41 @@ export function OperationPlugin() {
 
     beforeOperation(props) {},
     operation(props) {
-      const { opType, controller, model } = props;
+      const { opType, controller, model, opArray } = props;
       log('operation:', opType);
+      log('model:', model);
       controller.run('beforeOperation', props);
-      if (OpMap.has(opType)) {
-        if (controller.run('getAllowUndo', props)) {
-          const { undoStack } = controller.run('getUndoRedoStack', props);
-          controller.run('setUndoStack', {
-            ...props,
-            undoStack: undoStack.push(model)
-          });
-        }
-
-        const opFunc = OpMap.get(opType);
-        const newModel = opFunc(props);
-        controller.change(newModel);
+      if (opType != null && opArray != null) {
+        throw new Error('operation: opType and opArray conflict!');
       }
+      if (controller.run('getAllowUndo', props)) {
+        const { undoStack } = controller.run('getUndoRedoStack', props);
+        controller.run('setUndoStack', {
+          ...props,
+          undoStack: undoStack.push(model)
+        });
+      }
+      let newModel;
+      if (opArray != null) {
+        if (!Array.isArray(opArray)) {
+          throw new Error('operation: the type of opArray must be array!');
+        }
+        newModel = opArray.reduce((acc, cur) => {
+          const { opType } = cur;
+          if (!OpMap.has(opType))
+            throw new Error(`opType:${opType} not exist!`);
+          const opFunc = OpMap.get(opType);
+          const res = opFunc({ controller, ...cur, model: acc });
+          return res;
+          return acc;
+        }, model);
+      } else {
+        if (!OpMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
+        const opFunc = OpMap.get(opType);
+        newModel = opFunc(props);
+      }
+      log('newModel:', newModel);
+      controller.change(newModel);
       controller.run('afterOperation', props);
     },
     afterOperation(props) {}

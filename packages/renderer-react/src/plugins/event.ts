@@ -9,6 +9,7 @@ export function EventPlugin() {
     handleTopicClick(props) {
       log('handleTopicClick');
       const { controller, model, topicKey } = props;
+      if (model.editingDescKey !== null) return;
       if (
         model.focusKey === topicKey &&
         model.focusMode === FocusMode.EDITING_CONTENT

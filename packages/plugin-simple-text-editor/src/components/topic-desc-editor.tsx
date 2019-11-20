@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
-import { BlockType, OpType } from '@blink-mind/core';
+import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 
 export class TopicDescEditor extends SimpleTextEditor {
-  getCustomizeProps = () => {
+  getCustomizeProps() {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
     const readOnly = model.editingDescKey !== topicKey;
@@ -14,14 +14,13 @@ export class TopicDescEditor extends SimpleTextEditor {
       refKeyPrefix,
       placeholder: 'write topic notes here'
     };
-  };
-  onChange = (value: () => string) => {
-    const { controller } = this.props;
+  }
 
-    controller.run('operation', {
-      ...this.props,
-      opType: OpType.SET_TOPIC_DESC,
-      desc: value
+  onChange({ value }) {
+    const { controller } = this.props;
+    controller.run('setTopicDescTempValue', { value });
+    this.setState({
+      content: value
     });
-  };
+  }
 }

@@ -1,29 +1,39 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Editor } from 'slate-react';
-import debug from 'debug';
 import { Controller, KeyType, Model } from '@blink-mind/core';
 import plainSerializer from 'slate-plain-serializer';
+import debug from 'debug';
 const log = debug('node:topic-content-editor');
 
-interface NodeContentProps {
+interface ContentProps {
   readOnly?: boolean;
 }
 
-const NodeContent = styled.div<NodeContentProps>`
+const Content = styled.div<ContentProps>`
   padding: 6px;
   background-color: ${props => (props.readOnly ? null : 'white')};
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
+  min-width: 50px;
 `;
 
 interface Props {
   controller: Controller;
   model: Model;
+  readOnly: boolean;
   topicKey: KeyType;
   saveRef?: Function;
 }
 
-export class SimpleTextEditor extends React.PureComponent<Props> {
+interface State {
+  content: any;
+}
+
+export class SimpleTextEditor extends React.PureComponent<Props, State> {
+  state = {
+    content: null
+  };
+
   onMouseDown = e => {
     e.stopPropagation();
   };
@@ -31,52 +41,73 @@ export class SimpleTextEditor extends React.PureComponent<Props> {
   onMouseMove = e => {
     e.stopPropagation();
   };
-  onChange = (value: () => string) => {};
+  onChange({ value }) {
+    this.setState({ content: value });
+  }
 
-  // TODO
-  onBlur = (event, editor, next) => {
-    return next();
+  componentDidMount() {
+    document.addEventListener('click', this._handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this._handleClick);
+  }
+
+  _handleClick = event => {
+    const wasOutside = !this.root.contains(event.target);
+    wasOutside && this.onClickOutSide(event);
   };
 
-  getCustomizeProps = () => {
+  onClickOutSide(e) {}
+
+  getCustomizeProps() {
     return null;
-  };
+  }
 
-  render() {
-    const { topicKey, saveRef } = this.props;
-    const {
-      block,
-      readOnly,
-      refKeyPrefix,
-      placeholder
-    } = this.getCustomizeProps();
+  constructor(props) {
+    super(props);
+    //@ts-ignore
+    const { block } = this.getCustomizeProps();
     let content = block.data;
     if (content == null) return null;
     if (typeof content === 'string') {
       content = plainSerializer.deserialize(content);
     }
+    this.state = {
+      content
+    };
+  }
 
+  root;
+
+  rootRef = saveRef => ref => {
+    saveRef(ref);
+    this.root = ref;
+  };
+
+  render() {
+    const { topicKey, saveRef } = this.props;
+    const { readOnly, refKeyPrefix, placeholder } = this.getCustomizeProps();
     const key = `${refKeyPrefix}-${topicKey}`;
-    const { onChange, onBlur, onMouseDown, onMouseMove } = this;
+    const { onMouseDown, onMouseMove } = this;
     const editorProps = {
-      defaultValue: content,
+      value: this.state.content,
       readOnly,
-      onChange,
-      // onBlur,
+      onChange: this.onChange.bind(this),
       placeholder
     };
 
-    const nodeContentProps = {
+    const contentProps = {
       key,
       readOnly,
-      ref: saveRef(key),
+      ref: this.rootRef(saveRef(key)),
       onMouseDown,
       onMouseMove
     };
     return (
-      <NodeContent {...nodeContentProps}>
+      <Content {...contentProps}>
         <Editor {...editorProps} autoFocus />
-      </NodeContent>
+      </Content>
     );
   }
 }

@@ -3,7 +3,7 @@ import { RichTextEditor } from './rich-text-editor';
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 
 export class TopicContentEditor extends RichTextEditor {
-  getCustomizeProps = () => {
+  getCustomizeProps() {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
     const readOnly = model.editingContentKey !== topicKey;
@@ -14,20 +14,22 @@ export class TopicContentEditor extends RichTextEditor {
       refKeyPrefix,
       placeholder: ' '
     };
-  };
-  onChange = (value: () => string) => {
-    this.operation(OpType.SET_TOPIC_CONTENT, {
+  }
+  onClickOutSide(e) {
+    const { model, topicKey } = this.props;
+    const readOnly = model.editingContentKey !== topicKey;
+    if (readOnly) return;
+    const { controller } = this.props;
+    controller.run('operation', {
       ...this.props,
-      content: value
+      opType: OpType.SET_TOPIC_CONTENT,
+      data: this.state.content
     });
-  };
 
-  onBlur = (value, editor, next) => {
-    const { topicKey } = this.props;
-    this.operation(OpType.FOCUS_TOPIC, {
+    controller.run('operation', {
       ...this.props,
-      topicKey: topicKey,
+      opType: OpType.FOCUS_TOPIC,
       focusMode: FocusMode.NORMAL
     });
-  };
+  }
 }

@@ -25,7 +25,7 @@ module.exports = {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
-        exclude: [/node_modules\//]
+        // exclude: [/node_modules\//]
       },
       {
         test: /\.tsx?$/,

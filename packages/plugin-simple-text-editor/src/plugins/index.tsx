@@ -3,6 +3,7 @@ import { TopicContentEditor } from '../components/topic-content-editor';
 import { TopicDescEditor } from '../components/topic-desc-editor';
 import plainSerializer from 'slate-plain-serializer';
 import { BlockType } from '@blink-mind/core';
+
 export default function SimpleTextEditorPlugin() {
   return {
     renderTopicContentEditor(props) {

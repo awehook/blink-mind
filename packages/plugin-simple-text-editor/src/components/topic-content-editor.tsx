@@ -2,46 +2,52 @@ import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 
+import debug from 'debug';
+const log = debug('node:topic-content-editor');
+
 export class TopicContentEditor extends SimpleTextEditor {
-  getCustomizeProps = () => {
-    const { model, topicKey } = this.props;
+  constructor(props) {
+    super(props);
+  }
+  getCustomizeProps() {
+    const { model, topicKey, readOnly } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
-    const readOnly = model.editingContentKey !== topicKey;
     const refKeyPrefix = 'content-editor';
     return {
       block,
       readOnly,
       refKeyPrefix,
-      placeholder: ' '
+      placeholder: 'new'
     };
-  };
-  onChange = value => {
-    const { controller, topicKey } = this.props;
-    if (value.value.selection.isBlurred) {
-      controller.run('operation', {
-        ...this.props,
-        opType: OpType.FOCUS_TOPIC,
-        topicKey: topicKey,
-        focusMode: FocusMode.NORMAL
-      });
-      return;
-    }
+  }
+  // onChange = ({ value }) => {
+  //   log('onChange');
+  //   const { model, topicKey } = this.props;
+  //   const readOnly = model.editingContentKey !== topicKey;
+  //   if (readOnly) return;
+  //   const { controller } = this.props;
+  //   controller.run('operation', {
+  //     ...this.props,
+  //     opType: OpType.SET_TOPIC_CONTENT,
+  //     content: value
+  //   });
+  // };
 
+  onClickOutSide(e) {
+    const { model, topicKey } = this.props;
+    const readOnly = model.editingContentKey !== topicKey;
+    if (readOnly) return;
+    const { controller } = this.props;
     controller.run('operation', {
       ...this.props,
       opType: OpType.SET_TOPIC_CONTENT,
-      content: value
+      data: this.state.content
     });
-  };
 
-  onBlur = (value, editor, next) => {
-    next();
-    const { controller, topicKey } = this.props;
     controller.run('operation', {
       ...this.props,
       opType: OpType.FOCUS_TOPIC,
-      topicKey: topicKey,
       focusMode: FocusMode.NORMAL
     });
-  };
+  }
 }

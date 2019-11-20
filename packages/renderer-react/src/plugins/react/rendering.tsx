@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { BlockType, FocusMode } from '@blink-mind/core';
+import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import { TopicContentWidget } from './components/topic-content-widget';
 import { RootWidget } from './components/root-widget';
 import { TopicWidget } from './components/topic-widget';
@@ -14,10 +14,11 @@ import { TopicHighlight } from './components/topic-highlight';
 import { SaveRef } from '../../components/common';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { Modals } from './components/modals';
-import { TopicDescIcon } from './components/topic-desc-icon';
+import { TopicDesc } from './components/topic-desc';
 import { ModalBody, ModalDescEditor } from './components/modal-body';
 import Theme from './theme';
 import { customizeTopicContextMenu } from './context-menus';
+import { TopicContentEditorPopup } from './components/topic-content-editor-popup';
 import debug from 'debug';
 const log = debug('plugin:rendering');
 
@@ -71,34 +72,34 @@ export function RenderingPlugin() {
     },
 
     renderModal(props) {
-      const { controller, model } = props;
-      const activeModalProps = controller.run('getActiveModalProps', props);
-      if (activeModalProps) {
-        if (activeModalProps.name === 'edit-desc') {
-          const modalProps = { ...props, topicKey: model.focusKey };
-          return (
-            <ModalBody>
-              <ModalDescEditor>
-                {controller.run('renderTopicDescEditor', modalProps)}
-              </ModalDescEditor>
-            </ModalBody>
-          );
-        }
-      }
+      // const { controller, model } = props;
+      // const activeModalProps = controller.run('getActiveModalProps', props);
+      // if (activeModalProps) {
+      //   if (activeModalProps.name === 'edit-desc') {
+      //     const modalProps = { ...props, topicKey: model.focusKey };
+      //     return (
+      //       <ModalBody>
+      //         <ModalDescEditor>
+      //           {controller.run('renderTopicDescEditor', modalProps)}
+      //         </ModalDescEditor>
+      //       </ModalBody>
+      //     );
+      //   }
+      // }
       return null;
     },
 
     getActiveModalProps(props) {
-      const { model } = props;
-      if (model.focusKey && model.focusMode === FocusMode.EDITING_DESC)
-        return {
-          name: 'edit-desc',
-          title: 'Edit Notes',
-          style: {
-            width: '50%',
-            height: '600px'
-          }
-        };
+      // const { model } = props;
+      // if (model.focusKey && model.focusMode === FocusMode.EDITING_DESC)
+      //   return {
+      //     name: 'edit-desc',
+      //     title: 'Edit Notes',
+      //     style: {
+      //       width: '50%',
+      //       height: '600px'
+      //     }
+      //   };
       return null;
     },
 
@@ -135,7 +136,7 @@ export function RenderingPlugin() {
       const res = [];
       let i = 0;
       blocks.forEach(block => {
-        const b = controller.run('renderBlock', {
+        const b = controller.run('renderTopicBlock', {
           ...props,
           block,
           blockKey: `block-${i}`
@@ -148,17 +149,52 @@ export function RenderingPlugin() {
       return res;
     },
 
-    renderBlock(props) {
-      const { controller, block } = props;
+    renderTopicBlock(props) {
+      const { controller, block, topicKey, model } = props;
+      const handleVisibleChange = visible => {
+        if (!visible) {
+          controller.run('operation', {
+            ...props,
+            opType: OpType.FOCUS_TOPIC,
+            focusMode: FocusMode.NORMAL
+          });
+        }
+      };
       switch (block.type) {
         case BlockType.CONTENT:
-          return controller.run('renderTopicContentEditor', props);
+          return controller.run('renderTopicBlockContent', props);
         case BlockType.DESC:
-          return <TopicDescIcon {...props} />;
+          return controller.run('renderTopicBlockDesc', props);
         default:
           break;
       }
       return null;
+    },
+
+    renderTopicBlockContent(props) {
+      const { controller, model, topicKey } = props;
+      const readOnly = model.editingContentKey !== topicKey;
+      const editor = controller.run('renderTopicContentEditor', {
+        ...props,
+        readOnly
+      });
+      // if (!readOnly) {
+      //   return (
+      //     <>
+      //       {/*{editor}*/}
+      //       <TopicContentEditorPopup
+      //         handleVisibleChange={handleVisibleChange}
+      //       >
+      //         {editor}
+      //       </TopicContentEditorPopup>
+      //     </>
+      //   );
+      // }
+      return editor;
+    },
+
+    renderTopicBlockDesc(props) {
+      return <TopicDesc {...props} />;
     },
 
     renderSubLinks(props) {
