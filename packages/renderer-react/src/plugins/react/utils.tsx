@@ -1,12 +1,26 @@
+import debug from 'debug';
+const log = debug('plugin:utils');
 export function UtilsPlugin() {
-  let descValue;
+  const tempValueMap = new Map();
   return {
-    getTopicDescTempValue(props) {
-      return descValue;
+    getTempValue(props) {
+      const { key } = props;
+      log('getTempValue', key);
+      return tempValueMap.get(key);
     },
 
-    setTopicDescTempValue(props) {
-      descValue = props.value;
+    setTempValue(props) {
+      const { key, value } = props;
+      log('setTempValue', key);
+      tempValueMap.set(key, value);
+    },
+
+    deleteTempValue(props) {
+      const { key } = props;
+      log('deleteTempValue', key);
+      const value = tempValueMap.get(key);
+      tempValueMap.delete(key);
+      return value;
     }
   };
 }

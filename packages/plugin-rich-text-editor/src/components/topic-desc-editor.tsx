@@ -3,6 +3,14 @@ import { RichTextEditor } from './rich-text-editor';
 import { BlockType } from '@blink-mind/core';
 
 export class TopicDescEditor extends RichTextEditor {
+  initState() {
+    super.initState();
+    const { controller, topicKey } = this.props;
+    const key = `topic-desc-data-${topicKey}`;
+    const value = this.state.content;
+    controller.run('setTempValue', { key, value });
+  }
+
   getCustomizeProps() {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
@@ -15,9 +23,11 @@ export class TopicDescEditor extends RichTextEditor {
       placeholder: 'write topic notes here'
     };
   }
+
   onChange(value) {
-    const { controller } = this.props;
-    controller.run('setTopicDescTempValue', { value });
+    const { controller, topicKey } = this.props;
+    const key = `topic-desc-data-${topicKey}`;
+    controller.run('setTempValue', { key, value });
     this.setState({
       content: value
     });

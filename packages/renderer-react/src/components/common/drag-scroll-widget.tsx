@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { BaseWidget } from './base-widget';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 
@@ -139,12 +138,16 @@ export class DragScrollWidget extends React.Component<
       this._lastCoordY = this.viewBox.scrollTop + e.nativeEvent.clientY;
       window.addEventListener('mousemove', this.onMouseMove);
       window.addEventListener('mouseup', this.onMouseUp);
+      // this.viewBox.addEventListener('mousemove', this.onMouseMove);
+      // this.viewBox.addEventListener('mouseup', this.onMouseUp);
     }
   };
 
   onMouseUp = e => {
     window.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('mouseup', this.onMouseUp);
+    // this.viewBox.removeEventListener('mousemove', this.onMouseMove);
+    // this.viewBox.removeEventListener('mouseup', this.onMouseUp);
   };
 
   // _lastCoordX和_lastCorrdY 是为了在拖动过程中 计算 viewBox的scrollLeft和scrollTop值用到

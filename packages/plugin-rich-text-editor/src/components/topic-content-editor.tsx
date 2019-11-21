@@ -4,9 +4,8 @@ import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 
 export class TopicContentEditor extends RichTextEditor {
   getCustomizeProps() {
-    const { model, topicKey } = this.props;
+    const { model, topicKey, readOnly } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
-    const readOnly = model.editingContentKey !== topicKey;
     const refKeyPrefix = 'content-editor';
     return {
       block,
@@ -15,6 +14,16 @@ export class TopicContentEditor extends RichTextEditor {
       placeholder: ' '
     };
   }
+
+  onChange(value) {
+    const { controller, topicKey } = this.props;
+    const key = `topic-content-data-${topicKey}`;
+    controller.run('setTempValue', { key, value });
+    this.setState({
+      content: value
+    });
+  }
+
   onClickOutSide(e) {
     const { model, topicKey } = this.props;
     const readOnly = model.editingContentKey !== topicKey;

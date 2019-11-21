@@ -8,8 +8,8 @@ export function StylePlugin() {
   let colorIndex = 0;
   return {
     getTopicStyle(props): TopicStyle {
-      log('getTopicStyle');
       const { topicKey, model, controller } = props;
+      log('getTopicStyle:', topicKey, model);
       const visualLevel = model.getTopicVisualLevel(topicKey);
       const theme = model.config.theme;
       let themeStyle;

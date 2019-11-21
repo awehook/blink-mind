@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { configure } from '@storybook/react';
 
-const debugNameSpaces = ['core:*', 'node:*', 'plugin:*', 'modifier'];
+const debugNameSpaces = [
+  // 'core:*',
+  // 'node:*',
+  // 'node:topic-content-widget',
+  // 'node:topic-desc-editor',
+  'plugin:*',
+  // 'modifier'
+];
 
 localStorage.debug = debugNameSpaces.join(',');
 

@@ -31,7 +31,9 @@ export function TopicDesc(props) {
   };
 
   const onDescEditorClose = e => {
-    const descData = controller.run('getTopicDescTempValue', props);
+    e.stopPropagation();
+    const key = `topic-desc-data-${topicKey}`;
+    const descData = controller.run('deleteTempValue', { key });
     controller.run('operation', {
       ...props,
       opArray: [
@@ -68,6 +70,8 @@ export function TopicDesc(props) {
         title="Edit Notes"
         icon={Icon('note')}
         isOpen={isEditing}
+        hasBackdrop
+        isCloseButtonShown={false}
         onClose={onDescEditorClose}
       >
         <DescEditorWrapper>

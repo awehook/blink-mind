@@ -120,10 +120,16 @@ export function OperationPlugin() {
         switch (opType) {
           case OpType.FOCUS_TOPIC:
           case OpType.START_EDITING_CONTENT:
+          case OpType.START_EDITING_DESC:
             return false;
           default:
             break;
         }
+      }
+      switch (model.focusMode) {
+        case 'EDITING_DESC':
+        case 'EDITING_CONTENT':
+          return false;
       }
       return model.config.allowUndo;
     },
@@ -207,7 +213,7 @@ export function OperationPlugin() {
     beforeOperation(props) {},
     operation(props) {
       const { opType, controller, model, opArray } = props;
-      log('operation:', opType);
+      log('operation:', opType || opArray);
       log('model:', model);
       controller.run('beforeOperation', props);
       if (opType != null && opArray != null) {

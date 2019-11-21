@@ -4,7 +4,7 @@ import { Editor } from 'slate-react';
 import { Controller, KeyType, Model } from '@blink-mind/core';
 import plainSerializer from 'slate-plain-serializer';
 import debug from 'debug';
-const log = debug('node:topic-content-editor');
+const log = debug('node:text-editor');
 
 interface ContentProps {
   readOnly?: boolean;
@@ -39,17 +39,23 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
   };
 
   onMouseMove = e => {
-    e.stopPropagation();
+    // log('onMouseMove');
+    // e.stopPropagation();
   };
   onChange({ value }) {
+    log('onChange', value);
     this.setState({ content: value });
   }
 
   componentDidMount() {
+    const { readOnly } = this.props;
+    if (readOnly) return;
     document.addEventListener('click', this._handleClick);
   }
 
   componentWillUnmount() {
+    const { readOnly } = this.props;
+    if (readOnly) return;
     document.removeEventListener('click', this._handleClick);
   }
 
@@ -66,13 +72,21 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
 
   constructor(props) {
     super(props);
-    //@ts-ignore
+    this.initState();
+  }
+
+  getContent() {
     const { block } = this.getCustomizeProps();
     let content = block.data;
     if (content == null) return null;
     if (typeof content === 'string') {
       content = plainSerializer.deserialize(content);
     }
+    return content;
+  }
+
+  initState() {
+    const content = this.getContent();
     this.state = {
       content
     };
@@ -88,10 +102,12 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
   render() {
     const { topicKey, saveRef } = this.props;
     const { readOnly, refKeyPrefix, placeholder } = this.getCustomizeProps();
+    log(readOnly);
     const key = `${refKeyPrefix}-${topicKey}`;
+    const content = readOnly ? this.getContent() : this.state.content;
     const { onMouseDown, onMouseMove } = this;
     const editorProps = {
-      value: this.state.content,
+      value: content,
       readOnly,
       onChange: this.onChange.bind(this),
       placeholder

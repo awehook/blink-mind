@@ -10,6 +10,7 @@ export function EventPlugin() {
       log('handleTopicClick');
       const { controller, model, topicKey } = props;
       if (model.editingDescKey !== null) return;
+      if (model.editingContentKey === topicKey) return;
       if (
         model.focusKey === topicKey &&
         model.focusMode === FocusMode.EDITING_CONTENT
@@ -23,7 +24,8 @@ export function EventPlugin() {
     },
 
     handleTopicDoubleClick(props) {
-      const { controller } = props;
+      const { controller, model } = props;
+      if (model.editingDescKey !== null) return;
       controller.run('operation', {
         ...props,
         opType: OpType.FOCUS_TOPIC,

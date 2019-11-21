@@ -6,14 +6,14 @@ import debug from 'debug';
 import { Controller, KeyType, Model } from '@blink-mind/core';
 const log = debug('node:topic-content-editor');
 
-interface NodeContentProps {
-  readOnly?: boolean;
-}
-
-const NodeContent = styled.div<NodeContentProps>`
-  padding: 6px;
-  background-color: ${props => (props.readOnly ? null : 'white')};
-  cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
+const NodeContent = styled.div`
+  ${props =>
+    !props.readOnly &&
+    `
+    // padding: 75px
+    // min-width: 150px
+    // min-height: 150px
+  `};
 `;
 interface Props {
   controller: Controller;
@@ -30,12 +30,18 @@ interface State {
 export class RichTextEditor extends BaseWidget<Props, State> {
   constructor(props) {
     super(props);
-    const { block, placeholder } = this.getCustomizeProps();
-    log('placeholder', placeholder);
-    const content = block.data;
+    this.initState();
+  }
+
+  initState() {
     this.state = {
-      content
+      content: this.getContent()
     };
+  }
+
+  getContent() {
+    const { block } = this.getCustomizeProps();
+    return block.data;
   }
 
   onMouseDown = e => {
@@ -46,7 +52,9 @@ export class RichTextEditor extends BaseWidget<Props, State> {
     e.stopPropagation();
   };
   onChange(value) {
-    this.setState({ content: value });
+    this.setState({
+      content: value
+    });
   }
 
   getCustomizeProps() {
@@ -78,7 +86,8 @@ export class RichTextEditor extends BaseWidget<Props, State> {
   render() {
     const { topicKey, saveRef } = this.props;
     const { readOnly, refKeyPrefix, placeholder } = this.getCustomizeProps();
-    const content = this.state.content;
+    log('readOnly:', readOnly);
+    const content = readOnly ? this.getContent() : this.state.content;
     if (content == null) return null;
     const key = `${refKeyPrefix}-${topicKey}`;
     const { onMouseDown, onMouseMove } = this;
@@ -91,8 +100,8 @@ export class RichTextEditor extends BaseWidget<Props, State> {
 
     const nodeContentProps = {
       key,
-      readOnly,
       ref: this.rootRef(saveRef(key)),
+      readOnly,
       onMouseDown,
       onMouseMove
     };

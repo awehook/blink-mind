@@ -20,6 +20,7 @@ import Theme from './theme';
 import { customizeTopicContextMenu } from './context-menus';
 import { TopicContentEditorPopup } from './components/topic-content-editor-popup';
 import debug from 'debug';
+import { TopicContent } from './components/topic-content';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -172,25 +173,7 @@ export function RenderingPlugin() {
     },
 
     renderTopicBlockContent(props) {
-      const { controller, model, topicKey } = props;
-      const readOnly = model.editingContentKey !== topicKey;
-      const editor = controller.run('renderTopicContentEditor', {
-        ...props,
-        readOnly
-      });
-      // if (!readOnly) {
-      //   return (
-      //     <>
-      //       {/*{editor}*/}
-      //       <TopicContentEditorPopup
-      //         handleVisibleChange={handleVisibleChange}
-      //       >
-      //         {editor}
-      //       </TopicContentEditorPopup>
-      //     </>
-      //   );
-      // }
-      return editor;
+      return <TopicContent {...props} />;
     },
 
     renderTopicBlockDesc(props) {
