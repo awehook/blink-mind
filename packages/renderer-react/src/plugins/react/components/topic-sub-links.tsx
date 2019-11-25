@@ -1,15 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { TopicDirection, TopicStyle } from '@blink-mind/core';
+import { TopicDirection } from '@blink-mind/core';
 import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/base-props';
-import {
-  Point,
-  centerX,
-  centerY,
-  centerPointX,
-  centerPointY
-} from '../../../utils';
+import { Point, centerY, centerPointX, centerPointY } from '../../../utils';
 
 import { collapseRefKey, contentRefKey, linksSvgRefKey } from '../../../utils';
 const TopicLinksSvg = styled.svg`
@@ -46,7 +40,6 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
       collapseRefKey(topicKey)
     ).getBoundingClientRect();
     const contentRect = content.getBoundingClientRect();
-
     let p1: Point, p2: Point, p3: Point;
 
     if (dir === TopicDirection.RIGHT) {
@@ -60,7 +53,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
       };
     } else if (dir === TopicDirection.LEFT) {
       p1 = {
-        x: svgRect.right,
+        x: svgRect.right - svgRect.left,
         y: centerY(contentRect) - svgRect.top
       };
       p2 = {
@@ -78,6 +71,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
       });
 
       const rect = getRef(contentRefKey(key)).getBoundingClientRect();
+
       if (dir === TopicDirection.RIGHT) {
         p3 = {
           x: rect.left - svgRect.left,
@@ -123,8 +117,6 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         />
       );
     });
-
-    log('curves:', curves);
     this.setState({
       curves
     });
