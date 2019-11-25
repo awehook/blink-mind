@@ -18,13 +18,16 @@ module.exports = {
       // add your custom rules.
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
+        loaders: [
+          'style-loader',
+          'css-loader',
+        ],
         include: path.resolve(__dirname, '../')
       },
       {
         enforce: 'pre',
         test: /\.js$/,
-        loader: 'source-map-loader',
+        loader: 'source-map-loader'
         // exclude: [/node_modules\//]
       },
       {
@@ -46,16 +49,21 @@ module.exports = {
         loaders: [
           {
             loader: require.resolve('@storybook/source-loader'),
-            options: { parser: 'typescript' },
-          },
+            options: { parser: 'typescript' }
+          }
         ],
-        enforce: 'pre',
+        enforce: 'pre'
+      },
+      {
+        test:/\.(ttf|eot|woff|woff2|svg)$/,
+        use:['file-loader']
       }
     ]
   },
   resolve: {
     alias: {
       '@blink-mind/core': path.join(__dirname, '../packages/core/src/index'),
+      '@blink-mind/icons': path.join(__dirname, '../packages/icons/index'),
       '@blink-mind/renderer-react': path.join(
         __dirname,
         '../packages/renderer-react/src/index'

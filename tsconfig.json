@@ -15,6 +15,7 @@
     "lib": ["dom", "es2015"],
     "paths": {
       "@blink-mind/core": ["packages/core/src"],
+      "@blink-mind/icons": ["packages/icons"],
       "@blink-mind/renderer-react": ["packages/renderer-react/src"],
       "@blink-mind/plugin-json-serializer": ["packages/plugin-json-serializer/src"],
       "@blink-mind/plugin-simple-text-editor": ["packages/plugin-simple-text-editor/src"],

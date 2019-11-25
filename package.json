@@ -22,8 +22,8 @@
     "unlink-package": "cd support && sh yarn-link.sh unlink"
   },
   "dependencies": {
-    "debug": "^3.1.0",
-    "@blueprintjs/core": "^3.19.1"
+    "@blueprintjs/core": "^3.19.1",
+    "debug": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -43,6 +43,7 @@
     "@types/node": "^12.11.2",
     "awesome-typescript-loader": "5.2.1",
     "babel-loader": "^8.0.6",
+    "file-loader": "^5.0.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
     "lerna": "^3.18.1",

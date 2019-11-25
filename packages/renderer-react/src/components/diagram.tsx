@@ -1,4 +1,5 @@
 import { Controller, Model, OnChangeFunction } from '@blink-mind/core';
+import '@blink-mind/icons';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
