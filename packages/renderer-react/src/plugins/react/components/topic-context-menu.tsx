@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Menu } from '@blueprintjs/core';
+import * as React from 'react';
 import { BaseWidget } from '../../../components/common';
 
 export class TopicContextMenu extends BaseWidget {

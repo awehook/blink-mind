@@ -1,5 +1,5 @@
-import { KeyType } from '../types';
 import { Record } from 'immutable';
+import { KeyType } from '../types';
 
 type RelationRecordType = {
   key: KeyType;

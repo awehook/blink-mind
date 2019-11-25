@@ -1,5 +1,5 @@
-import * as React from 'react';
 import debug from 'debug';
+import * as React from 'react';
 const log = debug('node:popup');
 
 interface Props {

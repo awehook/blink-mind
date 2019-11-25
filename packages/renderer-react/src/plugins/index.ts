@@ -1,11 +1,11 @@
-import { ReactPlugin } from './react';
-import { LayoutPlugin } from './layout';
-import { OperationPlugin } from './operation';
-import { StylePlugin } from './style';
+import SimpleTextEditorPlugin from '@blink-mind/plugin-simple-text-editor';
+import { DragAndDrop } from './drag-and-drop';
 import { EventPlugin } from './event';
 import { HotKeyPlugin } from './hotkey';
-import { DragAndDrop } from './drag-and-drop';
-import SimpleTextEditorPlugin from '@blink-mind/plugin-simple-text-editor';
+import { LayoutPlugin } from './layout';
+import { OperationPlugin } from './operation';
+import { ReactPlugin } from './react';
+import { StylePlugin } from './style';
 
 export function DefaultPlugin() {
   return [

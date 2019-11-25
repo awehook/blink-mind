@@ -1,12 +1,12 @@
-import * as React from 'react';
 import {
   DiagramLayoutType,
-  Model,
   KeyType,
+  Model,
   ModelModifier
 } from '@blink-mind/core';
-import { TopicWidget } from './react/components/topic-widget';
+import * as React from 'react';
 import { linksRefKey } from '../utils';
+import { TopicWidget } from './react/components/topic-widget';
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;

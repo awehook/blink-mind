@@ -1,7 +1,7 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import ResizeObserver from 'resize-observer-polyfill';
 import debug from 'debug';
+import * as React from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
+import styled from 'styled-components';
 const log = debug('node:topic-content2');
 
 const EditingRoot = styled.div`

@@ -1,7 +1,7 @@
 import { OpType } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
-import { Icon } from '../../utils';
 import * as React from 'react';
+import { Icon } from '../../utils';
 
 export type TopicContextMenuItemConfig = {
   icon?: string;

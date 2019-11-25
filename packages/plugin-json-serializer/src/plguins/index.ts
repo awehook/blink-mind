@@ -1,6 +1,6 @@
 import { Block, Config, Model, Topic } from '@blink-mind/core';
-import { List, Map } from 'immutable';
 import debug from 'debug';
+import { List, Map } from 'immutable';
 
 const log = debug('plugin:json-serializer');
 

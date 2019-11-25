@@ -1,6 +1,6 @@
+import { Controller, Model } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { Controller, Model } from '@blink-mind/core';
 import { DragScrollWidget } from '../../../components/common';
 import { topicRefKey } from '../../../utils';
 const NodeLayer = styled.div`

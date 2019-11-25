@@ -1,9 +1,9 @@
+import { FocusMode } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
+import { BaseProps } from '../../../components/base-props';
 import { BaseWidget } from '../../../components/common';
 import { contentRefKey } from '../../../utils';
-import { BaseProps } from '../../../components/base-props';
-import { FocusMode } from '@blink-mind/core';
 
 const FocusHighlightSvg = styled.svg`
   width: 100%;

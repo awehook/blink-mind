@@ -1,5 +1,5 @@
+import { List, Record } from 'immutable';
 import { KeyType } from '../types';
-import { Record, List } from 'immutable';
 
 type BlockRecordType = {
   type: string;

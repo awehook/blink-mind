@@ -1,9 +1,9 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { Editor } from 'slate-react';
 import { Controller, KeyType, Model } from '@blink-mind/core';
-import plainSerializer from 'slate-plain-serializer';
 import debug from 'debug';
+import * as React from 'react';
+import plainSerializer from 'slate-plain-serializer';
+import { Editor } from 'slate-react';
+import styled from 'styled-components';
 const log = debug('node:text-editor');
 
 interface ContentProps {

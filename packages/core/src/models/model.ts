@@ -1,10 +1,10 @@
 import { Map, Record } from 'immutable';
 import isPlainObject from 'is-plain-object';
-import { Data } from './data';
 import { FocusMode, KeyType } from '../types';
-import { Config } from './config';
-import { Topic } from './topic';
 import { createKey } from '../utils';
+import { Config } from './config';
+import { Data } from './data';
+import { Topic } from './topic';
 
 type ModelRecordType = {
   topics: Map<KeyType, Topic>;

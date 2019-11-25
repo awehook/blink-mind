@@ -1,5 +1,5 @@
 import { BaseWidget } from './base-widget';
-import { SaveRef } from './save-ref';
 import { DragScrollWidget } from './drag-scroll-widget';
+import { SaveRef } from './save-ref';
 
 export { BaseWidget, SaveRef, DragScrollWidget };

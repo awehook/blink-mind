@@ -1,7 +1,7 @@
+import { TopicDirection } from '@blink-mind/core';
+import cx from 'classnames';
 import * as React from 'react';
 import styled, { css } from 'styled-components';
-import cx from 'classnames';
-import { TopicDirection } from '@blink-mind/core';
 import { collapseRefKey } from '../../../utils';
 
 const Icon = styled.div`

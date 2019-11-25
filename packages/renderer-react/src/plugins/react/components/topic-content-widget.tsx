@@ -1,9 +1,9 @@
+import { OpType, TopicDirection } from '@blink-mind/core';
+import { ContextMenuTarget } from '@blueprintjs/core';
+import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { ContextMenuTarget } from '@blueprintjs/core';
-import { TopicDirection, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../../components/base-props';
-import debug from 'debug';
 import { BaseWidget } from '../../../components/common';
 import { collapseRefKey, contentRefKey } from '../../../utils';
 

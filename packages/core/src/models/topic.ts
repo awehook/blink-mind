@@ -1,5 +1,5 @@
-import { BlockType, KeyType } from '../types';
 import { List, Record } from 'immutable';
+import { BlockType, KeyType } from '../types';
 import { Block } from './block';
 import { Relation } from './relation';
 

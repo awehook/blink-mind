@@ -1,6 +1,6 @@
-import { DiagramLayoutType } from '../types';
 import { Record } from 'immutable';
-import { ThemeType, defaultTheme } from '../configs/theme';
+import { defaultTheme, ThemeType } from '../configs/theme';
+import { DiagramLayoutType } from '../types';
 
 type ConfigRecordType = {
   readOnly?: boolean;

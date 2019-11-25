@@ -1,5 +1,5 @@
-import isPlainObject from 'is-plain-object';
 import { Map } from 'immutable';
+import isPlainObject from 'is-plain-object';
 
 /**
  * Data.

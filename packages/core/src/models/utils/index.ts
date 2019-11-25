@@ -1,5 +1,5 @@
-import { Model } from '../model';
 import { KeyType, TopicRelationship } from '../../types';
+import { Model } from '../model';
 
 export function getAllSubTopicKeys(model: Model, topicKey: KeyType): KeyType[] {
   const item = model.getTopic(topicKey);

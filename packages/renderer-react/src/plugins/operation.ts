@@ -1,12 +1,12 @@
 import {
-  ModelModifier,
   BlockType,
   FocusMode,
   Model,
+  ModelModifier,
   OpType
 } from '@blink-mind/core';
-import { List, Stack } from 'immutable';
 import debug from 'debug';
+import { List, Stack } from 'immutable';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {

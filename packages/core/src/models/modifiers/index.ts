@@ -1,10 +1,10 @@
-import { BlockType, FocusMode } from '../../types';
-import { Topic } from '../topic';
-import { Block } from '../block';
-import { IModifierArg, IModifierResult } from '../../interfaces';
-import { createKey } from '../../utils';
-import { getAllSubTopicKeys } from '../utils';
 import debug from 'debug';
+import { IModifierArg, IModifierResult } from '../../interfaces';
+import { BlockType, FocusMode } from '../../types';
+import { createKey } from '../../utils';
+import { Block } from '../block';
+import { Topic } from '../topic';
+import { getAllSubTopicKeys } from '../utils';
 
 const log = debug('modifier');
 

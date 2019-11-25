@@ -1,6 +1,6 @@
+import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import debug from 'debug';
 const log = debug('node:popup');
 
 const Popup = styled.div`

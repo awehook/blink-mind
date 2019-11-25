@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { Controller, KeyType, Model } from '@blink-mind/core';
 import { BaseWidget } from '@blink-mind/renderer-react';
-import styled from 'styled-components';
 import RichMarkDownEditor from 'awehook-rich-markdown-editor';
 import debug from 'debug';
-import { Controller, KeyType, Model } from '@blink-mind/core';
+import * as React from 'react';
+import styled from 'styled-components';
 const log = debug('node:topic-content-editor');
 
 const NodeContent = styled.div`

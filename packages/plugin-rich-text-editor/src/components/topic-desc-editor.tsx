@@ -1,6 +1,6 @@
+import { BlockType } from '@blink-mind/core';
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
-import { BlockType } from '@blink-mind/core';
 
 export class TopicDescEditor extends RichTextEditor {
   initState() {

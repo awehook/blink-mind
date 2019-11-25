@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Icon, iconClassName, IconName } from '../../../utils';
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import { Drawer } from '@blueprintjs/core';
-import styled from 'styled-components';
 import debug from 'debug';
+import * as React from 'react';
+import styled from 'styled-components';
+import { Icon, iconClassName, IconName } from '../../../utils';
 
 const log = debug('node:topic-desc');
 

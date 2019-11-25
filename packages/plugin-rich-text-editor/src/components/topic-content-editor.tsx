@@ -1,6 +1,6 @@
+import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
-import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 
 export class TopicContentEditor extends RichTextEditor {
   getCustomizeProps() {

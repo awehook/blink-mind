@@ -1,9 +1,9 @@
+import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
+import { BaseProps } from '../../../components/base-props';
 import { BaseWidget } from '../../../components/common';
 import { contentRefKey } from '../../../utils';
-import { BaseProps } from '../../../components/base-props';
-import debug from 'debug';
 const log = debug('node:topic-drop-effect');
 
 const DropEffectSvg = styled.svg`

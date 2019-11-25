@@ -1,14 +1,14 @@
-import * as React from 'react';
-import styled from 'styled-components';
 import {
-  OpType,
   FocusMode,
   getRelationship,
+  OpType,
   TopicRelationship
 } from '@blink-mind/core';
 import debug from 'debug';
-import { TopicDropEffect } from './react/components/topic-drop-effect';
+import * as React from 'react';
+import styled from 'styled-components';
 import { contentRefKey } from '../utils';
+import { TopicDropEffect } from './react/components/topic-drop-effect';
 const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
   height: ${props => `${props.height}px`};

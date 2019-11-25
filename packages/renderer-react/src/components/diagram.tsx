@@ -1,11 +1,11 @@
-import * as React from 'react';
-import memoizeOne from 'memoize-one';
+import { Controller, Model, OnChangeFunction } from '@blink-mind/core';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
-import { Model, Controller, OnChangeFunction } from '@blink-mind/core';
-import { DefaultPlugin } from '../plugins';
-import './diagram.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
+import memoizeOne from 'memoize-one';
+import * as React from 'react';
+import { DefaultPlugin } from '../plugins';
+import './diagram.css';
 const log = debug('node:Diagram');
 
 interface Props {

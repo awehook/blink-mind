@@ -1,10 +1,10 @@
+import { TopicDirection } from '@blink-mind/core';
+import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { TopicDirection } from '@blink-mind/core';
 import { BaseProps } from '../../../components/base-props';
-import { TopicSubLinks } from './topic-sub-links';
-import debug from 'debug';
 import { linksRefKey, topicRefKey } from '../../../utils';
+import { TopicSubLinks } from './topic-sub-links';
 
 const log = debug('node:topic-widget');
 

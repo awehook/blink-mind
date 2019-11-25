@@ -1,9 +1,9 @@
-import { Model } from './models';
-import { CorePlugin } from './plugins/core';
-import { IDiagram, IControllerOption } from './interfaces';
+import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import debug from 'debug';
+import { IControllerOption, IDiagram } from './interfaces';
+import { Model } from './models';
+import { CorePlugin } from './plugins/core';
 import { OnChangeFunction } from './types';
 
 const log = debug('core:controller');
