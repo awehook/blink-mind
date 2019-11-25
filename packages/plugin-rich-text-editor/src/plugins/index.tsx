@@ -10,9 +10,9 @@ export default function RichTextEditorPlugin() {
     //   return <TopicContent {...props} />;
     // },
 
-    renderTopicContentEditor(props) {
-      return <TopicContentEditor {...props} />;
-    },
+    // renderTopicContentEditor(props) {
+    //   return <TopicContentEditor {...props} />;
+    // },
 
     renderTopicDescEditor(props) {
       return <TopicDescEditor {...props} />;
