@@ -24,7 +24,6 @@ export const theme1: ThemeType = {
     borderStyle: 'solid',
     borderColor: 'rgb(221, 170, 68)',
     borderRadius: '5px',
-    color: '#ffffff',
     fontSize: '17px',
     padding: '10px 15px 10px 15px',
 

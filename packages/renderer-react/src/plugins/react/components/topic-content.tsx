@@ -14,6 +14,7 @@ const EditingWrapper = styled.div`
   top: 0;
   width: auto;
   z-index: 10;
+  color: black;
 `;
 const cancelEvent = e => {
   log('cancelEvent');

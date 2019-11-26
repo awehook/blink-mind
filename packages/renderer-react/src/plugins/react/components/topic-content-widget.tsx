@@ -16,8 +16,6 @@ interface TopicContentProps {
 const TopicContent = styled.div<TopicContentProps>`
   display: flex;
   align-items: center;
-  word-wrap: break-word;
-  white-space: pre-line;
   cursor: pointer;
   //overflow: hidden;
   position: relative;

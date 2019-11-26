@@ -101,7 +101,12 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
 
   render() {
     const { topicKey, saveRef } = this.props;
-    const { readOnly, refKeyPrefix, placeholder } = this.getCustomizeProps();
+    const {
+      readOnly,
+      refKeyPrefix,
+      placeholder,
+      style
+    } = this.getCustomizeProps();
     log(readOnly);
     const key = `${refKeyPrefix}-${topicKey}`;
     const content = readOnly ? this.getContent() : this.state.content;
@@ -110,7 +115,8 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
       value: content,
       readOnly,
       onChange: this.onChange.bind(this),
-      placeholder
+      placeholder,
+      style
     };
 
     const contentProps = {

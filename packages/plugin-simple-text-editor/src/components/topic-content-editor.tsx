@@ -13,11 +13,15 @@ export class TopicContentEditor extends SimpleTextEditor {
     const { model, topicKey, readOnly } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
     const refKeyPrefix = 'content-editor';
+    const style = {
+      whiteSpace: 'pre'
+    };
     return {
       block,
       readOnly,
       refKeyPrefix,
-      placeholder: 'new'
+      placeholder: 'new',
+      style
     };
   }
   // onChange = ({ value }) => {
