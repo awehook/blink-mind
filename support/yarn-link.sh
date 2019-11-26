@@ -4,10 +4,10 @@
    if [ -d $dir ]
    then
      cd $dir
-     if [ $1 == "link" ]
+     if [ $1 = "link" ]
      then
       yarn link
-     elif [ $1 == "unlink" ]
+     elif [ $1 = "unlink" ]
      then
       yarn unlink
       fi
