@@ -36,6 +36,7 @@ const items: TopicContextMenuItemConfig[] = [
     icon: 'notes',
     label: 'edit notes',
     shortcut: 'Alt + D',
+    rootCanUse: true,
     opType: OpType.START_EDITING_DESC
   },
   {
