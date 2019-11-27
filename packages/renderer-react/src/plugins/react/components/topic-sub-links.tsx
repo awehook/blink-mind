@@ -94,8 +94,9 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         const vDir = p3.y > p1.y ? 1 : -1;
         const hDir = p3.x > p1.x ? 1 : -1;
         const radius = linkStyle.lineRadius;
-        if (p3.y === p1.y) {
-          curve = `M ${p1.x} ${p1.y} H ${p3.x}`;
+        // if (p3.y === p1.y) { //这样判断不可靠
+        if (topic.subKeys.size === 1 || Math.abs(p3.y - p1.y) <= 1) {
+          curve = `M ${p1.x} ${p1.y} L ${p3.x} ${p3.y}`;
         } else {
           // 0 表示逆时针 1 表示顺时针
           curve = `M ${p1.x} ${p1.y} H ${p2.x} V ${p3.y -
