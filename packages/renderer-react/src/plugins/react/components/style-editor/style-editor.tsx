@@ -21,7 +21,7 @@ import {
   Margin,
   ShowMenuIcon,
   Title
-} from '../../../../components';
+} from '../../../../components/common';
 import { iconClassName, IconName } from '../../../../utils';
 
 const log = debug('node:style-editor');

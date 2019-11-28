@@ -2,7 +2,7 @@ import { ModelModifier } from '@blink-mind/core';
 import { Breadcrumbs } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../../../components';
+import { BaseWidget } from '../../../components/common';
 
 const EditorRootBreadcrumbsRoot = styled.div`
   position: absolute;

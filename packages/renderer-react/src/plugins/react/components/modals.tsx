@@ -1,19 +1,11 @@
 import { Classes, Dialog } from '@blueprintjs/core';
 import * as React from 'react';
-import styled from 'styled-components';
-import { BaseProps } from '../../../components/base-props';
 import { BaseWidget } from '../../../components/common';
+import { BaseProps } from '../../../components/common/base-props';
 
 interface Props extends BaseProps {
   saveRef?: Function;
 }
-const DescWrapper = styled.div`
-  border: 1px solid #d9d9d9;
-  height: calc(100% - 50px);
-  padding: 0 1rem;
-  overflow: auto;
-  margin: 0.5rem 0.5rem 0 0.5rem;
-`;
 
 export class Modals extends BaseWidget<Props> {
   handleClose = () => {
@@ -28,7 +20,6 @@ export class Modals extends BaseWidget<Props> {
 
   render() {
     const { controller } = this.props;
-    const onClose = controller.run('handleActiveModalClose', this.props);
     const activeModal = controller.run('renderModal', this.props);
     const activeModalProps = controller.run('getActiveModalProps', this.props);
     return (

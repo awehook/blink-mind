@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BaseProps } from '../base-props';
+import { BaseProps } from './base-props';
 
 export class BaseWidget<
   P extends BaseProps = BaseProps,

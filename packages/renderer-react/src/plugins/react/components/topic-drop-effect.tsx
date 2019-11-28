@@ -1,8 +1,8 @@
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseProps } from '../../../components/base-props';
 import { BaseWidget } from '../../../components/common';
+import { BaseProps } from '../../../components/common/base-props';
 import { contentRefKey } from '../../../utils';
 const log = debug('node:topic-drop-effect');
 
