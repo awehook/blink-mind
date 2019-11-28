@@ -9,7 +9,8 @@ export const HotKeyName = {
   ADD_CHILD: 'ADD_CHILD',
   ADD_SIBLING: 'ADD_SIBLING',
   DELETE_TOPIC: 'DELETE_TOPIC',
-  EDIT_NOTES: 'EDIT_NOTES'
+  EDIT_NOTES: 'EDIT_NOTES',
+  SET_EDITOR_ROOT: 'SET_EDITOR_ROOT'
 };
 
 function op(opType: string, props) {
@@ -23,15 +24,17 @@ function op(opType: string, props) {
 export function HotKeyPlugin() {
   return {
     customizeHotKeys(props) {
+      const handleKeyDown = opType => e => {
+        // log('HotKeyPlugin', opType);
+        op(opType, props);
+      };
       const hotKeyMap = new Map<string, HotKeyConfig>([
         [
           HotKeyName.ADD_CHILD,
           {
             label: 'add child',
             combo: 'tab',
-            onKeyDown: e => {
-              op(OpType.ADD_CHILD, props);
-            }
+            onKeyDown: handleKeyDown(OpType.ADD_CHILD)
           }
         ],
         [
@@ -39,9 +42,7 @@ export function HotKeyPlugin() {
           {
             label: 'add sibling',
             combo: 'enter',
-            onKeyDown: e => {
-              op(OpType.ADD_SIBLING, props);
-            }
+            onKeyDown: handleKeyDown(OpType.ADD_SIBLING)
           }
         ],
         [
@@ -49,9 +50,7 @@ export function HotKeyPlugin() {
           {
             label: 'delete topic',
             combo: 'del',
-            onKeyDown: e => {
-              op(OpType.DELETE_TOPIC, props);
-            }
+            onKeyDown: handleKeyDown(OpType.DELETE_TOPIC)
           }
         ],
         [
@@ -59,9 +58,15 @@ export function HotKeyPlugin() {
           {
             label: 'edit notes',
             combo: 'alt + d',
-            onKeyDown: e => {
-              op(OpType.START_EDITING_DESC, props);
-            }
+            onKeyDown: handleKeyDown(OpType.START_EDITING_DESC)
+          }
+        ],
+        [
+          HotKeyName.SET_EDITOR_ROOT,
+          {
+            label: 'set editor root',
+            combo: 'alt + shift + f',
+            onKeyDown: handleKeyDown(OpType.SET_EDITOR_ROOT)
           }
         ]
       ]);

@@ -62,6 +62,13 @@
       "unicode_decimal": 61383
     },
     {
+      "icon_id": "6936438",
+      "name": "root",
+      "font_class": "root",
+      "unicode": "e993",
+      "unicode_decimal": 59795
+    },
+    {
       "icon_id": "7213047",
       "name": "Color picker 1",
       "font_class": "color-picker",

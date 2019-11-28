@@ -6,6 +6,14 @@ import { TopicDescEditor } from '../components/topic-desc-editor';
 
 export default function SimpleTextEditorPlugin() {
   return {
+    getTopicTitle(props) {
+      const { model, controller, topicKey } = props;
+      const topic = model.getTopic(topicKey);
+      const block = topic.getBlock(BlockType.CONTENT).block;
+      const txt = controller.run('serializeBlockData', { ...props, block });
+      return txt.substr(0, 50);
+    },
+
     renderTopicContentEditor(props) {
       return <TopicContentEditor {...props} />;
     },

@@ -44,6 +44,12 @@ const items: TopicContextMenuItemConfig[] = [
     label: 'delete node',
     shortcut: 'Del',
     opType: OpType.DELETE_TOPIC
+  },
+  {
+    icon: 'root',
+    label: 'set as editor root',
+    shortcut: 'Alt + Shift + F',
+    opType: OpType.SET_EDITOR_ROOT
   }
 ];
 

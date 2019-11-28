@@ -1,4 +1,4 @@
-import { OpType, TopicDirection } from '@blink-mind/core';
+import { FocusMode, OpType, TopicDirection } from '@blink-mind/core';
 import { ContextMenuTarget } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
@@ -67,6 +67,10 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   public renderContextMenu() {
     const { controller } = this.props;
+    this.operation(OpType.FOCUS_TOPIC, {
+      ...this.props,
+      focusMode: FocusMode.SHOW_POPUP
+    });
     return controller.run('renderTopicContextMenu', this.props);
   }
 

@@ -4,6 +4,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { SaveRef } from '../../components/common';
 import { linksRefKey } from '../../utils';
+import { EditorRootBreadcrumbs } from './components/editor-root-breadcrumbs';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { ModalBody, ModalDescEditor } from './components/modal-body';
 import { Modals } from './components/modals';
@@ -57,6 +58,11 @@ export function RenderingPlugin() {
 
     renderDiagramCustomize(props) {
       const { controller, model } = props;
+      const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', {
+        ...props,
+        topicKey: model.focusKey
+      });
+
       const styleEditor = controller.run('renderStyleEditor', {
         ...props,
         topicKey: model.focusKey
@@ -65,7 +71,11 @@ export function RenderingPlugin() {
         ...props,
         topicKey: model.focusKey
       });
-      return [styleEditor, modals];
+      return [breadcrumbs, styleEditor, modals];
+    },
+
+    renderEditorRootBreadcrumbs(props) {
+      return <EditorRootBreadcrumbs key="EditorRootBreadcrumbs" {...props} />;
     },
 
     renderModals(props) {

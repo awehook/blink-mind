@@ -175,6 +175,12 @@ function setLayoutDir({ model, layoutDir }: IModifierArg): IModifierResult {
   return model;
 }
 
+function setEditorRootTopicKey({ model, topicKey }): IModifierResult {
+  if (model.editorRootTopicKey !== topicKey)
+    model = model.set('editorRootTopicKey', topicKey);
+  return model;
+}
+
 export default {
   addChild,
   addSibling,
@@ -185,5 +191,6 @@ export default {
   setDesc,
   setStyle,
   setTheme,
-  setLayoutDir
+  setLayoutDir,
+  setEditorRootTopicKey
 };

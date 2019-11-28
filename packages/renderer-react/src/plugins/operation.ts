@@ -107,7 +107,8 @@ export function OperationPlugin() {
     [OpType.SET_TOPIC_DESC, ModelModifier.setDesc],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
-    [OpType.DRAG_AND_DROP, dragAndDrop]
+    [OpType.DRAG_AND_DROP, dragAndDrop],
+    [OpType.SET_EDITOR_ROOT, ModelModifier.setEditorRootTopicKey]
   ]);
 
   let undoStack = Stack<Model>();

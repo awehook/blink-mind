@@ -13,7 +13,15 @@ import { isEqual } from 'lodash';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
 import styled from 'styled-components';
-import { BaseWidget, Flex, Margin } from '../../../../components/common';
+import {
+  BaseWidget,
+  CloseIcon,
+  Flex,
+  IconBg,
+  Margin,
+  ShowMenuIcon,
+  Title
+} from '../../../../components';
 import { iconClassName, IconName } from '../../../../utils';
 
 const log = debug('node:style-editor');
@@ -27,31 +35,8 @@ const StyleEditorRoot = styled.div`
   z-index: 4;
 `;
 
-const Title = styled.div`
-  height: 16px;
-`;
-
-const CloseIcon = styled.div`
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  cursor: pointer;
-  &:hover {
-    color: #1ea7fd;
-  }
-`;
-
 const PopRoot = styled.div`
   padding: 10px;
-`;
-
-const ShowMenuIcon = styled.a`
-  font-size: 20px !important;
-`;
-
-const IconBg = styled.div`
-  padding: 5px;
-  cursor: pointer;
 `;
 
 const WithBorder = styled.div`
