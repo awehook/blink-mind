@@ -9,6 +9,7 @@ export type TopicStyle = {
   background?: string;
   color?: string;
   fontSize?: string;
+  lineHeight?: string;
   borderRadius: string;
   borderWidth?: string;
   borderStyle?: string;

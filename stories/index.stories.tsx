@@ -6,6 +6,7 @@ const debugNameSpaces = [
   // 'node:*',
   // 'node:topic-content-widget',
   // 'node:topic-desc-editor',
+  'node:style-editor',
   'plugin:*',
   // 'modifier'
 ];
