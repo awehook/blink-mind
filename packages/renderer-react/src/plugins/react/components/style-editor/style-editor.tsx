@@ -169,6 +169,13 @@ export class StyleEditor extends BaseWidget {
     this.setStyle({ color: color.hex });
   };
 
+  handleClearStyle = () => {
+    if (this.topic.style) {
+      this.operation(OpType.SET_STYLE, { ...this.props, style: null });
+      this.setState({});
+    }
+  };
+
   render() {
     const props = this.props;
     const { controller, model } = props;
@@ -196,14 +203,12 @@ export class StyleEditor extends BaseWidget {
         width: 50
       },
       onValueChange: this.handleFontSizeChange
-
-      // leftIcon: 'size'
     };
     const lineHeightInputProps = {
       style: {
         width: 50
       },
-      defaultValue: topicStyle.lineHeight,
+      value: topicStyle.lineHeight || '',
       onChange: this.handleLineHeightChange
     };
 
@@ -353,6 +358,9 @@ export class StyleEditor extends BaseWidget {
                 </Popover>
               </SettingItem>
             </div>
+          </SettingGroup>
+          <SettingGroup>
+            <Button onClick={this.handleClearStyle}>Clear Topic Style</Button>
           </SettingGroup>
         </PopRoot>
       </StyleEditorRoot>
