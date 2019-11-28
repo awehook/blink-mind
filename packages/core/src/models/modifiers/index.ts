@@ -178,6 +178,8 @@ function setLayoutDir({ model, layoutDir }: IModifierArg): IModifierResult {
 function setEditorRootTopicKey({ model, topicKey }): IModifierResult {
   if (model.editorRootTopicKey !== topicKey)
     model = model.set('editorRootTopicKey', topicKey);
+  if (model.getTopic(topicKey).collapse)
+    model = model.setIn(['topics', topicKey, 'collapse'], false);
   return model;
 }
 

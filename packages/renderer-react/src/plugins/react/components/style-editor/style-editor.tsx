@@ -203,7 +203,7 @@ export class StyleEditor extends BaseWidget {
       style: {
         width: 50
       },
-      value: topicStyle.lineHeight,
+      defaultValue: topicStyle.lineHeight,
       onChange: this.handleLineHeightChange
     };
 
