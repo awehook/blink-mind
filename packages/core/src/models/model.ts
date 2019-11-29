@@ -14,6 +14,7 @@ type ModelRecordType = {
   editorRootTopicKey?: KeyType;
   focusKey?: KeyType;
   focusMode?: string;
+  version?: string;
 };
 
 const defaultModelRecord: ModelRecordType = {
@@ -23,7 +24,8 @@ const defaultModelRecord: ModelRecordType = {
   rootTopicKey: null,
   editorRootTopicKey: null,
   focusKey: null,
-  focusMode: null
+  focusMode: null,
+  version: null
 };
 
 export class Model extends Record(defaultModelRecord) {
@@ -95,6 +97,10 @@ export class Model extends Record(defaultModelRecord) {
 
   get config(): Config {
     return this.get('config');
+  }
+
+  get version(): string {
+    return this.get('version');
   }
 
   get rootTopicKey(): KeyType {

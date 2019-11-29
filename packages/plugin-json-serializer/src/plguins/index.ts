@@ -4,6 +4,8 @@ import { List, Map } from 'immutable';
 
 const log = debug('plugin:json-serializer');
 
+const DATA_VERSION = '0.0';
+
 export function JsonSerializerPlugin() {
   return {
     serializeModel(props) {
@@ -17,26 +19,33 @@ export function JsonSerializerPlugin() {
         config: controller.run('serializeConfig', {
           ...props,
           config: model.config
-        })
+        }),
+        version: model.version
       };
       return obj;
     },
 
     deserializeModel(props) {
       const { obj, controller } = props;
-      const { rootTopicKey, topics, config } = obj;
+      if (obj.version == null) {
+        obj.version = '0.0';
+      }
+      const { rootTopicKey, topics, config, version } = obj;
       let model = new Model();
       model = model.merge({
         rootTopicKey,
         editorRootTopicKey: rootTopicKey,
         config: controller.run('deserializeConfig', {
           ...props,
-          obj: config
+          obj: config,
+          version
         }),
         topics: controller.run('deserializeTopics', {
           ...props,
-          obj: topics
-        })
+          obj: topics,
+          version
+        }),
+        version: DATA_VERSION
       });
       log('deserializeModel', model);
       return model;
