@@ -7,7 +7,7 @@
 
 ### [Full-featured app based on this library](https://awehook.github.io/react-mindmap)
 
-The app's github repo is https://github.com/awehook/react-mindmap
+### [A mind map vscode extension based on this library](https://github.com/awehook/vscode-blink-mind)
 
 ### [Multiple online demo of specific features](https://awehook.github.io/blink-mind/)
 
