@@ -16,13 +16,14 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'edit',
     label: 'edit',
+    shortcut: 'Space',
     rootCanUse: true,
     opType: OpType.START_EDITING_CONTENT
   },
   {
     icon: 'add-sibling',
     label: 'add sibling',
-    shortcut: 'enter',
+    shortcut: 'Enter',
     opType: OpType.ADD_SIBLING
   },
   {

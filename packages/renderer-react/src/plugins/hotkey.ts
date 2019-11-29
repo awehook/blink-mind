@@ -9,6 +9,7 @@ export const HotKeyName = {
   ADD_CHILD: 'ADD_CHILD',
   ADD_SIBLING: 'ADD_SIBLING',
   DELETE_TOPIC: 'DELETE_TOPIC',
+  EDIT_CONTENT: 'EDIT_CONTENT',
   EDIT_NOTES: 'EDIT_NOTES',
   SET_EDITOR_ROOT: 'SET_EDITOR_ROOT'
 };
@@ -51,6 +52,14 @@ export function HotKeyPlugin() {
             label: 'delete topic',
             combo: 'del',
             onKeyDown: handleKeyDown(OpType.DELETE_TOPIC)
+          }
+        ],
+        [
+          HotKeyName.EDIT_CONTENT,
+          {
+            label: 'edit content',
+            combo: 'space',
+            onKeyDown: handleKeyDown(OpType.START_EDITING_CONTENT)
           }
         ],
         [
