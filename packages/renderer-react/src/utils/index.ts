@@ -27,3 +27,4 @@ export function centerPointY(p1, p2) {
 
 export * from './icon';
 export * from './keys';
+export * from './events';

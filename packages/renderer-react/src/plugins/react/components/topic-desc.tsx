@@ -1,9 +1,21 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
-import { Drawer } from '@blueprintjs/core';
+import {
+  Classes,
+  Drawer,
+  Popover,
+  PopoverInteractionKind,
+  Tooltip
+} from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { Icon, iconClassName, IconName } from '../../../utils';
+import {
+  cancelEvent,
+  DIAGRAM_ROOT_KEY,
+  Icon,
+  iconClassName,
+  IconName
+} from '../../../utils';
 
 const log = debug('node:topic-desc');
 
@@ -18,8 +30,12 @@ const DescEditorWrapper = styled.div`
   background: #88888850;
 `;
 
+const TooltipContentWrapper = styled.div`
+  overflow: auto;
+`;
+
 export function TopicDesc(props) {
-  const { controller, model, topicKey } = props;
+  const { controller, model, topicKey, getRef } = props;
   const isEditing = model.editingDescKey === topicKey;
   log('isEditing', isEditing);
   const onClick = e => {
@@ -57,11 +73,38 @@ export function TopicDesc(props) {
     controller.run('isBlockEmpty', { ...props, block: desc.block })
   )
     return null;
+  const descEditor = controller.run('renderTopicDescEditor', props);
+  const diagramRoot = getRef(DIAGRAM_ROOT_KEY);
+  const style = {
+    maxWidth: '800px',
+    maxHeight: '600px'
+  };
+  if (diagramRoot) {
+    const dRect = diagramRoot.getBoundingClientRect();
+    style.maxWidth = `${dRect.width * 0.6}px`;
+    style.maxHeight = `${dRect.height * 0.8}px`;
+  }
+  const tooltipContent = (
+    <TooltipContentWrapper
+      onClick={cancelEvent}
+      classname={Classes.POPOVER_DISMISS}
+      style={style}
+    >
+      {descEditor}
+    </TooltipContentWrapper>
+  );
+  const tooltipProps = {
+    content: tooltipContent,
+    interactionKind: PopoverInteractionKind.HOVER,
+    hoverOpenDelay: 500
+  };
   const descIcon = desc.block && (
-    <DescIcon
-      onClick={onClick}
-      className={iconClassName(IconName.NOTES)}
-    ></DescIcon>
+    <Popover {...tooltipProps}>
+      <DescIcon
+        onClick={onClick}
+        className={iconClassName(IconName.NOTES)}
+      ></DescIcon>
+    </Popover>
   );
   return (
     <>
@@ -75,9 +118,7 @@ export function TopicDesc(props) {
         onClose={onDescEditorClose}
         size="70%"
       >
-        <DescEditorWrapper>
-          {controller.run('renderTopicDescEditor', props)}
-        </DescEditorWrapper>
+        <DescEditorWrapper>{descEditor}</DescEditorWrapper>
       </Drawer>
     </>
   );

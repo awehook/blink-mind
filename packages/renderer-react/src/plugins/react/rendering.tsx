@@ -3,7 +3,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { SaveRef } from '../../components/common';
-import { linksRefKey } from '../../utils';
+import { DIAGRAM_ROOT_KEY, linksRefKey } from '../../utils';
 import { EditorRootBreadcrumbs } from './components/editor-root-breadcrumbs';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { ModalBody, ModalDescEditor } from './components/modal-body';
@@ -45,7 +45,7 @@ export function RenderingPlugin() {
             log('renderDiagram', model);
             return (
               <Theme theme={model.config.theme}>
-                <DiagramRoot>
+                <DiagramRoot ref={saveRef(DIAGRAM_ROOT_KEY)}>
                   <MindDragScrollWidget {...widgetProps} />
                   {controller.run('renderDiagramCustomize', widgetProps)}
                 </DiagramRoot>

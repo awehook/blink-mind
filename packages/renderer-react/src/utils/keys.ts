@@ -17,3 +17,5 @@ export function linksSvgRefKey(key) {
 export function collapseRefKey(key) {
   return `collapse-${key}`;
 }
+
+export const DIAGRAM_ROOT_KEY = 'DIAGRAM-ROOT';
