@@ -11,7 +11,7 @@ export default function SimpleTextEditorPlugin() {
       const topic = model.getTopic(topicKey);
       const block = topic.getBlock(BlockType.CONTENT).block;
       const txt = controller.run('serializeBlockData', { ...props, block });
-      return txt.substr(0, 50);
+      return txt;
     },
 
     renderTopicContentEditor(props) {

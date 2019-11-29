@@ -73,6 +73,7 @@ export function TopicDesc(props) {
         hasBackdrop
         isCloseButtonShown={false}
         onClose={onDescEditorClose}
+        size="70%"
       >
         <DescEditorWrapper>
           {controller.run('renderTopicDescEditor', props)}

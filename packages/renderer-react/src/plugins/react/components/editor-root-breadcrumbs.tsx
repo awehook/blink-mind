@@ -1,11 +1,17 @@
 import { ModelModifier } from '@blink-mind/core';
-import { Breadcrumbs } from '@blueprintjs/core';
+import {
+  Breadcrumb,
+  Breadcrumbs,
+  IBreadcrumbProps,
+  Tooltip
+} from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 
 const EditorRootBreadcrumbsRoot = styled.div`
   position: absolute;
+  width: 20%;
   padding: 0 5px;
   background: white;
   left: 30px;
@@ -13,6 +19,8 @@ const EditorRootBreadcrumbsRoot = styled.div`
   border-radius: 2px;
   z-index: 4;
 `;
+
+const BreadcrumbTitle = styled.span``;
 
 export class EditorRootBreadcrumbs extends BaseWidget {
   constructor(props) {
@@ -34,6 +42,20 @@ export class EditorRootBreadcrumbs extends BaseWidget {
     }
   };
 
+  breadcrumbRenderer = props => {
+    const { text, ...breadProps } = props;
+    const title = text.length > 8 ? text.substr(0, 8) + '...' : text;
+    return (
+      <li>
+        <Tooltip content={text}>
+          <Breadcrumb {...breadProps}>
+            <BreadcrumbTitle>{title}</BreadcrumbTitle>
+          </Breadcrumb>
+        </Tooltip>
+      </li>
+    );
+  };
+
   render() {
     const props = this.props;
     const { model, controller } = props;
@@ -43,17 +65,19 @@ export class EditorRootBreadcrumbs extends BaseWidget {
     const items = [];
     let topic = model.getTopic(editingRootKey);
     while (topic != null) {
+      const title = controller.run('getTopicTitle', {
+        ...props,
+        topicKey: topic.key
+      });
       items.unshift({
-        text: controller.run('getTopicTitle', {
-          ...props,
-          topicKey: topic.key
-        }),
+        text: title,
         onClick: this.setEditorRootTopicKey(topic.key)
       });
       topic = model.getTopic(topic.parentKey);
     }
     const breadcrumbProps = {
-      items
+      items,
+      breadcrumbRenderer: this.breadcrumbRenderer
     };
     return (
       <EditorRootBreadcrumbsRoot>
