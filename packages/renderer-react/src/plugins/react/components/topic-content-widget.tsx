@@ -147,12 +147,11 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
       onDragOver: this.onDragOver,
       onDrop: this.onDrop
     };
+    log(topicKey, 'style', topicStyle);
     return (
       <TopicContentWithDropArea>
         {prevDropArea}
         <TopicContent
-          // theme={getTopicTheme(visualLevel, model.config.theme)}
-          // dragEnter={this.state.dragEnter}
           style={topicStyle}
           draggable={draggable}
           ref={saveRef(contentRefKey(topicKey))}

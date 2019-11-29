@@ -1,5 +1,6 @@
-import { TopicStyle, TopicVisualLevel } from '@blink-mind/core';
+import { OpType, TopicStyle, TopicVisualLevel } from '@blink-mind/core';
 import debug from 'debug';
+import { isEqual } from 'lodash';
 
 const log = debug('plugin:StylePlugin');
 
@@ -24,8 +25,8 @@ export function StylePlugin() {
           ...themeStyle,
           background: randomColor,
           borderColor: randomColor,
-          linkStyle: {
-            ...themeStyle.linkStyle,
+          subLinkStyle: {
+            ...themeStyle.subLinkStyle,
             lineColor: randomColor
           }
         };
@@ -42,33 +43,55 @@ export function StylePlugin() {
         linkStyle: {
           ...themeStyle.linkStyle,
           ...customStyle.linkStyle
+        },
+        subLinkStyle: {
+          ...themeStyle.subLinkStyle,
+          ...customStyle.subLinkStyle
         }
       };
     },
 
     getLinkStyle(props): LinkStyle {
       const { topicKey, model, controller } = props;
+      log('getLinkStyle', topicKey);
       const visualLevel = model.getTopicVisualLevel(topicKey);
       const theme = model.config.theme;
-      let linkStyle;
+      let linkStyle = theme.linkStyle;
+      let presetStyle;
       if (visualLevel === TopicVisualLevel.ROOT)
-        linkStyle = theme.rootTopic.linkStyle;
+        presetStyle = theme.rootTopic.linkStyle;
       else if (visualLevel === TopicVisualLevel.PRIMARY)
-        linkStyle = theme.primaryTopic.linkStyle;
-      else linkStyle = theme.normalTopic.linkStyle;
+        presetStyle = theme.primaryTopic.linkStyle;
+      else presetStyle = theme.normalTopic.linkStyle;
+
+      linkStyle = { ...linkStyle, ...presetStyle };
 
       const topic = model.getTopic(topicKey);
-      if (theme.randomColor) {
-        const randomColor = controller.run('getRandomColor', {
+      // 获取父节点的color
+      // if (theme.randomColor) {
+      //   const randomColor = controller.run('getRandomColor', {
+      //     ...props,
+      //     topicKey:
+      //       topic.parentKey !== model.editorRootTopicKey
+      //         ? topic.parentKey
+      //         : topicKey
+      //   });
+      //   log(randomColor);
+      //   linkStyle = {
+      //     ...linkStyle,
+      //     lineColor: randomColor
+      //   };
+      // }
+
+      if (topic.parentKey != null) {
+        const parentSubLinkStyle = controller.run('getSubLinkStyle', {
           ...props,
-          topicKey:
-            topic.parentKey !== model.editorRootTopicKey
-              ? topic.parentKey
-              : topicKey
+          topicKey: topic.parentKey
         });
+
         linkStyle = {
           ...linkStyle,
-          lineColor: randomColor
+          ...parentSubLinkStyle
         };
       }
 
@@ -81,6 +104,108 @@ export function StylePlugin() {
         ...linkStyle,
         ...customStyle.linkStyle
       };
+    },
+
+    getSubLinkStyle(props): LinkStyle {
+      const { topicKey, model, controller } = props;
+      log('getLinkStyle', topicKey);
+      const visualLevel = model.getTopicVisualLevel(topicKey);
+      const theme = model.config.theme;
+      let subLinkStyle = theme.linkStyle;
+      let presetStyle;
+      if (visualLevel === TopicVisualLevel.ROOT)
+        presetStyle = theme.rootTopic.subLinkStyle;
+      else if (visualLevel === TopicVisualLevel.PRIMARY)
+        presetStyle = theme.primaryTopic.subLinkStyle;
+      else presetStyle = theme.normalTopic.subLinkStyle;
+
+      subLinkStyle = { ...subLinkStyle, ...presetStyle };
+
+      const topic = model.getTopic(topicKey);
+      // 获取父节点的color
+      if (theme.randomColor) {
+        const randomColor = controller.run('getRandomColor', props);
+        log(randomColor);
+        subLinkStyle = {
+          ...subLinkStyle,
+          lineColor: randomColor
+        };
+      }
+
+      if (!topic.style) {
+        return subLinkStyle;
+      }
+      const customStyle = JSON.parse(topic.style);
+
+      const res = {
+        ...subLinkStyle,
+        ...customStyle.subLinkStyle
+      };
+      // if (res.lineRadius == null) res.lineRadius = 5;
+      return res;
+    },
+
+    setStyle(props) {
+      const { topicKey, controller, style, model } = props;
+      const topic = model.getTopic(topicKey);
+      const topicStyle = topic.style;
+      const styleObj = topicStyle ? JSON.parse(topicStyle) : {};
+      const newStyleObj = {
+        ...styleObj,
+        ...style
+      };
+      if (!isEqual(styleObj, newStyleObj)) {
+        const newStyleStr = JSON.stringify(newStyleObj);
+        controller.run('operation', {
+          ...props,
+          opType: OpType.SET_STYLE,
+          style: newStyleStr
+        });
+      }
+    },
+
+    setLinkStyle(props) {
+      const { topicKey, controller, linkStyle, model } = props;
+      const topic = model.getTopic(topicKey);
+      const style = topic.style;
+      const styleObj = style ? JSON.parse(style) : {};
+      const newStyleObj = {
+        ...styleObj,
+        linkStyle: {
+          ...styleObj.linkStyle,
+          ...linkStyle
+        }
+      };
+      if (!isEqual(styleObj, newStyleObj)) {
+        const newStyleStr = JSON.stringify(newStyleObj);
+        controller.run('operation', {
+          ...props,
+          opType: OpType.SET_STYLE,
+          style: newStyleStr
+        });
+      }
+    },
+
+    setSubLinkStyle(props) {
+      const { topicKey, controller, subLinkStyle, model } = props;
+      const topic = model.getTopic(topicKey);
+      const style = topic.style;
+      const styleObj = style ? JSON.parse(style) : {};
+      const newStyleObj = {
+        ...styleObj,
+        subLinkStyle: {
+          ...styleObj.subLinkStyle,
+          ...subLinkStyle
+        }
+      };
+      if (!isEqual(styleObj, newStyleObj)) {
+        const newStyleStr = JSON.stringify(newStyleObj);
+        controller.run('operation', {
+          ...props,
+          opType: OpType.SET_STYLE,
+          style: newStyleStr
+        });
+      }
     },
 
     getTopicThemeStyle(props): TopicStyle {
@@ -110,6 +235,16 @@ export function StylePlugin() {
       const color = colors[++colorIndex % colors.length];
       colorMap.set(topicKey, color);
       return color;
+    },
+
+    clearAllCustomStyle(props) {
+      const { model, controller } = props;
+      const newModel = model.withMutations(model => {
+        model.topics.keySeq().forEach(key => {
+          model.setIn(['topics', key, 'style'], null);
+        });
+      });
+      controller.change(newModel);
     }
   };
 }

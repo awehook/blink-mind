@@ -55,7 +55,10 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         ...props,
         topicKey: key
       });
-      const { linkStyle } = style;
+      const linkStyle = controller.run('getLinkStyle', {
+        ...props,
+        topicKey: key
+      });
       const lineType = linkStyle.lineType;
       const rect = getRef(contentRefKey(key)).getBoundingClientRect();
       if (rect.left > contentRect.right) {
@@ -101,8 +104,8 @@ export class RootSubLinks extends BaseWidget<Props, State> {
         <path
           key={`link-${key}`}
           d={curve}
-          strokeWidth={style.linkStyle.lineWidth}
-          stroke={style.linkStyle.lineColor}
+          strokeWidth={linkStyle.lineWidth}
+          stroke={linkStyle.lineColor}
           fill="none"
         />
       );

@@ -17,6 +17,7 @@ export type TopicStyle = {
   padding?: string;
 
   linkStyle?: LinkStyle;
+  subLinkStyle?: LinkStyle;
 };
 
 export type ThemeType = {
@@ -27,12 +28,8 @@ export type ThemeType = {
   marginH: number;
   marginV: number;
 
-  fontFamily: string;
-  bold: boolean;
-  italic: boolean;
-  textAlign: string;
-
   linkStyle?: LinkStyle;
+
   rootTopic?: TopicStyle;
   primaryTopic?: TopicStyle;
   normalTopic?: TopicStyle;

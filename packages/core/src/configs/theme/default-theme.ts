@@ -7,15 +7,23 @@ export const defaultTheme: ThemeType = {
   highlightColor: '#50C9CE',
   marginH: 60,
   marginV: 20,
-  fontFamily: '',
-  bold: false,
-  italic: false,
-  textAlign: 'left',
+
+  linkStyle: {
+    lineRadius: 5,
+    lineType: 'curve',
+    lineWidth: 3
+  },
+
   rootTopic: {
     background: '#ff8200',
     fontSize: '34px',
     borderRadius: '35px',
-    padding: '16px 18px 16px 18px'
+    padding: '16px 18px 16px 18px',
+    subLinkStyle: {
+      lineType: 'curve',
+      lineWidth: 3,
+      lineColor: 'rgb(113, 203, 45)'
+    }
   },
   primaryTopic: {
     background: '#e8eaec',
@@ -27,7 +35,7 @@ export const defaultTheme: ThemeType = {
     fontSize: '17px',
     padding: '10px 15px 10px 15px',
 
-    linkStyle: {
+    subLinkStyle: {
       lineType: 'curve',
       lineWidth: 3,
       lineColor: 'rgb(113, 203, 45)'
@@ -42,7 +50,7 @@ export const defaultTheme: ThemeType = {
     fontSize: '17px',
     padding: '4px 10px',
 
-    linkStyle: {
+    subLinkStyle: {
       lineType: 'curve',
       lineWidth: 3,
       lineColor: 'white'
