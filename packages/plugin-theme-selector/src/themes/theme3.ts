@@ -7,16 +7,23 @@ export const theme3: ThemeType = {
   highlightColor: '#50C9CE',
   marginH: 50,
   marginV: 20,
+  contentStyle: {
+    lineHeight: '1.5'
+  },
+
   linkStyle: {
     lineRadius: 5
   },
 
   rootTopic: {
-    background: '#FF99C8',
-    color: '#fff',
-    fontSize: '34px',
-    borderRadius: '5px',
-    padding: '16px 18px 16px 18px',
+    contentStyle: {
+      background: '#FF99C8',
+      color: '#fff',
+      fontSize: '34px',
+      borderRadius: '5px',
+      padding: '16px 18px 16px 18px'
+    },
+
     subLinkStyle: {
       lineType: 'curve',
       lineWidth: 2,
@@ -24,14 +31,16 @@ export const theme3: ThemeType = {
     }
   },
   primaryTopic: {
-    background: '#FCF6BD',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: '#E4C1F9',
-    borderRadius: '5px',
-    color: 'rgb(103,103,103)',
-    fontSize: '14px',
-    padding: '6px 10px 5px 10px',
+    contentStyle: {
+      background: '#FCF6BD',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: '#E4C1F9',
+      borderRadius: '5px',
+      color: 'rgb(103,103,103)',
+      fontSize: '14px',
+      padding: '6px 10px 5px 10px'
+    },
 
     subLinkStyle: {
       lineType: 'curve',
@@ -41,12 +50,14 @@ export const theme3: ThemeType = {
   },
 
   normalTopic: {
-    background: '#E4FDE1',
-    borderRadius: '5px',
-    color: 'rgb(103,103,103)',
-    fontSize: '13px',
-    padding: '3px 9px 4px',
-    boxShadow: '1px 1px 1px #ccc',
+    contentStyle: {
+      background: '#E4FDE1',
+      borderRadius: '5px',
+      color: 'rgb(103,103,103)',
+      fontSize: '13px',
+      padding: '3px 9px 4px',
+      boxShadow: '1px 1px 1px #ccc'
+    },
 
     subLinkStyle: {
       lineType: 'round',

@@ -88,7 +88,7 @@ class AppDemo extends BaseDemo {
     const props = this.diagram.getDiagramProps();
     const { controller } = props;
     input.type = 'file';
-    input.accept = '.json';
+    input.accept = '.json,.blinkmind,.bm';
     log('add onchange');
     input.addEventListener('change', evt => {
       const file = evt.target.files[0];

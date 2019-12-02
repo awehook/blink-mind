@@ -1,0 +1,47 @@
+import { ThemeType } from '@blink-mind/core';
+
+export const themeRandomColorSquare: ThemeType = {
+  name: 'default',
+  randomColor: true,
+  background: 'rgb(57,60,65)',
+  highlightColor: '#50C9CE',
+  marginH: 60,
+  marginV: 20,
+
+  contentStyle: {
+    lineHeight: '1.5',
+    fontSize: '16px'
+  },
+
+  linkStyle: {
+    lineRadius: 5,
+    lineType: 'curve',
+    lineWidth: 3
+  },
+
+  rootTopic: {
+    contentStyle: {
+      fontSize: '36px'
+    },
+    subLinkStyle: {
+      lineType: 'curve',
+      lineWidth: 3
+    }
+  },
+  primaryTopic: {
+    contentStyle: {
+      fontSize: '24px'
+    },
+    subLinkStyle: {
+      lineType: 'curve',
+      lineWidth: 3
+    }
+  },
+
+  normalTopic: {
+    subLinkStyle: {
+      lineType: 'curve',
+      lineWidth: 3
+    }
+  }
+};

@@ -2,7 +2,7 @@ import { ModelModifier } from '@blink-mind/core';
 import {
   Breadcrumb,
   Breadcrumbs,
-  IBreadcrumbProps,
+  PopoverPosition,
   Tooltip
 } from '@blueprintjs/core';
 import * as React from 'react';
@@ -18,6 +18,10 @@ const EditorRootBreadcrumbsRoot = styled.div`
   top: 20px;
   border-radius: 2px;
   z-index: 4;
+`;
+
+const TooltipContent = styled.div`
+  max-width: 600px;
 `;
 
 const BreadcrumbTitle = styled.span``;
@@ -44,16 +48,31 @@ export class EditorRootBreadcrumbs extends BaseWidget {
 
   breadcrumbRenderer = props => {
     const { text, ...breadProps } = props;
-    const title = text.length > 8 ? text.substr(0, 8) + '...' : text;
-    return (
-      <li>
-        <Tooltip content={text}>
-          <Breadcrumb {...breadProps}>
-            <BreadcrumbTitle>{title}</BreadcrumbTitle>
-          </Breadcrumb>
-        </Tooltip>
-      </li>
+    const needTooltip = text.length > 8;
+    const title = needTooltip ? text.substr(0, 8) + '...' : text;
+    //TODO
+
+    const content = <TooltipContent>{text}</TooltipContent>;
+    const tooltipProps = {
+      content,
+      position: PopoverPosition.BOTTOM_RIGHT
+    };
+    const breadcrumb = (
+      <Breadcrumb {...breadProps}>
+        <BreadcrumbTitle>{title}</BreadcrumbTitle>
+      </Breadcrumb>
     );
+    return needTooltip ? (
+      <Tooltip {...tooltipProps}>{breadcrumb}</Tooltip>
+    ) : (
+      breadcrumb
+    );
+
+    // return (
+    //   <Breadcrumb {...breadProps}>
+    //     <BreadcrumbTitle>{title}</BreadcrumbTitle>
+    //   </Breadcrumb>
+    // );
   };
 
   render() {

@@ -17,8 +17,8 @@ function onClickMyMenu(props) {
   return function() {
     const { topicKey, controller, model } = props;
     alert(`this topic key is ${topicKey}`);
-    const topicStyle = controller.run('getTopicStyle', props);
-    alert(`this topic style is ${JSON.stringify(topicStyle)}`);
+    const topicStyle = controller.run('getTopicContentStyle', props);
+    alert(`this topic content style is ${JSON.stringify(topicStyle)}`);
   };
 }
 

@@ -51,7 +51,7 @@ export class RootSubLinks extends BaseWidget<Props, State> {
     };
     const curves = [];
     topic.subKeys.forEach(key => {
-      const style = controller.run('getTopicStyle', {
+      const style = controller.run('getTopicContentStyle', {
         ...props,
         topicKey: key
       });

@@ -7,16 +7,22 @@ export const theme1: ThemeType = {
   highlightColor: '#50C9CE',
   marginH: 50,
   marginV: 30,
+
+  contentStyle: {
+    lineHeight: '1.5'
+  },
+
   linkStyle: {
     lineRadius: 5
   },
   rootTopic: {
-    background: 'rgb(221, 170, 68)',
-    color: '#fff',
-    fontSize: '34px',
-    borderRadius: '5px',
-    padding: '16px 18px 16px 18px',
-
+    contentStyle: {
+      background: 'rgb(221, 170, 68)',
+      color: '#fff',
+      fontSize: '34px',
+      borderRadius: '5px',
+      padding: '16px 18px 16px 18px'
+    },
     subLinkStyle: {
       lineType: 'curve',
       lineWidth: 2,
@@ -24,14 +30,15 @@ export const theme1: ThemeType = {
     }
   },
   primaryTopic: {
-    background: '#e8eaec',
-    borderWidth: '2px',
-    borderStyle: 'solid',
-    borderColor: 'rgb(221, 170, 68)',
-    borderRadius: '5px',
-    fontSize: '17px',
-    padding: '10px 15px 10px 15px',
-
+    contentStyle: {
+      background: '#e8eaec',
+      borderWidth: '2px',
+      borderStyle: 'solid',
+      borderColor: 'rgb(221, 170, 68)',
+      borderRadius: '5px',
+      fontSize: '17px',
+      padding: '10px 15px 10px 15px'
+    },
     subLinkStyle: {
       lineType: 'curve',
       lineWidth: 2,
@@ -40,13 +47,14 @@ export const theme1: ThemeType = {
   },
 
   normalTopic: {
-    background: '#fff',
-    border: '1px solid #e8eaec',
-    borderRadius: '20px',
-    color: 'rgb(187, 136, 34)',
-    fontSize: '13px',
-    padding: '4px 10px',
-
+    contentStyle: {
+      background: '#fff',
+      border: '1px solid #e8eaec',
+      borderRadius: '20px',
+      color: 'rgb(187, 136, 34)',
+      fontSize: '13px',
+      padding: '4px 10px'
+    },
     subLinkStyle: {
       lineType: 'round',
       lineRadius: 5,

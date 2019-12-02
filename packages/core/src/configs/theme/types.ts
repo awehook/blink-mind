@@ -5,17 +5,20 @@ export type LinkStyle = {
   lineRadius?: number;
 };
 
-export type TopicStyle = {
+export type TopicContentStyle = {
   background?: string;
   color?: string;
   fontSize?: string;
   lineHeight?: string;
-  borderRadius: string;
+  borderRadius?: string;
   borderWidth?: string;
   borderStyle?: string;
   borderColor?: string;
   padding?: string;
+};
 
+export type TopicStyle = {
+  contentStyle?: TopicContentStyle;
   linkStyle?: LinkStyle;
   subLinkStyle?: LinkStyle;
 };
@@ -28,6 +31,7 @@ export type ThemeType = {
   marginH: number;
   marginV: number;
 
+  contentStyle?: TopicContentStyle;
   linkStyle?: LinkStyle;
 
   rootTopic?: TopicStyle;

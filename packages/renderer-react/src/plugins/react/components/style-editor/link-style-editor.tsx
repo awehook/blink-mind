@@ -35,6 +35,13 @@ export function LinkStyleEditor(props) {
     });
   };
 
+  const handleLinkTypeChange = value => {
+    controller.run('setLinkStyle', {
+      ...props,
+      linkStyle: { lineType: value }
+    });
+  };
+
   const handleSubLinkWidthChange = value => {
     controller.run('setSubLinkStyle', {
       ...props,
@@ -67,7 +74,7 @@ export function LinkStyleEditor(props) {
     <SettingGroup>
       <SettingTitle>Link</SettingTitle>
       <SettingRow alignItems="center">
-        <Margin margin="0 5px 0 0">LinkToParent Style: </Margin>
+        <Margin margin="0 5px 0 0">LinkToParent: </Margin>
         <SettingItem>
           <PxSelect
             items={borderWidthItems}
@@ -76,8 +83,18 @@ export function LinkStyleEditor(props) {
             onItemSelect={handleLinkWidthChange}
           >
             <Button
-              text={`width: ${linkStyle ? linkStyle.lineWidth : '0px'}`}
+              text={`width: ${linkStyle ? linkStyle.lineWidth + 'px' : '0px'}`}
             />
+          </PxSelect>
+        </SettingItem>
+        <SettingItem>
+          <PxSelect
+            items={lineTypes}
+            itemRenderer={renderLineTypeItem}
+            filterable={false}
+            onItemSelect={handleLinkTypeChange}
+          >
+            <Button text={`lineType: ${linkStyle.lineType}`} />
           </PxSelect>
         </SettingItem>
         <SettingItem>
@@ -96,7 +113,7 @@ export function LinkStyleEditor(props) {
         </SettingItem>
       </SettingRow>
       <SettingRow alignItems="center">
-        <Margin margin="0 5px 0 0">SubLinks Style: </Margin>
+        <Margin margin="0 5px 0 0">SubLinks: </Margin>
         <SettingItem>
           <PxSelect
             items={borderWidthItems}
@@ -105,7 +122,9 @@ export function LinkStyleEditor(props) {
             onItemSelect={handleSubLinkWidthChange}
           >
             <Button
-              text={`width: ${subLinkStyle ? subLinkStyle.lineWidth : '0px'}`}
+              text={`width: ${
+                subLinkStyle ? subLinkStyle.lineWidth + 'px' : '0px'
+              }`}
             />
           </PxSelect>
         </SettingItem>

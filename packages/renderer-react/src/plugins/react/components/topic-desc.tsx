@@ -19,10 +19,8 @@ import {
 
 const log = debug('node:topic-desc');
 
-const DescIcon = styled.div`
-  &:hover {
-  }
-`;
+//TODO
+const DescIcon = styled.div``;
 
 const DescEditorWrapper = styled.div`
   overflow: auto;
@@ -93,19 +91,22 @@ export function TopicDesc(props) {
       {descEditor}
     </TooltipContentWrapper>
   );
+  const icon = (
+    <DescIcon
+      onClick={onClick}
+      className={iconClassName(IconName.NOTES)}
+      tabIndex={-1}
+    ></DescIcon>
+  );
   const tooltipProps = {
+    autoFocus: false,
     content: tooltipContent,
+    target: icon,
     interactionKind: PopoverInteractionKind.HOVER,
     hoverOpenDelay: 500
   };
-  const descIcon = desc.block && (
-    <Popover {...tooltipProps}>
-      <DescIcon
-        onClick={onClick}
-        className={iconClassName(IconName.NOTES)}
-      ></DescIcon>
-    </Popover>
-  );
+
+  const descIcon = desc.block && <Popover {...tooltipProps}></Popover>;
   return (
     <>
       {descIcon}

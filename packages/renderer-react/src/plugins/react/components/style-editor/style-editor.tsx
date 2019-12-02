@@ -1,4 +1,4 @@
-import { OpType, TopicStyle } from '@blink-mind/core';
+import { OpType, TopicContentStyle } from '@blink-mind/core';
 import { Button, Popover } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
@@ -53,14 +53,14 @@ export class StyleEditor extends BaseWidget {
     });
   };
 
-  setStyle = style => {
+  setTopicContentStyle = style => {
     const props = this.props;
     const { controller } = props;
-    controller.run('setStyle', { ...props, style });
+    controller.run('setTopicContentStyle', { ...props, style });
   };
 
   handleBackgroundColorChange = color => {
-    this.setStyle({ background: color.hex });
+    this.setTopicContentStyle({ background: color.hex });
   };
 
   handleClearStyle = () => {
@@ -93,8 +93,10 @@ export class StyleEditor extends BaseWidget {
     const props = this.props;
     const { controller, model } = props;
     if (!model.focusKey) return null;
-    const topicStyle: TopicStyle = controller.run('getTopicStyle', props);
-    const linkStyle = topicStyle.linkStyle;
+    const topicStyle: TopicContentStyle = controller.run(
+      'getTopicContentStyle',
+      props
+    );
     if (!this.state.showPanel) {
       return (
         <StyleEditorRoot>
@@ -104,7 +106,7 @@ export class StyleEditor extends BaseWidget {
         </StyleEditorRoot>
       );
     }
-    const setStyle = this.setStyle;
+    const setStyle = this.setTopicContentStyle;
     return (
       <StyleEditorRoot>
         <Title>

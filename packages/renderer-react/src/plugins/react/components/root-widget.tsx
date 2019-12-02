@@ -70,7 +70,7 @@ export class RootWidget extends React.Component<Props> {
     log('render');
     const props = this.props;
     const { model, topicKey, saveRef, controller, dir } = props;
-    const topicStyle = controller.run('getTopicStyle', props);
+    const topicStyle = controller.run('getTopicContentStyle', props);
     const config = model.config;
     const topicContent = controller.run('renderTopicContent', {
       ...props,
