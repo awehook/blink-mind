@@ -229,8 +229,13 @@ export function StylePlugin() {
         '#DB995A',
         '#83BCFF',
         '#ED7B84',
-        '#F92A82',
-        '#83BCFF'
+        '#739E82',
+        '#83BCFF',
+        '#D3BCC0',
+        '#FFA0FD',
+        '#778472',
+        '#744253',
+        '#C6878F'
       ];
       const color = colors[++colorIndex % colors.length];
       colorMap.set(topicKey, color);
