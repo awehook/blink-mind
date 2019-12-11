@@ -20,17 +20,17 @@ export function JsonSerializerPlugin() {
           ...props,
           config: model.config
         }),
-        version: model.version
+        formatVersion: model.formatVersion
       };
       return obj;
     },
 
     deserializeModel(props) {
       const { obj, controller } = props;
-      if (obj.version == null) {
-        obj.version = '0.0';
+      if (obj.formatVersion == null) {
+        obj.formatVersion = '0.0';
       }
-      const { rootTopicKey, topics, config, version } = obj;
+      const { rootTopicKey, topics, config, formatVersion } = obj;
       let model = new Model();
       model = model.merge({
         rootTopicKey,
@@ -38,14 +38,14 @@ export function JsonSerializerPlugin() {
         config: controller.run('deserializeConfig', {
           ...props,
           obj: config,
-          version
+          formatVersion
         }),
         topics: controller.run('deserializeTopics', {
           ...props,
           obj: topics,
-          version
+          formatVersion
         }),
-        version: DATA_VERSION
+        formatVersion: DATA_VERSION
       });
       log('deserializeModel', model);
       return model;
