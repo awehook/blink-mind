@@ -53,14 +53,39 @@ export class MindDragScrollWidget<
 
   onClick = e => {};
 
+  onWheel = e => {
+    if (e.altKey || e.ctrlKey) {
+      const { model, controller } = this.props;
+      let { zoomFactor } = model;
+      zoomFactor = zoomFactor - e.nativeEvent.deltaY / 500;
+      if (zoomFactor < 0.5) zoomFactor = 0.5;
+      if (zoomFactor > 8) zoomFactor = 8;
+      // console.log('zoomFactor=>', zoomFactor);
+      controller.run('setZoomFactor', { ...this.props, zoomFactor });
+      this.dragScrollWidget.setZoomFactor(zoomFactor);
+    }
+  };
+
+  shouldComponentUpdate(nextProps: Readonly<MindDragScrollWidgetProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+    if(nextProps.model.zoomFactor !== this.props.model.zoomFactor)
+      return false;
+    return true;
+  }
+
   render() {
     const { saveRef, model, controller } = this.props;
     const nodeKey = model.editorRootTopicKey;
     return (
       <DIV
-      // onClick={this.onClick}
+        // onClick={this.onClick}
+        onWheel={this.onWheel}
       >
-        <DragScrollWidget {...this.state} ref={saveRef('DragScrollWidget')}>
+        <DragScrollWidget
+          {...this.state}
+          enableMouseWheel={false}
+          zoomFactor={model.zoomFactor}
+          ref={saveRef('DragScrollWidget')}
+        >
           {(
             setViewBoxScroll: (left: number, top: number) => void,
             setViewBoxScrollDelta: (left: number, top: number) => void

@@ -183,6 +183,12 @@ function setEditorRootTopicKey({ model, topicKey }): IModifierResult {
   return model;
 }
 
+function setZoomFactor({ model, zoomFactor }): IModifierResult {
+  if (model.editorRootTopicKey !== zoomFactor)
+    model = model.set('zoomFactor', zoomFactor);
+  return model;
+}
+
 export default {
   addChild,
   addSibling,
@@ -194,5 +200,6 @@ export default {
   setStyle,
   setTheme,
   setLayoutDir,
-  setEditorRootTopicKey
+  setEditorRootTopicKey,
+  setZoomFactor
 };

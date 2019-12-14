@@ -21,6 +21,8 @@ interface DragScrollWidgetProps {
   mouseKey?: 'left' | 'right';
   needKeyPressed?: boolean;
   canDragFunc?: () => Boolean;
+  enableMouseWheel: boolean;
+  zoomFactor: number;
   children: (
     setViewBoxScroll: (left: number, top: number) => void,
     setViewBoxScrollDelta: (left: number, top: number) => void
@@ -76,6 +78,19 @@ export class DragScrollWidget extends React.Component<
   viewBoxRef = ref => {
     if (ref) {
       this.viewBox = ref;
+      if (!this.props.enableMouseWheel) {
+        log('addEventListener onwheel');
+        this.viewBox.addEventListener(
+          'wheel',
+          function(e) {
+            log('onwheel');
+            (e.ctrlKey || e.altKey) && e.preventDefault();
+          },
+          {
+            passive: false
+          }
+        );
+      }
       this.setViewBoxScroll(
         this.viewBox.clientWidth,
         this.viewBox.clientHeight
@@ -174,10 +189,21 @@ export class DragScrollWidget extends React.Component<
     document.removeEventListener('contextmenu', this.handleContextMenu);
   }
 
+  setZoomFactor(zoomFactor) {
+    this.bigView.style.transform = `scale(${zoomFactor})`;
+    this.bigView.style.transformOrigin = '50% 50%';
+  }
+
   render() {
+    const style = {
+      ...this.state.widgetStyle,
+      // zoom:this.props.zoomFactor,
+      // transform: `scale(${this.props.zoomFactor})`,
+      // transformOrigin: '50% 50%'
+    };
     return (
       <DragScrollView ref={this.viewBoxRef} onMouseDown={this.onMouseDown}>
-        <div style={this.state.widgetStyle} ref={this.bigViewRef}>
+        <div style={style} ref={this.bigViewRef}>
           <DragScrollContent
             ref={this.contentRef}
             style={this.state.contentStyle}

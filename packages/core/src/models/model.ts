@@ -14,6 +14,7 @@ type ModelRecordType = {
   editorRootTopicKey?: KeyType;
   focusKey?: KeyType;
   focusMode?: string;
+  zoomFactor: number;
   formatVersion?: string;
 };
 
@@ -25,7 +26,8 @@ const defaultModelRecord: ModelRecordType = {
   editorRootTopicKey: null,
   focusKey: null,
   focusMode: null,
-  formatVersion: null
+  formatVersion: null,
+  zoomFactor: 1
 };
 
 export class Model extends Record(defaultModelRecord) {
@@ -86,7 +88,8 @@ export class Model extends Record(defaultModelRecord) {
       rootTopicKey: this.rootTopicKey,
       topics: Object.values(this.topics.toJS()),
       config: this.config,
-      data: this.data
+      data: this.data,
+      zoomFactor: this.zoomFactor
     };
     return obj;
   }
@@ -148,5 +151,9 @@ export class Model extends Record(defaultModelRecord) {
 
   get rootTopic() {
     return this.getTopic(this.rootTopicKey);
+  }
+
+  get zoomFactor() {
+    return this.get('zoomFactor');
   }
 }

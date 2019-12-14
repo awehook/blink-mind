@@ -31,6 +31,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
   layout() {
     const props = this.props;
     const { model, getRef, topicKey, dir, controller } = props;
+    const z = model.zoomFactor;
     const topic = model.getTopic(topicKey);
     const content = getRef(contentRefKey(topicKey));
     const svgRect: ClientRect = getRef(
@@ -85,6 +86,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         };
       }
       const { lineType } = linkStyle;
+
       if (lineType === 'curve') {
         curve = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y} C ${p2.x} ${centerPointY(
           p2,
@@ -112,7 +114,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         <path
           key={`link-${key}`}
           d={curve}
-          strokeWidth={linkStyle.lineWidth}
+          strokeWidth={linkStyle.lineWidth*z}
           stroke={linkStyle.lineColor}
           fill="none"
         />
@@ -124,9 +126,10 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
   }
 
   render() {
-    const { topicKey, saveRef } = this.props;
+    const { topicKey, saveRef, model } = this.props;
+    const style = {transform: `scale(${1/model.zoomFactor})`};
     return (
-      <TopicLinksSvg ref={saveRef(linksSvgRefKey(topicKey))}>
+      <TopicLinksSvg ref={saveRef(linksSvgRefKey(topicKey))} style={style}>
         <g>{this.state.curves}</g>
       </TopicLinksSvg>
     );

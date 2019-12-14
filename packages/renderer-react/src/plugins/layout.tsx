@@ -69,6 +69,12 @@ export function LayoutPlugin() {
     setLayoutDir(props) {
       const { layoutDir, model, controller } = props;
       controller.change(ModelModifier.setLayoutDir({ model, layoutDir }));
+    },
+
+    setZoomFactor(props) {
+      const { zoomFactor, model, controller } = props;
+      const newModel = ModelModifier.setZoomFactor({ model, zoomFactor });
+      if (newModel !== model) controller.change(newModel);
     }
   };
 }

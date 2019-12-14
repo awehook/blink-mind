@@ -21,6 +21,7 @@ export interface IModifierArg {
   style?: string;
   theme?: any;
   layoutDir?: any;
+  zoomFactor?: number;
 }
 
 export type IModifierResult = Model;

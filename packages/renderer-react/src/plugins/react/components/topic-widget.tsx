@@ -76,6 +76,7 @@ export class TopicWidget extends React.Component<Props> {
   }
 
   layoutLinks() {
+    log('layoutLinks');
     const { getRef, topicKey } = this.props;
     const links: TopicSubLinks = getRef(linksRefKey(topicKey));
     links && links.layout();
