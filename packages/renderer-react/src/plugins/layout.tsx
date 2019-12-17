@@ -2,11 +2,16 @@ import {
   DiagramLayoutType,
   KeyType,
   Model,
-  ModelModifier
+  ModelModifier,
+  Topic
 } from '@blink-mind/core';
 import * as React from 'react';
-import { linksRefKey } from '../utils';
-import { TopicWidget } from './react/components/topic-widget';
+import {
+  getRelativeRect,
+  linksRefKey,
+  RefKey,
+  topicWidgetRefKey
+} from '../utils';
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;
@@ -18,6 +23,7 @@ export interface GetPartTopicsRes {
 }
 
 export function LayoutPlugin() {
+  const _zoomFactor = 1;
   return {
     getPartTopics({
       layout,
@@ -44,26 +50,45 @@ export function LayoutPlugin() {
       }
     },
 
-    createSubTopics({ props, topics }) {
-      const { model, topicKey } = props;
+    createSubTopics(props) {
+      const { model, topicKey, controller, topics, saveRef } = props;
       const topic = model.getTopic(topicKey);
       if (topics.size === 0 || topic.collapse) return null;
       const subTopics = [];
       topics.forEach(tKey => {
-        const subTopicProps = { ...props, topicKey: tKey };
-        subTopics.push(<TopicWidget key={tKey} {...subTopicProps} />);
+        const topicProps = {
+          ...props,
+          topicKey: tKey,
+          key: tKey,
+          ref: saveRef(topicWidgetRefKey(tKey))
+        };
+        subTopics.push(controller.run('renderTopicWidget', topicProps));
       });
       return { subTopics };
     },
 
     layout(props) {
-      const { getRef, topicKey } = props;
-      const links = getRef(linksRefKey(topicKey));
-      const highlight = getRef('focus-highlight');
-      const dropEffect = getRef('drop-effect');
+      const { getRef, model } = props;
+      const links = getRef(linksRefKey(model.editorRootTopicKey));
+      const highlight = getRef(RefKey.FOCUS_HIGHLIGHT_KEY);
+      const dropEffect = getRef(RefKey.DROP_EFFECT_KEY);
       links && links.layout();
       highlight && highlight.layout();
       dropEffect && dropEffect.layout();
+
+      const editorRootTopic = model.getTopic(model.editorRootTopicKey);
+      layoutTopic(editorRootTopic);
+
+      function layoutTopic(topic: Topic) {
+        if (topic.key !== model.editorRootTopicKey) {
+          const topicWidget = getRef(topicWidgetRefKey(topic.key));
+          topicWidget && topicWidget.layoutLinks();
+        }
+
+        for (const subKey of topic.subKeys) {
+          layoutTopic(model.getTopic(subKey));
+        }
+      }
     },
 
     setLayoutDir(props) {
@@ -71,10 +96,49 @@ export function LayoutPlugin() {
       controller.change(ModelModifier.setLayoutDir({ model, layoutDir }));
     },
 
+    getRelativeRect(props) {
+      const { element, controller, getRef } = props;
+      const zoomFactor = controller.run('getZoomFactor', props);
+      const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+      return getRelativeRect(element, bigView, zoomFactor);
+    },
+
+    getRelativeRectFromViewPort(props) {
+      const { element, controller, getRef } = props;
+      const zoomFactor = controller.run('getZoomFactor', props);
+      const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).viewBox;
+      return getRelativeRect(element, viewBox, zoomFactor);
+    },
+
+    addZoomFactorChangeEventListener(props) {
+      const { controller } = props;
+      controller.run('addTempValueChangeListener', {
+        key: 'ZoomFactor',
+        ...props
+      });
+    },
+
+    removeZoomFactorChangeEventListener(props) {
+      const { controller } = props;
+      controller.run('removeTempValueChangeListener', {
+        key: 'ZoomFactor',
+        ...props
+      });
+    },
+
     setZoomFactor(props) {
-      const { zoomFactor, model, controller } = props;
-      const newModel = ModelModifier.setZoomFactor({ model, zoomFactor });
-      if (newModel !== model) controller.change(newModel);
+      const { controller, zoomFactor } = props;
+      return controller.run('setTempValue', {
+        key: 'ZoomFactor',
+        value: zoomFactor
+      });
+    },
+
+    getZoomFactor(props) {
+      const { controller } = props;
+      return (
+        controller.run('getTempValue', { key: 'ZoomFactor' }) || _zoomFactor
+      );
     }
   };
 }

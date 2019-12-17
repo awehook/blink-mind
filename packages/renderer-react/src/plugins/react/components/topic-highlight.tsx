@@ -3,7 +3,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/common/base-props';
-import { contentRefKey } from '../../../utils';
+import {
+  contentRefKey,
+  getRelativeRect,
+  RefKey,
+} from '../../../utils';
 
 const FocusHighlightSvg = styled.svg`
   width: 100%;
@@ -25,7 +29,7 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
   };
 
   layout() {
-    const { getRef, model } = this.props;
+    const { getRef, model, zoomFactor } = this.props;
     const focusKey = model.focusKey;
     const focusMode = model.focusMode;
     if (!focusKey || focusMode === FocusMode.EDITING_CONTENT) {
@@ -34,8 +38,11 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
       });
       return;
     }
-    const contentRect = getRef(contentRefKey(focusKey)).getBoundingClientRect();
-    const svgRect = getRef('svg-highlight').getBoundingClientRect();
+    const content = getRef(contentRefKey(focusKey));
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+    const svg = getRef(RefKey.SVG_HIGHLIGHT_KEY);
+    const contentRect = getRelativeRect(content, bigView, zoomFactor);
+    const svgRect = getRelativeRect(svg, bigView, zoomFactor);
     const padding = 3;
     const x = contentRect.left - svgRect.left - padding;
     const y = contentRect.top - svgRect.top - padding;
@@ -59,7 +66,7 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
   render() {
     const { saveRef } = this.props;
     return (
-      <FocusHighlightSvg ref={saveRef('svg-highlight')}>
+      <FocusHighlightSvg ref={saveRef(RefKey.SVG_HIGHLIGHT_KEY)}>
         {this.state.content}
       </FocusHighlightSvg>
     );

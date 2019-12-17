@@ -98,14 +98,23 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   };
 
   needRelocation: boolean = false;
-  oldCollapseIconRect: ClientRect;
+  oldCollapseIconRect;
 
   componentDidUpdate() {
     if (this.needRelocation) {
-      const { getRef, topicKey, setViewBoxScrollDelta } = this.props;
-      const newRect = getRef(collapseRefKey(topicKey)).getBoundingClientRect();
+      const {
+        getRef,
+        topicKey,
+        setViewBoxScrollDelta,
+        controller
+      } = this.props;
+      const newRect = controller.run('getRelativeRectFromViewPort', {
+        ...this.props,
+        element: getRef(collapseRefKey(topicKey))
+      });
       log('newRect:', newRect);
       log('oldRect:', this.oldCollapseIconRect);
+      //TODO bug
       setViewBoxScrollDelta(
         newRect.left - this.oldCollapseIconRect.left,
         newRect.top - this.oldCollapseIconRect.top
@@ -116,11 +125,12 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   onClickCollapse = e => {
     e.stopPropagation();
-    const { topicKey, getRef } = this.props;
+    const { topicKey, getRef, controller } = this.props;
     this.needRelocation = true;
-    this.oldCollapseIconRect = getRef(
-      collapseRefKey(topicKey)
-    ).getBoundingClientRect();
+    this.oldCollapseIconRect = controller.run('getRelativeRectFromViewPort', {
+      ...this.props,
+      element: getRef(collapseRefKey(topicKey))
+    });
     this.operation(OpType.TOGGLE_COLLAPSE, this.props);
   };
 

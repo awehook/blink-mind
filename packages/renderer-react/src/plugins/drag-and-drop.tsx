@@ -7,7 +7,7 @@ import {
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { contentRefKey } from '../utils';
+import {contentRefKey, RefKey} from '../utils';
 import { TopicDropEffect } from './react/components/topic-drop-effect';
 const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
@@ -16,7 +16,6 @@ const DropArea = styled.div`
   margin: 5px 0px;
 `;
 
-const DropEffects = styled.svg``;
 export function DragAndDrop() {
   let dragTargetKey: KeyType = null;
   let dragTargetDir: string = null;
@@ -59,37 +58,11 @@ export function DragAndDrop() {
       const { saveRef } = props;
       return (
         <TopicDropEffect
-          ref={saveRef('drop-effect')}
+          ref={saveRef(RefKey.DROP_EFFECT_KEY)}
           {...props}
         ></TopicDropEffect>
       );
     },
-
-    // getTopicDropEventHandlers(props) {
-    //   const { dropDir, controller, topicKey } = props;
-    //   const onDragEnter = ev => {
-    //     log('onDragEnter', topicKey, dropDir);
-    //     controller.run('handleTopicDragEnter', { ...props, ev, dropDir });
-    //   };
-    //   const onDragLeave = ev => {
-    //     log('onDragLeave', topicKey, dropDir);
-    //     controller.run('handleTopicDragLeave', { ...props, ev, dropDir });
-    //   };
-    //   const onDragOver = ev => {
-    //     ev.preventDefault();
-    //   };
-    //   const onDrop = ev => {
-    //     log('onDrop', topicKey, dropDir);
-    //     controller.run('handleTopicDrop', { ...props, ev, dropDir });
-    //   };
-    //   const eventHandlers = {
-    //     onDragEnter,
-    //     onDragLeave,
-    //     onDragOver,
-    //     onDrop
-    //   };
-    //   return eventHandlers;
-    // },
 
     getDragTargetProps(props) {
       return {

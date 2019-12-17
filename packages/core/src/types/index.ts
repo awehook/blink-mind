@@ -46,6 +46,8 @@ export const TopicRelationship = {
 
 export const OpType = {
   TOGGLE_COLLAPSE: 'TOGGLE_COLLAPSE',
+  COLLAPSE_ALL: 'COLLAPSE_ALL',
+  EXPAND_ALL: 'EXPAND_ALL',
   ADD_CHILD: 'ADD_CHILD',
   ADD_SIBLING: 'ADD_SIBLING',
   DELETE_TOPIC: 'DELETE_TOPIC',

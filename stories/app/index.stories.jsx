@@ -54,11 +54,6 @@ class AppDemo extends BaseDemo {
         <ToolBarItem onClick={this.onClickChangeTheme}>
           <Icon className={iconClassName('theme')} />
         </ToolBarItem>
-        <ZoomSpan>
-          <MenuDivider/>
-          <span>{`zoom: ${Math.floor(this.state.model.zoomFactor*100)}%`}</span>
-          <MenuDivider/>
-        </ZoomSpan>
       </ToolBar>
     );
   }

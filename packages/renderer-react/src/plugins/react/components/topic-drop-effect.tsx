@@ -3,7 +3,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/common/base-props';
-import { contentRefKey } from '../../../utils';
+import {
+  contentRefKey,
+  getRelativeRect,
+  RefKey
+} from '../../../utils';
 const log = debug('node:topic-drop-effect');
 
 const DropEffectSvg = styled.svg`
@@ -27,7 +31,7 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
 
   layout() {
     const props = this.props;
-    const { getRef, model, controller } = this.props;
+    const { getRef, model, zoomFactor, controller } = this.props;
     const targetProps = controller.run('getDragTargetProps', props);
     const { key, dropDir } = targetProps;
     log('layout', dropDir);
@@ -44,8 +48,11 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
     } else {
       dropAreaRefKey = `dropArea-${dropDir}-${key}`;
     }
-    const contentRect = getRef(dropAreaRefKey).getBoundingClientRect();
-    const svgRect = getRef('svg-drop-effect').getBoundingClientRect();
+    const content = getRef(dropAreaRefKey);
+    const svg = getRef('svg-drop-effect');
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+    const contentRect = getRelativeRect(content, bigView, zoomFactor);
+    const svgRect = getRelativeRect(svg, bigView, zoomFactor);
     const padding = 3;
     const x = contentRect.left - svgRect.left - padding;
     const y = contentRect.top - svgRect.top - padding;

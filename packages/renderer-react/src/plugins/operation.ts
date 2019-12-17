@@ -98,6 +98,8 @@ export function OperationPlugin() {
   }
   const OpMap = new Map([
     [OpType.TOGGLE_COLLAPSE, ModelModifier.toggleCollapse],
+    [OpType.COLLAPSE_ALL,ModelModifier.collapseAll],
+    [OpType.EXPAND_ALL,ModelModifier.expandAll],
     [OpType.ADD_CHILD, ModelModifier.addChild],
     [OpType.ADD_SIBLING, ModelModifier.addSibling],
     [OpType.DELETE_TOPIC, ModelModifier.deleteTopic],

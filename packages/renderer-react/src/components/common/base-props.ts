@@ -9,4 +9,6 @@ export interface BaseProps {
   saveRef?: Function;
   getRef?: Function;
   setViewBoxScrollDelta?: Function;
+  setViewBoxScroll?: Function;
+  zoomFactor?: number;
 }

@@ -39,7 +39,9 @@ export class RootWidget extends React.Component<Props> {
   renderPartTopics(topics: KeyType[], dir: string) {
     const { controller, saveRef } = this.props;
     const res = controller.run('createSubTopics', {
-      props: { ...this.props, dir, isRoot: true },
+      ...this.props,
+      dir,
+      isRoot: true,
       topics
     });
     if (!res) return null;
@@ -51,19 +53,6 @@ export class RootWidget extends React.Component<Props> {
         {subTopics}
       </LayerPart>
     );
-  }
-
-  componentDidMount(): void {
-    this.layout();
-  }
-
-  componentDidUpdate(): void {
-    this.layout();
-  }
-
-  layout() {
-    const { controller } = this.props;
-    controller.run('layout', this.props);
   }
 
   render() {

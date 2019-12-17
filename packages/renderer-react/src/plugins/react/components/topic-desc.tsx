@@ -11,10 +11,10 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {
   cancelEvent,
-  DIAGRAM_ROOT_KEY,
   Icon,
   iconClassName,
-  IconName
+  IconName,
+  RefKey
 } from '../../../utils';
 
 const log = debug('node:topic-desc');
@@ -72,7 +72,7 @@ export function TopicDesc(props) {
   )
     return null;
   const descEditor = controller.run('renderTopicDescEditor', props);
-  const diagramRoot = getRef(DIAGRAM_ROOT_KEY);
+  const diagramRoot = getRef(RefKey.DIAGRAM_ROOT_KEY);
   const style = {
     maxWidth: '800px',
     maxHeight: '600px'

@@ -22,6 +22,31 @@ function toggleCollapse({ model, topicKey }: IModifierArg): IModifierResult {
   return model;
 }
 
+function collapseAll({ model }): IModifierResult {
+  log('collapseAll');
+  const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
+  log(model);
+  model = model.withMutations(m=>{
+    topicKeys.forEach(topicKey=> {
+      m.setIn(['topics',topicKey,'collapse'],true);
+    })
+  });
+  log(model);
+  return model;
+}
+
+function expandAll({ model }): IModifierResult {
+  const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
+  log(model);
+  model = model.withMutations(m=>{
+    topicKeys.forEach(topicKey=> {
+      m.setIn(['topics',topicKey,'collapse'],false);
+    })
+  });
+  log(model);
+  return model;
+}
+
 function setTopic({ model, topic }: IModifierArg): IModifierResult {
   model = model.setIn(['topics', topic.key], topic);
   return model;
@@ -193,6 +218,8 @@ export default {
   addChild,
   addSibling,
   toggleCollapse,
+  collapseAll,
+  expandAll,
   focusTopic,
   deleteTopic,
   setContent,

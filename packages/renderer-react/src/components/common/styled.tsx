@@ -18,14 +18,17 @@ export const IconBg = styled.div`
   cursor: pointer;
 `;
 
-export const CloseIcon = styled.div`
-  position: absolute;
-  right: 5px;
-  top: 5px;
+export const Btn = styled.div`
   cursor: pointer;
   &:hover {
     color: #1ea7fd;
   }
+`
+
+export const CloseIcon = styled(Btn)`
+  position: absolute;
+  right: 5px;
+  top: 5px;
 `;
 
 export const Title = styled.div`

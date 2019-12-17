@@ -5,10 +5,12 @@ import debug from 'debug';
 const log = debug('plugin:event');
 
 export function EventPlugin() {
+  const eventListeners = {};
   return {
     handleTopicClick(props) {
       log('handleTopicClick');
       const { controller, model, topicKey } = props;
+      log(model.zoomFactor);
       if (model.editingDescKey !== null) return;
       if (model.editingContentKey === topicKey) return;
       if (
@@ -54,6 +56,41 @@ export function EventPlugin() {
             opType: OpType.FOCUS_TOPIC
           });
         };
+      }
+    },
+
+    addEventListener(props) {
+      const { key, listener, once, controller } = props;
+      if (!eventListeners[key]) eventListeners[key] = [];
+      if (once) {
+        only.origin = listener;
+        eventListeners[key].push(only);
+      } else {
+        eventListeners[key].push(listener);
+      }
+
+      function only() {
+        listener();
+        controller.run('removeEventListener', {
+          key,
+          listener
+        });
+      }
+    },
+
+    removeEventListener(props) {
+      const { key, listener, controller } = props;
+      if (eventListeners[key]) {
+        eventListeners[key] = eventListeners[key].filter(fn => {
+          return fn !== listener && fn.origin !== listener;
+        });
+      }
+    },
+
+    fireEvent(props) {
+      const { key } = props;
+      if (eventListeners[key]) {
+        eventListeners[key].forEach(fn => fn());
       }
     }
   };

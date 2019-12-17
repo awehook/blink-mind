@@ -3,7 +3,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { SaveRef } from '../../components/common';
-import { DIAGRAM_ROOT_KEY, linksRefKey } from '../../utils';
+import { linksRefKey, RefKey } from '../../utils';
 import { EditorRootBreadcrumbs } from './components/editor-root-breadcrumbs';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { Modals } from './components/modals';
@@ -18,6 +18,7 @@ import { TopicDesc } from './components/topic-desc';
 import { TopicHighlight } from './components/topic-highlight';
 import { TopicSubLinks } from './components/topic-sub-links';
 import { TopicWidget } from './components/topic-widget';
+import { ViewPortViewer } from './components/view-port-util';
 import { customizeTopicContextMenu } from './context-menus';
 import Theme from './theme';
 const log = debug('plugin:rendering');
@@ -43,7 +44,7 @@ export function RenderingPlugin() {
             log('renderDiagram', model);
             return (
               <Theme theme={model.config.theme}>
-                <DiagramRoot ref={saveRef(DIAGRAM_ROOT_KEY)}>
+                <DiagramRoot ref={saveRef(RefKey.DIAGRAM_ROOT_KEY)}>
                   <MindDragScrollWidget {...widgetProps} />
                   {controller.run('renderDiagramCustomize', widgetProps)}
                 </DiagramRoot>
@@ -69,7 +70,8 @@ export function RenderingPlugin() {
         ...props,
         topicKey: model.focusKey
       });
-      return [breadcrumbs, styleEditor, modals];
+      const viewportViewer = controller.run('renderViewPortViewer', props);
+      return [breadcrumbs, styleEditor, modals, viewportViewer];
     },
 
     renderEditorRootBreadcrumbs(props) {
@@ -204,11 +206,13 @@ export function RenderingPlugin() {
 
     renderFocusItemHighlight(props) {
       const { saveRef } = props;
-      return <TopicHighlight ref={saveRef('focus-highlight')} {...props} />;
+      return <TopicHighlight ref={saveRef(RefKey.FOCUS_HIGHLIGHT_KEY)} {...props} />;
     },
 
     renderRootWidgetOtherChildren(props) {
       const { controller } = props;
+      const zoomFactor = controller.run('getZoomFactor', props);
+      props = { ...props, zoomFactor };
       return (
         <>
           {controller.run('renderRootSubLinks', props)}
@@ -220,6 +224,10 @@ export function RenderingPlugin() {
 
     renderStyleEditor(props) {
       return <StyleEditor key="style-editor" {...props} />;
+    },
+
+    renderViewPortViewer(props) {
+      return <ViewPortViewer key="view-port-viewer" {...props} />;
     }
   };
 }

@@ -41,6 +41,13 @@
       "unicode_decimal": 59010
     },
     {
+      "icon_id": "2230143",
+      "name": "focus",
+      "font_class": "center",
+      "unicode": "e6f6",
+      "unicode_decimal": 59126
+    },
+    {
       "icon_id": "3076405",
       "name": "new file_",
       "font_class": "newfile",
@@ -60,6 +67,20 @@
       "font_class": "export",
       "unicode": "efc7",
       "unicode_decimal": 61383
+    },
+    {
+      "icon_id": "6849994",
+      "name": "collapse",
+      "font_class": "collapse",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "6849996",
+      "name": "expand",
+      "font_class": "expand",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
     },
     {
       "icon_id": "6936438",

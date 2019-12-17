@@ -6,8 +6,8 @@ import {
   centerPointX,
   centerPointY,
   centerX,
-  centerY,
-  Point
+  centerY, getRelativeRect, Point,
+  RefKey
 } from '../../../utils';
 
 import debug from 'debug';
@@ -24,7 +24,8 @@ const RootLinksSvg = styled.svg`
 
 const log = debug('node:topic-sub-links');
 
-interface Props extends BaseProps {}
+interface Props extends BaseProps {
+}
 
 interface State {
   curves: any[];
@@ -37,12 +38,13 @@ export class RootSubLinks extends BaseWidget<Props, State> {
 
   layout() {
     const props = this.props;
-    const { model, getRef, topicKey, dir, controller } = props;
+    const { model, getRef, topicKey, zoomFactor, controller } = props;
     const topic = model.getTopic(topicKey);
-    const contentRect = getRef(contentRefKey(topicKey)).getBoundingClientRect();
-    const svgRect: ClientRect = getRef(
-      linksSvgRefKey(topicKey)
-    ).getBoundingClientRect();
+    const content = getRef(contentRefKey(topicKey));
+    const svg = getRef(linksSvgRefKey(topicKey));
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+    const contentRect = getRelativeRect(content,bigView,zoomFactor);
+    const svgRect = getRelativeRect(svg,bigView,zoomFactor);
     let p1: Point, p2: Point;
 
     p1 = {
@@ -51,16 +53,13 @@ export class RootSubLinks extends BaseWidget<Props, State> {
     };
     const curves = [];
     topic.subKeys.forEach(key => {
-      const style = controller.run('getTopicContentStyle', {
-        ...props,
-        topicKey: key
-      });
       const linkStyle = controller.run('getLinkStyle', {
         ...props,
         topicKey: key
       });
       const lineType = linkStyle.lineType;
-      const rect = getRef(contentRefKey(key)).getBoundingClientRect();
+      const subTopicContent = getRef(contentRefKey(key));
+      const rect = getRelativeRect(subTopicContent,bigView,zoomFactor);
       if (rect.left > contentRect.right) {
         p2 = {
           x: rect.left,
