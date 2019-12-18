@@ -7,7 +7,7 @@ import {
 } from '@blink-mind/core';
 import * as React from 'react';
 import {
-  getRelativeRect,
+  getRelativeRect, getRelativeVector,
   linksRefKey,
   RefKey,
   topicWidgetRefKey
@@ -108,6 +108,12 @@ export function LayoutPlugin() {
       const zoomFactor = controller.run('getZoomFactor', props);
       const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).viewBox;
       return getRelativeRect(element, viewBox, zoomFactor);
+    },
+    getRelativeVectorFromViewPort(props) {
+      const { element, controller, getRef } = props;
+      const zoomFactor = controller.run('getZoomFactor', props);
+      const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).viewBox;
+      return getRelativeVector(element, viewBox);
     },
 
     addZoomFactorChangeEventListener(props) {

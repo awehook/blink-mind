@@ -98,7 +98,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   };
 
   needRelocation: boolean = false;
-  oldCollapseIconRect;
+  oldCollapseIconVector;
 
   componentDidUpdate() {
     if (this.needRelocation) {
@@ -108,17 +108,27 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
         setViewBoxScrollDelta,
         controller
       } = this.props;
-      const newRect = controller.run('getRelativeRectFromViewPort', {
-        ...this.props,
-        element: getRef(collapseRefKey(topicKey))
+      const newIcon = getRef(collapseRefKey(topicKey));
+      const newRect = newIcon.getBoundingClientRect();
+      // const newVector = controller.run('getRelativeVectorFromViewPort', {
+      //   ...this.props,
+      //   element: getRef(collapseRefKey(topicKey))
+      // });
+      const newVector = [newRect.left + newRect.width / 2,
+        newRect.top + newRect.height / 2]
+      const z = controller.run('getZoomFactor', {
+        ...this.props
       });
-      log('newRect:', newRect);
-      log('oldRect:', this.oldCollapseIconRect);
+      log('newVector:', newVector);
+      log('oldVector:', this.oldCollapseIconVector);
       //TODO bug
-      setViewBoxScrollDelta(
-        newRect.left - this.oldCollapseIconRect.left,
-        newRect.top - this.oldCollapseIconRect.top
-      );
+      const vector = [
+        newVector[0] - this.oldCollapseIconVector[0],
+        newVector[1] - this.oldCollapseIconVector[1]
+      ];
+      // vector = [vector[0]*z,vector[1]*z]
+      log('vector', vector);
+      setViewBoxScrollDelta(vector[0], vector[1]);
       this.needRelocation = false;
     }
   }
@@ -127,10 +137,18 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     e.stopPropagation();
     const { topicKey, getRef, controller } = this.props;
     this.needRelocation = true;
-    this.oldCollapseIconRect = controller.run('getRelativeRectFromViewPort', {
-      ...this.props,
-      element: getRef(collapseRefKey(topicKey))
-    });
+    const collapseIcon = getRef(collapseRefKey(topicKey));
+    const rect = collapseIcon.getBoundingClientRect();
+    log('oldRect', rect);
+    this.oldCollapseIconVector = [
+      rect.left + rect.width / 2,
+      rect.top + rect.height / 2
+    ];
+    log('oldCollapseIconVector', this.oldCollapseIconVector);
+    // this.oldCollapseIconVector = controller.run('getRelativeVectorFromViewPort', {
+    //   ...this.props,
+    //   element: collapseIcon
+    // });
     this.operation(OpType.TOGGLE_COLLAPSE, this.props);
   };
 
