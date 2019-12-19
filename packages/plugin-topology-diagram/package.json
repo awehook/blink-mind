@@ -1,0 +1,28 @@
+{
+  "name": "@blink-mind/plugin-topolopy-diagram",
+  "files": [
+    "lib/"
+  ],
+  "main": "./lib/main.js",
+  "module": "lib/main.es.js",
+  "umd": "dist/main.js",
+  "version": "0.0.14",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@blink-mind/core": "link:../core",
+    "@blink-mind/renderer-react": "link:../renderer-react",
+    "@blueprintjs/core": "^3.19.1",
+    "debug": "^3.1.0",
+    "react": "^16.10.2",
+    "styled-components": "^4.4.0",
+    "topology-activity-diagram": "^0.0.4",
+    "topology-class-diagram": "^0.0.1",
+    "topology-core": "^0.0.19",
+    "topology-flow-diagram": "^0.0.1",
+    "topology-sequence-diagram": "^0.0.4"
+  }
+}

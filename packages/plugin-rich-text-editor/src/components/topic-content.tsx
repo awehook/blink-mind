@@ -22,18 +22,11 @@ export function TopicContent(props) {
     const value = controller.run('deleteTempValue', { key });
     controller.run('operation', {
       ...props,
-      opArray: [
-        {
-          opType: OpType.SET_TOPIC_CONTENT,
-          topicKey,
-          data: value
-        },
-        {
-          opType: OpType.FOCUS_TOPIC,
-          topicKey,
-          focusMode: FocusMode.NORMAL
-        }
-      ]
+      opType: OpType.SET_TOPIC_BLOCK,
+      topicKey,
+      blockType: BlockType.CONTENT,
+      data: value,
+      focusMode: FocusMode.NORMAL
     });
   };
 

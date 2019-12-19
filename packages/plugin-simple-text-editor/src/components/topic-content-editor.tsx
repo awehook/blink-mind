@@ -38,19 +38,16 @@ export class TopicContentEditor extends SimpleTextEditor {
   // };
 
   onClickOutSide(e) {
+    log('onClickOutSide');
     const { model, topicKey } = this.props;
     const readOnly = model.editingContentKey !== topicKey;
     if (readOnly) return;
     const { controller } = this.props;
     controller.run('operation', {
       ...this.props,
-      opType: OpType.SET_TOPIC_CONTENT,
-      data: this.state.content
-    });
-
-    controller.run('operation', {
-      ...this.props,
-      opType: OpType.FOCUS_TOPIC,
+      opType: OpType.SET_TOPIC_BLOCK,
+      blockType: BlockType.CONTENT,
+      data: this.state.content,
       focusMode: FocusMode.NORMAL
     });
   }

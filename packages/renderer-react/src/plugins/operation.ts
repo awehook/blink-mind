@@ -21,13 +21,19 @@ export function OperationPlugin() {
     const topic = model.getTopic(topicKey);
     const desc = topic.getBlock(BlockType.DESC);
     if (desc.block == null || desc.block.data == null) {
-      model = ModelModifier.setDesc({ model, topicKey, data: '' });
+      model = ModelModifier.setBlockData({
+        model,
+        topicKey,
+        blockType: BlockType.DESC,
+        data: ''
+      });
     }
-    return ModelModifier.focusTopic({
+    model = ModelModifier.focusTopic({
       model,
       topicKey,
       focusMode: FocusMode.EDITING_DESC
     });
+    return model;
   };
 
   function dragAndDrop(props) {
@@ -98,15 +104,14 @@ export function OperationPlugin() {
   }
   const OpMap = new Map([
     [OpType.TOGGLE_COLLAPSE, ModelModifier.toggleCollapse],
-    [OpType.COLLAPSE_ALL,ModelModifier.collapseAll],
-    [OpType.EXPAND_ALL,ModelModifier.expandAll],
+    [OpType.COLLAPSE_ALL, ModelModifier.collapseAll],
+    [OpType.EXPAND_ALL, ModelModifier.expandAll],
     [OpType.ADD_CHILD, ModelModifier.addChild],
     [OpType.ADD_SIBLING, ModelModifier.addSibling],
     [OpType.DELETE_TOPIC, ModelModifier.deleteTopic],
     [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
     [OpType.SET_STYLE, ModelModifier.setStyle],
-    [OpType.SET_TOPIC_CONTENT, ModelModifier.setContent],
-    [OpType.SET_TOPIC_DESC, ModelModifier.setDesc],
+    [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop],
@@ -117,6 +122,18 @@ export function OperationPlugin() {
   let redoStack = Stack<Model>();
 
   return {
+    /** plugin can extend Operation Map
+     * for example: A plugin can write a function
+     * getOpMap(props,next) {
+     *   let opMap = next();
+     *   opMap.set("OpTypeName",opFunc);
+     *   return opMap;
+     * }
+     * @param props
+     */
+    getOpMap(props) {
+      return OpMap;
+    },
     getAllowUndo(props) {
       const { model, opType } = props;
       if (opType) {
@@ -216,8 +233,11 @@ export function OperationPlugin() {
     beforeOperation(props) {},
     operation(props) {
       const { opType, controller, model, opArray } = props;
-      log('operation:', opType || opArray);
-      log('model:', model);
+      log('operation:', opType);
+      log('operation:', model);
+      log('operation:', props);
+
+      const opMap = controller.run('getOpMap', props);
       controller.run('beforeOperation', props);
       if (opType != null && opArray != null) {
         throw new Error('operation: opType and opArray conflict!');
@@ -236,16 +256,16 @@ export function OperationPlugin() {
         }
         newModel = opArray.reduce((acc, cur) => {
           const { opType } = cur;
-          if (!OpMap.has(opType))
+          if (!opMap.has(opType))
             throw new Error(`opType:${opType} not exist!`);
-          const opFunc = OpMap.get(opType);
+          const opFunc = opMap.get(opType);
           const res = opFunc({ controller, ...cur, model: acc });
           return res;
           return acc;
         }, model);
       } else {
-        if (!OpMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
-        const opFunc = OpMap.get(opType);
+        if (!opMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
+        const opFunc = opMap.get(opType);
         newModel = opFunc(props);
       }
       log('newModel:', newModel);

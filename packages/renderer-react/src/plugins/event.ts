@@ -11,11 +11,12 @@ export function EventPlugin() {
       log('handleTopicClick');
       const { controller, model, topicKey } = props;
       log(model.zoomFactor);
+      //TODO
       if (model.editingDescKey !== null) return;
       if (model.editingContentKey === topicKey) return;
       if (
         model.focusKey === topicKey &&
-        model.focusMode === FocusMode.EDITING_CONTENT
+        (model.focusMode === FocusMode.EDITING_CONTENT)
       )
         return;
       controller.run('operation', {

@@ -17,6 +17,8 @@ const DragScrollContent = styled.div`
   width: max-content;
 `;
 
+const useWindowListener = false;
+
 interface DragScrollWidgetProps {
   mouseKey?: 'left' | 'right';
   needKeyPressed?: boolean;
@@ -151,18 +153,17 @@ export class DragScrollWidget extends React.Component<
       }
       this._lastCoordX = this.viewBox.scrollLeft + e.nativeEvent.clientX;
       this._lastCoordY = this.viewBox.scrollTop + e.nativeEvent.clientY;
-      window.addEventListener('mousemove', this.onMouseMove);
-      window.addEventListener('mouseup', this.onMouseUp);
-      // this.viewBox.addEventListener('mousemove', this.onMouseMove);
-      // this.viewBox.addEventListener('mouseup', this.onMouseUp);
+
+      const ele = useWindowListener ? window : this.viewBox;
+      ele.addEventListener('mousemove', this.onMouseMove);
+      ele.addEventListener('mouseup', this.onMouseUp);
     }
   };
 
   onMouseUp = e => {
-    window.removeEventListener('mousemove', this.onMouseMove);
-    window.removeEventListener('mouseup', this.onMouseUp);
-    // this.viewBox.removeEventListener('mousemove', this.onMouseMove);
-    // this.viewBox.removeEventListener('mouseup', this.onMouseUp);
+    const ele = useWindowListener ? window : this.viewBox;
+    ele.removeEventListener('mousemove', this.onMouseMove);
+    ele.removeEventListener('mouseup', this.onMouseUp);
   };
 
   // _lastCoordX和_lastCorrdY 是为了在拖动过程中 计算 viewBox的scrollLeft和scrollTop值用到
@@ -196,7 +197,7 @@ export class DragScrollWidget extends React.Component<
 
   render() {
     const style = {
-      ...this.state.widgetStyle,
+      ...this.state.widgetStyle
       // zoom:this.props.zoomFactor,
       // transform: `scale(${this.props.zoomFactor})`,
       // transformOrigin: '50% 50%'

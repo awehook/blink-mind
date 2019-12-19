@@ -963,7 +963,7 @@
     to-fast-properties "^2.0.0"
 
 "@blink-mind/core@link:packages/core":
-  version "0.0.7"
+  version "0.0.14"
   dependencies:
     debug "^3.1.0"
     immutable "^4.0.0-rc.12"
@@ -972,10 +972,10 @@
     tiny-warning "^1.0.3"
 
 "@blink-mind/icons@link:packages/icons":
-  version "0.0.7"
+  version "0.0.14"
 
 "@blink-mind/plugin-simple-text-editor@link:packages/plugin-simple-text-editor":
-  version "0.0.7"
+  version "0.0.14"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     debug "^3.1.0"
@@ -986,7 +986,7 @@
     styled-components "^4.4.0"
 
 "@blink-mind/renderer-react@link:packages/renderer-react":
-  version "0.0.7"
+  version "0.0.14"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     "@blink-mind/icons" "link:packages/icons"
@@ -8747,6 +8747,11 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
+le5le-store@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/le5le-store/-/le5le-store-1.0.2.tgz#e995abc80a333acba59d522745e31d3aceffc55a"
+  integrity sha512-nTsELVaI5f0p+dkwlMNOMG2Hykvi8mlCqj2ynTs954FjPy1H+aYfN8H7q1NvsK6qBdIf65wNZCpa2cL9ZmoBhw==
+
 left-pad@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npm.taobao.org/left-pad/download/left-pad-1.3.0.tgz#5b8a3a7765dfe001261dde915589e782f8c94d1e"
@@ -13096,6 +13101,47 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/toidentifier/download/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha1-fhvjRw8ed5SLxD2Uo8j013UrpVM=
+
+topology-activity-diagram@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/topology-activity-diagram/-/topology-activity-diagram-0.0.4.tgz#f81717e51d7f3c5959ef3c700a5c72034ffe55f4"
+  integrity sha512-aJOZhitlG4Se5EbnbEZloc/z8TOiTe0Sl8Tw6FM0OwGDt0CrB70r7DC5fb7lt/vMNEpXy7Ypc5WfCuTaA/4v5w==
+
+topology-class-diagram@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/topology-class-diagram/-/topology-class-diagram-0.0.1.tgz#d1d1bf692a7a993a4fdfad2cfd28dba6bd6dc64c"
+  integrity sha512-QrC87MNkdVzMSSJ2g4r8Y1MpFTj6yLQF+cwFq13yLTqsEwJnEMav+mBUHnM7858UxQXjJWj48DHXR8zKpVU2fw==
+  dependencies:
+    topology-core "^0.0.3"
+
+topology-core@^0.0.19:
+  version "0.0.19"
+  resolved "https://registry.npmjs.org/topology-core/-/topology-core-0.0.19.tgz#8a49d496a6ef903676e3c02c3d1f27f2b181fc21"
+  integrity sha512-F2Ik9iechziBFg+y+ANwl9fCVfXU1NTIOORgarfAhJLG691krCVIWmN/SoC9SlIaCBccf1kLDk8t/PdDEjpOtw==
+  dependencies:
+    le5le-store "^1.0.2"
+
+topology-core@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/topology-core/-/topology-core-0.0.2.tgz#ed84aad61178cae69a0d2d43e02b96acbcec306b"
+  integrity sha512-02fVEbcDqANxLaLNR4WlqYiRGGs2OZ7ZjgUOGzu2kNqOAYHqCkSLdrvvRtJe6/Bbg6t0FYlrkWv0UeSwMD06dA==
+
+topology-core@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/topology-core/-/topology-core-0.0.3.tgz#ee001ff3ee33d71ac8068e3a977c01dd10fbe8e7"
+  integrity sha512-dNWCu8h+QzmKdE6U1MRQY6oeLwNlmYV014u9ihx5rpTPpgTdK5cznEGHAWG5NeD+h39n8kaGJ4exg4dzYanrZA==
+
+topology-flow-diagram@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/topology-flow-diagram/-/topology-flow-diagram-0.0.1.tgz#c169a7b643b3803330ebeb9381d721a85b409c4b"
+  integrity sha512-4MCJ9N6Tuv0TLeWySvHbj4Op4qlaQqqSt0Y6kGnA6L3TD2IwkOTN7UBvx6ePaTia734BDS2CN7bwPXvb5o5xhg==
+  dependencies:
+    topology-core "^0.0.2"
+
+topology-sequence-diagram@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/topology-sequence-diagram/-/topology-sequence-diagram-0.0.4.tgz#82cfc7f85f37d4a69d35461035dad33061aa4d34"
+  integrity sha512-WQUcPFzbp94EjqiKbqHw9KF86MRjkj2HHlm24jWDKRdYNF+TuWyoZgFI9uOveqcl1o3FpFtXsKkSoZ87nD2fOw==
 
 tough-cookie@^2.3.3, tough-cookie@^2.3.4:
   version "2.5.0"

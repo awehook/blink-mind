@@ -5,7 +5,7 @@ import { Diagram, iconClassName } from '@blink-mind/renderer-react';
 import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
-
+import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import styled from 'styled-components';
 import { Dialog, MenuItem, Menu, MenuDivider } from '@blueprintjs/core';
 import { downloadFile } from '../utils';
@@ -36,7 +36,8 @@ const ZoomSpan = styled.span`
 const plugins = [
   RichTextEditorPlugin(),
   JsonSerializerPlugin(),
-  ThemeSelectorPlugin()
+  ThemeSelectorPlugin(),
+  TopologyDiagramPlugin()
 ];
 class AppDemo extends BaseDemo {
   constructor(props) {

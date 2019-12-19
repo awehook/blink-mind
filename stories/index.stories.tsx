@@ -3,15 +3,18 @@ import { configure } from '@storybook/react';
 
 const debugNameSpaces = [
   // 'core:*',
-  'node:*',
+  // 'node:*',
+  'node:topic-content-editor',
+
   // 'node:drag-scroll-widget',
-  // 'node:topic-content-widget',
+  'node:topic-content-widget',
   // 'node:topic-desc-editor',
   // 'node:style-editor',
   // 'plugin:StylePlugin',
   // 'plugin:*',
-  'plugin:event',
-  'story:*',
+  // 'plugin:event',
+  'plugin:operation',
+  // 'story:*',
   'modifier'
 
 ];

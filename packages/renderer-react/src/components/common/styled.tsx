@@ -23,6 +23,9 @@ export const Btn = styled.div`
   &:hover {
     color: #1ea7fd;
   }
+  &:focus {
+    outline: none;
+  }
 `
 
 export const CloseIcon = styled(Btn)`
@@ -33,4 +36,8 @@ export const CloseIcon = styled(Btn)`
 
 export const Title = styled.div`
   height: 16px;
+`;
+
+export const TopicBlockIcon = styled.span`
+  margin: 0px 10px;
 `;

@@ -15,6 +15,7 @@ export interface IModifierArg {
   model: Model;
   topicKey?: KeyType;
   topic?: Topic;
+  blockType?: string;
   focusMode?: string;
   data?: any;
   desc?: any;

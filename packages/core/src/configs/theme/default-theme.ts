@@ -1,4 +1,4 @@
-import { ThemeType } from '@blink-mind/core';
+import { ThemeType } from './types';
 
 export const defaultTheme: ThemeType = {
   name: 'default',

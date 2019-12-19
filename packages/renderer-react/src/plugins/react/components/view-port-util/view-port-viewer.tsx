@@ -5,7 +5,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget, Btn } from '../../../../components/common';
 import {
-  EventKey, getRelativeVector,
+  EventKey,
+  getRelativeVector,
   Icon,
   IconName,
   RefKey,
@@ -31,6 +32,7 @@ const Item_ = styled(Btn)`
 `;
 
 const ZoomFactorSpan = styled.span`
+  display: inline-block;
   width: 80px;
   height: 18px;
 `;
@@ -135,7 +137,7 @@ export class ViewPortViewer extends BaseWidget {
   };
 
   centerRootTopic = () => {
-    const { getRef, model, controller} = this.props;
+    const { getRef, model, controller } = this.props;
     const rootTopic = getRef(topicRefKey(model.editorRootTopicKey));
     const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
     const viewBox = dragScroll.viewBox;

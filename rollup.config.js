@@ -6,6 +6,7 @@ import simpleTextEditorPlugin from './packages/plugin-simple-text-editor/package
 import richTextEditorPlugin from './packages/plugin-rich-text-editor/package.json';
 import themeSelectorPlugin from './packages/plugin-theme-selector/package.json';
 import jsonSerializerPlugin from  './packages/plugin-json-serializer/package.json';
+import topologyDiagramPlugin from  './packages/plugin-topology-diagram/package.json';
 
 const configs = [
   ...configurePackage(core),
@@ -14,6 +15,7 @@ const configs = [
   ...configurePackage(richTextEditorPlugin),
   ...configurePackage(themeSelectorPlugin),
   ...configurePackage(jsonSerializerPlugin),
+  ...configurePackage(topologyDiagramPlugin)
 ];
 
 export default configs;

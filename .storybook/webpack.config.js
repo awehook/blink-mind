@@ -84,6 +84,10 @@ module.exports = {
         __dirname,
         '../packages/plugin-theme-selector/src/index'
       ),
+      '@blink-mind/plugin-topology-diagram': path.join(
+        __dirname,
+        '../packages/plugin-topology-diagram/src/index'
+      ),
       'styled-components': path.join(
         __dirname,
         '..',

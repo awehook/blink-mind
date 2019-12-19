@@ -161,16 +161,7 @@ export function RenderingPlugin() {
     },
 
     renderTopicBlock(props) {
-      const { controller, block, topicKey, model } = props;
-      const handleVisibleChange = visible => {
-        if (!visible) {
-          controller.run('operation', {
-            ...props,
-            opType: OpType.FOCUS_TOPIC,
-            focusMode: FocusMode.NORMAL
-          });
-        }
-      };
+      const { controller, block } = props;
       switch (block.type) {
         case BlockType.CONTENT:
           return controller.run('renderTopicBlockContent', props);
@@ -206,7 +197,9 @@ export function RenderingPlugin() {
 
     renderFocusItemHighlight(props) {
       const { saveRef } = props;
-      return <TopicHighlight ref={saveRef(RefKey.FOCUS_HIGHLIGHT_KEY)} {...props} />;
+      return (
+        <TopicHighlight ref={saveRef(RefKey.FOCUS_HIGHLIGHT_KEY)} {...props} />
+      );
     },
 
     renderRootWidgetOtherChildren(props) {

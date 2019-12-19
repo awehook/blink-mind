@@ -78,22 +78,25 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     // Optional method called once the context menu is closed.
   }
 
-  isDoubleClick: boolean;
+  handleTopicClickTimeout;
 
   onClick = ev => {
-    this.isDoubleClick = false;
+    // log('onClick');
     const props = this.props;
     const { controller } = props;
-    setTimeout(() => {
-      if (!this.isDoubleClick) {
-        controller.run('handleTopicClick', { ...props, ev });
-      }
-    });
+    //TODO bug [Violation] 'setTimeout' handler took 69ms
+    this.handleTopicClickTimeout = setTimeout(() => {
+      log('handleTopicClick');
+      //注意这里要传递this.props, 而不是props, 因为会先调用onClick, 再调用其他的topic-content-editor的onClickOutside
+      //其他组件的onClickOutside是个同步的函数,会设置新的model, 如果这里用props传参,会导致model 还是老的model
+      controller.run('handleTopicClick', { ...this.props, ev });
+    }, 200);
   };
 
   onDoubleClick = ev => {
-    this.isDoubleClick = true;
+    clearTimeout(this.handleTopicClickTimeout);
     const { controller } = this.props;
+    log('handleTopicDoubleClick');
     controller.run('handleTopicDoubleClick', { ...this.props, ev });
   };
 
@@ -114,8 +117,10 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
       //   ...this.props,
       //   element: getRef(collapseRefKey(topicKey))
       // });
-      const newVector = [newRect.left + newRect.width / 2,
-        newRect.top + newRect.height / 2]
+      const newVector = [
+        newRect.left + newRect.width / 2,
+        newRect.top + newRect.height / 2
+      ];
       const z = controller.run('getZoomFactor', {
         ...this.props
       });
@@ -155,12 +160,12 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   render() {
     const props = this.props;
     const { saveRef, topicKey, model, controller, topicStyle, dir } = props;
+    log('render', topicKey, model.focusMode);
     const draggable = model.editingContentKey !== topicKey;
     const collapseIcon = controller.run('renderTopicCollapseIcon', {
       ...props,
       onClickCollapse: this.onClickCollapse.bind(this)
     });
-    // log(dir);
     const prevDropArea = controller.run('renderTopicDropArea', {
       ...props,
       dropDir: 'prev'
@@ -175,7 +180,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
       onDragOver: this.onDragOver,
       onDrop: this.onDrop
     };
-    log(topicKey, 'style', topicStyle);
+    // log(topicKey, 'style', topicStyle);
     return (
       <TopicContentWithDropArea>
         {prevDropArea}
