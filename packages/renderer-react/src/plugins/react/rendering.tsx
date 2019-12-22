@@ -20,6 +20,7 @@ import { TopicSubLinks } from './components/topic-sub-links';
 import { TopicWidget } from './components/topic-widget';
 import { ViewPortViewer } from './components/view-port-util';
 import { customizeTopicContextMenu } from './context-menus';
+import { renderDrawer } from './drawer';
 import Theme from './theme';
 const log = debug('plugin:rendering');
 
@@ -54,24 +55,20 @@ export function RenderingPlugin() {
         </SaveRef>
       );
     },
+    renderDrawer,
 
     renderDiagramCustomize(props) {
       const { controller, model } = props;
-      const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', {
+      const nProps = {
         ...props,
         topicKey: model.focusKey
-      });
-
-      const styleEditor = controller.run('renderStyleEditor', {
-        ...props,
-        topicKey: model.focusKey
-      });
-      const modals = controller.run('renderModals', {
-        ...props,
-        topicKey: model.focusKey
-      });
-      const viewportViewer = controller.run('renderViewPortViewer', props);
-      return [breadcrumbs, styleEditor, modals, viewportViewer];
+      };
+      const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', nProps);
+      const styleEditor = controller.run('renderStyleEditor', nProps);
+      const modals = controller.run('renderModals', nProps);
+      const drawer = controller.run('renderDrawer', nProps);
+      const viewportViewer = controller.run('renderViewPortViewer', nProps);
+      return [breadcrumbs, styleEditor, modals, drawer, viewportViewer];
     },
 
     renderEditorRootBreadcrumbs(props) {
@@ -83,34 +80,10 @@ export function RenderingPlugin() {
     },
 
     renderModal(props) {
-      // const { controller, model } = props;
-      // const activeModalProps = controller.run('getActiveModalProps', props);
-      // if (activeModalProps) {
-      //   if (activeModalProps.name === 'edit-desc') {
-      //     const modalProps = { ...props, topicKey: model.focusKey };
-      //     return (
-      //       <ModalBody>
-      //         <ModalDescEditor>
-      //           {controller.run('renderTopicDescEditor', modalProps)}
-      //         </ModalDescEditor>
-      //       </ModalBody>
-      //     );
-      //   }
-      // }
       return null;
     },
 
     getActiveModalProps(props) {
-      // const { model } = props;
-      // if (model.focusKey && model.focusMode === FocusMode.EDITING_DESC)
-      //   return {
-      //     name: 'edit-desc',
-      //     title: 'Edit Notes',
-      //     style: {
-      //       width: '50%',
-      //       height: '600px'
-      //     }
-      //   };
       return null;
     },
 

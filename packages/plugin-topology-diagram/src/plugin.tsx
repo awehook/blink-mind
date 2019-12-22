@@ -1,9 +1,9 @@
-import { BlockType, FocusMode, ModelModifier } from '@blink-mind/core';
+import { ModelModifier } from '@blink-mind/core';
 import { Icon } from '@blink-mind/renderer-react';
 import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { TopicBlockTopology } from './topic-block-topology';
-import { TopologyDiagram } from './topology-diagram';
+import { TopologyDrawer } from './topology-drawer';
 import {
   BLOCK_TYPE_TOPOLOGY,
   FOCUS_MODE_EDITING_TOPOLOGY,
@@ -41,6 +41,15 @@ export default function TopologyDiagramPlugin() {
 
     renderTopicBlockTopology(props) {
       return <TopicBlockTopology {...props} />;
+    },
+
+    renderDrawer(props, next) {
+      const { model } = props;
+      if (model.focusMode === FOCUS_MODE_EDITING_TOPOLOGY) {
+        const topoProps = { ...props, topicKey: model.focusKey };
+        return <TopologyDrawer {...topoProps} />;
+      }
+      return next();
     },
 
     customizeTopicContextMenu(props, next) {

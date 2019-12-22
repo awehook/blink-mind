@@ -2,7 +2,6 @@ import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import {TopicBlockIcon} from "@blink-mind/renderer-react";
 import {
   Classes,
-  Drawer,
   Popover,
   PopoverInteractionKind,
 } from '@blueprintjs/core';
@@ -19,11 +18,6 @@ import {
 
 const log = debug('node:topic-desc');
 
-const DescEditorWrapper = styled.div`
-  overflow: auto;
-  padding: 0px 0px 0px 20px;
-  background: #88888850;
-`;
 
 const TooltipContentWrapper = styled.div`
   overflow: auto;
@@ -41,19 +35,6 @@ export function TopicDesc(props) {
     });
   };
 
-  const onDescEditorClose = e => {
-    e.stopPropagation();
-    const key = `topic-desc-data-${topicKey}`;
-    const descData = controller.run('deleteTempValue', { key });
-    controller.run('operation', {
-      ...props,
-      opType: OpType.SET_TOPIC_BLOCK,
-      topicKey,
-      blockType: BlockType.DESC,
-      data: descData,
-      focusMode: FocusMode.NORMAL,
-    });
-  };
 
   const desc = model.getTopic(topicKey).getBlock(BlockType.DESC);
   if (
@@ -97,20 +78,5 @@ export function TopicDesc(props) {
   };
 
   const descIcon = desc.block && <Popover {...tooltipProps}></Popover>;
-  return (
-    <>
-      {descIcon}
-      <Drawer
-        title="Edit Notes"
-        icon={Icon('note')}
-        isOpen={isEditing}
-        hasBackdrop
-        isCloseButtonShown={false}
-        onClose={onDescEditorClose}
-        size="70%"
-      >
-        <DescEditorWrapper>{descEditor}</DescEditorWrapper>
-      </Drawer>
-    </>
-  );
+  return descIcon;
 }
