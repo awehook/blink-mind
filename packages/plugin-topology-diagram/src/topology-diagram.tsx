@@ -79,6 +79,13 @@ import {
   sequenceFocusTextRect
 } from 'topology-sequence-diagram';
 import './iconfont/iconfont.css';
+import {BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM} from './utils';
+
+const Root = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
 
 const Canvas = styled.div`
   flex: 1;
@@ -129,8 +136,9 @@ const ToolbarButtons = styled.div`
 export class TopologyDiagram extends BaseWidget {
   state = {
     id: '',
+    data: null,
     toolsConfig: ToolsConfig,
-    iconfont: { fontSize: '0.24rem' },
+    iconfont: { fontSize: '0.24rem' }
   };
   canvas: Topology;
 
@@ -263,6 +271,23 @@ export class TopologyDiagram extends BaseWidget {
   componentDidMount(): void {
     this.canvasRegister();
     this.canvas = new Topology('topology-canvas', this.canvasOptions);
+    this.openData();
+  }
+
+  componentDidUpdate(): void {
+    this.openData();
+  }
+
+  openData() {
+    const { model, topicKey } = this.props;
+    const topic = model.getTopic(topicKey);
+    const { block } = topic.getBlock(BLOCK_TYPE_TOPOLOGY);
+    if (block && block.data && block.data !== '') {
+      this.setState({
+        data: block.data
+      });
+      this.canvas.open(block.data);
+    }
   }
 
   onDrag(event: React.DragEvent<HTMLAnchorElement>, node: any) {
@@ -270,31 +295,46 @@ export class TopologyDiagram extends BaseWidget {
   }
 
   renderTools() {
-    return <Tools>{this.state.toolsConfig.map((item, index) => {
-      return (
-        <div key={index}>
-          <ToolTitle>{item.group}</ToolTitle>
-          <ToolbarButtons>
-            {
-              //@ts-ignore
-              item.children.map((btn,i)=> {
-                return  (<a key={i} title={btn.name} draggable={true} onDragStart={(ev) => { this.onDrag(ev, btn) }}>
-                  <i className={'iconfont ' + btn.icon} style={this.state.iconfont} />
-                </a>)
-              })
-            }
-          </ToolbarButtons>
-        </div>
-      )
-    })}</Tools>;
+    return (
+      <Tools>
+        {this.state.toolsConfig.map((item, index) => {
+          return (
+            <div key={index}>
+              <ToolTitle>{item.group}</ToolTitle>
+              <ToolbarButtons>
+                {
+                  //@ts-ignore
+                item.children.map((btn, i) => {
+                  return (
+                    <a
+                      key={i}
+                      title={btn.name}
+                      draggable={true}
+                      onDragStart={ev => {
+                        this.onDrag(ev, btn);
+                      }}
+                    >
+                      <i
+                        className={'iconfont ' + btn.icon}
+                        style={this.state.iconfont}
+                      />
+                    </a>
+                  );
+                })}
+              </ToolbarButtons>
+            </div>
+          );
+        })}
+      </Tools>
+    );
   }
 
   render() {
     return (
-      <div>
+      <Root>
         {this.renderTools()}
         <Canvas id="topology-canvas" onContextMenu={this.handleContextMenu} />
-      </div>
+      </Root>
     );
   }
 }

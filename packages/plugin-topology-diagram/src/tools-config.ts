@@ -1,7 +1,7 @@
 
 export const ToolsConfig = [
   {
-    group: '基本形状',
+    group: 'Basic',
     children: [
       {
         name: 'rectangle',
@@ -26,7 +26,7 @@ export const ToolsConfig = [
         name: 'rectangle',
         icon: 'icon-rectangle',
         data: {
-          text: '圆角矩形',
+          text: 'rectangle',
           rect: {
             width: 200,
             height: 50
@@ -43,7 +43,7 @@ export const ToolsConfig = [
         name: 'circle',
         icon: 'icon-circle',
         data: {
-          text: '圆',
+          text: 'circle',
           rect: {
             width: 100,
             height: 100
@@ -56,7 +56,7 @@ export const ToolsConfig = [
         name: 'triangle',
         icon: 'icon-triangle',
         data: {
-          text: '三角形',
+          text: 'triangle',
           rect: {
             width: 100,
             height: 100
@@ -68,7 +68,7 @@ export const ToolsConfig = [
         name: 'diamond',
         icon: 'icon-diamond',
         data: {
-          text: '菱形',
+          text: 'diamond',
           rect: {
             width: 100,
             height: 100
@@ -80,7 +80,7 @@ export const ToolsConfig = [
         name: 'pentagon',
         icon: 'icon-pentagon',
         data: {
-          text: '五边形',
+          text: 'pentagon',
           rect: {
             width: 100,
             height: 100
@@ -92,7 +92,7 @@ export const ToolsConfig = [
         name: 'hexagon',
         icon: 'icon-hexagon',
         data: {
-          text: '六边形',
+          text: 'hexagon',
           rect: {
             width: 100,
             height: 100
@@ -106,7 +106,7 @@ export const ToolsConfig = [
         name: 'pentagram',
         icon: 'icon-pentagram',
         data: {
-          text: '五角星',
+          text: 'pentagram',
           rect: {
             width: 100,
             height: 100
@@ -115,10 +115,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: 'leftArrow',
+        name: 'left arrow',
         icon: 'icon-arrow-left',
         data: {
-          text: '左箭头',
+          text: 'left arrow',
           rect: {
             width: 200,
             height: 100
@@ -127,10 +127,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: 'rightArrow',
+        name: 'right arrow',
         icon: 'icon-arrow-right',
         data: {
-          text: '右箭头',
+          text: 'right arrow',
           rect: {
             width: 200,
             height: 100
@@ -139,10 +139,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: 'twowayArrow',
+        name: 'bidirectional arrow',
         icon: 'icon-twoway-arrow',
         data: {
-          text: '双向箭头',
+          text: 'bidirectional arrow',
           rect: {
             width: 200,
             height: 100
@@ -154,7 +154,7 @@ export const ToolsConfig = [
         name: 'line',
         icon: 'icon-line',
         data: {
-          text: '直线',
+          text: 'line',
           rect: {
             width: 100,
             height: 100
@@ -166,7 +166,7 @@ export const ToolsConfig = [
         name: 'cloud',
         icon: 'icon-cloud',
         data: {
-          text: '云',
+          text: 'cloud',
           rect: {
             width: 100,
             height: 100
@@ -178,7 +178,7 @@ export const ToolsConfig = [
         name: 'message',
         icon: 'icon-msg',
         data: {
-          text: '消息框',
+          text: 'message',
           rect: {
             width: 100,
             height: 100
@@ -194,7 +194,7 @@ export const ToolsConfig = [
         name: 'file',
         icon: 'icon-file',
         data: {
-          text: '文档',
+          text: 'file',
           rect: {
             width: 80,
             height: 100
@@ -210,7 +210,7 @@ export const ToolsConfig = [
         name: 'text',
         icon: 'icon-text',
         data: {
-          text: 'le5le-topology / 乐吾乐',
+          text: 'text',
           rect: {
             width: 160,
             height: 30
@@ -262,10 +262,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '视频/网页',
+        name: 'multi media',
         icon: 'icon-pc',
         data: {
-          text: '视频/网页',
+          text: 'multi media',
           rect: {
             width: 200,
             height: 200
@@ -281,13 +281,13 @@ export const ToolsConfig = [
     ]
   },
   {
-    group: '流程图',
+    group: 'Flow Graph',
     children: [
       {
-        name: '开始/结束',
+        name: 'start/end',
         icon: 'icon-flow-start',
         data: {
-          text: '开始',
+          text: 'start',
           rect: {
             width: 120,
             height: 40
@@ -297,10 +297,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '流程',
+        name: 'flow',
         icon: 'icon-rectangle',
         data: {
-          text: '流程',
+          text: 'flow',
           rect: {
             width: 120,
             height: 40
@@ -309,10 +309,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '判定',
+        name: 'judgement',
         icon: 'icon-diamond',
         data: {
-          text: '判定',
+          text: 'judgement',
           rect: {
             width: 120,
             height: 60
@@ -321,10 +321,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '数据',
+        name: 'data',
         icon: 'icon-flow-data',
         data: {
-          text: '数据',
+          text: 'data',
           rect: {
             width: 120,
             height: 50
@@ -333,10 +333,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '准备',
+        name: 'prepare',
         icon: 'icon-flow-ready',
         data: {
-          text: '准备',
+          text: 'prepare',
           rect: {
             width: 120,
             height: 50
@@ -345,10 +345,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '子流程',
+        name: 'sub flow',
         icon: 'icon-flow-subprocess',
         data: {
-          text: '子流程',
+          text: 'sub flow',
           rect: {
             width: 120,
             height: 50
@@ -357,10 +357,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '数据库',
+        name: 'database',
         icon: 'icon-db',
         data: {
-          text: '数据库',
+          text: 'database',
           rect: {
             width: 80,
             height: 120
@@ -369,10 +369,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '文档',
+        name: 'document',
         icon: 'icon-flow-document',
         data: {
-          text: '文档',
+          text: 'document',
           rect: {
             width: 120,
             height: 100
@@ -381,10 +381,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '内部存储',
+        name: 'internal storage',
         icon: 'icon-internal-storage',
         data: {
-          text: '内部存储',
+          text: 'internal storage',
           rect: {
             width: 120,
             height: 80
@@ -393,10 +393,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '外部存储',
+        name: 'external storage',
         icon: 'icon-extern-storage',
         data: {
-          text: '外部存储',
+          text: 'external storage',
           rect: {
             width: 120,
             height: 80
@@ -405,10 +405,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '队列',
+        name: 'queue',
         icon: 'icon-flow-queue',
         data: {
-          text: '队列',
+          text: 'queue',
           rect: {
             width: 100,
             height: 100
@@ -417,10 +417,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '手动输入',
+        name: 'input manually',
         icon: 'icon-flow-manually',
         data: {
-          text: '手动输入',
+          text: 'input manually',
           rect: {
             width: 120,
             height: 80
@@ -429,10 +429,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '展示',
+        name: 'display',
         icon: 'icon-flow-display',
         data: {
-          text: '展示',
+          text: 'display',
           rect: {
             width: 120,
             height: 80
@@ -441,10 +441,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '并行模式',
+        name: 'parallel',
         icon: 'icon-flow-parallel',
         data: {
-          text: '并行模式',
+          text: 'parallel',
           rect: {
             width: 120,
             height: 50
@@ -453,10 +453,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '注释',
+        name: 'comment',
         icon: 'icon-flow-comment',
         data: {
-          text: '注释',
+          text: 'comment',
           rect: {
             width: 100,
             height: 100
@@ -467,10 +467,10 @@ export const ToolsConfig = [
     ]
   },
   {
-    group: '活动图',
+    group: 'Activity Diagram',
     children: [
       {
-        name: '开始',
+        name: 'start',
         icon: 'icon-inital',
         data: {
           text: '',
@@ -484,7 +484,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '结束',
+        name: 'end',
         icon: 'icon-final',
         data: {
           text: '',
@@ -496,10 +496,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '活动',
+        name: 'action',
         icon: 'icon-action',
         data: {
-          text: '活动',
+          text: 'action',
           rect: {
             width: 120,
             height: 50
@@ -509,7 +509,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '决策/合并',
+        name: 'decision/merge',
         icon: 'icon-diamond',
         data: {
           text: '决策',
@@ -521,10 +521,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '垂直泳道',
+        name: 'vertical swimming lane',
         icon: 'icon-swimlane-v',
         data: {
-          text: '垂直泳道',
+          text: 'vertical swimming lane',
           rect: {
             width: 200,
             height: 500
@@ -533,10 +533,10 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '水平泳道',
+        name: 'horizontal swimming lane',
         icon: 'icon-swimlane-h',
         data: {
-          text: '水平泳道',
+          text: 'horizontal swimming lane',
           rect: {
             width: 500,
             height: 200
@@ -545,7 +545,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '垂直分岔/汇合',
+        name: 'vertical fork/merge',
         icon: 'icon-fork-v',
         data: {
           text: '',
@@ -559,7 +559,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '水平分岔/汇合',
+        name: 'horizontal fork/merge',
         icon: 'icon-fork',
         data: {
           text: '',
@@ -575,13 +575,13 @@ export const ToolsConfig = [
     ]
   },
   {
-    group: '时序图和类图',
+    group: 'Sequence Diagram && Class Diagram',
     children: [
       {
-        name: '生命线',
+        name: 'lifeline',
         icon: 'icon-lifeline',
         data: {
-          text: '生命线',
+          text: 'lifeline',
           rect: {
             width: 150,
             height: 400
@@ -590,7 +590,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '激活',
+        name: 'activation',
         icon: 'icon-focus',
         data: {
           text: '',
@@ -602,7 +602,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '简单类',
+        name: 'simple class',
         icon: 'icon-simple-class',
         data: {
           text: 'Topolgoy',
@@ -645,7 +645,7 @@ export const ToolsConfig = [
         }
       },
       {
-        name: '类',
+        name: 'class',
         icon: 'icon-class',
         data: {
           text: 'Topolgoy',

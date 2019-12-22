@@ -46,7 +46,11 @@ export default function TopologyDiagramPlugin() {
     renderDrawer(props, next) {
       const { model } = props;
       if (model.focusMode === FOCUS_MODE_EDITING_TOPOLOGY) {
-        const topoProps = { ...props, topicKey: model.focusKey };
+        const topoProps = {
+          ...props,
+          topicKey: model.focusKey,
+          key: 'topology-drawer'
+        };
         return <TopologyDrawer {...topoProps} />;
       }
       return next();

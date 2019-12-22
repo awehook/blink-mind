@@ -5,6 +5,7 @@ import { TopologyDiagram } from './topology-diagram';
 
 import { FocusMode, OpType } from '@blink-mind/core';
 import styled from 'styled-components';
+import {BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM} from './utils';
 
 const DiagramWrapper = styled.div`
   overflow: auto;
@@ -18,18 +19,26 @@ const Title = styled.span`
 `;
 
 export function TopologyDrawer(props) {
-  const { controller, model, topicKey, getRef } = props;
+  const { controller, topicKey, getRef, saveRef } = props;
   const onDiagramClose = e => {
     e.stopPropagation();
-    const key = `topic-topology-data-${topicKey}`;
-    const topologyData = controller.run('deleteTempValue', { key });
+    // const key = `topic-topology-data-${topicKey}`;
+    // const topologyData = controller.run('deleteTempValue', { key });
+
+    const diagram: TopologyDiagram = getRef(REF_KEY_TOPOLOGY_DIAGRAM);
+    const topologyData = diagram.canvas.data;
     controller.run('operation', {
       ...props,
       opType: OpType.SET_TOPIC_BLOCK,
       topicKey,
+      blockType: BLOCK_TYPE_TOPOLOGY,
       data: topologyData,
       focusMode: FocusMode.NORMAL
     });
+  };
+  const diagramProps = {
+    ...props,
+    ref: saveRef(REF_KEY_TOPOLOGY_DIAGRAM)
   };
   return (
     <Drawer
@@ -45,7 +54,7 @@ export function TopologyDrawer(props) {
       size="90%"
     >
       <DiagramWrapper onClick={cancelEvent} onDoubleClick={cancelEvent}>
-        <TopologyDiagram {...props} />
+        <TopologyDiagram {...diagramProps} />
       </DiagramWrapper>
     </Drawer>
   );

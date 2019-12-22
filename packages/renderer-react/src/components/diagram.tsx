@@ -1,5 +1,11 @@
-import { Controller, Model, OnChangeFunction } from '@blink-mind/core';
-// import '@blink-mind/icons';
+import {
+  Controller,
+  FocusMode,
+  Model,
+  OnChangeFunction
+} from '@blink-mind/core';
+// TODO
+import '@blink-mind/icons';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
@@ -38,17 +44,23 @@ export class Diagram extends React.Component<Props> {
   });
 
   renderHotkeys() {
-    const { controller } = this.diagramProps;
-    const hotKeys = controller.run('customizeHotKeys', this.diagramProps);
-    if (hotKeys === null) return null;
-    if (!(hotKeys instanceof Map)) {
-      throw new TypeError('customizeHotKeys must return a Map');
+    const { controller, model } = this.diagramProps;
+    if (
+      model.focusMode === FocusMode.NORMAL ||
+      model.focusMode === FocusMode.SHOW_POPUP
+    ) {
+      const hotKeys = controller.run('customizeHotKeys', this.diagramProps);
+      if (hotKeys === null) return null;
+      if (!(hotKeys instanceof Map)) {
+        throw new TypeError('customizeHotKeys must return a Map');
+      }
+      const children = [];
+      hotKeys.forEach((v, k) => {
+        children.push(<Hotkey key={k} {...v} global />);
+      });
+      return <Hotkeys>{children}</Hotkeys>;
     }
-    const children = [];
-    hotKeys.forEach((v, k) => {
-      children.push(<Hotkey key={k} {...v} global />);
-    });
-    return <Hotkeys>{children}</Hotkeys>;
+    return <Hotkeys/>;
   }
 
   render() {

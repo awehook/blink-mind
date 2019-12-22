@@ -23,8 +23,8 @@
       "icon_id": "587085",
       "name": "save-as",
       "font_class": "saveas",
-      "unicode": "f7e5",
-      "unicode_decimal": 63461
+      "unicode": "ef08",
+      "unicode_decimal": 61192
     },
     {
       "icon_id": "815493",
@@ -44,8 +44,8 @@
       "icon_id": "2230143",
       "name": "focus",
       "font_class": "center",
-      "unicode": "f6f6",
-      "unicode_decimal": 63222
+      "unicode": "ef02",
+      "unicode_decimal": 61186
     },
     {
       "icon_id": "3076405",
@@ -65,29 +65,29 @@
       "icon_id": "5634045",
       "name": "file-export",
       "font_class": "export",
-      "unicode": "ffc7",
-      "unicode_decimal": 65479
+      "unicode": "ef07",
+      "unicode_decimal": 61191
     },
     {
       "icon_id": "6849994",
       "name": "collapse",
       "font_class": "collapse",
-      "unicode": "f609",
-      "unicode_decimal": 62985
+      "unicode": "ef04",
+      "unicode_decimal": 61188
     },
     {
       "icon_id": "6849996",
       "name": "expand",
       "font_class": "expand",
-      "unicode": "f60a",
-      "unicode_decimal": 62986
+      "unicode": "ef03",
+      "unicode_decimal": 61187
     },
     {
       "icon_id": "6936438",
       "name": "root",
       "font_class": "root",
-      "unicode": "f993",
-      "unicode_decimal": 63891
+      "unicode": "ef05",
+      "unicode_decimal": 61189
     },
     {
       "icon_id": "7213047",
@@ -170,8 +170,8 @@
       "icon_id": "11650701",
       "name": "file-import",
       "font_class": "import",
-      "unicode": "f7d6",
-      "unicode_decimal": 63446
+      "unicode": "ef06",
+      "unicode_decimal": 61190
     },
     {
       "icon_id": "11868384",
@@ -198,8 +198,8 @@
       "icon_id": "12157073",
       "name": "flowchart",
       "font_class": "topology",
-      "unicode": "f698",
-      "unicode_decimal": 63128
+      "unicode": "ef01",
+      "unicode_decimal": 61185
     }
   ]
 }
