@@ -1,8 +1,8 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
-import { cancelEvent, Icon } from '@blink-mind/renderer-react';
 import { Drawer } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
+import { cancelEvent, Icon } from '../../utils';
 const DescEditorWrapper = styled.div`
   overflow: auto;
   padding: 0px 0px 0px 20px;

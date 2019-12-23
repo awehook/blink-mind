@@ -1,13 +1,9 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
-import {TopicBlockIcon} from "@blink-mind/renderer-react";
-import {
-  Classes,
-  Popover,
-  PopoverInteractionKind,
-} from '@blueprintjs/core';
+import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
+import { TopicBlockIcon } from '../../../components/common/styled';
 import {
   cancelEvent,
   Icon,
@@ -17,7 +13,6 @@ import {
 } from '../../../utils';
 
 const log = debug('node:topic-desc');
-
 
 const TooltipContentWrapper = styled.div`
   overflow: auto;
@@ -34,7 +29,6 @@ export function TopicDesc(props) {
       opType: OpType.START_EDITING_DESC
     });
   };
-
 
   const desc = model.getTopic(topicKey).getBlock(BlockType.DESC);
   if (

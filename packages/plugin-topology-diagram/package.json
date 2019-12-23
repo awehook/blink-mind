@@ -1,5 +1,5 @@
 {
-  "name": "@blink-mind/plugin-topolopy-diagram",
+  "name": "@blink-mind/plugin-topology-diagram",
   "files": [
     "lib/"
   ],
