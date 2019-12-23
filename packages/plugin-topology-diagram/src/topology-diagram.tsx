@@ -1,4 +1,4 @@
-import { BaseWidget, Flex, Icon, IconName } from '@blink-mind/renderer-react';
+import { BaseWidget } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { Topology } from 'topology-core';
 import { registerNode } from 'topology-core/middles';
@@ -44,6 +44,7 @@ import {
 } from 'topology-flow-diagram';
 import { ToolsConfig } from './tools-config';
 
+import '@blink-mind/icons/iconfont/topology';
 import styled from 'styled-components';
 import {
   activityFinal,
@@ -79,11 +80,9 @@ import {
   sequenceFocusIconRect,
   sequenceFocusTextRect
 } from 'topology-sequence-diagram';
-import './iconfont/iconfont.css';
 import { TopologyDiagramUtils } from './topology-diagram-utils';
 import {
   BLOCK_TYPE_TOPOLOGY,
-  REF_KEY_TOPOLOGY_DIAGRAM,
   REF_KEY_TOPOLOGY_DIAGRAM_UTIL
 } from './utils';
 

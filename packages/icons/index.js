@@ -1,1 +1,1 @@
-import './iconfont/iconfont.css';
+import './iconfont/base/iconfont.css';

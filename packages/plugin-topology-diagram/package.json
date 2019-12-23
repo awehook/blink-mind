@@ -1,7 +1,8 @@
 {
   "name": "@blink-mind/plugin-topology-diagram",
   "files": [
-    "lib/"
+    "lib/",
+    "iconfont/"
   ],
   "main": "./lib/main.js",
   "module": "lib/main.es.js",
@@ -14,6 +15,7 @@
   "scripts": {},
   "dependencies": {
     "@blink-mind/core": "link:../core",
+    "@blink-mind/icons": "link:../icons",
     "@blink-mind/renderer-react": "link:../renderer-react",
     "@blueprintjs/core": "^3.19.1",
     "debug": "^3.1.0",

@@ -57,7 +57,7 @@ export function TopologyDrawer(props) {
       canOutsideClickClose={false}
       isCloseButtonShown={true}
       onClose={onDiagramClose}
-      size="90%"
+      size="100%"
     >
       <DiagramWrapper onClick={cancelEvent} onDoubleClick={cancelEvent}>
         <TopologyDiagram {...diagramProps} />
