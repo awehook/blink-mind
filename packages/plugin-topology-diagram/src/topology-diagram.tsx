@@ -283,7 +283,7 @@ export class TopologyDiagram extends BaseWidget {
       case 'resize':
       case 'scale':
       case 'locked':
-        if (this.topology) {
+        if (this.topology && diagramUtil) {
           diagramUtil.setCanvasData(this.topology.data);
         }
         break;
