@@ -58,7 +58,7 @@ export default function TopologyDiagramPlugin() {
 
     customizeTopicContextMenu(props, next) {
       const { model, topicKey, controller } = props;
-      function editTopologyDiagram(e) {
+      function editTopology(e) {
         controller.run('operation', {
           ...props,
           opType: OP_TYPE_START_EDITING_TOPOLOGY
@@ -71,7 +71,7 @@ export default function TopologyDiagramPlugin() {
           <MenuItem
             icon={Icon('topology')}
             text="Edit Topology Diagram"
-            onClick={editTopologyDiagram}
+            onClick={editTopology}
           />
         </>
       );

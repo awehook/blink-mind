@@ -112,6 +112,7 @@ export function OperationPlugin() {
     [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
     [OpType.SET_STYLE, ModelModifier.setStyle],
     [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
+    [OpType.DELETE_TOPIC_BLOCK,ModelModifier.deleteBlock],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop],

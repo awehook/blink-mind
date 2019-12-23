@@ -125,6 +125,13 @@
       "unicode_decimal": 63009
     },
     {
+      "icon_id": "8569504",
+      "name": "trash",
+      "font_class": "trash",
+      "unicode": "f603",
+      "unicode_decimal": 62979
+    },
+    {
       "icon_id": "8952665",
       "name": "comment-notes",
       "font_class": "notes",

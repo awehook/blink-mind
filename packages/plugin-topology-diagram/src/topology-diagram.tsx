@@ -1,8 +1,9 @@
-import { BaseWidget } from '@blink-mind/renderer-react';
+import { BaseWidget, Flex, Icon, IconName } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { Topology } from 'topology-core';
 import { registerNode } from 'topology-core/middles';
 import { Options } from 'topology-core/options';
+
 import {
   flowComment,
   flowCommentAnchors,
@@ -79,9 +80,15 @@ import {
   sequenceFocusTextRect
 } from 'topology-sequence-diagram';
 import './iconfont/iconfont.css';
-import {BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM} from './utils';
+import { TopologyDiagramUtils } from './topology-diagram-utils';
+import {
+  BLOCK_TYPE_TOPOLOGY,
+  REF_KEY_TOPOLOGY_DIAGRAM,
+  REF_KEY_TOPOLOGY_DIAGRAM_UTIL
+} from './utils';
 
 const Root = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
@@ -140,7 +147,7 @@ export class TopologyDiagram extends BaseWidget {
     toolsConfig: ToolsConfig,
     iconfont: { fontSize: '0.24rem' }
   };
-  canvas: Topology;
+  topology: Topology;
 
   canvasOptions: Options = {};
 
@@ -268,9 +275,26 @@ export class TopologyDiagram extends BaseWidget {
     e.stopPropagation();
   };
 
+  onMessage = (event, data) => {
+    const { getRef } = this.props;
+    const diagramUtil: TopologyDiagramUtils = getRef(
+      REF_KEY_TOPOLOGY_DIAGRAM_UTIL
+    );
+    switch (event) {
+      case 'resize':
+      case 'scale':
+      case 'locked':
+        if (this.topology) {
+          diagramUtil.setCanvasData(this.topology.data);
+        }
+        break;
+    }
+  };
+
   componentDidMount(): void {
     this.canvasRegister();
-    this.canvas = new Topology('topology-canvas', this.canvasOptions);
+    this.canvasOptions.on = this.onMessage;
+    this.topology = new Topology('topology-canvas', this.canvasOptions);
     this.openData();
   }
 
@@ -286,7 +310,7 @@ export class TopologyDiagram extends BaseWidget {
       this.setState({
         data: block.data
       });
-      this.canvas.open(block.data);
+      this.topology.open(block.data);
     }
   }
 
@@ -302,8 +326,8 @@ export class TopologyDiagram extends BaseWidget {
             <div key={index}>
               <ToolTitle>{item.group}</ToolTitle>
               <ToolbarButtons>
-                {
-                  //@ts-ignore
+                {//TODO
+                //@ts-ignore
                 item.children.map((btn, i) => {
                   return (
                     <a

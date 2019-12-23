@@ -176,6 +176,24 @@ function setBlockData({
   return model;
 }
 
+function deleteBlock({ model, topicKey, blockType }) {
+  const topic = model.getTopic(topicKey);
+  if (topic) {
+    const { index, block } = topic.getBlock(blockType);
+    if (index !== -1) {
+      model = model.updateIn(['topics', topicKey, 'blocks'], blocks =>
+        blocks.delete(index)
+      );
+    }
+    model = focusTopic({
+      model,
+      topicKey: null,
+      focusMode: null
+    });
+  }
+  return model;
+}
+
 function setContent({ model, topicKey, data }: IModifierArg): IModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
@@ -270,6 +288,7 @@ export default {
   focusTopic,
   deleteTopic,
   setBlockData,
+  deleteBlock,
   setContent,
   setDesc,
   setStyle,
