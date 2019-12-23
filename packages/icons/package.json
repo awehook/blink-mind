@@ -5,7 +5,7 @@
     "index.js"
   ],
   "main": "index.js",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
