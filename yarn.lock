@@ -13102,46 +13102,32 @@ toidentifier@1.0.0:
   resolved "https://registry.npm.taobao.org/toidentifier/download/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha1-fhvjRw8ed5SLxD2Uo8j013UrpVM=
 
-topology-activity-diagram@^0.0.4:
+topology-activity-diagram@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npm.taobao.org/topology-activity-diagram/download/topology-activity-diagram-0.0.6.tgz#0e6085e7dfc042781221f07e185071dc85c29511"
+  integrity sha1-DmCF59/AQngSIfB+GFBx3IXClRE=
+
+topology-class-diagram@^0.0.4:
   version "0.0.4"
-  resolved "https://registry.npmjs.org/topology-activity-diagram/-/topology-activity-diagram-0.0.4.tgz#f81717e51d7f3c5959ef3c700a5c72034ffe55f4"
-  integrity sha512-aJOZhitlG4Se5EbnbEZloc/z8TOiTe0Sl8Tw6FM0OwGDt0CrB70r7DC5fb7lt/vMNEpXy7Ypc5WfCuTaA/4v5w==
+  resolved "https://registry.npm.taobao.org/topology-class-diagram/download/topology-class-diagram-0.0.4.tgz#428594a81b6476f353487c35f296a20b7d3d8e2d"
+  integrity sha1-QoWUqBtkdvNTSHw18paiC309ji0=
 
-topology-class-diagram@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/topology-class-diagram/-/topology-class-diagram-0.0.1.tgz#d1d1bf692a7a993a4fdfad2cfd28dba6bd6dc64c"
-  integrity sha512-QrC87MNkdVzMSSJ2g4r8Y1MpFTj6yLQF+cwFq13yLTqsEwJnEMav+mBUHnM7858UxQXjJWj48DHXR8zKpVU2fw==
-  dependencies:
-    topology-core "^0.0.3"
-
-topology-core@^0.0.19:
-  version "0.0.19"
-  resolved "https://registry.npmjs.org/topology-core/-/topology-core-0.0.19.tgz#8a49d496a6ef903676e3c02c3d1f27f2b181fc21"
-  integrity sha512-F2Ik9iechziBFg+y+ANwl9fCVfXU1NTIOORgarfAhJLG691krCVIWmN/SoC9SlIaCBccf1kLDk8t/PdDEjpOtw==
+topology-core@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npm.taobao.org/topology-core/download/topology-core-0.1.2.tgz#4c96ced4f8791253a8778002646be88881561b29"
+  integrity sha1-TJbO1Ph5ElOod4ACZGvoiIFWGyk=
   dependencies:
     le5le-store "^1.0.2"
 
-topology-core@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/topology-core/-/topology-core-0.0.2.tgz#ed84aad61178cae69a0d2d43e02b96acbcec306b"
-  integrity sha512-02fVEbcDqANxLaLNR4WlqYiRGGs2OZ7ZjgUOGzu2kNqOAYHqCkSLdrvvRtJe6/Bbg6t0FYlrkWv0UeSwMD06dA==
-
-topology-core@^0.0.3:
+topology-flow-diagram@^0.0.3:
   version "0.0.3"
-  resolved "https://registry.npmjs.org/topology-core/-/topology-core-0.0.3.tgz#ee001ff3ee33d71ac8068e3a977c01dd10fbe8e7"
-  integrity sha512-dNWCu8h+QzmKdE6U1MRQY6oeLwNlmYV014u9ihx5rpTPpgTdK5cznEGHAWG5NeD+h39n8kaGJ4exg4dzYanrZA==
+  resolved "https://registry.npm.taobao.org/topology-flow-diagram/download/topology-flow-diagram-0.0.3.tgz#fb74800e8c315fd7ff454d6859acaef188a44bdb"
+  integrity sha1-+3SADowxX9f/RU1oWayu8YikS9s=
 
-topology-flow-diagram@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/topology-flow-diagram/-/topology-flow-diagram-0.0.1.tgz#c169a7b643b3803330ebeb9381d721a85b409c4b"
-  integrity sha512-4MCJ9N6Tuv0TLeWySvHbj4Op4qlaQqqSt0Y6kGnA6L3TD2IwkOTN7UBvx6ePaTia734BDS2CN7bwPXvb5o5xhg==
-  dependencies:
-    topology-core "^0.0.2"
-
-topology-sequence-diagram@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/topology-sequence-diagram/-/topology-sequence-diagram-0.0.4.tgz#82cfc7f85f37d4a69d35461035dad33061aa4d34"
-  integrity sha512-WQUcPFzbp94EjqiKbqHw9KF86MRjkj2HHlm24jWDKRdYNF+TuWyoZgFI9uOveqcl1o3FpFtXsKkSoZ87nD2fOw==
+topology-sequence-diagram@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npm.taobao.org/topology-sequence-diagram/download/topology-sequence-diagram-0.0.6.tgz#7aa6ff4138ba15826a9ed6d8004e3cf8bcc21d4d"
+  integrity sha1-eqb/QTi6FYJqntbYAE48+LzCHU0=
 
 tough-cookie@^2.3.3, tough-cookie@^2.3.4:
   version "2.5.0"

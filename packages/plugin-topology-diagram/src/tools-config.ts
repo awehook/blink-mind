@@ -118,7 +118,7 @@ export const ToolsConfig = [
         name: 'left arrow',
         icon: 'icon-arrow-left',
         data: {
-          text: 'left arrow',
+          text: '',
           rect: {
             width: 200,
             height: 100
@@ -130,7 +130,7 @@ export const ToolsConfig = [
         name: 'right arrow',
         icon: 'icon-arrow-right',
         data: {
-          text: 'right arrow',
+          text: '',
           rect: {
             width: 200,
             height: 100
@@ -142,7 +142,7 @@ export const ToolsConfig = [
         name: 'bidirectional arrow',
         icon: 'icon-twoway-arrow',
         data: {
-          text: 'bidirectional arrow',
+          text: '',
           rect: {
             width: 200,
             height: 100
