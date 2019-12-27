@@ -40,7 +40,7 @@ export class Diagram extends React.Component<Props> {
       construct: false,
       onChange: this.props.onChange
     });
-    this.controller.run('onConstruct');
+    // this.controller.run('onConstruct');
   });
 
   renderHotkeys() {
@@ -60,16 +60,15 @@ export class Diagram extends React.Component<Props> {
       });
       return <Hotkeys>{children}</Hotkeys>;
     }
-    return <Hotkeys/>;
+    return <Hotkeys />;
   }
 
   render() {
-    const { commands, plugins, model } = this.props;
+    const { commands, plugins } = this.props;
     this.resolveController(plugins, commands, DefaultPlugin);
     this.diagramProps = {
       ...this.props,
       controller: this.controller,
-      model,
       diagram: this
     };
     return this.controller.run('renderDiagram', this.diagramProps);
