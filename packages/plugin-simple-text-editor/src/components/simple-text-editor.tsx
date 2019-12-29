@@ -103,12 +103,12 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
     const { topicKey, saveRef } = this.props;
     const {
       readOnly,
-      refKeyPrefix,
+      getRefKeyFunc,
       placeholder,
       style
     } = this.getCustomizeProps();
     log(readOnly);
-    const key = `${refKeyPrefix}-${topicKey}`;
+    const key = getRefKeyFunc(topicKey);
     const content = readOnly ? this.getContent() : this.state.content;
     const { onMouseDown, onMouseMove } = this;
     const editorProps = {

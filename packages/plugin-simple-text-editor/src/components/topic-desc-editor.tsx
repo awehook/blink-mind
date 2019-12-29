@@ -2,6 +2,7 @@ import { BlockType } from '@blink-mind/core';
 import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 
+import {descEditorRefKey} from "@blink-mind/renderer-react";
 import debug from 'debug';
 const log = debug('node:topic-desc-editor');
 
@@ -23,11 +24,11 @@ export class TopicDescEditor extends SimpleTextEditor {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
     const readOnly = model.editingDescKey !== topicKey;
-    const refKeyPrefix = 'desc-editor';
+    const getRefKeyFunc = descEditorRefKey;
     return {
       block,
       readOnly,
-      refKeyPrefix,
+      getRefKeyFunc,
       placeholder: 'write topic notes here'
     };
   }

@@ -1,22 +1,24 @@
+import debug from 'debug';
 import * as React from 'react';
+
+const log = debug('node:save-ref');
 
 interface SaveRefProps {
   children: (
     saveRef: Function,
     getRef: Function,
+    deleteRef: Function,
     registerRefListener: Function
   ) => React.ReactNode;
 }
 
 type RefListener = (name: string, ref: HTMLElement) => void;
 
-//TODO 可能会引起内存泄露
-//需要使用WeakMap重构
+//TODO 可能会引起内存泄露,在删除一个topic时
 export class SaveRef extends React.Component<SaveRefProps> {
 
-  refMap = new WeakMap();
-
   getRef = name => {
+    log(this);
     return this[name];
   };
 
@@ -27,6 +29,11 @@ export class SaveRef extends React.Component<SaveRefProps> {
         this.fireListener(name, node);
       }
     };
+  };
+
+  deleteRef = name => {
+    log('deleteRef:',name);
+    delete this[name];
   };
 
   observers: Map<string, [RefListener]> = new Map();
@@ -52,6 +59,7 @@ export class SaveRef extends React.Component<SaveRefProps> {
     return this.props.children(
       this.saveRef,
       this.getRef,
+      this.deleteRef,
       this.registerRefListener.bind(this)
     );
   }

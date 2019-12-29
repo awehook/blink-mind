@@ -1,4 +1,5 @@
 import { BlockType } from '@blink-mind/core';
+import {descEditorRefKey} from "@blink-mind/renderer-react";
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
 
@@ -15,11 +16,12 @@ export class TopicDescEditor extends RichTextEditor {
     const { model, topicKey } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
     const readOnly = model.editingDescKey !== topicKey;
-    const refKeyPrefix = 'desc-editor';
+    //TODO
+    const getRefKeyFunc = descEditorRefKey;
     return {
       block,
       readOnly,
-      refKeyPrefix,
+      getRefKeyFunc,
       placeholder: 'write topic notes here'
     };
   }

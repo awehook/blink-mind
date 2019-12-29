@@ -7,11 +7,16 @@ import {
 } from '@blink-mind/core';
 import * as React from 'react';
 import {
-  getRelativeRect, getRelativeVector,
+  getRelativeRect,
+  getRelativeVector,
   linksRefKey,
   RefKey,
   topicWidgetRefKey
 } from '../utils';
+import { RootSubLinks } from './react/components/root-sublinks';
+import { TopicDropEffect } from './react/components/topic-drop-effect';
+import { TopicHighlight } from './react/components/topic-highlight';
+import { TopicWidget } from './react/components/topic-widget';
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;
@@ -69,9 +74,11 @@ export function LayoutPlugin() {
 
     layout(props) {
       const { getRef, model } = props;
-      const links = getRef(linksRefKey(model.editorRootTopicKey));
-      const highlight = getRef(RefKey.FOCUS_HIGHLIGHT_KEY);
-      const dropEffect = getRef(RefKey.DROP_EFFECT_KEY);
+      const links = getRef(
+        linksRefKey(model.editorRootTopicKey)
+      ) as RootSubLinks;
+      const highlight = getRef(RefKey.FOCUS_HIGHLIGHT_KEY) as TopicHighlight;
+      const dropEffect = getRef(RefKey.DROP_EFFECT_KEY) as TopicDropEffect;
       links && links.layout();
       highlight && highlight.layout();
       dropEffect && dropEffect.layout();
@@ -81,7 +88,9 @@ export function LayoutPlugin() {
 
       function layoutTopic(topic: Topic) {
         if (topic.key !== model.editorRootTopicKey) {
-          const topicWidget = getRef(topicWidgetRefKey(topic.key));
+          const topicWidget = getRef(
+            topicWidgetRefKey(topic.key)
+          ) as TopicWidget;
           topicWidget && topicWidget.layoutLinks();
         }
 

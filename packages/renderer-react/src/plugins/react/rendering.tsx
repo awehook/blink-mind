@@ -31,23 +31,29 @@ export function RenderingPlugin() {
     background: ${props => props.theme.background};
     position: relative;
   `;
+  let diagramProps;
   return {
+    getDiagramProps() {
+      return diagramProps;
+    },
     renderDiagram(props) {
       const { model, controller } = props;
       return (
         <SaveRef>
-          {(saveRef, getRef) => {
-            const widgetProps = {
+          {(saveRef, getRef, deleteRef) => {
+            diagramProps = {
               ...props,
               saveRef,
-              getRef
+              getRef,
+              deleteRef
             };
+
             log('renderDiagram', model);
             return (
               <Theme theme={model.config.theme}>
                 <DiagramRoot ref={saveRef(RefKey.DIAGRAM_ROOT_KEY)}>
-                  <MindDragScrollWidget {...widgetProps} />
-                  {controller.run('renderDiagramCustomize', widgetProps)}
+                  <MindDragScrollWidget {...diagramProps} />
+                  {controller.run('renderDiagramCustomize', diagramProps)}
                 </DiagramRoot>
               </Theme>
             );

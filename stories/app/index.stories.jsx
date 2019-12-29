@@ -88,7 +88,7 @@ class AppDemo extends BaseDemo {
         log('OpenFile:', obj);
         let model = controller.run('deserializeModel', { controller, obj });
         log('OpenFile:', model);
-        this.setState({ model });
+        this.diagram.openNewModel(model);
       };
       fr.readAsText(file);
     });

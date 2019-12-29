@@ -4,10 +4,11 @@ import { configure } from '@storybook/react';
 const debugNameSpaces = [
   // 'core:*',
   // 'node:*',
-  'node:topic-content-editor',
-
+  'node:save-ref',
+  // 'node:topic-content-editor',
+  // 'node:topic-sub-links',
   // 'node:drag-scroll-widget',
-  'node:topic-content-widget',
+  // 'node:topic-content-widget',
   // 'node:topic-desc-editor',
   // 'node:style-editor',
   // 'plugin:StylePlugin',

@@ -81,7 +81,10 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         ...props,
         topicKey: key
       });
+      // log(key);
       const subContent = getRef(contentRefKey(key));
+      if(!subContent)
+        return;
       const rect = getRelativeRect(subContent,bigView,z);
 
       if (dir === TopicDirection.RIGHT) {
@@ -137,8 +140,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
   }
 
   render() {
-    const { topicKey, saveRef, model } = this.props;
-    const style = { transform: `scale(${1 / model.zoomFactor})` };
+    const { topicKey, saveRef } = this.props;
     return (
       <TopicLinksSvg ref={saveRef(linksSvgRefKey(topicKey))}>
         <g>{this.state.curves}</g>

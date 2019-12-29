@@ -2,10 +2,20 @@ import {
   BaseModifierArg,
   BlockType,
   FocusMode,
+  getAllSubTopicKeys,
   Model,
   ModelModifier,
   OpType
 } from '@blink-mind/core';
+import {
+  collapseRefKey, contentEditorRefKey,
+  contentRefKey, descEditorRefKey,
+  dropAreaRefKey,
+  linksRefKey,
+  linksSvgRefKey,
+  topicRefKey,
+  topicWidgetRefKey
+} from '@blink-mind/renderer-react';
 import debug from 'debug';
 import { List, Stack } from 'immutable';
 const log = debug('plugin:operation');
@@ -232,7 +242,10 @@ export function OperationPlugin() {
       controller.change(newModel);
     },
 
+    // 在整个Operation执行之前被调用
     beforeOperation(props) {},
+    // 在单个OpFunction执行之前被调用
+    beforeOpFunction(props) {},
     operation(props) {
       const { opType, controller, model, opArray } = props;
       log('operation:', opType);
@@ -261,19 +274,49 @@ export function OperationPlugin() {
           if (!opMap.has(opType))
             throw new Error(`opType:${opType} not exist!`);
           const opFunc = opMap.get(opType);
-          const res = opFunc({ controller, ...cur, model: acc });
+          const opFuncProps = { controller, ...cur, model: acc };
+          controller.run('beforeOpFunction', opFuncProps);
+          const res = opFunc(opFuncProps);
+          controller.run('afterOpFunction', opFuncProps);
           return res;
-          return acc;
         }, model);
       } else {
         if (!opMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
         const opFunc = opMap.get(opType);
+        controller.run('beforeOpFunction', props);
         newModel = opFunc(props);
+        controller.run('afterOpFunction', props);
       }
       log('newModel:', newModel);
       controller.change(newModel);
       controller.run('afterOperation', props);
     },
+
+    deleteRefKey(props) {
+      const { model,topicKey, deleteRef } = props;
+      const allSubKeys = getAllSubTopicKeys(model, topicKey);
+      allSubKeys.push(topicKey);
+      for(const key of allSubKeys) {
+        deleteRef(linksRefKey(key));
+        deleteRef(linksSvgRefKey(key));
+        deleteRef(contentRefKey(key));
+        deleteRef(contentEditorRefKey(key));
+        deleteRef(descEditorRefKey(key));
+        deleteRef(topicWidgetRefKey(key));
+        deleteRef(topicRefKey(key));
+        deleteRef(collapseRefKey(key));
+        deleteRef(dropAreaRefKey(key, 'next'));
+        deleteRef(dropAreaRefKey(key, 'prev'));
+      }
+    },
+
+    afterOpFunction(props) {
+      const { controller, opType } = props;
+      if (opType === OpType.DELETE_TOPIC) {
+        controller.run('deleteRefKey', props);
+      }
+    },
+
     afterOperation(props) {}
   };
 }

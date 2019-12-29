@@ -85,11 +85,11 @@ export class RichTextEditor extends BaseWidget<Props, State> {
 
   render() {
     const { topicKey, saveRef } = this.props;
-    const { readOnly, refKeyPrefix, placeholder } = this.getCustomizeProps();
+    const { readOnly, getRefKeyFunc, placeholder } = this.getCustomizeProps();
     log('readOnly:', readOnly);
     const content = readOnly ? this.getContent() : this.state.content;
     if (content == null) return null;
-    const key = `${refKeyPrefix}-${topicKey}`;
+    const key = getRefKeyFunc(topicKey);
     const { onMouseDown, onMouseMove } = this;
     const richEditorProps = {
       editorValue: content,

@@ -2,6 +2,7 @@ import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
 
+import { contentEditorRefKey } from '@blink-mind/renderer-react';
 import debug from 'debug';
 const log = debug('node:topic-content-editor');
 
@@ -9,11 +10,11 @@ export class TopicContentEditor extends RichTextEditor {
   getCustomizeProps() {
     const { model, topicKey, readOnly } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
-    const refKeyPrefix = 'content-editor';
+    const getRefKeyFunc = contentEditorRefKey;
     return {
       block,
       readOnly,
-      refKeyPrefix,
+      getRefKeyFunc,
       placeholder: ' '
     };
   }

@@ -2,6 +2,14 @@ export function contentRefKey(key) {
   return `content-${key}`;
 }
 
+export function contentEditorRefKey(key) {
+  return `content-editor-${key}`;
+}
+
+export function descEditorRefKey(key) {
+  return `desc-editor-${key}`;
+}
+
 export function topicWidgetRefKey(key) {
   return `topic-widget-${key}`;
 }
@@ -20,6 +28,10 @@ export function linksSvgRefKey(key) {
 
 export function collapseRefKey(key) {
   return `collapse-${key}`;
+}
+
+export function dropAreaRefKey(key, dir) {
+  return `dropArea-${dir}-${key}`;
 }
 
 export const RefKey = {

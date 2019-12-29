@@ -7,7 +7,7 @@ import {
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import {contentRefKey, RefKey} from '../utils';
+import {contentRefKey, dropAreaRefKey,RefKey} from '../utils';
 import { TopicDropEffect } from './react/components/topic-drop-effect';
 const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
@@ -47,7 +47,7 @@ export function DragAndDrop() {
       return (
         <DropArea
           height={model.config.theme.marginV / 2}
-          ref={saveRef(`dropArea-${dropDir}-${topicKey}`)}
+          ref={saveRef(dropAreaRefKey(topicKey,dropDir))}
           {...eventHandlers}
         />
       );

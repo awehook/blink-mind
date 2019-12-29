@@ -2,6 +2,7 @@ import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 
+import {contentEditorRefKey} from "@blink-mind/renderer-react";
 import debug from 'debug';
 const log = debug('node:topic-content-editor');
 
@@ -12,14 +13,14 @@ export class TopicContentEditor extends SimpleTextEditor {
   getCustomizeProps() {
     const { model, topicKey, readOnly } = this.props;
     const block = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block;
-    const refKeyPrefix = 'content-editor';
+    const getRefKeyFunc = contentEditorRefKey;
     const style = {
       whiteSpace: 'pre'
     };
     return {
       block,
       readOnly,
-      refKeyPrefix,
+      getRefKeyFunc,
       placeholder: 'new',
       style
     };

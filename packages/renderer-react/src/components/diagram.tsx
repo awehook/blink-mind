@@ -22,17 +22,32 @@ interface Props {
   plugins?: any;
 }
 
+export interface IDiagramProps {
+  model: Model;
+  controller: Controller;
+}
+
 @HotkeysTarget
 export class Diagram extends React.Component<Props> {
   controller: Controller;
 
-  getDiagramProps() {
-    return this.diagramProps;
+  public getDiagramProps(): IDiagramProps {
+    return this.controller.run('getDiagramProps');
   }
 
-  diagramProps;
+  public openNewModel(newModel: Model) {
+    const props = this.getDiagramProps();
+    const { model, controller } = props;
+    controller.run('deleteRefKey', {
+      ...props,
+      topicKey: model.rootTopicKey
+    });
+    controller.change(newModel);
+  }
 
-  resolveController = memoizeOne((plugins = [], commands, TheDefaultPlugin) => {
+  private diagramProps: IDiagramProps;
+
+  private resolveController = memoizeOne((plugins = [], commands, TheDefaultPlugin) => {
     const defaultPlugin = TheDefaultPlugin();
     this.controller = new Controller({
       plugins: [plugins, defaultPlugin],
@@ -68,8 +83,9 @@ export class Diagram extends React.Component<Props> {
     this.resolveController(plugins, commands, DefaultPlugin);
     this.diagramProps = {
       ...this.props,
-      controller: this.controller,
-      diagram: this
+      controller: this.controller
+      // TODO
+      // diagram: this
     };
     return this.controller.run('renderDiagram', this.diagramProps);
   }

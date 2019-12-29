@@ -5,6 +5,7 @@ import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/common/base-props';
 import {
   contentRefKey,
+  dropAreaRefKey,
   getRelativeRect,
   RefKey
 } from '../../../utils';
@@ -42,13 +43,13 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
       });
       return;
     }
-    let dropAreaRefKey;
+    let refKey;
     if (dropDir === 'in') {
-      dropAreaRefKey = contentRefKey(key);
+      refKey = contentRefKey(key);
     } else {
-      dropAreaRefKey = `dropArea-${dropDir}-${key}`;
+      refKey = dropAreaRefKey(key,dropDir);
     }
-    const content = getRef(dropAreaRefKey);
+    const content = getRef(refKey);
     const svg = getRef('svg-drop-effect');
     const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
     const contentRect = getRelativeRect(content, bigView, zoomFactor);
