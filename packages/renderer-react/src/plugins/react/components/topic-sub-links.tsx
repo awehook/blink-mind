@@ -8,7 +8,8 @@ import {
   centerPointY,
   centerY,
   collapseRefKey,
-  contentRefKey, getRelativeRect,
+  contentRefKey,
+  getRelativeRect,
   linksSvgRefKey,
   Point,
   RefKey
@@ -39,19 +40,19 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
   layout() {
     const props = this.props;
     const { model, getRef, topicKey, dir, controller } = props;
-    const z = controller.run('getZoomFactor',props);
+    const z = controller.run('getZoomFactor', props);
     const topic = model.getTopic(topicKey);
     const content = getRef(contentRefKey(topicKey));
     const svg = getRef(linksSvgRefKey(topicKey));
     const collapseIcon = getRef(collapseRefKey(topicKey));
     const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
-    const svgRect =  getRelativeRect(svg,bigView,z);
-    const collapseRect = getRelativeRect(collapseIcon,bigView,z);
-    const contentRect = getRelativeRect(content,bigView,z);
+    const svgRect = getRelativeRect(svg, bigView, z);
+    const collapseRect = getRelativeRect(collapseIcon, bigView, z);
+    const contentRect = getRelativeRect(content, bigView, z);
     log(topicKey);
-    log('svgRect',svgRect);
-    log('collapseRect',collapseRect);
-    log('contentRect',contentRect);
+    log('svgRect', svgRect);
+    log('collapseRect', collapseRect);
+    log('contentRect', contentRect);
     let p1: Point, p2: Point, p3: Point;
 
     if (dir === TopicDirection.RIGHT) {
@@ -83,9 +84,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
       });
       // log(key);
       const subContent = getRef(contentRefKey(key));
-      if(!subContent)
-        return;
-      const rect = getRelativeRect(subContent,bigView,z);
+      if (!subContent) return;
+      const rect = getRelativeRect(subContent, bigView, z);
 
       if (dir === TopicDirection.RIGHT) {
         p3 = {

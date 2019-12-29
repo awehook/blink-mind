@@ -16,7 +16,7 @@ export function EventPlugin() {
       if (model.editingContentKey === topicKey) return;
       if (
         model.focusKey === topicKey &&
-        (model.focusMode === FocusMode.EDITING_CONTENT)
+        model.focusMode === FocusMode.EDITING_CONTENT
       )
         return;
       controller.run('operation', {
@@ -80,7 +80,7 @@ export function EventPlugin() {
     },
 
     removeEventListener(props) {
-      const { key, listener, controller } = props;
+      const { key, listener } = props;
       if (eventListeners[key]) {
         eventListeners[key] = eventListeners[key].filter(fn => {
           return fn !== listener && fn.origin !== listener;

@@ -9,7 +9,8 @@ import {
   CloseIcon,
   IconBg,
   ShowMenuIcon,
-  Title
+  Title,
+  ZIndex
 } from '../../../../components/common';
 import { iconClassName, IconName } from '../../../../utils';
 import { BorderStyleEditor } from './border-style-editor';
@@ -26,13 +27,12 @@ import { TextStyleEditor } from './text-style-editor';
 
 const log = debug('node:style-editor');
 
-const StyleEditorRoot = styled.div`
+const StyleEditorRoot = styled(ZIndex)`
   position: absolute;
   background: white;
   right: 30px;
   top: 20px;
   border-radius: 2px;
-  z-index: 4;
 `;
 
 const PopRoot = styled.div`
@@ -91,7 +91,7 @@ export class StyleEditor extends BaseWidget {
 
   render() {
     const props = this.props;
-    const { controller, model } = props;
+    const { controller, model, zIndex } = props;
     if (!model.focusKey) return null;
     const topicStyle: TopicContentStyle = controller.run(
       'getTopicContentStyle',
@@ -99,7 +99,7 @@ export class StyleEditor extends BaseWidget {
     );
     if (!this.state.showPanel) {
       return (
-        <StyleEditorRoot>
+        <StyleEditorRoot zIndex={zIndex}>
           <IconBg onClick={this.setShowPanel(true)}>
             <ShowMenuIcon className={iconClassName(IconName.SHOW_MENU)} />
           </IconBg>
@@ -108,7 +108,7 @@ export class StyleEditor extends BaseWidget {
     }
     const setStyle = this.setTopicContentStyle;
     return (
-      <StyleEditorRoot>
+      <StyleEditorRoot zIndex={zIndex}>
         <Title>
           <CloseIcon
             className={iconClassName(IconName.CLOSE)}

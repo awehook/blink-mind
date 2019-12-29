@@ -11,4 +11,5 @@ export interface BaseProps {
   setViewBoxScrollDelta?: Function;
   setViewBoxScroll?: Function;
   zoomFactor?: number;
+  zIndex?: number;
 }

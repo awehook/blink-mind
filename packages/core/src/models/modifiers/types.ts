@@ -1,4 +1,5 @@
 import { ThemeType } from '../../configs/theme/types';
+import { Controller } from '../../controller';
 import { DiagramLayoutType, KeyType } from '../../types';
 import { Model } from '../model';
 import { Topic } from '../topic';
@@ -30,7 +31,7 @@ export type SetBlockDataArg = BaseModifierArg & {
 
 export type DeleteBlockArg = BaseModifierArg & {
   blockType: string;
-}
+};
 
 export type SetFocusModeArg = BaseModifierArg & {
   focusMode: string;

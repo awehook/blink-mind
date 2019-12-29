@@ -1,4 +1,5 @@
 import { ModelModifier } from '@blink-mind/core';
+import { PropKey } from '@blink-mind/renderer-react';
 import {
   Breadcrumb,
   Breadcrumbs,
@@ -7,9 +8,9 @@ import {
 } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../../../components/common';
+import { BaseWidget, ZIndex } from '../../../components/common';
 
-const EditorRootBreadcrumbsRoot = styled.div`
+const EditorRootBreadcrumbsRoot = styled(ZIndex)`
   position: absolute;
   width: 20%;
   padding: 0 5px;
@@ -17,7 +18,6 @@ const EditorRootBreadcrumbsRoot = styled.div`
   left: 30px;
   top: 20px;
   border-radius: 2px;
-  z-index: 4;
 `;
 
 const TooltipContent = styled.div`
@@ -77,14 +77,14 @@ export class EditorRootBreadcrumbs extends BaseWidget {
 
   render() {
     const props = this.props;
-    const { model, controller } = props;
+    const { model, controller, zIndex } = props;
     const editingRootKey = model.editorRootTopicKey;
     if (editingRootKey === model.rootTopicKey) return null;
 
     const items = [];
     let topic = model.getTopic(editingRootKey);
     while (topic != null) {
-      const title = controller.run('getTopicTitle', {
+      const title = controller.getValue(PropKey.TOPIC_TITLE, {
         ...props,
         topicKey: topic.key
       });
@@ -99,7 +99,7 @@ export class EditorRootBreadcrumbs extends BaseWidget {
       breadcrumbRenderer: this.breadcrumbRenderer
     };
     return (
-      <EditorRootBreadcrumbsRoot>
+      <EditorRootBreadcrumbsRoot zIndex={zIndex}>
         <Breadcrumbs {...breadcrumbProps} />
       </EditorRootBreadcrumbsRoot>
     );

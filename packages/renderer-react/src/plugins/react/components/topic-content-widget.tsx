@@ -5,7 +5,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/common/base-props';
-import { collapseRefKey, contentRefKey } from '../../../utils';
+import { collapseRefKey, contentRefKey, PropKey } from '../../../utils';
 
 const log = debug('node:topic-content-widget');
 
@@ -67,6 +67,13 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   public renderContextMenu() {
     const { controller } = this.props;
+    if (
+      !controller.getValue(PropKey.TOPIC_CONTEXT_MENU_ENABLED, {
+        ...this.props
+      })
+    ) {
+      return;
+    }
     this.operation(OpType.FOCUS_TOPIC, {
       ...this.props,
       focusMode: FocusMode.SHOW_POPUP
@@ -81,12 +88,11 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   handleTopicClickTimeout;
 
   onClick = ev => {
-    // log('onClick');
     const props = this.props;
     const { controller } = props;
     //TODO bug [Violation] 'setTimeout' handler took 69ms
     this.handleTopicClickTimeout = setTimeout(() => {
-      log('handleTopicClick');
+      // log('handleTopicClick');
       //注意这里要传递this.props, 而不是props, 因为会先调用onClick, 再调用其他的topic-content-editor的onClickOutside
       //其他组件的onClickOutside是个同步的函数,会设置新的model, 如果这里用props传参,会导致model 还是老的model
       controller.run('handleTopicClick', { ...this.props, ev });
@@ -96,7 +102,6 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   onDoubleClick = ev => {
     clearTimeout(this.handleTopicClickTimeout);
     const { controller } = this.props;
-    log('handleTopicDoubleClick');
     controller.run('handleTopicDoubleClick', { ...this.props, ev });
   };
 
@@ -105,12 +110,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   componentDidUpdate() {
     if (this.needRelocation) {
-      const {
-        getRef,
-        topicKey,
-        setViewBoxScrollDelta,
-        controller
-      } = this.props;
+      const { getRef, topicKey, setViewBoxScrollDelta } = this.props;
       const newIcon = getRef(collapseRefKey(topicKey));
       const newRect = newIcon.getBoundingClientRect();
       // const newVector = controller.run('getRelativeVectorFromViewPort', {
@@ -121,9 +121,6 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
         newRect.left + newRect.width / 2,
         newRect.top + newRect.height / 2
       ];
-      const z = controller.run('getZoomFactor', {
-        ...this.props
-      });
       log('newVector:', newVector);
       log('oldVector:', this.oldCollapseIconVector);
       //TODO bug
@@ -131,7 +128,6 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
         newVector[0] - this.oldCollapseIconVector[0],
         newVector[1] - this.oldCollapseIconVector[1]
       ];
-      // vector = [vector[0]*z,vector[1]*z]
       log('vector', vector);
       setViewBoxScrollDelta(vector[0], vector[1]);
       this.needRelocation = false;
@@ -161,7 +157,9 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     const props = this.props;
     const { saveRef, topicKey, model, controller, topicStyle, dir } = props;
     log('render', topicKey, model.focusMode);
-    const draggable = model.editingContentKey !== topicKey;
+    const draggable =
+      controller.run('isOperationEnabled', props) &&
+      model.editingContentKey !== topicKey;
     const collapseIcon = controller.run('renderTopicCollapseIcon', {
       ...props,
       onClickCollapse: this.onClickCollapse.bind(this)
@@ -194,6 +192,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
           {...dropEventHandlers}
         >
           {controller.run('renderTopicBlocks', props)}
+          {controller.run('renderTopicContentOthers', props)}
         </TopicContent>
         {nextDropArea}
         {dir !== TopicDirection.MAIN && collapseIcon}

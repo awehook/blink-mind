@@ -16,6 +16,16 @@ export function getAllSubTopicKeys(model: Model, topicKey: KeyType): KeyType[] {
   return res;
 }
 
+export function getAllAncestorKeys(model: Model, topicKey: KeyType): KeyType[] {
+  const res = [];
+  let item = model.getTopic(topicKey);
+  while (item.parentKey) {
+    res.push(item.parentKey);
+    item = model.getParentTopic(item.key);
+  }
+  return res;
+}
+
 export function getRelationship(
   model: Model,
   srcKey: KeyType,

@@ -6,7 +6,9 @@ import {
   centerPointX,
   centerPointY,
   centerX,
-  centerY, getRelativeRect, Point,
+  centerY,
+  getRelativeRect,
+  Point,
   RefKey
 } from '../../../utils';
 
@@ -24,8 +26,7 @@ const RootLinksSvg = styled.svg`
 
 const log = debug('node:topic-sub-links');
 
-interface Props extends BaseProps {
-}
+interface Props extends BaseProps {}
 
 interface State {
   curves: any[];
@@ -43,8 +44,8 @@ export class RootSubLinks extends BaseWidget<Props, State> {
     const content = getRef(contentRefKey(topicKey));
     const svg = getRef(linksSvgRefKey(topicKey));
     const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
-    const contentRect = getRelativeRect(content,bigView,zoomFactor);
-    const svgRect = getRelativeRect(svg,bigView,zoomFactor);
+    const contentRect = getRelativeRect(content, bigView, zoomFactor);
+    const svgRect = getRelativeRect(svg, bigView, zoomFactor);
     let p1: Point, p2: Point;
 
     p1 = {
@@ -59,7 +60,7 @@ export class RootSubLinks extends BaseWidget<Props, State> {
       });
       const lineType = linkStyle.lineType;
       const subTopicContent = getRef(contentRefKey(key));
-      const rect = getRelativeRect(subTopicContent,bigView,zoomFactor);
+      const rect = getRelativeRect(subTopicContent, bigView, zoomFactor);
       if (rect.left > contentRect.right) {
         p2 = {
           x: rect.left,

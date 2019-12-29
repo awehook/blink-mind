@@ -3,11 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget } from '../../../components/common';
 import { BaseProps } from '../../../components/common/base-props';
-import {
-  contentRefKey,
-  getRelativeRect,
-  RefKey,
-} from '../../../utils';
+import { contentRefKey, getRelativeRect, RefKey } from '../../../utils';
 
 const FocusHighlightSvg = styled.svg`
   width: 100%;

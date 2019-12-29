@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Flex = styled.div`
   display: flex;
   align-items: ${props => props.alignItems};
+  justify-content: ${props => props.justifyContent};
 `;
 
 export const Margin = styled.div`
@@ -26,7 +27,7 @@ export const Btn = styled.div`
   &:focus {
     outline: none;
   }
-`
+`;
 
 export const CloseIcon = styled(Btn)`
   position: absolute;
@@ -40,4 +41,8 @@ export const Title = styled.div`
 
 export const TopicBlockIcon = styled.span`
   margin: 0px 10px;
+`;
+
+export const ZIndex = styled.div`
+  z-index: ${props => props.zIndex};
 `;

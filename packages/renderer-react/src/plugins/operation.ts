@@ -8,8 +8,10 @@ import {
   OpType
 } from '@blink-mind/core';
 import {
-  collapseRefKey, contentEditorRefKey,
-  contentRefKey, descEditorRefKey,
+  collapseRefKey,
+  contentEditorRefKey,
+  contentRefKey,
+  descEditorRefKey,
   dropAreaRefKey,
   linksRefKey,
   linksSvgRefKey,
@@ -18,6 +20,7 @@ import {
 } from '@blink-mind/renderer-react';
 import debug from 'debug';
 import { List, Stack } from 'immutable';
+import warning from 'tiny-warning';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {
@@ -117,6 +120,7 @@ export function OperationPlugin() {
     [OpType.TOGGLE_COLLAPSE, ModelModifier.toggleCollapse],
     [OpType.COLLAPSE_ALL, ModelModifier.collapseAll],
     [OpType.EXPAND_ALL, ModelModifier.expandAll],
+    [OpType.EXPAND_TO, ModelModifier.expandTo],
     [OpType.ADD_CHILD, ModelModifier.addChild],
     [OpType.ADD_SIBLING, ModelModifier.addSibling],
     [OpType.DELETE_TOPIC, ModelModifier.deleteTopic],
@@ -133,7 +137,24 @@ export function OperationPlugin() {
   let undoStack = Stack<Model>();
   let redoStack = Stack<Model>();
 
+  let enabled = true;
+  let whiteListOperation = new Set<string>();
+
   return {
+    isOperationEnabled(props) {
+      return enabled;
+    },
+
+    enableOperation() {
+      enabled = true;
+    },
+
+    disableOperation({ whiteList }) {
+      enabled = false;
+      if (whiteList) whiteListOperation = new Set(whiteList);
+      else whiteListOperation.clear();
+    },
+
     /** plugin can extend Operation Map
      * for example: A plugin can write a function
      * getOpMap(props,next) {
@@ -246,17 +267,42 @@ export function OperationPlugin() {
     beforeOperation(props) {},
     // 在单个OpFunction执行之前被调用
     beforeOpFunction(props) {},
+
+    //TODO 有空重构这个函数
     operation(props) {
-      const { opType, controller, model, opArray } = props;
+      const { controller, opType, model, opArray } = props;
+      if (opArray != null && !Array.isArray(opArray)) {
+        throw new Error('operation: the type of opArray must be array!');
+      }
+      if (opType != null && opArray != null) {
+        throw new Error('operation: opType and opArray conflict!');
+      }
+      const isOperationEnabled = controller.run('isOperationEnabled', props);
+      if (!isOperationEnabled) {
+        // warning(
+        //   true,
+        //   `You have disabled operation,but you run operation ${props} now!`
+        // );
+        if (whiteListOperation.size === 0) return;
+
+        if (opArray != null) {
+          const opNotInWhiteList = opArray.filter(
+            op => !whiteListOperation.has(op.opType)
+          );
+          if (opNotInWhiteList && opNotInWhiteList.length > 0) {
+            return;
+          }
+        } else if (!whiteListOperation.has(opType)) {
+          return;
+        }
+      }
+
       log('operation:', opType);
       log('operation:', model);
       log('operation:', props);
 
       const opMap = controller.run('getOpMap', props);
       controller.run('beforeOperation', props);
-      if (opType != null && opArray != null) {
-        throw new Error('operation: opType and opArray conflict!');
-      }
       if (controller.run('getAllowUndo', props)) {
         const { undoStack } = controller.run('getUndoRedoStack', props);
         controller.run('setUndoStack', {
@@ -266,9 +312,6 @@ export function OperationPlugin() {
       }
       let newModel;
       if (opArray != null) {
-        if (!Array.isArray(opArray)) {
-          throw new Error('operation: the type of opArray must be array!');
-        }
         newModel = opArray.reduce((acc, cur) => {
           const { opType } = cur;
           if (!opMap.has(opType))
@@ -293,10 +336,10 @@ export function OperationPlugin() {
     },
 
     deleteRefKey(props) {
-      const { model,topicKey, deleteRef } = props;
+      const { model, topicKey, deleteRef } = props;
       const allSubKeys = getAllSubTopicKeys(model, topicKey);
       allSubKeys.push(topicKey);
-      for(const key of allSubKeys) {
+      for (const key of allSubKeys) {
         deleteRef(linksRefKey(key));
         deleteRef(linksSvgRefKey(key));
         deleteRef(contentRefKey(key));

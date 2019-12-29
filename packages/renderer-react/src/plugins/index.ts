@@ -1,6 +1,6 @@
 import SimpleTextEditorPlugin from '@blink-mind/plugin-simple-text-editor';
-import { DragAndDrop } from './drag-and-drop';
 import { EventPlugin } from './event';
+import { GetValuePlugin } from './get-value';
 import { HotKeyPlugin } from './hotkey';
 import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
@@ -15,7 +15,7 @@ export function DefaultPlugin() {
     StylePlugin(),
     EventPlugin(),
     HotKeyPlugin(),
-    DragAndDrop(),
-    SimpleTextEditorPlugin()
+    SimpleTextEditorPlugin(),
+    GetValuePlugin()
   ];
 }

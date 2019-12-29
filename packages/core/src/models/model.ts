@@ -7,7 +7,7 @@ import { Topic } from './topic';
 
 type ModelRecordType = {
   topics: Map<KeyType, Topic>;
-  extData?: Map<string, any>;        //用于插件做数据扩展
+  extData?: Map<string, any>; //用于插件做数据扩展
   config: Config;
   rootTopicKey: KeyType;
   editorRootTopicKey?: KeyType;

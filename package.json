@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages",
     "prettier": "prettier --write 'packages/*/src/**'",
-    "pre-commit": "yarn lint:ts",
+    "pre-commit": "yarn lint:fix && yarn prettier && yarn lint:ts",
     "test": "lerna run test",
     "lint:ts": "tslint 'packages/**/*.ts{,x}'",
     "lint:fix": "tslint --fix 'packages/**/*.ts{,x}'",

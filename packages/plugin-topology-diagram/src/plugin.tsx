@@ -1,4 +1,4 @@
-import { ModelModifier } from '@blink-mind/core';
+import { BaseModifierArg, ModelModifier } from '@blink-mind/core';
 import { Icon } from '@blink-mind/renderer-react';
 import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
@@ -10,7 +10,7 @@ import {
   OP_TYPE_START_EDITING_TOPOLOGY
 } from './utils';
 
-function startEditingTopology({ model, topicKey }) {
+function startEditingTopology({ model, topicKey }: BaseModifierArg) {
   const topic = model.getTopic(topicKey);
   const { block } = topic.getBlock(BLOCK_TYPE_TOPOLOGY);
   if (block == null || block.data == null) {

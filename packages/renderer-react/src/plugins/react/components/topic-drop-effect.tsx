@@ -47,7 +47,7 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
     if (dropDir === 'in') {
       refKey = contentRefKey(key);
     } else {
-      refKey = dropAreaRefKey(key,dropDir);
+      refKey = dropAreaRefKey(key, dropDir);
     }
     const content = getRef(refKey);
     const svg = getRef('svg-drop-effect');

@@ -3,7 +3,7 @@ import { Classes, Position, Tooltip } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget, Btn } from '../../../../components/common';
+import { BaseWidget, Btn, ZIndex } from '../../../../components/common';
 import {
   EventKey,
   getRelativeVector,
@@ -15,13 +15,12 @@ import {
 
 const log = debug('node:view-port-viewer');
 
-const ViewerRoot = styled.div`
+const ViewerRoot = styled(ZIndex)`
   position: absolute;
   background: white;
   right: 30px;
   bottom: 20px;
   border-radius: 2px;
-  z-index: 3;
   display: flex;
   flex-direction: row;
   user-select: none;
@@ -137,22 +136,20 @@ export class ViewPortViewer extends BaseWidget {
   };
 
   centerRootTopic = () => {
-    const { getRef, model, controller } = this.props;
-    const rootTopic = getRef(topicRefKey(model.editorRootTopicKey));
-    const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
-    const viewBox = dragScroll.viewBox;
-    const vector = getRelativeVector(rootTopic, viewBox);
-    //TODO
-    dragScroll.setViewBoxScrollDelta(vector[0], vector[1]);
+    const { model, controller } = this.props;
+    controller.run('moveTopicToCenter', {
+      ...this.props,
+      topicKey: model.editorRootTopicKey
+    });
   };
 
   render() {
     log('render');
     const props = this.props;
-    const { controller } = props;
+    const { controller, zIndex } = props;
     const zoomFactor = controller.run('getZoomFactor', props);
     return (
-      <ViewerRoot>
+      <ViewerRoot zIndex={zIndex}>
         <Item onClick={this.onClickCollapseAll} tooltip="collapse all">
           {Icon(IconName.COLLAPSE_ALL)}
         </Item>

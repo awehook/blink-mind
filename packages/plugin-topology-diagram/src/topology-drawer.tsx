@@ -5,8 +5,12 @@ import { TopologyDiagram } from './topology-diagram';
 
 import { FocusMode, OpType } from '@blink-mind/core';
 import styled from 'styled-components';
-import {TopologyDiagramUtils} from "./topology-diagram-utils";
-import {BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM, REF_KEY_TOPOLOGY_DIAGRAM_UTIL} from './utils';
+import { TopologyDiagramUtils } from './topology-diagram-utils';
+import {
+  BLOCK_TYPE_TOPOLOGY,
+  REF_KEY_TOPOLOGY_DIAGRAM,
+  REF_KEY_TOPOLOGY_DIAGRAM_UTIL
+} from './utils';
 
 const DiagramWrapper = styled.div`
   position: relative;
@@ -45,7 +49,7 @@ export function TopologyDrawer(props) {
   const utilProps = {
     ...props,
     ref: saveRef(REF_KEY_TOPOLOGY_DIAGRAM_UTIL)
-  }
+  };
   return (
     <Drawer
       title={<Title>Topology Diagram Editor</Title>}

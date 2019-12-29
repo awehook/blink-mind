@@ -2,6 +2,7 @@ import { OpType } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { Icon } from '../../utils';
+import { TopicContextMenu } from './components/topic-context-menu';
 
 export type TopicContextMenuItemConfig = {
   icon?: string;
@@ -54,24 +55,31 @@ const items: TopicContextMenuItemConfig[] = [
   }
 ];
 
-export function customizeTopicContextMenu(props) {
-  const { topicKey, model, controller } = props;
-  const isRoot = topicKey === model.editorRootTopicKey;
-  function onClickItem(item) {
-    return function(e) {
-      item.opType &&
-        controller.run('operation', { ...props, opType: item.opType });
-    };
-  }
-  return items.map(item =>
-    isRoot && !item.rootCanUse ? null : (
-      <MenuItem
-        key={item.label}
-        icon={Icon(item.icon)}
-        text={item.label}
-        labelElement={<kbd>{item.shortcut}</kbd>}
-        onClick={onClickItem(item)}
-      />
-    )
-  );
+export function ContextMenuPlugin() {
+  return {
+    renderTopicContextMenu(props) {
+      return <TopicContextMenu {...props} />;
+    },
+    customizeTopicContextMenu(props) {
+      const { topicKey, model, controller } = props;
+      const isRoot = topicKey === model.editorRootTopicKey;
+      function onClickItem(item) {
+        return function(e) {
+          item.opType &&
+            controller.run('operation', { ...props, opType: item.opType });
+        };
+      }
+      return items.map(item =>
+        isRoot && !item.rootCanUse ? null : (
+          <MenuItem
+            key={item.label}
+            icon={Icon(item.icon)}
+            text={item.label}
+            labelElement={<kbd>{item.shortcut}</kbd>}
+            onClick={onClickItem(item)}
+          />
+        )
+      );
+    }
+  };
 }

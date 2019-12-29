@@ -1,9 +1,9 @@
-import { BlockType, FocusMode, OpType } from '@blink-mind/core';
+import { BlockType } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { SaveRef } from '../../components/common';
-import { linksRefKey, RefKey } from '../../utils';
+import { linksRefKey, PropKey, RefKey } from '../../utils';
 import { EditorRootBreadcrumbs } from './components/editor-root-breadcrumbs';
 import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { Modals } from './components/modals';
@@ -13,13 +13,11 @@ import { StyleEditor } from './components/style-editor';
 import { TopicCollapseIcon } from './components/topic-collapse-icon';
 import { TopicContent } from './components/topic-content';
 import { TopicContentWidget } from './components/topic-content-widget';
-import { TopicContextMenu } from './components/topic-context-menu';
 import { TopicDesc } from './components/topic-desc';
 import { TopicHighlight } from './components/topic-highlight';
 import { TopicSubLinks } from './components/topic-sub-links';
 import { TopicWidget } from './components/topic-widget';
 import { ViewPortViewer } from './components/view-port-util';
-import { customizeTopicContextMenu } from './context-menus';
 import { renderDrawer } from './drawer';
 import Theme from './theme';
 const log = debug('plugin:rendering');
@@ -65,14 +63,24 @@ export function RenderingPlugin() {
 
     renderDiagramCustomize(props) {
       const { controller, model } = props;
+      const zIndex = controller.getValue(
+        PropKey.DIAGRAM_CUSTOMIZE_BASE_Z_INDEX
+      );
       const nProps = {
         ...props,
+        zIndex,
         topicKey: model.focusKey
       };
       const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', nProps);
       const styleEditor = controller.run('renderStyleEditor', nProps);
-      const modals = controller.run('renderModals', nProps);
-      const drawer = controller.run('renderDrawer', nProps);
+      const modals = controller.run('renderModals', {
+        ...nProps,
+        zIndex: zIndex + 1
+      });
+      const drawer = controller.run('renderDrawer', {
+        ...nProps,
+        zIndex: zIndex + 1
+      });
       const viewportViewer = controller.run('renderViewPortViewer', nProps);
       return [breadcrumbs, styleEditor, modals, drawer, viewportViewer];
     },
@@ -109,14 +117,12 @@ export function RenderingPlugin() {
       return <TopicContentWidget {...props} />;
     },
 
-    renderTopicContextMenu(props) {
-      return <TopicContextMenu {...props} />;
-    },
-
-    customizeTopicContextMenu,
-
     renderTopicCollapseIcon(props) {
       return <TopicCollapseIcon {...props} />;
+    },
+
+    renderTopicContentOthers(props) {
+      return [];
     },
 
     renderTopicBlocks(props) {

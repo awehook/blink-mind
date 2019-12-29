@@ -6,6 +6,7 @@ import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
 import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
+import TopicReferencePlugin from "@blink-mind/plugin-topic-reference";
 import styled from 'styled-components';
 import { Dialog, MenuItem, Menu, MenuDivider } from '@blueprintjs/core';
 import { downloadFile } from '../utils';
@@ -27,18 +28,14 @@ const DiagramContainer = styled.div`
   height: calc(100% - 36px);
 `;
 
-const ZoomSpan = styled.span`
-  height: 36px;
-  display: flex;
-  align-items: center;
-`;
-
 const plugins = [
   RichTextEditorPlugin(),
   JsonSerializerPlugin(),
   ThemeSelectorPlugin(),
-  TopologyDiagramPlugin()
+  TopicReferencePlugin(),
+  TopologyDiagramPlugin(),
 ];
+
 class AppDemo extends BaseDemo {
   constructor(props) {
     super(props);

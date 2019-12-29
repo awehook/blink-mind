@@ -1,5 +1,5 @@
 import { BlockType } from '@blink-mind/core';
-import {descEditorRefKey} from "@blink-mind/renderer-react";
+import { descEditorRefKey } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
 

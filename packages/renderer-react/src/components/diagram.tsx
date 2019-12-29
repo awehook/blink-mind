@@ -5,7 +5,7 @@ import {
   OnChangeFunction
 } from '@blink-mind/core';
 // TODO
-import '@blink-mind/icons';
+// import '@blink-mind/icons';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
@@ -47,16 +47,18 @@ export class Diagram extends React.Component<Props> {
 
   private diagramProps: IDiagramProps;
 
-  private resolveController = memoizeOne((plugins = [], commands, TheDefaultPlugin) => {
-    const defaultPlugin = TheDefaultPlugin();
-    this.controller = new Controller({
-      plugins: [plugins, defaultPlugin],
-      commands,
-      construct: false,
-      onChange: this.props.onChange
-    });
-    // this.controller.run('onConstruct');
-  });
+  private resolveController = memoizeOne(
+    (plugins = [], commands, TheDefaultPlugin) => {
+      const defaultPlugin = TheDefaultPlugin();
+      this.controller = new Controller({
+        plugins: [plugins, defaultPlugin],
+        commands,
+        construct: false,
+        onChange: this.props.onChange
+      });
+      // this.controller.run('onConstruct');
+    }
+  );
 
   renderHotkeys() {
     const { controller, model } = this.diagramProps;

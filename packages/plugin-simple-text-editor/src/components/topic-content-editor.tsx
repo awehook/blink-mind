@@ -2,7 +2,7 @@ import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 
-import {contentEditorRefKey} from "@blink-mind/renderer-react";
+import { contentEditorRefKey } from '@blink-mind/renderer-react';
 import debug from 'debug';
 const log = debug('node:topic-content-editor');
 

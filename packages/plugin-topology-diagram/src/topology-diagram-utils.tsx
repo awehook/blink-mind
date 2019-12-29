@@ -3,7 +3,7 @@ import { BaseProps, Btn, Icon, IconName } from '@blink-mind/renderer-react';
 import { Alert, Classes, Position, Tooltip } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import {Topology} from "topology-core";
+import { Topology } from 'topology-core';
 import { BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM } from './utils';
 
 const Root = styled.div`

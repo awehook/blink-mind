@@ -3,7 +3,7 @@ import { FocusMode } from '../../types';
 import { createKey } from '../../utils';
 import { Block } from '../block';
 import { Topic } from '../topic';
-import { getAllSubTopicKeys } from '../utils';
+import { getAllAncestorKeys, getAllSubTopicKeys } from '../utils';
 import {
   BaseModifierArg,
   DeleteBlockArg,
@@ -58,8 +58,13 @@ function expandAll({ model }: BaseModifierArg): ModifierResult {
   return model;
 }
 
-function setTopic({ model, topic }: SetTopicArg): ModifierResult {
-  model = model.setIn(['topics', topic.key], topic);
+function expandTo({ model, topicKey }: BaseModifierArg): ModifierResult {
+  const keys = getAllAncestorKeys(model, topicKey);
+  model = model.withMutations(m => {
+    keys.forEach(topicKey => {
+      m.setIn(['topics', topicKey, 'collapse'], false);
+    });
+  });
   return model;
 }
 
@@ -230,7 +235,10 @@ function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): ModifierResult {
   return model;
 }
 
-function setEditorRootTopicKey({ model, topicKey }: BaseModifierArg): ModifierResult {
+function setEditorRootTopicKey({
+  model,
+  topicKey
+}: BaseModifierArg): ModifierResult {
   if (model.editorRootTopicKey !== topicKey)
     model = model.set('editorRootTopicKey', topicKey);
   if (model.getTopic(topicKey).collapse)
@@ -253,6 +261,7 @@ export default {
   toggleCollapse,
   collapseAll,
   expandAll,
+  expandTo,
   focusTopic,
   deleteTopic,
   setBlockData,

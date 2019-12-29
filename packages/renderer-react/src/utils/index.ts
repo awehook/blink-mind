@@ -57,7 +57,7 @@ export function getRelativeVector(el: HTMLElement, rel: HTMLElement) {
   const relRect = rel.getBoundingClientRect();
   const relCenter = center(relRect);
   const elCenter = center(rect);
-  return [(elCenter[0]-relCenter[0]),(elCenter[1]-relCenter[1])];
+  return [elCenter[0] - relCenter[0], elCenter[1] - relCenter[1]];
 }
 
 export * from './icon';

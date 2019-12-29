@@ -1,7 +1,11 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import { IControllerOption, IDiagram } from './interfaces';
+import {
+  IControllerOption,
+  IControllerRunContext,
+  IDiagram
+} from './interfaces';
 import { Model } from './models';
 import { CorePlugin } from './plugins/core';
 import { OnChangeFunction } from './types';
@@ -77,6 +81,10 @@ export class Controller {
     const composedFn = memoizeOne(compose)(fns);
     // @ts-ignore
     return composedFn(...args);
+  }
+
+  getValue(propKey: string, arg?) {
+    return this.run('getValue', { ...arg, propKey });
   }
 
   change(model: Model) {

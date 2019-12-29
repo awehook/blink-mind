@@ -11,6 +11,7 @@ import {
   getRelativeVector,
   linksRefKey,
   RefKey,
+  topicRefKey,
   topicWidgetRefKey
 } from '../utils';
 import { RootSubLinks } from './react/components/root-sublinks';
@@ -154,6 +155,16 @@ export function LayoutPlugin() {
       return (
         controller.run('getTempValue', { key: 'ZoomFactor' }) || _zoomFactor
       );
+    },
+
+    moveTopicToCenter(props) {
+      const { getRef, topicKey } = props;
+      const topic = getRef(topicRefKey(topicKey));
+      const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
+      const viewBox = dragScroll.viewBox;
+      const vector = getRelativeVector(topic, viewBox);
+      //TODO
+      dragScroll.setViewBoxScrollDelta(vector[0], vector[1]);
     }
   };
 }

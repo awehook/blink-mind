@@ -81,10 +81,7 @@ import {
   sequenceFocusTextRect
 } from 'topology-sequence-diagram';
 import { TopologyDiagramUtils } from './topology-diagram-utils';
-import {
-  BLOCK_TYPE_TOPOLOGY,
-  REF_KEY_TOPOLOGY_DIAGRAM_UTIL
-} from './utils';
+import { BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM_UTIL } from './utils';
 
 const Root = styled.div`
   position: relative;
