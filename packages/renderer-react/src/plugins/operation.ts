@@ -1,4 +1,5 @@
 import {
+  BaseModifierArg,
   BlockType,
   FocusMode,
   Model,
@@ -10,14 +11,14 @@ import { List, Stack } from 'immutable';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {
-  const startEditingContent = ({ model, topicKey }) => {
+  const startEditingContent = ({ model, topicKey }: BaseModifierArg) => {
     return ModelModifier.focusTopic({
       model,
       topicKey,
       focusMode: FocusMode.EDITING_CONTENT
     });
   };
-  const startEditingDesc = ({ model, topicKey }) => {
+  const startEditingDesc = ({ model, topicKey }: BaseModifierArg) => {
     const topic = model.getTopic(topicKey);
     const desc = topic.getBlock(BlockType.DESC);
     if (desc.block == null || desc.block.data == null) {
@@ -112,7 +113,7 @@ export function OperationPlugin() {
     [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
     [OpType.SET_STYLE, ModelModifier.setStyle],
     [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
-    [OpType.DELETE_TOPIC_BLOCK,ModelModifier.deleteBlock],
+    [OpType.DELETE_TOPIC_BLOCK, ModelModifier.deleteBlock],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop],

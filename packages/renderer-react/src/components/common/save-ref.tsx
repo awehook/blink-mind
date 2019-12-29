@@ -10,7 +10,12 @@ interface SaveRefProps {
 
 type RefListener = (name: string, ref: HTMLElement) => void;
 
+//TODO 可能会引起内存泄露
+//需要使用WeakMap重构
 export class SaveRef extends React.Component<SaveRefProps> {
+
+  refMap = new WeakMap();
+
   getRef = name => {
     return this[name];
   };

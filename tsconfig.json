@@ -22,7 +22,8 @@
       "@blink-mind/plugin-simple-text-editor": ["packages/plugin-simple-text-editor/src"],
       "@blink-mind/plugin-rich-text-editor": ["packages/plugin-rich-text-editor/src"],
       "@blink-mind/plugin-theme-selector": ["packages/plugin-theme-selector/src"],
-      "@blink-mind/plugin-topology-diagram": ["packages/plugin-topology-diagram/src"]
+      "@blink-mind/plugin-topology-diagram": ["packages/plugin-topology-diagram/src"],
+      "@blink-mind/plugin-topic-reference": ["packages/plugin-topic-reference/src"]
     }
   },
   "include": ["packages/*/src","stories/"],

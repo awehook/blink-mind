@@ -1,5 +1,7 @@
-import { KeyType, Model, OnChangeFunction } from '..';
-import { Topic } from '../models';
+import {
+  Model,
+  OnChangeFunction,
+} from '..';
 
 export interface IDiagram {}
 
@@ -11,18 +13,3 @@ export interface IControllerOption {
   onChange?: OnChangeFunction;
 }
 
-export interface IModifierArg {
-  model: Model;
-  topicKey?: KeyType;
-  topic?: Topic;
-  blockType?: string;
-  focusMode?: string;
-  data?: any;
-  desc?: any;
-  style?: string;
-  theme?: any;
-  layoutDir?: any;
-  zoomFactor?: number;
-}
-
-export type IModifierResult = Model;

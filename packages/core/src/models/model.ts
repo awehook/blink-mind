@@ -3,12 +3,11 @@ import isPlainObject from 'is-plain-object';
 import { FocusMode, KeyType } from '../types';
 import { createKey } from '../utils';
 import { Config } from './config';
-import { Data } from './data';
 import { Topic } from './topic';
 
 type ModelRecordType = {
   topics: Map<KeyType, Topic>;
-  data?: Map<any, any>;
+  extData?: Map<string, any>;        //用于插件做数据扩展
   config: Config;
   rootTopicKey: KeyType;
   editorRootTopicKey?: KeyType;
@@ -20,7 +19,7 @@ type ModelRecordType = {
 
 const defaultModelRecord: ModelRecordType = {
   topics: Map(),
-  data: null,
+  extData: null,
   config: null,
   rootTopicKey: null,
   editorRootTopicKey: null,
@@ -77,7 +76,6 @@ export class Model extends Record(defaultModelRecord) {
         );
       });
       model.set('config', Config.fromJSON(config));
-      model.set('data', Data.fromJSON(data));
     });
 
     return model;
@@ -88,10 +86,14 @@ export class Model extends Record(defaultModelRecord) {
       rootTopicKey: this.rootTopicKey,
       topics: Object.values(this.topics.toJS()),
       config: this.config,
-      data: this.data,
+      extData: this.extData,
       zoomFactor: this.zoomFactor
     };
     return obj;
+  }
+
+  get extData(): Map<string, any> {
+    return this.get('extData');
   }
 
   get topics(): Map<KeyType, Topic> {
@@ -132,6 +134,10 @@ export class Model extends Record(defaultModelRecord) {
 
   getTopic(key: KeyType): Topic {
     return this.topics.get(key);
+  }
+
+  getExtDataItem(key: string): any {
+    return this.extData.get(key);
   }
 
   getParentTopic(key: KeyType): Topic {
