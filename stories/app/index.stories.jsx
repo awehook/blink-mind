@@ -30,10 +30,10 @@ const DiagramContainer = styled.div`
 
 const plugins = [
   RichTextEditorPlugin(),
-  JsonSerializerPlugin(),
   ThemeSelectorPlugin(),
   TopicReferencePlugin(),
   TopologyDiagramPlugin(),
+  JsonSerializerPlugin(),
 ];
 
 class AppDemo extends BaseDemo {

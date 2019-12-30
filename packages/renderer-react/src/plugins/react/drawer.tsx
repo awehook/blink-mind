@@ -28,6 +28,7 @@ export function renderDrawer(props) {
     const descEditor = controller.run('renderTopicDescEditor', props);
     return (
       <Drawer
+        key="drawer"
         title="Edit Notes"
         icon={Icon('note')}
         isOpen

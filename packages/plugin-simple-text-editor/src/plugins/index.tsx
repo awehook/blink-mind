@@ -41,22 +41,6 @@ export default function SimpleTextEditorPlugin() {
           : plainSerializer.serialize(block.data);
       }
       return next();
-    },
-
-    serializeBlock(props, next) {
-      const { block, controller } = props;
-      if (block.type === BlockType.CONTENT || block.type === BlockType.DESC) {
-        const res = {
-          type: block.type,
-          data: controller.run('serializeBlockData', props)
-        };
-        return res;
-      }
-      return next();
-    },
-
-    deserializeBlock(props, next) {
-      return next();
     }
   };
 }

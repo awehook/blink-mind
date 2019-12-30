@@ -2,6 +2,7 @@ import {
   BaseModifierArg,
   FocusMode,
   KeyType,
+  Model,
   ModelModifier,
   OpType
 } from '@blink-mind/core';
@@ -141,7 +142,7 @@ export default function TopicReferencePlugin() {
           {next()}
           <MenuDivider />
           <MenuItem
-            icon={Icon('topology')}
+            icon={Icon('reference')}
             text="Set Reference Topics"
             onClick={onClickSetReferenceTopics}
           />
@@ -153,6 +154,50 @@ export default function TopicReferencePlugin() {
       opMap.set(OP_TYPE_START_SET_REFERENCE_TOPICS, startSetReferenceTopics);
       opMap.set(OP_TYPE_SET_REFERENCE_TOPICS, setReferenceTopics);
       return opMap;
+    },
+    beforeOpFunction(props, next) {
+      let model: Model = next();
+      const { opType, topicKey } = props;
+      if (opType === OpType.DELETE_TOPIC) {
+        const topic = model.getTopic(topicKey);
+        const { block } = topic.getBlock(BLOCK_TYPE_REFERENCE_TOPIC);
+        if (block) {
+          const data: ReferenceTopicRecord = block.data;
+          data.reference.forEach(key => {
+            let data: ReferenceTopicRecord = model
+              .getTopic(key)
+              .getBlock(BLOCK_TYPE_REFERENCE_TOPIC).block.data;
+            data = data.update('referenced', referenced =>
+              referenced.delete(referenced.indexOf(topicKey))
+            );
+            model = ModelModifier.setBlockData({
+              ...props,
+              model,
+              topicKey: key,
+              blockType: BLOCK_TYPE_REFERENCE_TOPIC,
+              data
+            });
+          });
+
+          // 被引用的
+          data.referenced.forEach(key => {
+            let data: ReferenceTopicRecord = model
+              .getTopic(key)
+              .getBlock(BLOCK_TYPE_REFERENCE_TOPIC).block.data;
+            data = data.update('reference', reference =>
+              reference.delete(reference.indexOf(topicKey))
+            );
+            model = ModelModifier.setBlockData({
+              ...props,
+              model,
+              topicKey: key,
+              blockType: BLOCK_TYPE_REFERENCE_TOPIC,
+              data
+            });
+          });
+        }
+      }
+      return model;
     },
     renderDiagramCustomize(props: IControllerRunContext, next) {
       const { model, controller } = props;
@@ -202,6 +247,19 @@ export default function TopicReferencePlugin() {
 
     getSelectedReferenceKeys() {
       return Array.from(selectedTopicKeys);
+    },
+
+    deserializeBlockData(props, next) {
+      const { obj } = props;
+      const { type, data } = obj;
+      if (type === BLOCK_TYPE_REFERENCE_TOPIC) {
+        const { reference, referenced } = data;
+        return new ReferenceTopicRecord({
+          reference: List(reference),
+          referenced: List(referenced)
+        });
+      }
+      return next();
     }
   };
 }

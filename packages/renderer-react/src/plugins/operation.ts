@@ -263,11 +263,6 @@ export function OperationPlugin() {
       controller.change(newModel);
     },
 
-    // 在整个Operation执行之前被调用
-    beforeOperation(props) {},
-    // 在单个OpFunction执行之前被调用
-    beforeOpFunction(props) {},
-
     //TODO 有空重构这个函数
     operation(props) {
       const { controller, opType, model, opArray } = props;
@@ -311,6 +306,7 @@ export function OperationPlugin() {
         });
       }
       let newModel;
+
       if (opArray != null) {
         newModel = opArray.reduce((acc, cur) => {
           const { opType } = cur;
@@ -318,17 +314,23 @@ export function OperationPlugin() {
             throw new Error(`opType:${opType} not exist!`);
           const opFunc = opMap.get(opType);
           const opFuncProps = { controller, ...cur, model: acc };
-          controller.run('beforeOpFunction', opFuncProps);
-          const res = opFunc(opFuncProps);
-          controller.run('afterOpFunction', opFuncProps);
+          let res = controller.run('beforeOpFunction', opFuncProps);
+          res = opFunc({ ...opFuncProps, model: res });
+          res = controller.run('afterOpFunction', {
+            ...opFuncProps,
+            model: res
+          });
           return res;
         }, model);
       } else {
         if (!opMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
         const opFunc = opMap.get(opType);
-        controller.run('beforeOpFunction', props);
-        newModel = opFunc(props);
-        controller.run('afterOpFunction', props);
+        newModel = controller.run('beforeOpFunction', props);
+        newModel = opFunc({ ...props, model: newModel });
+        newModel = controller.run('afterOpFunction', {
+          ...props,
+          model: newModel
+        });
       }
       log('newModel:', newModel);
       controller.change(newModel);
@@ -353,13 +355,21 @@ export function OperationPlugin() {
       }
     },
 
-    afterOpFunction(props) {
-      const { controller, opType } = props;
+    // 在整个Operation执行之前被调用
+    beforeOperation(props) {},
+    afterOperation(props) {},
+
+    // 在单个OpFunction执行之前被调用
+    beforeOpFunction(props) {
+      const { controller, opType, model } = props;
       if (opType === OpType.DELETE_TOPIC) {
         controller.run('deleteRefKey', props);
       }
+      return model;
     },
 
-    afterOperation(props) {}
+    afterOpFunction(props) {
+      return props.model;
+    }
   };
 }

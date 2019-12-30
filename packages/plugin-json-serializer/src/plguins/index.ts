@@ -1,4 +1,4 @@
-import { Block, Config, Model, Topic } from '@blink-mind/core';
+import { Block, BlockType, Config, Model, Topic } from '@blink-mind/core';
 import debug from 'debug';
 import { List, Map } from 'immutable';
 
@@ -105,13 +105,32 @@ export function JsonSerializerPlugin() {
     },
 
     serializeBlock(props) {
+      const { block, controller } = props;
+      const res = {
+        type: block.type,
+        data: controller.run('serializeBlockData', { ...props })
+      };
+      return res;
+    },
+
+    serializeBlockData(props) {
       const { block } = props;
-      return block.toJS();
+      return block.data;
     },
 
     deserializeBlock(props) {
+      const { obj, controller } = props;
+      const { type, data } = obj;
+
+      return new Block({
+        type,
+        data: controller.run('deserializeBlockData', { ...props, obj })
+      });
+    },
+
+    deserializeBlockData(props) {
       const { obj } = props;
-      return new Block(obj);
+      return obj.data;
     },
 
     deserializeBlocks(props) {
