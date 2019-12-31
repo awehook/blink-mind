@@ -7,6 +7,8 @@ import {
   ModelModifier,
   OpType
 } from '@blink-mind/core';
+import debug from 'debug';
+import { List, Stack } from 'immutable';
 import {
   collapseRefKey,
   contentEditorRefKey,
@@ -17,10 +19,7 @@ import {
   linksSvgRefKey,
   topicRefKey,
   topicWidgetRefKey
-} from '@blink-mind/renderer-react';
-import debug from 'debug';
-import { List, Stack } from 'immutable';
-import warning from 'tiny-warning';
+} from '../utils';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {

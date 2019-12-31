@@ -24,6 +24,7 @@
     "lodash": "^4.17.15",
     "memoize-one": "^5.1.1",
     "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-color": "^2.17.3",
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^4.4.0",

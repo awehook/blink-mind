@@ -963,7 +963,7 @@
     to-fast-properties "^2.0.0"
 
 "@blink-mind/core@link:packages/core":
-  version "0.0.14"
+  version "0.0.17"
   dependencies:
     debug "^3.1.0"
     immutable "^4.0.0-rc.12"
@@ -972,21 +972,17 @@
     tiny-warning "^1.0.3"
 
 "@blink-mind/icons@link:packages/icons":
-  version "0.0.14"
+  version "0.0.17"
 
 "@blink-mind/plugin-simple-text-editor@link:packages/plugin-simple-text-editor":
-  version "0.0.14"
+  version "0.0.17"
   dependencies:
     "@blink-mind/core" "link:packages/core"
-    debug "^3.1.0"
-    memoize-one "^5.1.1"
-    react "^16.10.2"
     slate-plain-serializer "^0.7.11"
     slate-react "^0.21.20"
-    styled-components "^4.4.0"
 
 "@blink-mind/renderer-react@link:packages/renderer-react":
-  version "0.0.14"
+  version "0.0.17"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     "@blink-mind/icons" "link:packages/icons"
@@ -1000,6 +996,7 @@
     memoize-one "^5.1.1"
     react "^16.10.2"
     react-color "^2.17.3"
+    react-dom "^16.10.2"
     resize-observer-polyfill "^1.5.1"
     styled-components "^4.4.0"
     tiny-invariant "^1.0.6"
@@ -11088,7 +11085,7 @@ react-docgen@^4.1.1:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.8.3:
+react-dom@^16.10.2, react-dom@^16.8.3:
   version "16.12.0"
   resolved "https://registry.npm.taobao.org/react-dom/download/react-dom-16.12.0.tgz?cache=0&sync_timestamp=1573776122518&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-dom%2Fdownload%2Freact-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha1-DaS3FLjRPCA4yTlrVKkrrqYz/hE=

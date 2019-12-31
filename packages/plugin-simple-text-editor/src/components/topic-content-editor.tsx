@@ -1,10 +1,12 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
+import debug from 'debug';
 import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
-
-import { contentEditorRefKey } from '@blink-mind/renderer-react';
-import debug from 'debug';
 const log = debug('node:topic-content-editor');
+
+function contentEditorRefKey(key) {
+  return `content-editor-${key}`;
+}
 
 export class TopicContentEditor extends SimpleTextEditor {
   constructor(props) {
@@ -25,18 +27,6 @@ export class TopicContentEditor extends SimpleTextEditor {
       style
     };
   }
-  // onChange = ({ value }) => {
-  //   log('onChange');
-  //   const { model, topicKey } = this.props;
-  //   const readOnly = model.editingContentKey !== topicKey;
-  //   if (readOnly) return;
-  //   const { controller } = this.props;
-  //   controller.run('operation', {
-  //     ...this.props,
-  //     opType: OpType.SET_TOPIC_CONTENT,
-  //     content: value
-  //   });
-  // };
 
   onClickOutSide(e) {
     log('onClickOutSide');

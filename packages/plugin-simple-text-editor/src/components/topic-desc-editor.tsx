@@ -2,9 +2,12 @@ import { BlockType } from '@blink-mind/core';
 import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 
-import { descEditorRefKey } from '@blink-mind/renderer-react';
 import debug from 'debug';
 const log = debug('node:topic-desc-editor');
+
+function descEditorRefKey(key) {
+  return `desc-editor-${key}`;
+}
 
 export class TopicDescEditor extends SimpleTextEditor {
   constructor(props) {

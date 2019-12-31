@@ -62,11 +62,25 @@
       "unicode_decimal": 63016
     },
     {
+      "icon_id": "5226147",
+      "name": "Reference",
+      "font_class": "link",
+      "unicode": "f645",
+      "unicode_decimal": 63045
+    },
+    {
       "icon_id": "5634045",
       "name": "file-export",
       "font_class": "export",
       "unicode": "ef07",
       "unicode_decimal": 61191
+    },
+    {
+      "icon_id": "5696328",
+      "name": "relationship",
+      "font_class": "reference",
+      "unicode": "f646",
+      "unicode_decimal": 63046
     },
     {
       "icon_id": "6849994",

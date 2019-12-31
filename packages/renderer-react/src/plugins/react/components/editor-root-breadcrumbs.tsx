@@ -1,5 +1,4 @@
 import { ModelModifier } from '@blink-mind/core';
-import { PropKey } from '@blink-mind/renderer-react';
 import {
   Breadcrumb,
   Breadcrumbs,
@@ -9,6 +8,7 @@ import {
 import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget, ZIndex } from '../../../components/common';
+import { PropKey } from '../../../utils';
 
 const EditorRootBreadcrumbsRoot = styled(ZIndex)`
   position: absolute;

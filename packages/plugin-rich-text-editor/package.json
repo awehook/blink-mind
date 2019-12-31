@@ -12,13 +12,16 @@
     "access": "public"
   },
   "scripts": {},
+  "peerDependencies": {
+    "react": "^16.10.2",
+
+    "styled-components": "^4.4.0",
+    "debug": "^3.1.0"
+  },
   "dependencies": {
     "@blink-mind/core": "link:../core",
     "@blink-mind/renderer-react": "link:../renderer-react",
     "awehook-rich-markdown-editor": "^1.0.1",
-    "debug": "^3.1.0",
-    "react": "^16.10.2",
-    "slate-md-serializer": "^5.4.4",
-    "styled-components": "^4.4.0"
+    "slate-md-serializer": "^5.4.4"
   }
 }

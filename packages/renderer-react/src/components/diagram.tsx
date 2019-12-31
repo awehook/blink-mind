@@ -5,7 +5,7 @@ import {
   OnChangeFunction
 } from '@blink-mind/core';
 // TODO
-// import '@blink-mind/icons';
+import '@blink-mind/icons';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';

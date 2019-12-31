@@ -13,13 +13,16 @@
     "access": "public"
   },
   "scripts": {},
+  "peerDependencies": {
+    "immutable": "^4.0.0-rc.12",
+    "debug": "^3.1.0",
+    "react": "^16.10.2",
+    "styled-components": "^4.4.0",
+    "@blueprintjs/core": "^3.19.1"
+  },
   "dependencies": {
     "@blink-mind/core": "link:../core",
     "@blink-mind/icons": "link:../icons",
-    "@blink-mind/renderer-react": "link:../renderer-react",
-    "@blueprintjs/core": "^3.19.1",
-    "debug": "^3.1.0",
-    "react": "^16.10.2",
-    "styled-components": "^4.4.0"
+    "@blink-mind/renderer-react": "link:../renderer-react"
   }
 }
