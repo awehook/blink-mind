@@ -1,4 +1,4 @@
-import { FocusMode } from '@blink-mind/core';
+import { FocusMode, OpType } from '@blink-mind/core';
 import { cancelEvent } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -21,8 +21,14 @@ const GroupTitle = styled.div`
   color: #106ba3;
 `;
 
+const GotoBtn = styled.div`
+  text-decoration: underline;
+  color: #106ba3;
+  cursor: pointer;
+`;
+
 export function ReferenceTopicList(props) {
-  const { block, topicKey, controller } = props;
+  const { block, topicKey, controller, model } = props;
   const data: ReferenceTopicRecord = block.data;
   const removeReference = refKey => e => {
     e.stopPropagation();
@@ -77,16 +83,30 @@ export function ReferenceTopicList(props) {
       </Group>
     );
 
-  const currentThumbProps = {
-    ...props,
-    refKey: topicKey
+  const onClickGotoOriginTopic = e => {
+    e.stopPropagation();
+    controller.run('operation', {
+      ...props,
+      opArray: [
+        {
+          opType: OpType.FOCUS_TOPIC,
+          topicKey,
+          focusMode: FocusMode.NORMAL
+        },
+        {
+          opType: OpType.EXPAND_TO,
+          topicKey
+        }
+      ]
+    });
+    setTimeout(() => {
+      controller.run('moveTopicToCenter', { ...props, topicKey });
+    });
   };
-  const currentTopic = (
+
+  const currentTopic = model.focusKey !== topicKey && (
     <Group>
-      <GroupTitle>Current Topic:</GroupTitle>
-      <GroupList>
-        <ReferenceTopicThumbnail {...currentThumbProps} />
-      </GroupList>
+      <GotoBtn onClick={onClickGotoOriginTopic}>Goto Origin Topic</GotoBtn>
     </Group>
   );
 

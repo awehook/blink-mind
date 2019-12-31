@@ -963,26 +963,26 @@
     to-fast-properties "^2.0.0"
 
 "@blink-mind/core@link:packages/core":
-  version "0.0.17"
+  version "0.0.18"
   dependencies:
-    debug "^3.1.0"
+    debug "2.6.9"
     immutable "^4.0.0-rc.12"
     is-plain-object "^3.0.0"
     memoize-one "^5.1.1"
     tiny-warning "^1.0.3"
 
 "@blink-mind/icons@link:packages/icons":
-  version "0.0.17"
+  version "0.0.18"
 
 "@blink-mind/plugin-simple-text-editor@link:packages/plugin-simple-text-editor":
-  version "0.0.17"
+  version "0.0.18"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     slate-plain-serializer "^0.7.11"
     slate-react "^0.21.20"
 
 "@blink-mind/renderer-react@link:packages/renderer-react":
-  version "0.0.17"
+  version "0.0.18"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     "@blink-mind/icons" "link:packages/icons"
@@ -990,13 +990,10 @@
     "@blueprintjs/core" "^3.19.1"
     "@blueprintjs/select" "^3.11.1"
     classnames "^2.2.6"
-    debug "^3.1.0"
     immutable "^4.0.0-rc.12"
     lodash "^4.17.15"
     memoize-one "^5.1.1"
-    react "^16.10.2"
     react-color "^2.17.3"
-    react-dom "^16.10.2"
     resize-observer-polyfill "^1.5.1"
     styled-components "^4.4.0"
     tiny-invariant "^1.0.6"
@@ -11085,7 +11082,7 @@ react-docgen@^4.1.1:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.10.2, react-dom@^16.8.3:
+react-dom@^16.8.3:
   version "16.12.0"
   resolved "https://registry.npm.taobao.org/react-dom/download/react-dom-16.12.0.tgz?cache=0&sync_timestamp=1573776122518&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-dom%2Fdownload%2Freact-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha1-DaS3FLjRPCA4yTlrVKkrrqYz/hE=
@@ -11243,7 +11240,7 @@ react-transition-group@^2.9.0:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react@^16.10.2, react@^16.8.3:
+react@^16.8.3:
   version "16.12.0"
   resolved "https://registry.npm.taobao.org/react/download/react-16.12.0.tgz?cache=0&sync_timestamp=1573776119616&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha1-DAqcahQkKeNhSDTVp3jhiqeKC4M=

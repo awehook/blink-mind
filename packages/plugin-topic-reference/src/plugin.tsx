@@ -131,12 +131,14 @@ export default function TopicReferencePlugin() {
         </>
       );
     },
+
     getOpMap(props, next) {
       const opMap = next();
       opMap.set(OP_TYPE_START_SET_REFERENCE_TOPICS, startSetReferenceTopics);
       opMap.set(OP_TYPE_SET_REFERENCE_TOPICS, setReferenceTopics);
       return opMap;
     },
+
     beforeOpFunction(props, next) {
       let model: Model = next();
       const { opType, topicKey } = props;
@@ -167,6 +169,7 @@ export default function TopicReferencePlugin() {
               .getTopic(key)
               .getBlock(BLOCK_TYPE_REFERENCE_TOPIC).block.data;
             data = data.update('reference', reference =>
+              // 注意这里是topicKey
               reference.delete(reference.indexOf(topicKey))
             );
             model = ModelModifier.setBlockData({
@@ -181,6 +184,7 @@ export default function TopicReferencePlugin() {
       }
       return model;
     },
+
     renderDiagramCustomize(props: IControllerRunContext, next) {
       const { model, controller } = props;
       const zIndex =
@@ -197,6 +201,7 @@ export default function TopicReferencePlugin() {
       }
       return res;
     },
+
     renderTopicContentOthers(props, next) {
       const { model, topicKey } = props;
       const res = next();

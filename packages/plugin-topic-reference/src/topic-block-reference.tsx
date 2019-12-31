@@ -1,5 +1,5 @@
 import { iconClassName, TopicBlockIcon } from '@blink-mind/renderer-react';
-import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core';
+import { Popover, PopoverInteractionKind } from '@blueprintjs/core';
 import * as React from 'react';
 import { ReferenceTopicList } from './reference-topic-list';
 import { ReferenceTopicRecord } from './reference-topic-record';

@@ -19,8 +19,6 @@ const Title = styled.div`
   margin-bottom: 10px;
 `;
 
-// const ButtonGroup = styled.div``;
-
 export function AddReferenceTopicPanel(props) {
   const { zIndex, controller, model } = props;
   const onClickCancel = e => {
