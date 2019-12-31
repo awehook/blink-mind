@@ -1,1 +1,1 @@
-export * from './plguins';
+export * from './json-serializer-plugin';

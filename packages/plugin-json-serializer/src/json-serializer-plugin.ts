@@ -4,11 +4,11 @@ import { List, Map } from 'immutable';
 
 const log = debug('plugin:json-serializer');
 
-const DATA_VERSION = '0.0';
-
 export function JsonSerializerPlugin() {
   return {
-    serializeModel(props) {
+    serializeModel(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { model, controller } = props;
       const obj = {
         rootTopicKey: model.rootTopicKey,
@@ -25,7 +25,9 @@ export function JsonSerializerPlugin() {
       return obj;
     },
 
-    deserializeModel(props) {
+    deserializeModel(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj, controller } = props;
       if (obj.formatVersion == null) {
         obj.formatVersion = '0.0';
@@ -45,23 +47,29 @@ export function JsonSerializerPlugin() {
           obj: topics,
           formatVersion
         }),
-        formatVersion: DATA_VERSION
+        formatVersion: obj.formatVersion
       });
       log('deserializeModel', model);
       return model;
     },
 
-    serializeConfig(props) {
+    serializeConfig(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { config } = props;
       return config.toJS();
     },
 
-    deserializeConfig(props) {
+    deserializeConfig(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj } = props;
       return new Config(obj);
     },
 
-    serializeTopic(props) {
+    serializeTopic(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { topic, controller } = props;
       return {
         key: topic.key,
@@ -75,7 +83,9 @@ export function JsonSerializerPlugin() {
       };
     },
 
-    deserializeTopic(props) {
+    deserializeTopic(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj, controller } = props;
       const { key, parentKey, subKeys, blocks, style, collapse } = obj;
       let topic = new Topic();
@@ -90,7 +100,9 @@ export function JsonSerializerPlugin() {
       return topic;
     },
 
-    deserializeTopics(props) {
+    deserializeTopics(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj, controller } = props;
       let topics = Map();
       topics = topics.withMutations(topics => {
@@ -105,6 +117,8 @@ export function JsonSerializerPlugin() {
     },
 
     serializeBlock(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { block, controller } = props;
       const res = {
         type: block.type,
@@ -114,13 +128,15 @@ export function JsonSerializerPlugin() {
     },
 
     serializeBlockData(props, next) {
-      const res = next();
-      if (res) return res;
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { block } = props;
       return block.data;
     },
 
-    deserializeBlock(props) {
+    deserializeBlock(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj, controller } = props;
       const { type, data } = obj;
 
@@ -130,12 +146,16 @@ export function JsonSerializerPlugin() {
       });
     },
 
-    deserializeBlockData(props) {
+    deserializeBlockData(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj } = props;
       return obj.data;
     },
 
-    deserializeBlocks(props) {
+    deserializeBlocks(props, next) {
+      const nextRes = next();
+      if (nextRes) return nextRes;
       const { obj, controller } = props;
       let blocks = List();
       blocks = blocks.withMutations(blocks => {

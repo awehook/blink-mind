@@ -6,7 +6,6 @@ import {
 } from '@blink-mind/core';
 // TODO
 import '@blink-mind/icons';
-import SimpleTextEditorPlugin from '@blink-mind/plugin-simple-text-editor';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
@@ -52,7 +51,7 @@ export class Diagram extends React.Component<Props> {
     (plugins = [], commands, TheDefaultPlugin) => {
       const defaultPlugin = TheDefaultPlugin();
       this.controller = new Controller({
-        plugins: [SimpleTextEditorPlugin(), plugins, defaultPlugin],
+        plugins: [plugins, defaultPlugin],
         commands,
         construct: false,
         onChange: this.props.onChange
