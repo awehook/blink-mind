@@ -104,7 +104,7 @@ export function JsonSerializerPlugin() {
       return topics;
     },
 
-    serializeBlock(props) {
+    serializeBlock(props, next) {
       const { block, controller } = props;
       const res = {
         type: block.type,
@@ -113,7 +113,9 @@ export function JsonSerializerPlugin() {
       return res;
     },
 
-    serializeBlockData(props) {
+    serializeBlockData(props, next) {
+      const res = next();
+      if (res) return res;
       const { block } = props;
       return block.data;
     },

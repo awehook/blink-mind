@@ -82,7 +82,7 @@ export default function TopicReferencePlugin() {
       }
       let data: ReferenceTopicRecord = block.data;
       data = data.update('referenced', referenced =>
-        referenced.delete(referenced.indexOf(key))
+        referenced.delete(referenced.indexOf(topicKey))
       );
       model = ModelModifier.setBlockData({
         model,

@@ -1,4 +1,3 @@
-import SimpleTextEditorPlugin from '@blink-mind/plugin-simple-text-editor';
 import { EventPlugin } from './event';
 import { GetValuePlugin } from './get-value';
 import { HotKeyPlugin } from './hotkey';
@@ -15,7 +14,6 @@ export function DefaultPlugin() {
     StylePlugin(),
     EventPlugin(),
     HotKeyPlugin(),
-    SimpleTextEditorPlugin(),
     GetValuePlugin()
   ];
 }

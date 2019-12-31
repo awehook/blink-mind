@@ -18,7 +18,7 @@ export function TopicBlockReference(props) {
     autoFocus: false,
     content: tooltipContent,
     target: icon,
-    interactionKind: PopoverInteractionKind.HOVER,
+    interactionKind: PopoverInteractionKind.CLICK,
     hoverOpenDelay: 500
   };
   return <Popover {...tooltipProps}></Popover>;
