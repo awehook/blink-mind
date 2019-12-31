@@ -13,10 +13,10 @@
   },
   "scripts": {},
   "peerDependencies": {
-    "debug": "^3.1.0",
-    "memoize-one": "^5.1.1",
-    "react": "^16.10.2",
-    "styled-components": "^4.4.0"
+    "debug": "*",
+    "memoize-one": "*",
+    "react": "*",
+    "styled-components": "*"
   },
   "dependencies": {
     "@blink-mind/core": "link:../core",

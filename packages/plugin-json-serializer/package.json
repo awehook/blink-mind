@@ -13,8 +13,8 @@
   },
   "scripts": {},
   "peerDependencies": {
-    "debug": "^3.1.0",
-    "immutable": "^4.0.0-rc.12"
+    "debug": "*",
+    "immutable": "*"
   },
   "dependencies": {
     "@blink-mind/core": "link:../core"

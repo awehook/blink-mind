@@ -18,11 +18,10 @@ import {
 } from './utils';
 
 import { IControllerRunContext } from '@blink-mind/core/src/interfaces';
-import { Checkbox } from '@blueprintjs/core';
 import { List } from 'immutable';
-import { useState } from 'react';
 import { ReferenceTopicRecord } from './reference-topic-record';
 import { TopicBlockReference } from './topic-block-reference';
+import { TopicReferenceCheckbox } from './topic-reference-checkbox';
 
 export default function TopicReferencePlugin() {
   let selectedTopicKeys = new Set();
@@ -105,23 +104,6 @@ export default function TopicReferencePlugin() {
       focusMode: FocusMode.NORMAL
     });
     return model;
-  }
-
-  function TopicReferenceCheckbox(props) {
-    const { topicKey } = props;
-    const [checked, setChecked] = useState(selectedTopicKeys.has(topicKey));
-    const checkboxProps = {
-      checked,
-      onChange: () => {
-        if (selectedTopicKeys.has(topicKey)) {
-          selectedTopicKeys.delete(topicKey);
-        } else {
-          selectedTopicKeys.add(topicKey);
-        }
-        setChecked(!checked);
-      }
-    };
-    return <Checkbox {...checkboxProps}></Checkbox>;
   }
 
   return {
@@ -222,7 +204,7 @@ export default function TopicReferencePlugin() {
         model.focusMode === FOCUS_MODE_SET_REFERENCE_TOPICS &&
         model.focusKey !== topicKey
       ) {
-        const checkBoxProps = { ...props, key: 'checkbox' };
+        const checkBoxProps = { ...props, key: 'checkbox', selectedTopicKeys };
         const checkbox = <TopicReferenceCheckbox {...checkBoxProps} />;
         res.push(checkbox);
       }

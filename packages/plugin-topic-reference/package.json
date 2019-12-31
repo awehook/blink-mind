@@ -14,11 +14,11 @@
   },
   "scripts": {},
   "peerDependencies": {
-    "@blueprintjs/core": "^3.19.1",
-    "debug": "^3.1.0",
-    "immutable": "^4.0.0-rc.12",
-    "react": "^16.10.2",
-    "styled-components": "^4.4.0"
+    "@blueprintjs/core": "*",
+    "debug": "*",
+    "immutable": "*",
+    "react": "*",
+    "styled-components": "*"
   },
   "dependencies": {
     "@blink-mind/core": "link:../core",
