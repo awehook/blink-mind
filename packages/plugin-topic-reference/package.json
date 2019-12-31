@@ -7,18 +7,18 @@
   "main": "./lib/main.js",
   "module": "lib/main.es.js",
   "umd": "dist/main.js",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {},
   "peerDependencies": {
-    "immutable": "^4.0.0-rc.12",
+    "@blueprintjs/core": "^3.19.1",
     "debug": "^3.1.0",
+    "immutable": "^4.0.0-rc.12",
     "react": "^16.10.2",
-    "styled-components": "^4.4.0",
-    "@blueprintjs/core": "^3.19.1"
+    "styled-components": "^4.4.0"
   },
   "dependencies": {
     "@blink-mind/core": "link:../core",
