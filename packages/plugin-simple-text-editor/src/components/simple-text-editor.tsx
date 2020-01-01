@@ -47,6 +47,8 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
     this.setState({ content: value });
   }
 
+  onKeyDown = e => {};
+
   componentDidMount() {
     const { readOnly } = this.props;
     if (readOnly) return;
@@ -110,7 +112,7 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
     log(readOnly);
     const key = getRefKeyFunc(topicKey);
     const content = readOnly ? this.getContent() : this.state.content;
-    const { onMouseDown, onMouseMove } = this;
+    const { onMouseDown, onMouseMove, onKeyDown } = this;
     const editorProps = {
       value: content,
       readOnly,
@@ -124,7 +126,8 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
       readOnly,
       ref: this.rootRef(saveRef(key)),
       onMouseDown,
-      onMouseMove
+      onMouseMove,
+      onKeyDown
     };
     return (
       <Content {...contentProps}>

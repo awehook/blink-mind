@@ -28,8 +28,18 @@ export class TopicContentEditor extends SimpleTextEditor {
     };
   }
 
+  onKeyDown = e => {
+    if (e.nativeEvent.ctrlKey && e.nativeEvent.code === 'Enter') {
+      this.save();
+    }
+  };
+
   onClickOutSide(e) {
     log('onClickOutSide');
+    this.save();
+  }
+
+  save() {
     const { model, topicKey } = this.props;
     const readOnly = model.editingContentKey !== topicKey;
     if (readOnly) return;
