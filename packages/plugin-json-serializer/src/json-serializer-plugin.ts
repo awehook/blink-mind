@@ -8,7 +8,7 @@ export function JsonSerializerPlugin() {
   return {
     serializeModel(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { model, controller } = props;
       const obj = {
         rootTopicKey: model.rootTopicKey,
@@ -27,7 +27,7 @@ export function JsonSerializerPlugin() {
 
     deserializeModel(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj, controller } = props;
       if (obj.formatVersion == null) {
         obj.formatVersion = '0.0';
@@ -55,21 +55,21 @@ export function JsonSerializerPlugin() {
 
     serializeConfig(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { config } = props;
       return config.toJS();
     },
 
     deserializeConfig(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj } = props;
       return new Config(obj);
     },
 
     serializeTopic(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { topic, controller } = props;
       return {
         key: topic.key,
@@ -85,7 +85,7 @@ export function JsonSerializerPlugin() {
 
     deserializeTopic(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj, controller } = props;
       const { key, parentKey, subKeys, blocks, style, collapse } = obj;
       let topic = new Topic();
@@ -102,7 +102,7 @@ export function JsonSerializerPlugin() {
 
     deserializeTopics(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj, controller } = props;
       let topics = Map();
       topics = topics.withMutations(topics => {
@@ -118,7 +118,7 @@ export function JsonSerializerPlugin() {
 
     serializeBlock(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { block, controller } = props;
       const res = {
         type: block.type,
@@ -129,14 +129,14 @@ export function JsonSerializerPlugin() {
 
     serializeBlockData(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { block } = props;
       return block.data;
     },
 
     deserializeBlock(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj, controller } = props;
       const { type, data } = obj;
 
@@ -148,14 +148,14 @@ export function JsonSerializerPlugin() {
 
     deserializeBlockData(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj } = props;
       return obj.data;
     },
 
     deserializeBlocks(props, next) {
       const nextRes = next();
-      if (nextRes) return nextRes;
+      if (nextRes != null) return nextRes;
       const { obj, controller } = props;
       let blocks = List();
       blocks = blocks.withMutations(blocks => {
