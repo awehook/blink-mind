@@ -1,19 +1,9 @@
 import { BlockType } from '@blink-mind/core';
 import * as React from 'react';
-import { TopicContent } from '../components/topic-content';
-import { TopicContentEditor } from '../components/topic-content-editor';
-import { TopicDescEditor } from '../components/topic-desc-editor';
-import markdownSerializer from '../markdown-serializer';
+import { TopicDescEditor } from './components/topic-desc-editor';
+import markdownSerializer from './markdown-serializer';
 export default function RichTextEditorPlugin() {
   return {
-    // renderTopicBlockContent(props) {
-    //   return <TopicContent {...props} />;
-    // },
-
-    // renderTopicContentEditor(props) {
-    //   return <TopicContentEditor {...props} />;
-    // },
-
     renderTopicDescEditor(props) {
       return <TopicDescEditor {...props} />;
     },

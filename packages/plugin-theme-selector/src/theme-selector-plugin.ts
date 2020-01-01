@@ -1,9 +1,9 @@
 import { defaultTheme, ModelModifier, ThemeType } from '@blink-mind/core';
-import { themeRandomColorSquare } from '../themes';
-import { theme1 } from '../themes';
-import { theme2 } from '../themes';
-import { theme3 } from '../themes';
-import { theme4 } from '../themes';
+import { themeRandomColorSquare } from './themes';
+import { theme1 } from './themes';
+import { theme2 } from './themes';
+import { theme3 } from './themes';
+import { theme4 } from './themes';
 
 export function ThemeSelectorPlugin() {
   const themeMap = new Map<string, ThemeType>([
