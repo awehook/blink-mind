@@ -1,9 +1,13 @@
 import debug from 'debug';
-import { FocusMode } from '../../types';
+import { FocusMode, TopicRelationship } from '../../types';
 import { createKey } from '../../utils';
 import { Block } from '../block';
 import { Topic } from '../topic';
-import { getAllAncestorKeys, getAllSubTopicKeys } from '../utils';
+import {
+  getAllAncestorKeys,
+  getAllSubTopicKeys,
+  getRelationship
+} from '../utils';
 import {
   BaseModifierArg,
   DeleteBlockArg,
@@ -65,6 +69,13 @@ function expandTo({ model, topicKey }: BaseModifierArg): ModifierResult {
       m.setIn(['topics', topicKey, 'collapse'], false);
     });
   });
+  // 要让这个节点在视口中可见
+  if (
+    getRelationship(model, topicKey, model.editorRootTopicKey) !==
+    TopicRelationship.DESCENDANT
+  ) {
+    model = model.set('editorRootTopicKey', model.rootTopicKey);
+  }
   return model;
 }
 

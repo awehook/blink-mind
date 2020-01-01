@@ -20,7 +20,7 @@ const Title = styled.div`
 `;
 
 export function AddReferenceTopicPanel(props) {
-  const { zIndex, controller, model } = props;
+  const { zIndex, controller, model, topicKey } = props;
   const onClickCancel = e => {
     controller.run('clearSelectedReferenceKeys', props);
     controller.run('enableOperation', props);
@@ -36,8 +36,18 @@ export function AddReferenceTopicPanel(props) {
     controller.run('enableOperation', props);
     controller.run('operation', {
       ...props,
-      opType: OP_TYPE_SET_REFERENCE_TOPICS,
-      referenceKeys
+      opArray: [
+        {
+          opType: OP_TYPE_SET_REFERENCE_TOPICS,
+          topicKey,
+          referenceKeys
+        },
+        {
+          opType: OpType.FOCUS_TOPIC,
+          topicKey,
+          focusMode: FocusMode.NORMAL
+        }
+      ]
     });
     controller.run('clearSelectedReferenceKeys', props);
   };

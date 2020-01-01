@@ -1,9 +1,11 @@
 import {
   DiagramLayoutType,
+  getRelationship,
   KeyType,
   Model,
   ModelModifier,
-  Topic
+  Topic,
+  TopicRelationship
 } from '@blink-mind/core';
 import * as React from 'react';
 import {
@@ -158,7 +160,17 @@ export function LayoutPlugin() {
     },
 
     moveTopicToCenter(props) {
-      const { getRef, topicKey } = props;
+      const { getRef, topicKey, controller } = props;
+      const model = controller.currentModel;
+      if (
+        model.editorRootTopicKey !== topicKey &&
+        getRelationship(model, topicKey, model.editorRootTopicKey) !==
+          TopicRelationship.DESCENDANT
+      ) {
+        throw new Error(
+          `moveTopicToCenter error: topicKey ${topicKey} is not the DESCENDANT of editor root topic`
+        );
+      }
       const topic = getRef(topicRefKey(topicKey));
       const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
       const viewBox = dragScroll.viewBox;

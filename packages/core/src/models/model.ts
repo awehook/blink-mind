@@ -5,9 +5,11 @@ import { createKey } from '../utils';
 import { Config } from './config';
 import { Topic } from './topic';
 
+export type ExtData = Map<string, any>;
+
 type ModelRecordType = {
   topics: Map<KeyType, Topic>;
-  extData?: Map<string, any>; //用于插件做数据扩展
+  extData: ExtData; //用于插件做数据扩展
   config: Config;
   rootTopicKey: KeyType;
   editorRootTopicKey?: KeyType;
@@ -19,7 +21,7 @@ type ModelRecordType = {
 
 const defaultModelRecord: ModelRecordType = {
   topics: Map(),
-  extData: null,
+  extData: Map(),
   config: null,
   rootTopicKey: null,
   editorRootTopicKey: null,
@@ -136,8 +138,8 @@ export class Model extends Record(defaultModelRecord) {
     return this.topics.get(key);
   }
 
-  getExtDataItem(key: string): any {
-    return this.extData.get(key);
+  getExtDataItem<T>(key: string, c: new () => T): any {
+    return this.extData.get(key) || new c();
   }
 
   getParentTopic(key: KeyType): Topic {

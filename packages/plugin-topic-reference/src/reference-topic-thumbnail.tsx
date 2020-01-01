@@ -1,4 +1,4 @@
-import { FocusMode, OpType } from '@blink-mind/core';
+import { FocusMode, KeyType, OpType } from '@blink-mind/core';
 import { BaseProps, PropKey } from '@blink-mind/renderer-react';
 import { Alert, Button } from '@blueprintjs/core';
 import * as React from 'react';
@@ -26,7 +26,7 @@ const ButtonPlace = styled.div`
 export type ReferenceTopicThumbnailProps = BaseProps & {
   refKey: KeyType;
   refType: 'reference' | 'referenced' | undefined | null;
-  removeHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  removeHandler?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 export function ReferenceTopicThumbnail(props: ReferenceTopicThumbnailProps) {
   const { controller, refKey, refType, removeHandler } = props;

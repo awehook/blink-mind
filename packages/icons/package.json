@@ -7,6 +7,7 @@
   "main": "index.js",
   "version": "0.0.19-beta.1",
   "license": "MIT",
+
   "publishConfig": {
     "access": "public"
   }

@@ -1,10 +1,13 @@
 import { FocusMode, OpType } from '@blink-mind/core';
-import { cancelEvent } from '@blink-mind/renderer-react';
+import { BaseProps, cancelEvent } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';
-import { ReferenceTopicRecord } from './reference-topic-record';
+import { ExtDataReference } from './ext-data-reference';
 import { ReferenceTopicThumbnail } from './reference-topic-thumbnail';
-import { OP_TYPE_SET_REFERENCE_TOPICS } from './utils';
+import {
+  EXT_DATA_KEY_TOPIC_REFERENCE,
+  OP_TYPE_SET_REFERENCE_TOPICS
+} from './utils';
 const Root = styled.div``;
 
 const Group = styled.div`
@@ -27,11 +30,15 @@ const GotoBtn = styled.div`
   cursor: pointer;
 `;
 
-export function ReferenceTopicList(props) {
-  const { block, topicKey, controller, model } = props;
-  const data: ReferenceTopicRecord = block.data;
+export function ReferenceTopicList(props: BaseProps) {
+  const { topicKey, controller, model } = props;
+  const extData: ExtDataReference = model.extData.get(
+    EXT_DATA_KEY_TOPIC_REFERENCE
+  );
+
   const removeReference = refKey => e => {
     e.stopPropagation();
+    const keyList = extData.reference.get(topicKey).keyList;
     controller.run('operation', {
       ...props,
       opArray: [
@@ -39,19 +46,20 @@ export function ReferenceTopicList(props) {
           opType: OP_TYPE_SET_REFERENCE_TOPICS,
           topicKey: topicKey,
           focusMode: FocusMode.NORMAL,
-          referenceKeys: data.reference
-            .delete(data.reference.indexOf(refKey))
-            .toArray()
+          referenceKeys: keyList.delete(keyList.indexOf(refKey)).toArray()
         }
       ]
     });
   };
+
+  const referenceKeys = extData.getReferenceKeys(topicKey);
+
   const referenceGroup =
-    data.reference.size === 0 ? null : (
+    referenceKeys.length === 0 ? null : (
       <Group>
         <GroupTitle>Reference Topics:</GroupTitle>
         <GroupList>
-          {data.reference.map(key => {
+          {referenceKeys.map(key => {
             const thumbProps = {
               ...props,
               key,
@@ -59,24 +67,28 @@ export function ReferenceTopicList(props) {
               refType: 'reference',
               removeHandler: removeReference(key)
             };
+            //@ts-ignore
             return <ReferenceTopicThumbnail {...thumbProps} />;
           })}
         </GroupList>
       </Group>
     );
 
+  const referencedKeys = extData.getReferencedKeys(topicKey);
+
   const referencedGroup =
-    data.referenced.size === 0 ? null : (
+    referencedKeys.length === 0 ? null : (
       <Group>
         <GroupTitle>Referenced Topics:</GroupTitle>
         <GroupList>
-          {data.referenced.map(key => {
+          {referencedKeys.map(key => {
             const thumbProps = {
               ...props,
               key,
               refKey: key,
               refType: 'referenced'
             };
+            //@ts-ignore
             return <ReferenceTopicThumbnail {...thumbProps} />;
           })}
         </GroupList>

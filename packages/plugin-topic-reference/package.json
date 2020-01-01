@@ -12,7 +12,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "peerDependencies": {
     "@blueprintjs/core": "*",
     "debug": "*",

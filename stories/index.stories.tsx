@@ -14,6 +14,7 @@ const debugNameSpaces = [
   // 'plugin:StylePlugin',
   // 'plugin:*',
   // 'plugin:event',
+  'plugin:json-serializer',
   'plugin:operation',
   // 'story:*',
   'modifier'

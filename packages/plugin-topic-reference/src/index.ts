@@ -1,2 +1,2 @@
-import TopicReferencePlugin from './plugin';
+import TopicReferencePlugin from './topic-reference-plugin';
 export default TopicReferencePlugin;

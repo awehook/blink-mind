@@ -57,7 +57,7 @@ export default function TopologyDiagramPlugin() {
     },
 
     customizeTopicContextMenu(props, next) {
-      const { model, topicKey, controller } = props;
+      const { controller } = props;
       function editTopology(e) {
         controller.run('operation', {
           ...props,

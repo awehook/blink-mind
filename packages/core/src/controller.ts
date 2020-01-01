@@ -1,11 +1,7 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import {
-  IControllerOption,
-  IControllerRunContext,
-  IDiagram
-} from './interfaces';
+import { IControllerOption, IDiagram } from './interfaces';
 import { Model } from './models';
 import { CorePlugin } from './plugins/core';
 import { OnChangeFunction } from './types';
@@ -62,6 +58,7 @@ export class Controller {
   middleware: Map<string, Function[]>;
   onChange: OnChangeFunction;
   readOnly: boolean;
+  currentModel: Model;
 
   constructor(options: IControllerOption = {}) {
     const { diagram = this, plugins = [], onChange, readOnly } = options;
@@ -89,5 +86,6 @@ export class Controller {
 
   change(model: Model) {
     this.onChange(model);
+    this.currentModel = model;
   }
 }

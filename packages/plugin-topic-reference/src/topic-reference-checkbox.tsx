@@ -1,5 +1,3 @@
-import { KeyType } from '@blink-mind/core';
-import { BaseProps } from '@blink-mind/renderer-react';
 import { Checkbox } from '@blueprintjs/core';
 import * as React from 'react';
 // useState 在vscode 运行报错 https://reactjs.org/docs/error-decoder.html/?invariant=321，

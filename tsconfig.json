@@ -4,7 +4,7 @@
     "suppressExcessPropertyErrors": true,
     "downlevelIteration": true,
     "allowJs": true,
-//    "declaration": true,
+    //    "declaration": true,
     "outDir": "./lib",
     "target": "es5",
     "strictNullChecks": false,
@@ -14,18 +14,30 @@
     "baseUrl": ".",
     "lib": ["dom", "es2015"],
     "paths": {
-//      "@/*": ["src/*"],
+      //      "@/*": ["src/*"],
       "@blink-mind/core": ["packages/core/src"],
       "@blink-mind/icons": ["packages/icons"],
       "@blink-mind/renderer-react": ["packages/renderer-react/src"],
-      "@blink-mind/plugin-json-serializer": ["packages/plugin-json-serializer/src"],
-      "@blink-mind/plugin-simple-text-editor": ["packages/plugin-simple-text-editor/src"],
-      "@blink-mind/plugin-rich-text-editor": ["packages/plugin-rich-text-editor/src"],
-      "@blink-mind/plugin-theme-selector": ["packages/plugin-theme-selector/src"],
-      "@blink-mind/plugin-topology-diagram": ["packages/plugin-topology-diagram/src"],
-      "@blink-mind/plugin-topic-reference": ["packages/plugin-topic-reference/src"]
+      "@blink-mind/plugin-json-serializer": [
+        "packages/plugin-json-serializer/src"
+      ],
+      "@blink-mind/plugin-simple-text-editor": [
+        "packages/plugin-simple-text-editor/src"
+      ],
+      "@blink-mind/plugin-rich-text-editor": [
+        "packages/plugin-rich-text-editor/src"
+      ],
+      "@blink-mind/plugin-theme-selector": [
+        "packages/plugin-theme-selector/src"
+      ],
+      "@blink-mind/plugin-topology-diagram": [
+        "packages/plugin-topology-diagram/src"
+      ],
+      "@blink-mind/plugin-topic-reference": [
+        "packages/plugin-topic-reference/src"
+      ]
     }
   },
-  "include": ["packages/*/src","stories/"],
-  "exclude": [ "node_modules", "**/*.spec.ts", "./dist"]
+  "include": ["packages/*/src", "stories/"],
+  "exclude": ["node_modules", "**/*.spec.ts", "./dist", "**/*.test.ts"]
 }

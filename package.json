@@ -15,8 +15,9 @@
     "prettier": "prettier --write 'packages/*/src/**'",
     "pre-commit": "yarn lint:fix && yarn prettier && yarn lint:ts",
     "test": "lerna run test",
-    "lint:ts": "tslint 'packages/**/*.ts{,x}'",
-    "lint:fix": "tslint --fix 'packages/**/*.ts{,x}'",
+    "lint": "tslint --project .",
+    "lint:ts": "tslint 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
+    "lint:fix": "tslint --fix 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
     "build": "rollup --config rollup.config.js",
     "link-package": "cd support && sh yarn-link.sh link",
     "unlink-package": "cd support && sh yarn-link.sh unlink"

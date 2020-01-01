@@ -41,6 +41,12 @@ export const Title = styled.div`
 
 export const TopicBlockIcon = styled.span`
   margin: 0px 10px;
+  &:hover {
+    color: palevioletred;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const ZIndex = styled.div`

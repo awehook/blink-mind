@@ -1,17 +1,22 @@
-import { Block, BlockType, Config, Model, Topic } from '@blink-mind/core';
+import { Block, Config, ExtData, Model, Topic } from '@blink-mind/core';
+import { IControllerRunContext } from '@blink-mind/core/src/interfaces';
 import debug from 'debug';
-import { List, Map } from 'immutable';
+import { isImmutable, List, Map } from 'immutable';
 
 const log = debug('plugin:json-serializer');
 
 export function JsonSerializerPlugin() {
   return {
-    serializeModel(props, next) {
+    serializeModel(props: IControllerRunContext, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
       const { model, controller } = props;
       const obj = {
         rootTopicKey: model.rootTopicKey,
+        extData: controller.run('serializeExtData', {
+          ...props,
+          extData: model.extData
+        }),
         topics: model.topics
           .valueSeq()
           .toArray()
@@ -32,25 +37,83 @@ export function JsonSerializerPlugin() {
       if (obj.formatVersion == null) {
         obj.formatVersion = '0.0';
       }
-      const { rootTopicKey, topics, config, formatVersion } = obj;
-      let model = new Model();
-      model = model.merge({
+      const { rootTopicKey, topics, config, extData, formatVersion } = obj;
+      let res = new Model();
+      res = res.merge({
         rootTopicKey,
         editorRootTopicKey: rootTopicKey,
+        extData: controller.run('deserializeExtData', {
+          ...props,
+          extData,
+          formatVersion
+        }),
         config: controller.run('deserializeConfig', {
           ...props,
-          obj: config,
+          config,
           formatVersion
         }),
         topics: controller.run('deserializeTopics', {
           ...props,
-          obj: topics,
+          topics,
           formatVersion
         }),
         formatVersion: obj.formatVersion
       });
-      log('deserializeModel', model);
-      return model;
+      log('deserializeModel', res);
+      return res;
+    },
+
+    serializeExtData(
+      props: IControllerRunContext & { extData: ExtData },
+      next
+    ) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { extData, controller } = props;
+      const res = {};
+      extData.forEach((v, k) => {
+        res[k] = controller.run('serializeExtDataItem', {
+          props,
+          extDataKey: k,
+          extDataItem: v
+        });
+      });
+      return res;
+    },
+
+    deserializeExtData(props, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { extData, controller } = props;
+      let res = Map();
+      for (const extDataKey in extData) {
+        res = res.set(
+          extDataKey,
+          controller.run('deserializeExtDataItem', {
+            ...props,
+            extDataKey,
+            extDataItem: extData[extDataKey]
+          })
+        );
+      }
+      return res;
+    },
+
+    serializeExtDataItem(props, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { extDataItem } = props;
+      if (isImmutable(extDataItem)) {
+        return extDataItem.toJS();
+      }
+      return extDataItem;
+    },
+
+    deserializeExtDataItem(props, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { extDataItem } = props;
+      return extDataItem;
     },
 
     serializeConfig(props, next) {
@@ -63,8 +126,8 @@ export function JsonSerializerPlugin() {
     deserializeConfig(props, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj } = props;
-      return new Config(obj);
+      const { config } = props;
+      return new Config(config);
     },
 
     serializeTopic(props, next) {
@@ -86,34 +149,34 @@ export function JsonSerializerPlugin() {
     deserializeTopic(props, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj, controller } = props;
-      const { key, parentKey, subKeys, blocks, style, collapse } = obj;
-      let topic = new Topic();
-      topic = topic.merge({
+      const { topic, controller } = props;
+      const { key, parentKey, subKeys, blocks, style, collapse } = topic;
+      let res = new Topic();
+      res = res.merge({
         key,
         parentKey,
         subKeys: List(subKeys),
         style,
         collapse,
-        blocks: controller.run('deserializeBlocks', { ...props, obj: blocks })
+        blocks: controller.run('deserializeBlocks', { ...props, blocks })
       });
-      return topic;
+      return res;
     },
 
     deserializeTopics(props, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj, controller } = props;
-      let topics = Map();
-      topics = topics.withMutations(topics => {
-        obj.forEach(topic =>
-          topics.set(
+      const { topics, controller } = props;
+      let res = Map();
+      res = res.withMutations(r => {
+        topics.forEach(topic =>
+          r.set(
             topic.key,
-            controller.run('deserializeTopic', { ...props, obj: topic })
+            controller.run('deserializeTopic', { ...props, topic })
           )
         );
       });
-      return topics;
+      return res;
     },
 
     serializeBlock(props, next) {
@@ -137,35 +200,33 @@ export function JsonSerializerPlugin() {
     deserializeBlock(props, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj, controller } = props;
-      const { type, data } = obj;
+      const { block, controller } = props;
+      const { type } = block;
 
       return new Block({
         type,
-        data: controller.run('deserializeBlockData', { ...props, obj })
+        data: controller.run('deserializeBlockData', { ...props, block })
       });
     },
 
     deserializeBlockData(props, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj } = props;
-      return obj.data;
+      const { block } = props;
+      return block.data;
     },
 
     deserializeBlocks(props, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj, controller } = props;
-      let blocks = List();
-      blocks = blocks.withMutations(blocks => {
-        obj.forEach(block =>
-          blocks.push(
-            controller.run('deserializeBlock', { ...props, obj: block })
-          )
+      const { blocks, controller } = props;
+      let res = List();
+      res = res.withMutations(res => {
+        blocks.forEach(block =>
+          res.push(controller.run('deserializeBlock', { ...props, block }))
         );
       });
-      return blocks;
+      return res;
     }
   };
 }
