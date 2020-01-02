@@ -43,7 +43,9 @@ const Item = props => {
       position={Position.TOP}
       className={Classes.ICON}
     >
-      <Item_ onClick={props.onClick}>{props.children}</Item_>
+      <Item_ onClick={props.onClick} tabIndex={-1}>
+        {props.children}
+      </Item_>
     </Tooltip>
   );
 };
