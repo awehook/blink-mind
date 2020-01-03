@@ -97,23 +97,7 @@ export function ReferenceTopicList(props: BaseProps) {
 
   const onClickGotoOriginTopic = e => {
     e.stopPropagation();
-    controller.run('operation', {
-      ...props,
-      opArray: [
-        {
-          opType: OpType.FOCUS_TOPIC,
-          topicKey,
-          focusMode: FocusMode.NORMAL
-        },
-        {
-          opType: OpType.EXPAND_TO,
-          topicKey
-        }
-      ]
-    });
-    setTimeout(() => {
-      controller.run('moveTopicToCenter', { ...props, topicKey });
-    });
+    controller.run('focusTopicAndMoveToCenter', props);
   };
 
   const currentTopic = model.focusKey !== topicKey && (

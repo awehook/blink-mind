@@ -1,11 +1,17 @@
 import { OpType } from '@blink-mind/core';
 
-export interface HotKeyConfig {
+export interface HotKeyItem {
+  label: string;
   combo: string;
-  onKeyDown: Function;
+  onKeyDown: (e: KeyboardEvent) => any;
 }
 
-export type HotKeyMap = Map<string, HotKeyConfig>;
+export type HotKeyMap = Map<string, HotKeyItem>;
+
+export interface HotKeysConfig {
+  topicHotKeys: HotKeyMap;
+  globalHotKeys: HotKeyMap;
+}
 
 export const HotKeyName = {
   ADD_CHILD: 'ADD_CHILD',
@@ -26,12 +32,12 @@ function op(opType: string, props) {
 
 export function HotKeyPlugin() {
   return {
-    customizeHotKeys(props) {
+    customizeHotKeys(props): HotKeysConfig {
       const handleKeyDown = opType => e => {
         // log('HotKeyPlugin', opType);
         op(opType, props);
       };
-      const hotKeyMap = new Map<string, HotKeyConfig>([
+      const topicHotKeys = new Map<string, HotKeyItem>([
         [
           HotKeyName.ADD_CHILD,
           {
@@ -81,7 +87,11 @@ export function HotKeyPlugin() {
           }
         ]
       ]);
-      return hotKeyMap;
+      const globalHotKeys = new Map();
+      return {
+        topicHotKeys,
+        globalHotKeys
+      };
     }
   };
 }

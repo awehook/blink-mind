@@ -1022,7 +1022,7 @@
     classnames "^2.2"
     tslib "~1.9.0"
 
-"@blueprintjs/select@^3.11.1", "@blueprintjs/select@^3.11.2":
+"@blueprintjs/select@^3.11.1":
   version "3.11.2"
   resolved "https://registry.npm.taobao.org/@blueprintjs/select/download/@blueprintjs/select-3.11.2.tgz#3324db0de44a9f386b957aac1ba3ec774b3eb1e7"
   integrity sha1-MyTbDeRKnzhrlXqsG6Psd0s+sec=

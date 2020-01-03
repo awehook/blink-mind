@@ -13,7 +13,7 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import * as React from 'react';
-import { DefaultPlugin } from '../plugins';
+import { DefaultPlugin, HotKeysConfig } from '../plugins';
 import './diagram.css';
 const log = debug('node:Diagram');
 
@@ -56,22 +56,32 @@ export class Diagram extends React.Component<Props> implements IDiagram {
 
   renderHotkeys() {
     const { controller, model } = this.diagramProps;
+    const hotKeys: HotKeysConfig = controller.run(
+      'customizeHotKeys',
+      this.diagramProps
+    );
+    if (hotKeys === null) return null;
+    if (
+      !(
+        hotKeys.topicHotKeys instanceof Map &&
+        hotKeys.globalHotKeys instanceof Map
+      )
+    ) {
+      throw new TypeError('topicHotKeys and globalHotKeys must be a Map');
+    }
+    const children = [];
     if (
       model.focusMode === FocusMode.NORMAL ||
       model.focusMode === FocusMode.SHOW_POPUP
     ) {
-      const hotKeys = controller.run('customizeHotKeys', this.diagramProps);
-      if (hotKeys === null) return null;
-      if (!(hotKeys instanceof Map)) {
-        throw new TypeError('customizeHotKeys must return a Map');
-      }
-      const children = [];
-      hotKeys.forEach((v, k) => {
+      hotKeys.topicHotKeys.forEach((v, k) => {
         children.push(<Hotkey key={k} {...v} global />);
       });
-      return <Hotkeys>{children}</Hotkeys>;
     }
-    return <Hotkeys />;
+    hotKeys.globalHotKeys.forEach((v, k) => {
+      children.push(<Hotkey key={k} {...v} global />);
+    });
+    return <Hotkeys>{children}</Hotkeys>;
   }
 
   render() {

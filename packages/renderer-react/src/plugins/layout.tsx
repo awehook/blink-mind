@@ -1,9 +1,11 @@
 import {
   DiagramLayoutType,
+  FocusMode,
   getRelationship,
   KeyType,
   Model,
   ModelModifier,
+  OpType,
   Topic,
   TopicRelationship
 } from '@blink-mind/core';
@@ -177,6 +179,27 @@ export function LayoutPlugin() {
       const vector = getRelativeVector(topic, viewBox);
       //TODO
       dragScroll.setViewBoxScrollDelta(vector[0], vector[1]);
+    },
+
+    focusTopicAndMoveToCenter(props) {
+      const { controller, topicKey } = props;
+      controller.run('operation', {
+        ...props,
+        opArray: [
+          {
+            opType: OpType.FOCUS_TOPIC,
+            topicKey,
+            focusMode: FocusMode.NORMAL
+          },
+          {
+            opType: OpType.EXPAND_TO,
+            topicKey
+          }
+        ]
+      });
+      setTimeout(() => {
+        controller.run('moveTopicToCenter', { ...props, topicKey });
+      });
     }
   };
 }

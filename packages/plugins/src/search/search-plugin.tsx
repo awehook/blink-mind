@@ -1,5 +1,5 @@
 import { OpType } from '@blink-mind/core';
-import { HotKeyMap } from '@blink-mind/renderer-react';
+import { HotKeysConfig } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { SearchPanel } from './search-panel';
 import { FOCUS_MODE_SEARCH, HOT_KEY_NAME_SEARCH } from './utils';
@@ -10,11 +10,12 @@ export function SearchPlugin() {
     searchWord = s;
   };
   return {
-    customizeHotKeys(props, next) {
+    customizeHotKeys(props, next): HotKeysConfig {
       const { controller, model } = props;
-      const hotKeyMap: HotKeyMap = next();
+      const hotKeys: HotKeysConfig = next();
 
-      hotKeyMap.set(HOT_KEY_NAME_SEARCH, {
+      hotKeys.globalHotKeys.set(HOT_KEY_NAME_SEARCH, {
+        label: 'search',
         combo: 'ctrl + shift + f',
         onKeyDown: () => {
           controller.run('operation', {
@@ -25,7 +26,7 @@ export function SearchPlugin() {
           });
         }
       });
-      return hotKeyMap;
+      return hotKeys;
     },
 
     renderDiagramCustomize(props, next) {

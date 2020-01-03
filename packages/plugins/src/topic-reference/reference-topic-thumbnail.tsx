@@ -33,23 +33,7 @@ export function ReferenceTopicThumbnail(props: ReferenceTopicThumbnailProps) {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const onClick = e => {
     e.stopPropagation();
-    controller.run('operation', {
-      ...props,
-      opArray: [
-        {
-          opType: OpType.FOCUS_TOPIC,
-          topicKey: refKey,
-          focusMode: FocusMode.NORMAL
-        },
-        {
-          opType: OpType.EXPAND_TO,
-          topicKey: refKey
-        }
-      ]
-    });
-    setTimeout(() => {
-      controller.run('moveTopicToCenter', { ...props, topicKey: refKey });
-    });
+    controller.run('focusTopicAndMoveToCenter', { ...props, topicKey: refKey });
   };
 
   const onClickRemove = e => {

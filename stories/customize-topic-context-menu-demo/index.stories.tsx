@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Diagram } from '@blink-mind/renderer-react';
+import { Diagram, HotKeysConfig } from '@blink-mind/renderer-react';
 import { BaseDemo } from '../common/base-demo';
 import { MenuItem, MenuDivider } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';
@@ -24,16 +24,16 @@ function onClickMyMenu(props) {
 
 function HotKeyPlugin() {
   return {
-    customizeHotKeys(props, next) {
-      const hotKeysMap = next();
-      hotKeysMap.set('MY_CUSTOM', {
+    customizeHotKeys(props, next): HotKeysConfig {
+      const hotKeys: HotKeysConfig = next();
+      hotKeys.topicHotKeys.set('MY_CUSTOM', {
         label: 'MY_CUSTOM',
         combo: 'shift + a',
         onKeyDown: e => {
           onClickMyMenu(props)();
         }
       });
-      return hotKeysMap;
+      return hotKeys;
     }
   };
 }
