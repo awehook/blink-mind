@@ -1,4 +1,4 @@
-import { KeyType, TopicRelationship } from '../../types';
+import { KeyPath, KeyType, TopicRelationship } from '../../types';
 import { Model } from '../model';
 
 export function getAllSubTopicKeys(model: Model, topicKey: KeyType): KeyType[] {
@@ -16,11 +16,15 @@ export function getAllSubTopicKeys(model: Model, topicKey: KeyType): KeyType[] {
   return res;
 }
 
-export function getAllAncestorKeys(model: Model, topicKey: KeyType): KeyType[] {
-  const res = [];
+export function getKeyPath(
+  model: Model,
+  topicKey: KeyType,
+  reverse: boolean = false
+): KeyPath {
+  const res = [topicKey];
   let item = model.getTopic(topicKey);
   while (item.parentKey) {
-    res.push(item.parentKey);
+    reverse ? res.push(item.parentKey) : res.unshift(item.parentKey);
     item = model.getParentTopic(item.key);
   }
   return res;

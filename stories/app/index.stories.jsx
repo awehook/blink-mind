@@ -1,22 +1,18 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { BaseDemo, ToolBar, ToolBarItem,Icon } from '../common';
+import { BaseDemo, ToolBar, ToolBarItem, Icon } from '../common';
 import { Diagram, iconClassName } from '@blink-mind/renderer-react';
 import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
 import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
-import TopicReferencePlugin from "@blink-mind/plugin-topic-reference";
+import { TopicReferencePlugin, SearchPlugin } from '@blink-mind/plugins';
 import styled from 'styled-components';
 import { Dialog, MenuItem, Menu, MenuDivider } from '@blueprintjs/core';
 import { downloadFile } from '../utils';
 import debug from 'debug';
 
 const log = debug('story:app');
-
-
-
-
 
 const Container = styled.div`
   width: 100%;
@@ -32,8 +28,9 @@ const plugins = [
   RichTextEditorPlugin(),
   ThemeSelectorPlugin(),
   TopicReferencePlugin(),
+  SearchPlugin(),
   TopologyDiagramPlugin(),
-  JsonSerializerPlugin(),
+  JsonSerializerPlugin()
 ];
 
 class AppDemo extends BaseDemo {

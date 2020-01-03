@@ -1,5 +1,5 @@
 {
-  "name": "@blink-mind/plugin-topic-reference",
+  "name": "@blink-mind/plugins",
   "files": [
     "lib/",
     "iconfont/"
@@ -17,6 +17,7 @@
   },
   "peerDependencies": {
     "@blueprintjs/core": "*",
+    "@blueprintjs/select": "*",
     "debug": "*",
     "immutable": "*",
     "react": "*",

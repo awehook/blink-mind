@@ -5,6 +5,8 @@ export interface HotKeyConfig {
   onKeyDown: Function;
 }
 
+export type HotKeyMap = Map<string, HotKeyConfig>;
+
 export const HotKeyName = {
   ADD_CHILD: 'ADD_CHILD',
   ADD_SIBLING: 'ADD_SIBLING',

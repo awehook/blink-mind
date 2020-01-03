@@ -56,11 +56,11 @@ export function ReferenceTopicThumbnail(props: ReferenceTopicThumbnailProps) {
     setDeleteConfirm(true);
   };
 
-  let content = controller.getValue(PropKey.TOPIC_TITLE, {
+  const content = controller.getValue(PropKey.TOPIC_TITLE, {
     ...props,
-    topicKey: refKey
+    topicKey: refKey,
+    maxLength: 100
   });
-  content = content.length < 97 ? content : content.substr(0, 97) + '...';
   const deleteAlertProps = {
     isOpen: deleteConfirm,
     cancelButtonText: 'cancel',

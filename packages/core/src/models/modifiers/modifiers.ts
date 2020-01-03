@@ -3,11 +3,7 @@ import { FocusMode, TopicRelationship } from '../../types';
 import { createKey } from '../../utils';
 import { Block } from '../block';
 import { Topic } from '../topic';
-import {
-  getAllAncestorKeys,
-  getAllSubTopicKeys,
-  getRelationship
-} from '../utils';
+import { getAllSubTopicKeys, getKeyPath, getRelationship } from '../utils';
 import {
   BaseModifierArg,
   DeleteBlockArg,
@@ -16,7 +12,6 @@ import {
   SetFocusModeArg,
   SetLayoutDirArg,
   SetThemeArg,
-  SetTopicArg,
   SetTopicStyleArg,
   SetZoomFactorArg
 } from './types';
@@ -63,7 +58,7 @@ function expandAll({ model }: BaseModifierArg): ModifierResult {
 }
 
 function expandTo({ model, topicKey }: BaseModifierArg): ModifierResult {
-  const keys = getAllAncestorKeys(model, topicKey);
+  const keys = getKeyPath(model, topicKey).filter(t => t !== topicKey);
   model = model.withMutations(m => {
     keys.forEach(topicKey => {
       m.setIn(['topics', topicKey, 'collapse'], false);

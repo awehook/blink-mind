@@ -2,6 +2,8 @@ import { Model } from '@blink-mind/core';
 
 export type KeyType = string;
 
+export type KeyPath = KeyType[];
+
 export const TopicDirection = {
   LEFT: 'L', // 从右向左
   RIGHT: 'R', // 从左向右

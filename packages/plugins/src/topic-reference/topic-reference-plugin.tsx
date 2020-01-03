@@ -24,7 +24,7 @@ import { setReferenceTopicKeys } from './op-function';
 import { TopicExtReference } from './topic-ext-reference';
 import { TopicReferenceCheckbox } from './topic-reference-checkbox';
 
-export default function TopicReferencePlugin() {
+export function TopicReferencePlugin() {
   let selectedTopicKeys = new Set();
   function startSetReferenceTopics({ model, topicKey }: BaseModifierArg) {
     const extData: ExtDataReference = model.getExtDataItem(

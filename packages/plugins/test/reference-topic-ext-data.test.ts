@@ -1,4 +1,4 @@
-import { ExtDataReference } from '../src/ext-data-reference';
+import { ExtDataReference } from '../src/topic-reference/ext-data-reference';
 
 describe('reference topic ext data test', () => {
   it('data structure', () => {

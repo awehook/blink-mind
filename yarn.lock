@@ -963,26 +963,24 @@
     to-fast-properties "^2.0.0"
 
 "@blink-mind/core@link:packages/core":
-  version "0.0.18"
+  version "0.0.19"
   dependencies:
-    debug "2.6.9"
     immutable "^4.0.0-rc.12"
     is-plain-object "^3.0.0"
     memoize-one "^5.1.1"
-    tiny-warning "^1.0.3"
 
 "@blink-mind/icons@link:packages/icons":
-  version "0.0.18"
+  version "0.0.19"
 
 "@blink-mind/plugin-simple-text-editor@link:packages/plugin-simple-text-editor":
-  version "0.0.18"
+  version "0.0.19"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     slate-plain-serializer "^0.7.11"
     slate-react "^0.21.20"
 
 "@blink-mind/renderer-react@link:packages/renderer-react":
-  version "0.0.18"
+  version "0.0.19"
   dependencies:
     "@blink-mind/core" "link:packages/core"
     "@blink-mind/icons" "link:packages/icons"
@@ -1024,7 +1022,7 @@
     classnames "^2.2"
     tslib "~1.9.0"
 
-"@blueprintjs/select@^3.11.1":
+"@blueprintjs/select@^3.11.1", "@blueprintjs/select@^3.11.2":
   version "3.11.2"
   resolved "https://registry.npm.taobao.org/@blueprintjs/select/download/@blueprintjs/select-3.11.2.tgz#3324db0de44a9f386b957aac1ba3ec774b3eb1e7"
   integrity sha1-MyTbDeRKnzhrlXqsG6Psd0s+sec=

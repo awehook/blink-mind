@@ -33,8 +33,8 @@
       "@blink-mind/plugin-topology-diagram": [
         "packages/plugin-topology-diagram/src"
       ],
-      "@blink-mind/plugin-topic-reference": [
-        "packages/plugin-topic-reference/src"
+      "@blink-mind/plugins": [
+        "packages/plugins/src"
       ]
     }
   },

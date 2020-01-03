@@ -7,11 +7,15 @@ import { TopicDescEditor } from './components/topic-desc-editor';
 export default function SimpleTextEditorPlugin() {
   return {
     getTopicTitle(props) {
-      const { model, controller, topicKey } = props;
+      const { model, controller, topicKey, maxLength } = props;
       const topic = model.getTopic(topicKey);
       const block = topic.getBlock(BlockType.CONTENT).block;
-      const txt = controller.run('serializeBlockData', { ...props, block });
-      return txt;
+      let text = controller.run('serializeBlockData', { ...props, block });
+      if (maxLength != null) {
+        text =
+          text.length > maxLength ? text.substr(0, maxLength) + '...' : text;
+      }
+      return text;
     },
 
     renderTopicContentEditor(props) {
