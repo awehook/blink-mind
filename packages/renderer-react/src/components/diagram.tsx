@@ -1,6 +1,8 @@
 import {
   Controller,
   FocusMode,
+  IDiagram,
+  IDiagramProps,
   Model,
   OnChangeFunction
 } from '@blink-mind/core';
@@ -22,13 +24,8 @@ interface Props {
   plugins?: any;
 }
 
-export interface IDiagramProps {
-  model: Model;
-  controller: Controller;
-}
-
 @HotkeysTarget
-export class Diagram extends React.Component<Props> {
+export class Diagram extends React.Component<Props> implements IDiagram {
   controller: Controller;
 
   public getDiagramProps(): IDiagramProps {
@@ -47,18 +44,15 @@ export class Diagram extends React.Component<Props> {
 
   private diagramProps: IDiagramProps;
 
-  private resolveController = memoizeOne(
-    (plugins = [], commands, TheDefaultPlugin) => {
-      const defaultPlugin = TheDefaultPlugin();
-      this.controller = new Controller({
-        plugins: [plugins, defaultPlugin],
-        commands,
-        construct: false,
-        onChange: this.props.onChange
-      });
-      // this.controller.run('onConstruct');
-    }
-  );
+  private resolveController = memoizeOne((plugins = [], TheDefaultPlugin) => {
+    const defaultPlugin = TheDefaultPlugin();
+    this.controller = new Controller({
+      plugins: [plugins, defaultPlugin],
+      construct: false,
+      onChange: this.props.onChange
+    });
+    // this.controller.run('onConstruct');
+  });
 
   renderHotkeys() {
     const { controller, model } = this.diagramProps;
@@ -81,13 +75,11 @@ export class Diagram extends React.Component<Props> {
   }
 
   render() {
-    const { commands, plugins } = this.props;
-    this.resolveController(plugins, commands, DefaultPlugin);
+    const { plugins } = this.props;
+    this.resolveController(plugins, DefaultPlugin);
     this.diagramProps = {
       ...this.props,
       controller: this.controller
-      // TODO
-      // diagram: this
     };
     return this.controller.run('renderDiagram', this.diagramProps);
   }

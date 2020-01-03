@@ -1,7 +1,7 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import { IControllerOption, IDiagram } from './interfaces';
+import { IControllerOption } from './interfaces';
 import { Model } from './models';
 import { CorePlugin } from './plugins/core';
 import { OnChangeFunction } from './types';
@@ -54,16 +54,13 @@ function compose(middleware) {
 }
 
 export class Controller {
-  diagram: IDiagram;
   middleware: Map<string, Function[]>;
-  onChange: OnChangeFunction;
-  readOnly: boolean;
-  currentModel: Model;
+  private readonly onChange: OnChangeFunction;
+  public readOnly: boolean;
+  public currentModel: Model;
 
   constructor(options: IControllerOption = {}) {
-    const { diagram = this, plugins = [], onChange, readOnly } = options;
-
-    this.diagram = diagram;
+    const { plugins = [], onChange, readOnly } = options;
     this.readOnly = readOnly;
     this.onChange = onChange;
     this.middleware = new Map();
