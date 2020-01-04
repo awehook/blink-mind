@@ -111,6 +111,13 @@
       "unicode_decimal": 63077
     },
     {
+      "icon_id": "7685256",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "f731",
+      "unicode_decimal": 63281
+    },
+    {
       "icon_id": "7956834",
       "name": "加_色块",
       "font_class": "plus",

@@ -56,9 +56,8 @@ export function SearchPanel(props: SearchPanelProps) {
   const onClose = () => {
     controller.run('operation', {
       ...props,
-      opType: OpType.FOCUS_TOPIC,
-      focusMode: FocusMode.NORMAL,
-      focusKey: model.focusKey
+      opType: OpType.SET_FOCUS_MODE,
+      focusMode: FocusMode.NORMAL
     });
   };
 

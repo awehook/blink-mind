@@ -85,6 +85,12 @@ function focusTopic({
   return model;
 }
 
+function setFocusMode({ model, focusMode }: SetFocusModeArg): ModifierResult {
+  log('setFocusMode');
+  if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
+  return model;
+}
+
 function addChild({ model, topicKey }: BaseModifierArg): ModifierResult {
   log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
@@ -269,6 +275,7 @@ export default {
   expandAll,
   expandTo,
   focusTopic,
+  setFocusMode,
   deleteTopic,
   setBlockData,
   deleteBlock,

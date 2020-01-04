@@ -174,9 +174,11 @@ export function RenderingPlugin() {
     },
 
     renderRootSubLinks(props) {
-      const { saveRef, topicKey, model } = props;
-      const topic = model.getTopic(topicKey);
-      if (topic.subKeys.size === 0) return null;
+      // log('renderRootSubLinks');
+      const { saveRef, topicKey } = props;
+      // 这里逻辑有问题,会导致layout 错误
+      // const topic = model.getTopic(topicKey);
+      // if (topic.subKeys.size === 0) return null;
       return <RootSubLinks ref={saveRef(linksRefKey(topicKey))} {...props} />;
     },
 

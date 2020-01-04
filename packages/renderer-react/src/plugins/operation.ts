@@ -124,6 +124,7 @@ export function OperationPlugin() {
     [OpType.ADD_SIBLING, ModelModifier.addSibling],
     [OpType.DELETE_TOPIC, ModelModifier.deleteTopic],
     [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
+    [OpType.SET_FOCUS_MODE, ModelModifier.setFocusMode],
     [OpType.SET_STYLE, ModelModifier.setStyle],
     [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
     [OpType.DELETE_TOPIC_BLOCK, ModelModifier.deleteBlock],

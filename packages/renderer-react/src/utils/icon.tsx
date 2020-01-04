@@ -9,7 +9,8 @@ export const IconName = {
   COLLAPSE_ALL: 'collapse',
   EXPAND_ALL: 'expand',
   CENTER: 'center',
-  TRASH: 'trash'
+  TRASH: 'trash',
+  SEARCH: 'search'
 };
 
 export function iconClassName(name) {

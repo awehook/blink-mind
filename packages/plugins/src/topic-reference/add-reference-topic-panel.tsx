@@ -26,8 +26,7 @@ export function AddReferenceTopicPanel(props) {
     controller.run('enableOperation', props);
     controller.run('operation', {
       ...props,
-      opType: OpType.FOCUS_TOPIC,
-      focusKey: model.focusKey,
+      opType: OpType.SET_FOCUS_MODE,
       focusMode: FocusMode.NORMAL
     });
   };

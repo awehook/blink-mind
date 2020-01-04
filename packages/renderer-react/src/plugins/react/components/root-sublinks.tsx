@@ -24,7 +24,7 @@ const RootLinksSvg = styled.svg`
   pointer-events: none;
 `;
 
-const log = debug('node:topic-sub-links');
+const log = debug('node:root-sub-links');
 
 interface Props extends BaseProps {}
 
@@ -116,6 +116,7 @@ export class RootSubLinks extends BaseWidget<Props, State> {
   }
 
   render() {
+    log('render');
     const { topicKey, saveRef } = this.props;
     return (
       <RootLinksSvg ref={saveRef(linksSvgRefKey(topicKey))}>

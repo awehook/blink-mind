@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import { Dialog, MenuItem, Menu, MenuDivider } from '@blueprintjs/core';
 import { downloadFile } from '../utils';
 import debug from 'debug';
+import { FOCUS_MODE_SEARCH } from '@blink-mind/plugins';
+import { OpType } from '@blink-mind/core';
 
 const log = debug('story:app');
 
@@ -49,6 +51,9 @@ class AppDemo extends BaseDemo {
         <ToolBarItem onClick={this.onClickChangeTheme}>
           <Icon className={iconClassName('theme')} />
         </ToolBarItem>
+        <ToolBarItem onClick={this.onClickSearch}>
+          <Icon className={iconClassName('search')} />
+        </ToolBarItem>
       </ToolBar>
     );
   }
@@ -62,6 +67,17 @@ class AppDemo extends BaseDemo {
     controller.run('setTheme', {
       ...props,
       themeKey: themeKeys[this.themeIndex++ % themeKeys.length]
+    });
+  };
+
+  onClickSearch = () => {
+    const props = this.diagram.getDiagramProps();
+    const { controller } = props;
+
+    controller.run('operation', {
+      ...props,
+      opType: OpType.SET_FOCUS_MODE,
+      focusMode: FOCUS_MODE_SEARCH
     });
   };
 
