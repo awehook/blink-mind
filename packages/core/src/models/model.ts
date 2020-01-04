@@ -37,13 +37,22 @@ export class Model extends Record(defaultModelRecord) {
   }
   static create(attrs: any = null): Model {
     if (attrs == null) return Model.createEmpty();
-
+    let res: Model;
     if (Model.isModel(attrs)) {
-      return attrs;
+      res = attrs;
     }
 
     if (isPlainObject(attrs)) {
-      return Model.fromJSON(attrs);
+      res = Model.fromJSON(attrs);
+    }
+    if (res) {
+      if (res.focusKey == null) {
+        res = res.set('focusKey', res.rootTopicKey);
+      }
+      if (res.focusMode == null) {
+        res = res.set('focusMode', FocusMode.NORMAL);
+      }
+      return res;
     }
 
     throw new Error(
@@ -56,7 +65,9 @@ export class Model extends Record(defaultModelRecord) {
     const rootTopic = Topic.create({ key: createKey() });
     return model
       .update('topics', topics => topics.set(rootTopic.key, rootTopic))
-      .set('rootTopicKey', rootTopic.key);
+      .set('rootTopicKey', rootTopic.key)
+      .set('focusKey', rootTopic.key)
+      .set('focusMode', FocusMode.NORMAL);
   }
 
   static fromJSON(object) {

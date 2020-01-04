@@ -23,7 +23,7 @@ export class BaseDemo extends React.Component<Props, State> {
   };
 
   initModel() {
-    const model = generateSimpleModel();
+    let model = generateSimpleModel();
     log('initModel:', model);
     this.state = {
       model

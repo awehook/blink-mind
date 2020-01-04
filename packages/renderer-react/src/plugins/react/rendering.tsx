@@ -9,7 +9,6 @@ import { MindDragScrollWidget } from './components/mind-drag-scroll-widget';
 import { Modals } from './components/modals';
 import { RootSubLinks } from './components/root-sublinks';
 import { RootWidget } from './components/root-widget';
-import { StyleEditor } from './components/style-editor';
 import { TopicCollapseIcon } from './components/topic-collapse-icon';
 import { TopicContent } from './components/topic-content';
 import { TopicContentWidget } from './components/topic-content-widget';
@@ -72,7 +71,8 @@ export function RenderingPlugin() {
         topicKey: model.focusKey
       };
       const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', nProps);
-      const styleEditor = controller.run('renderStyleEditor', nProps);
+      // const styleEditor = controller.run('renderStyleEditor', nProps);
+      const rightTopPanel = controller.run('renderRightTopPanel', nProps);
       const modals = controller.run('renderModals', {
         ...nProps,
         zIndex: zIndex + 1
@@ -82,7 +82,7 @@ export function RenderingPlugin() {
         zIndex: zIndex + 1
       });
       const viewportViewer = controller.run('renderViewPortViewer', nProps);
-      return [breadcrumbs, styleEditor, modals, drawer, viewportViewer];
+      return [breadcrumbs, rightTopPanel, modals, drawer, viewportViewer];
     },
 
     renderEditorRootBreadcrumbs(props) {
@@ -200,10 +200,6 @@ export function RenderingPlugin() {
           {controller.run('renderDragAndDropEffect', props)}
         </>
       );
-    },
-
-    renderStyleEditor(props) {
-      return <StyleEditor key="style-editor" {...props} />;
     },
 
     renderViewPortViewer(props) {

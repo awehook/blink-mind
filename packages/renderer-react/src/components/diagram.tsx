@@ -40,6 +40,14 @@ export class Diagram extends React.Component<Props> implements IDiagram {
       topicKey: model.rootTopicKey
     });
     controller.change(newModel);
+    setTimeout(() => {
+      const props = this.getDiagramProps();
+      const { model } = props;
+      controller.run('moveTopicToCenter', {
+        ...props,
+        topicKey: model.focusKey
+      });
+    });
   }
 
   private diagramProps: IDiagramProps;

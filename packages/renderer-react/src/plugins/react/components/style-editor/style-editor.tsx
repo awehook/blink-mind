@@ -33,10 +33,11 @@ const StyleEditorRoot = styled(ZIndex)`
   right: 30px;
   top: 20px;
   border-radius: 2px;
+  user-select: none;
 `;
 
 const PopRoot = styled.div`
-  padding: 10px;
+  padding: 0 10px;
 `;
 
 export class StyleEditor extends BaseWidget {
@@ -66,7 +67,8 @@ export class StyleEditor extends BaseWidget {
   handleClearStyle = () => {
     if (this.topic.style) {
       this.operation(OpType.SET_STYLE, { ...this.props, style: null });
-      this.setState({});
+      // 为什么需要呢？
+      // this.setState({});
     }
   };
 
@@ -85,7 +87,7 @@ export class StyleEditor extends BaseWidget {
         ...this.props,
         style: JSON.stringify(this.copiedStyle)
       });
-      this.setState({});
+      // this.setState({});
     }
   };
 
@@ -97,61 +99,45 @@ export class StyleEditor extends BaseWidget {
       'getTopicContentStyle',
       props
     );
-    if (!this.state.showPanel) {
-      return (
-        <StyleEditorRoot zIndex={zIndex}>
-          <IconBg onClick={this.setShowPanel(true)}>
-            <ShowMenuIcon className={iconClassName(IconName.SHOW_MENU)} />
-          </IconBg>
-        </StyleEditorRoot>
-      );
-    }
+
     const setStyle = this.setTopicContentStyle;
     return (
-      <StyleEditorRoot zIndex={zIndex}>
-        <Title>
-          <CloseIcon
-            className={iconClassName(IconName.CLOSE)}
-            onClick={this.setShowPanel(false)}
-          />
-        </Title>
-        <PopRoot>
-          {BorderStyleEditor({ ...props, topicStyle, setStyle })}
-          {TextStyleEditor({ ...props, topicStyle, setStyle })}
-          <SettingGroup>
-            <SettingTitle>Background</SettingTitle>
-            <div>
-              <SettingItem>
-                <Popover>
-                  <WithBorder>
-                    <div className={iconClassName(IconName.COLOR_PICKER)} />
-                    <ColorBar color={topicStyle.background} />
-                  </WithBorder>
-                  <div>
-                    <SketchPicker
-                      color={topicStyle.background}
-                      onChangeComplete={this.handleBackgroundColorChange}
-                    />
-                  </div>
-                </Popover>
-              </SettingItem>
-            </div>
-          </SettingGroup>
-          {LinkStyleEditor(props)}
-          <SettingGroup>
+      <PopRoot>
+        {BorderStyleEditor({ ...props, topicStyle, setStyle })}
+        {TextStyleEditor({ ...props, topicStyle, setStyle })}
+        <SettingGroup>
+          <SettingTitle>Background</SettingTitle>
+          <div>
             <SettingItem>
-              <Button onClick={this.handleClearStyle}>Clear Topic Style</Button>
+              <Popover>
+                <WithBorder>
+                  <div className={iconClassName(IconName.COLOR_PICKER)} />
+                  <ColorBar color={topicStyle.background} />
+                </WithBorder>
+                <div>
+                  <SketchPicker
+                    color={topicStyle.background}
+                    onChangeComplete={this.handleBackgroundColorChange}
+                  />
+                </div>
+              </Popover>
             </SettingItem>
-            <SettingItem>
-              <Button onClick={this.handleCopyStyle}>Copy Style</Button>
-            </SettingItem>
-            <SettingItem>
-              <Button onClick={this.handlePasteStyle}>Paste Style</Button>
-            </SettingItem>
-          </SettingGroup>
-          {ClearAllCustomStyle(props)}
-        </PopRoot>
-      </StyleEditorRoot>
+          </div>
+        </SettingGroup>
+        {LinkStyleEditor(props)}
+        <SettingGroup>
+          <SettingItem>
+            <Button onClick={this.handleClearStyle}>Clear Topic Style</Button>
+          </SettingItem>
+          <SettingItem>
+            <Button onClick={this.handleCopyStyle}>Copy Style</Button>
+          </SettingItem>
+          <SettingItem>
+            <Button onClick={this.handlePasteStyle}>Paste Style</Button>
+          </SettingItem>
+        </SettingGroup>
+        {ClearAllCustomStyle(props)}
+      </PopRoot>
     );
   }
 }

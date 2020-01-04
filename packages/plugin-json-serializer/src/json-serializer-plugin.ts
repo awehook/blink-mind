@@ -1,4 +1,11 @@
-import { Block, Config, ExtData, Model, Topic } from '@blink-mind/core';
+import {
+  Block,
+  Config,
+  ExtData,
+  FocusMode,
+  Model,
+  Topic
+} from '@blink-mind/core';
 import { IControllerRunContext } from '@blink-mind/core/src/interfaces';
 import debug from 'debug';
 import { isImmutable, List, Map } from 'immutable';
@@ -59,6 +66,12 @@ export function JsonSerializerPlugin() {
         }),
         formatVersion: obj.formatVersion
       });
+      if (res.focusKey == null) {
+        res = res.set('focusKey', res.rootTopicKey);
+      }
+      if (res.focusMode == null) {
+        res = res.set('focusMode', FocusMode.NORMAL);
+      }
       log('deserializeModel', res);
       return res;
     },
