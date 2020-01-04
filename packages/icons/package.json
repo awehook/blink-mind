@@ -5,7 +5,7 @@
     "index.js"
   ],
   "main": "index.js",
-  "version": "0.0.20-beta.1",
+  "version": "0.0.20-beta.3",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
