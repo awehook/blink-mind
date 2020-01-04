@@ -20,9 +20,7 @@
     "lint:fix": "tslint --fix 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
     "build": "rollup --config rollup.config.js",
     "link-package": "cd support && sh yarn-link.sh link",
-    "unlink-package": "cd support && sh yarn-link.sh unlink",
-    "publish-beta": "lerna publish --dist-tag beta --force-publish=*",
-    "publish-r": "lerna publish --force-publish=*"
+    "unlink-package": "cd support && sh yarn-link.sh unlink"
   },
   "dependencies": {
     "@blueprintjs/core": "^3.19.1"
