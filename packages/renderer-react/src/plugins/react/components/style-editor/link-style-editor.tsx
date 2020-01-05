@@ -24,7 +24,6 @@ const renderLineTypeItem = (lineType, { handleClick, modifiers, query }) => {
 
 export function LinkStyleEditor(props) {
   const { controller } = props;
-  // const topicStyle: TopicStyle = controller.run('getTopicStyle', props);
   const linkStyle: LinkStyle = controller.run('getLinkStyle', props);
   const subLinkStyle: LinkStyle = controller.run('getSubLinkStyle', props);
 
@@ -78,12 +77,12 @@ export function LinkStyleEditor(props) {
         <SettingItem>
           <PxSelect
             items={borderWidthItems}
-            itemRenderer={renderItem('px')}
+            itemRenderer={renderItem('')}
             filterable={false}
             onItemSelect={handleLinkWidthChange}
           >
             <Button
-              text={`width: ${linkStyle ? linkStyle.lineWidth + 'px' : '0px'}`}
+              text={`width: ${linkStyle ? linkStyle.lineWidth : '0px'}`}
             />
           </PxSelect>
         </SettingItem>
@@ -117,14 +116,12 @@ export function LinkStyleEditor(props) {
         <SettingItem>
           <PxSelect
             items={borderWidthItems}
-            itemRenderer={renderItem('px')}
+            itemRenderer={renderItem('')}
             filterable={false}
             onItemSelect={handleSubLinkWidthChange}
           >
             <Button
-              text={`width: ${
-                subLinkStyle ? subLinkStyle.lineWidth + 'px' : '0px'
-              }`}
+              text={`width: ${subLinkStyle ? subLinkStyle.lineWidth : '0px'}`}
             />
           </PxSelect>
         </SettingItem>

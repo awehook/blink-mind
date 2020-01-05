@@ -1,4 +1,10 @@
-import { OpType, TopicStyle, TopicVisualLevel } from '@blink-mind/core';
+import {
+  OpType,
+  ThemeType,
+  TopicStyle,
+  LinkStyle,
+  TopicVisualLevel
+} from '@blink-mind/core';
 import debug from 'debug';
 import { isEqual } from 'lodash';
 
@@ -58,8 +64,8 @@ export function StylePlugin() {
       const { topicKey, model, controller } = props;
       log('getLinkStyle', topicKey);
       const visualLevel = model.getTopicVisualLevel(topicKey);
-      const theme = model.config.theme;
-      let linkStyle = theme.linkStyle;
+      const theme: ThemeType = model.config.theme;
+      let linkStyle: LinkStyle = theme.linkStyle;
       let presetStyle;
       if (visualLevel === TopicVisualLevel.ROOT)
         presetStyle = theme.rootTopic.linkStyle;
@@ -70,21 +76,6 @@ export function StylePlugin() {
       linkStyle = { ...linkStyle, ...presetStyle };
 
       const topic = model.getTopic(topicKey);
-      // 获取父节点的color
-      // if (theme.randomColor) {
-      //   const randomColor = controller.run('getRandomColor', {
-      //     ...props,
-      //     topicKey:
-      //       topic.parentKey !== model.editorRootTopicKey
-      //         ? topic.parentKey
-      //         : topicKey
-      //   });
-      //   log(randomColor);
-      //   linkStyle = {
-      //     ...linkStyle,
-      //     lineColor: randomColor
-      //   };
-      // }
 
       if (topic.parentKey != null) {
         const parentSubLinkStyle = controller.run('getSubLinkStyle', {
