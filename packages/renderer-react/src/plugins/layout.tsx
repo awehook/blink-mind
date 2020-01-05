@@ -98,9 +98,10 @@ export function LayoutPlugin() {
           ) as TopicWidget;
           topicWidget && topicWidget.layoutLinks();
         }
-
-        for (const subKey of topic.subKeys) {
-          layoutTopic(model.getTopic(subKey));
+        if (!topic.collapse) {
+          for (const subKey of topic.subKeys) {
+            layoutTopic(model.getTopic(subKey));
+          }
         }
       }
     },

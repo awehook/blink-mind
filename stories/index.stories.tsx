@@ -7,7 +7,8 @@ const debugNameSpaces = [
   // 'node:save-ref',
   // 'node:root-sub-links',
   // 'node:topic-content-editor',
-  // 'node:topic-sub-links',
+  'node:topic-sub-links',
+  'node:topic-widget',
   // 'node:drag-scroll-widget',
   // 'node:topic-content-widget',
   // 'node:topic-desc-editor',
@@ -20,7 +21,6 @@ const debugNameSpaces = [
   'plugin:operation',
   // 'story:*',
   'modifier'
-
 ];
 
 localStorage.debug = debugNameSpaces.join(',');

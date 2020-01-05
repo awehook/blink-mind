@@ -76,16 +76,18 @@ export class TopicWidget extends React.Component<Props> {
   // }
 
   layoutLinks() {
-    log('layoutLinks');
-    const { getRef, topicKey } = this.props;
+    const { getRef, topicKey, model } = this.props;
+    const topic = model.getTopic(topicKey);
+    if (topic.subKeys.size === 0 || topic.collapse) return;
+    log('layoutLinks', topicKey);
     const links: TopicSubLinks = getRef(linksRefKey(topicKey));
     links && links.layout();
   }
 
   render() {
-    log('render');
     const props = this.props;
     const { controller, topicKey, dir, saveRef } = props;
+    log('render', topicKey);
     const topicStyle = controller.run('getTopicContentStyle', props);
     const propsMore = {
       ...props,
