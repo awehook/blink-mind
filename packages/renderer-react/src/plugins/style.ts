@@ -1,8 +1,8 @@
 import {
+  LinkStyle,
   OpType,
   ThemeType,
   TopicStyle,
-  LinkStyle,
   TopicVisualLevel
 } from '@blink-mind/core';
 import debug from 'debug';

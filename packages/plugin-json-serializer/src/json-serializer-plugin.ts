@@ -20,6 +20,8 @@ export function JsonSerializerPlugin() {
       const { model, controller } = props;
       const obj = {
         rootTopicKey: model.rootTopicKey,
+        editorRootTopicKey: model.editorRootTopicKey,
+        focusKey: model.focusKey,
         extData: controller.run('serializeExtData', {
           ...props,
           extData: model.extData
@@ -44,11 +46,21 @@ export function JsonSerializerPlugin() {
       if (obj.formatVersion == null) {
         obj.formatVersion = '0.0';
       }
-      const { rootTopicKey, topics, config, extData, formatVersion } = obj;
+      const {
+        rootTopicKey,
+        editorRootTopicKey,
+        focusKey,
+        topics,
+        config,
+        extData,
+        formatVersion
+      } = obj;
       let res = new Model();
       res = res.merge({
         rootTopicKey,
-        editorRootTopicKey: rootTopicKey,
+        editorRootTopicKey:
+          editorRootTopicKey == null ? rootTopicKey : editorRootTopicKey,
+        focusKey,
         extData: controller.run('deserializeExtData', {
           ...props,
           extData,
