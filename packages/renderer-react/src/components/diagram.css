@@ -7,6 +7,10 @@ html {
   vertical-align: middle;
 }
 
+div :focus {
+  outline: none;
+}
+
 .fXedfB {
   background: transparent !important;
 }

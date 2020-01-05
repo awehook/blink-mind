@@ -1,6 +1,6 @@
 export type LinkStyle = {
   lineType?: string;
-  lineWidth?: number;
+  lineWidth?: string;
   lineColor?: string;
   lineRadius?: number;
 };
@@ -38,6 +38,12 @@ export type ThemeType = {
   primaryTopic?: TopicStyle;
   normalTopic?: TopicStyle;
 };
+
+export function isThemeType(obj: any): boolean {
+  return (
+    obj.name != null && obj.background != null && obj.highlightColor != null
+  );
+}
 
 interface Themes {
   [fieldName: string]: ThemeType;

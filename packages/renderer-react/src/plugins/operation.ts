@@ -126,6 +126,7 @@ export function OperationPlugin() {
     [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
     [OpType.SET_FOCUS_MODE, ModelModifier.setFocusMode],
     [OpType.SET_STYLE, ModelModifier.setStyle],
+    [OpType.SET_THEME, ModelModifier.setTheme],
     [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
     [OpType.DELETE_TOPIC_BLOCK, ModelModifier.deleteBlock],
     [OpType.START_EDITING_CONTENT, startEditingContent],

@@ -16,7 +16,7 @@ export const themeRandomColorSquare: ThemeType = {
   linkStyle: {
     lineRadius: 5,
     lineType: 'curve',
-    lineWidth: 3
+    lineWidth: '3px'
   },
 
   rootTopic: {
@@ -25,7 +25,7 @@ export const themeRandomColorSquare: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 3
+      lineWidth: '3px'
     }
   },
   primaryTopic: {
@@ -34,14 +34,14 @@ export const themeRandomColorSquare: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 3
+      lineWidth: '3px'
     }
   },
 
   normalTopic: {
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 3
+      lineWidth: '3px'
     }
   }
 };

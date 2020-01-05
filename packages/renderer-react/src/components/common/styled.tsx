@@ -1,3 +1,4 @@
+import { Checkbox } from '@blueprintjs/core';
 import styled from 'styled-components';
 
 export const Flex = styled.div`
@@ -24,15 +25,17 @@ export const Btn = styled.div`
   &:hover {
     color: #1ea7fd;
   }
-  &:focus {
-    outline: none;
-  }
+`;
+
+export const StyledCheckbox = styled(Checkbox)`
+  margin-bottom: 0px !important;
 `;
 
 export const CloseIcon = styled(Btn)`
   position: absolute;
   right: 5px;
   top: 5px;
+  //padding: 5px;
 `;
 
 export const Title = styled.div`
@@ -44,11 +47,14 @@ export const TopicBlockIcon = styled.span`
   &:hover {
     color: palevioletred;
   }
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const ZIndex = styled.div`
   z-index: ${props => props.zIndex};
+`;
+
+export const PanelTabRoot = styled.div`
+  min-width: 360px;
+  max-height: 470px;
+  overflow: auto;
 `;

@@ -25,7 +25,7 @@ export const theme1: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 2,
+      lineWidth: '2px',
       lineColor: 'rgb(221, 170, 68)'
     }
   },
@@ -41,7 +41,7 @@ export const theme1: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 2,
+      lineWidth: '2px',
       lineColor: 'rgb(221, 170, 68)'
     }
   },
@@ -58,7 +58,7 @@ export const theme1: ThemeType = {
     subLinkStyle: {
       lineType: 'round',
       lineRadius: 5,
-      lineWidth: 1,
+      lineWidth: '1px',
       lineColor: 'rgb(187, 136, 34)'
     }
   }

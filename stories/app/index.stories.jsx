@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BaseDemo, ToolBar, ToolBarItem, Icon } from '../common';
-import { Diagram, iconClassName } from '@blink-mind/renderer-react';
+import {
+  Diagram,
+  iconClassName,
+  browserDownloadFile,
+  browserOpenFile
+} from '@blink-mind/renderer-react';
 import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
@@ -9,7 +14,6 @@ import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import { TopicReferencePlugin, SearchPlugin } from '@blink-mind/plugins';
 import styled from 'styled-components';
 import { Dialog, MenuItem, Menu, MenuDivider } from '@blueprintjs/core';
-import { downloadFile } from '../utils';
 import debug from 'debug';
 import { FOCUS_MODE_SEARCH } from '@blink-mind/plugins';
 import { OpType } from '@blink-mind/core';
@@ -81,28 +85,14 @@ class AppDemo extends BaseDemo {
     });
   };
 
-  onClickOpenFile = e => {
-    const input = document.createElement('input');
+  onClickOpenFile = () => {
     const props = this.diagram.getDiagramProps();
     const { controller } = props;
-    input.type = 'file';
-    input.accept = '.json,.blinkmind,.bm';
-    log('add onchange');
-    input.addEventListener('change', evt => {
-      const file = evt.target.files[0];
-      const fr = new FileReader();
-      log('add fr onload');
-      fr.onload = evt => {
-        const txt = evt.target.result;
-        let obj = JSON.parse(txt);
-        log('OpenFile:', obj);
-        let model = controller.run('deserializeModel', { controller, obj });
-        log('OpenFile:', model);
-        this.diagram.openNewModel(model);
-      };
-      fr.readAsText(file);
+    browserOpenFile('.json,.blinkmind,.bm').then(txt => {
+      let obj = JSON.parse(txt);
+      let model = controller.run('deserializeModel', { controller, obj });
+      this.diagram.openNewModel(model);
     });
-    input.click();
   };
 
   onClickExport = e => {
@@ -142,7 +132,7 @@ class AppDemo extends BaseDemo {
     const json = controller.run('serializeModel', props);
     const jsonStr = JSON.stringify(json);
     const url = `data:text/plain,${encodeURIComponent(jsonStr)}`;
-    downloadFile(url, 'example.json');
+    browserDownloadFile(url, 'example.json');
     this.setState({ showDialog: false });
   };
 

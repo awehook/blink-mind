@@ -1,48 +1,32 @@
-import { OpType, TopicContentStyle } from '@blink-mind/core';
-import { Button, Popover } from '@blueprintjs/core';
+import { LinkStyle, OpType, TopicContentStyle } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
-import { SketchPicker } from 'react-color';
-import styled from 'styled-components';
+import { BaseProps, PanelTabRoot } from '../../../../components/common';
 import {
-  BaseProps,
-  BaseWidget,
-  CloseIcon,
-  IconBg,
-  ShowMenuIcon,
-  Title,
-  ZIndex
-} from '../../../../components/common';
-import { iconClassName, IconName } from '../../../../utils';
+  SettingGroup,
+  SettingItemButton,
+  SettingItemColorPicker,
+  SettingTitle
+} from '../right-top-panel/';
 import { BorderStyleEditor } from './border-style-editor';
 import { ClearAllCustomStyle } from './clear-all-custom-style';
-import {
-  ColorBar,
-  SettingGroup,
-  SettingItem,
-  SettingTitle,
-  WithBorder
-} from './components';
-import { LinkStyleEditor } from './link-style-editor';
+import { LinkStyleEditor, LinkStyleEditorProps } from './link-style-editor';
 import { TextStyleEditor } from './text-style-editor';
+import { ContentStyleEditorProps } from './types';
 
 const log = debug('node:style-editor');
-
-const PopRoot = styled.div`
-  padding: 0 10px;
-`;
 
 let copiedStyle;
 
 export function StyleEditor(props: BaseProps) {
   const { controller, model, topicKey } = props;
   const topic = model.getTopic(topicKey);
-  const setTopicContentStyle = style => {
+  const setContentStyle = style => {
     controller.run('setTopicContentStyle', { ...props, style });
   };
 
   const handleBackgroundColorChange = color => {
-    setTopicContentStyle({ background: color.hex });
+    setContentStyle({ background: color });
   };
 
   const handleClearStyle = () => {
@@ -71,48 +55,60 @@ export function StyleEditor(props: BaseProps) {
   };
 
   if (!model.focusKey) return null;
-  const topicStyle: TopicContentStyle = controller.run(
+  const contentStyle: TopicContentStyle = controller.run(
     'getTopicContentStyle',
     props
   );
 
-  const setStyle = setTopicContentStyle;
+  const linkStyle: LinkStyle = controller.run('getLinkStyle', props);
+  const subLinkStyle: LinkStyle = controller.run('getSubLinkStyle', props);
+  const setLinkStyle = linkStyle => {
+    controller.run('setLinkStyle', {
+      ...props,
+      linkStyle
+    });
+  };
+
+  const setSubLinkStyle = subLinkStyle => {
+    controller.run('setSubLinkStyle', {
+      ...props,
+      subLinkStyle
+    });
+  };
+
+  const linkStyleEditorProps: LinkStyleEditorProps = {
+    linkStyle,
+    subLinkStyle,
+    setLinkStyle,
+    setSubLinkStyle
+  };
+
+  const contentStyleEditorPros: ContentStyleEditorProps = {
+    contentStyle,
+    setContentStyle
+  };
+
   return (
-    <PopRoot>
-      {BorderStyleEditor({ ...props, topicStyle, setStyle })}
-      {TextStyleEditor({ ...props, topicStyle, setStyle })}
+    <PanelTabRoot>
+      <BorderStyleEditor {...contentStyleEditorPros} />
+      <TextStyleEditor {...contentStyleEditorPros} />
       <SettingGroup>
         <SettingTitle>Background</SettingTitle>
-        <div>
-          <SettingItem>
-            <Popover>
-              <WithBorder>
-                <div className={iconClassName(IconName.COLOR_PICKER)} />
-                <ColorBar color={topicStyle.background} />
-              </WithBorder>
-              <div>
-                <SketchPicker
-                  color={topicStyle.background}
-                  onChangeComplete={handleBackgroundColorChange}
-                />
-              </div>
-            </Popover>
-          </SettingItem>
-        </div>
+        <SettingItemColorPicker
+          color={contentStyle.background}
+          handleColorChange={handleBackgroundColorChange}
+        />
       </SettingGroup>
-      {LinkStyleEditor(props)}
+      <LinkStyleEditor {...linkStyleEditorProps} />
       <SettingGroup>
-        <SettingItem>
-          <Button onClick={handleClearStyle}>Clear Topic Style</Button>
-        </SettingItem>
-        <SettingItem>
-          <Button onClick={handleCopyStyle}>Copy Style</Button>
-        </SettingItem>
-        <SettingItem>
-          <Button onClick={handlePasteStyle}>Paste Style</Button>
-        </SettingItem>
+        <SettingItemButton
+          title="Clear Topic Style"
+          handleClick={handleClearStyle}
+        />
+        <SettingItemButton title="Copy Style" handleClick={handleCopyStyle} />
+        <SettingItemButton title="Paste Style" handleClick={handlePasteStyle} />
       </SettingGroup>
       {ClearAllCustomStyle(props)}
-    </PopRoot>
+    </PanelTabRoot>
   );
 }

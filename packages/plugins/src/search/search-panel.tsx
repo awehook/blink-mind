@@ -34,9 +34,15 @@ const StyledPopover = styled(Popover)`
 `;
 
 const Tip = styled.div`
-  white-space: pre-wrap;
   padding: 10px;
   font-size: 16px;
+  //max-width: 800px;
+  //max-height: 600px;
+  overflow: auto;
+`;
+
+const TipContent = styled.div`
+  white-space: break-spaces;
 `;
 
 export interface INavigationSection {
@@ -98,7 +104,11 @@ export function SearchPanel(props: SearchPanelProps) {
       onClick: navigateToTopic(key)
     };
     const titleEl = <TopicTitle {...titleProps}>{title}</TopicTitle>;
-    const tip = <Tip>{sectionTitle}</Tip>;
+    const tip = (
+      <Tip>
+        <TipContent>{sectionTitle}</TipContent>
+      </Tip>
+    );
     const popoverProps = {
       key,
       target: titleEl,

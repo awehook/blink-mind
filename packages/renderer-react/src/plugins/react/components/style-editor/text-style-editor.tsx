@@ -1,36 +1,34 @@
-import { InputGroup, NumericInput, Popover } from '@blueprintjs/core';
+import { InputGroup, NumericInput } from '@blueprintjs/core';
 import * as React from 'react';
-import { SketchPicker } from 'react-color';
 import { Flex, Margin } from '../../../../components/common';
-import { iconClassName, IconName } from '../../../../utils';
 import {
-  ColorBar,
   SettingGroup,
   SettingItem,
-  SettingTitle,
-  WithBorder
-} from './components';
+  SettingItemColorPicker,
+  SettingTitle
+} from '../right-top-panel';
+import { ContentStyleEditorProps } from './types';
 
-export function TextStyleEditor(props) {
-  const { topicStyle, setStyle } = props;
+export function TextStyleEditor(props: ContentStyleEditorProps) {
+  const { contentStyle, setContentStyle } = props;
   const handleFontSizeChange = value => {
     // log('handleFontSizeChange:', value);
-    setStyle({ fontSize: value });
+    setContentStyle({ fontSize: value });
   };
 
   const handleLineHeightChange = e => {
     // log('handleLineHeightChange:', e.target.value);
-    setStyle({ lineHeight: e.target.value });
+    setContentStyle({ lineHeight: e.target.value });
   };
 
   const handleColorChange = color => {
-    setStyle({ color: color.hex });
+    setContentStyle({ color });
   };
 
   const fontSizeNumInputProps = {
     min: 12,
     max: 100,
-    value: parseInt(topicStyle.fontSize),
+    value: parseInt(contentStyle.fontSize),
     style: {
       width: 50
     },
@@ -40,7 +38,7 @@ export function TextStyleEditor(props) {
     style: {
       width: 50
     },
-    value: topicStyle.lineHeight || '',
+    value: contentStyle.lineHeight || '',
     onChange: handleLineHeightChange
   };
   return (
@@ -59,20 +57,10 @@ export function TextStyleEditor(props) {
             <InputGroup {...lineHeightInputProps} />
           </Flex>
         </SettingItem>
-        <SettingItem>
-          <Popover>
-            <WithBorder>
-              <div className={iconClassName(IconName.COLOR_PICKER)} />
-              <ColorBar color={topicStyle.color} />
-            </WithBorder>
-            <div>
-              <SketchPicker
-                color={topicStyle.color}
-                onChangeComplete={handleColorChange}
-              />
-            </div>
-          </Popover>
-        </SettingItem>
+        <SettingItemColorPicker
+          color={contentStyle.color}
+          handleColorChange={handleColorChange}
+        />
       </Flex>
     </SettingGroup>
   );

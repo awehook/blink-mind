@@ -3,8 +3,9 @@ import * as React from 'react';
 import {
   RightTopPanel,
   RightTopPanelProps
-} from './components/right-top-panel';
+} from './components/right-top-panel/right-top-panel';
 import { StyleEditor } from './components/style-editor';
+import { ThemeEditor } from './components/theme-editor/theme-editor';
 
 export function RightTopPanelPlugin() {
   let selectedTabId = 'topic-style';
@@ -24,20 +25,30 @@ export function RightTopPanelPlugin() {
 
     renderRightTopPanelTabs(props) {
       const { controller } = props;
-      const styleEditorTab = controller.run('renderStyleEditor', props);
+      const styleEditorTab = controller.run('renderTopicStyleEditor', props);
+      const themeEditorTab = controller.run('renderThemeEditor', props);
 
-      return [styleEditorTab];
+      return [styleEditorTab, themeEditorTab];
     },
 
-    renderStyleEditor(props) {
-      return (
-        <Tab
-          id="topic-style"
-          key="topic-style"
-          title="TopicStyle"
-          panel={<StyleEditor {...props} />}
-        ></Tab>
-      );
+    renderTopicStyleEditor(props) {
+      const tProps = {
+        id: 'topic-style',
+        key: 'topic-style',
+        title: 'TopicStyle',
+        panel: <StyleEditor {...props} />
+      };
+      return <Tab {...tProps} />;
+    },
+
+    renderThemeEditor(props) {
+      const tProps = {
+        id: 'theme-editor',
+        key: 'theme-editor',
+        title: 'Theme',
+        panel: <ThemeEditor {...props} />
+      };
+      return <Tab {...tProps} />;
     }
   };
 }

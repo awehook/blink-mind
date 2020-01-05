@@ -9,8 +9,8 @@ import {
   ShowMenuIcon,
   Title,
   ZIndex
-} from '../../../components/common';
-import { iconClassName, IconName } from '../../../utils';
+} from '../../../../components/common';
+import { iconClassName, IconName } from '../../../../utils';
 
 const PanelRoot = styled(ZIndex)`
   position: absolute;
@@ -21,6 +21,10 @@ const PanelRoot = styled(ZIndex)`
   user-select: none;
 `;
 
+const StyledTabs = styled(Tabs)`
+  padding: 0px 10px;
+`;
+
 export type RightTopPanelProps = BaseProps & {
   selectedTabId: TabId;
   handleTabIdChange: (tabId: TabId) => void;
@@ -28,7 +32,7 @@ export type RightTopPanelProps = BaseProps & {
 };
 
 export function RightTopPanel(props: RightTopPanelProps) {
-  const { controller, model, zIndex, selectedTabId, handleTabIdChange } = props;
+  const { controller, zIndex, selectedTabId, handleTabIdChange } = props;
   const [expand, setExpand] = useState(false);
 
   if (!expand) {
@@ -42,16 +46,16 @@ export function RightTopPanel(props: RightTopPanelProps) {
   }
 
   return (
-    <PanelRoot>
+    <PanelRoot zIndex={zIndex}>
       <Title>
         <CloseIcon
           className={iconClassName(IconName.CLOSE)}
           onClick={() => setExpand(false)}
         />
       </Title>
-      <Tabs id={selectedTabId} onChange={handleTabIdChange}>
+      <StyledTabs id={selectedTabId} onChange={handleTabIdChange}>
         {controller.run('renderRightTopPanelTabs', props)}
-      </Tabs>
+      </StyledTabs>
     </PanelRoot>
   );
 }

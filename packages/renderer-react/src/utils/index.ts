@@ -63,3 +63,4 @@ export function getRelativeVector(el: HTMLElement, rel: HTMLElement) {
 export * from './icon';
 export * from './keys';
 export * from './events';
+export * from './file';

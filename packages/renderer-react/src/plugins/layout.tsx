@@ -125,8 +125,7 @@ export function LayoutPlugin() {
       return getRelativeRect(element, viewBox, zoomFactor);
     },
     getRelativeVectorFromViewPort(props) {
-      const { element, controller, getRef } = props;
-      const zoomFactor = controller.run('getZoomFactor', props);
+      const { element, getRef } = props;
       const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).viewBox;
       return getRelativeVector(element, viewBox);
     },

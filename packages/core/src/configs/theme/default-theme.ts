@@ -15,7 +15,7 @@ export const defaultTheme: ThemeType = {
   linkStyle: {
     lineRadius: 5,
     lineType: 'curve',
-    lineWidth: 3
+    lineWidth: '3px'
   },
 
   rootTopic: {
@@ -26,7 +26,7 @@ export const defaultTheme: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 3,
+      lineWidth: '3px',
       lineColor: 'rgb(113, 203, 45)'
     }
   },
@@ -41,7 +41,7 @@ export const defaultTheme: ThemeType = {
 
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 3,
+      lineWidth: '3px',
       lineColor: 'rgb(113, 203, 45)'
     }
   },
@@ -56,7 +56,7 @@ export const defaultTheme: ThemeType = {
 
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: 3,
+      lineWidth: '3px',
       lineColor: 'white'
     }
   }
