@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { Model } from '@blink-mind/core';
+import debug from 'debug';
+import * as React from 'react';
 import { generateSimpleModel } from '../utils';
 import './base-demo.css';
-import debug from 'debug';
 const log = debug('story:base-demo');
 
 interface Props {}
@@ -23,7 +23,7 @@ export class BaseDemo extends React.Component<Props, State> {
   };
 
   initModel() {
-    let model = generateSimpleModel();
+    const model = generateSimpleModel();
     log('initModel:', model);
     this.state = {
       model

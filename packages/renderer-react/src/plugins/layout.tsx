@@ -9,7 +9,6 @@ import {
   Topic,
   TopicRelationship
 } from '@blink-mind/core';
-import * as React from 'react';
 import {
   getRelativeRect,
   getRelativeVector,

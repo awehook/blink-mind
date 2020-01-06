@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { storiesOf } from '@storybook/react';
-import { BaseDemo } from '../common/base-demo';
-import { Diagram } from '@blink-mind/renderer-react';
 import richTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
+import { Diagram } from '@blink-mind/renderer-react';
+import { storiesOf } from '@storybook/react';
+import * as React from 'react';
+import { BaseDemo } from '../common/base-demo';
 
 // @ts-ignore
-import simpleTextEditorMdZh from './simple-text-editor-zh.md';
 // @ts-ignore
-import simpleTextEditorMdEn from './simple-text-editor-en.md';
+import richTextEditorMdEn from './plugin-rich-text-editor-en.md';
 // @ts-ignore
 import richTextEditorMdZh from './plugin-rich-text-editor-zh.md';
 // @ts-ignore
-import richTextEditorMdEn from './plugin-rich-text-editor-en.md';
+import simpleTextEditorMdEn from './simple-text-editor-en.md';
+import simpleTextEditorMdZh from './simple-text-editor-zh.md';
 
 export class SimpleTopicContentEditorDemo extends BaseDemo {
   renderDiagram() {

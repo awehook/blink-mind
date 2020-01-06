@@ -1,5 +1,4 @@
 import { iconClassName, TopicBlockIcon } from '@blink-mind/renderer-react';
-import debug from 'debug';
 import * as React from 'react';
 
 import {

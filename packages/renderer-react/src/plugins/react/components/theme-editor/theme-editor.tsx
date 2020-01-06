@@ -1,19 +1,14 @@
 import { isThemeType, OpType, ThemeType, TopicStyle } from '@blink-mind/core';
-import { BLOCK_TYPE_TOPOLOGY } from '@blink-mind/plugin-topology-diagram/src/utils';
-import {
-  browserDownloadFile,
-  browserDownloadText,
-  browserOpenFile
-} from '@blink-mind/renderer-react';
 import { Alert, Tab, Tabs } from '@blueprintjs/core';
-import { merge } from 'lodash';
+import { clone, merge } from 'lodash';
 import * as React from 'react';
 import { useState } from 'react';
 import {
   BaseProps,
   PanelTabRoot,
   StyledCheckbox
-} from '../../../../components';
+} from '../../../../components/common';
+import { browserDownloadText, browserOpenFile } from '../../../../utils';
 import { handleBooleanChange } from '../../../../utils/blueprint';
 import {
   SettingBoxContainer,
@@ -45,7 +40,7 @@ export function ThemeEditor(props: BaseProps) {
   };
 
   const handleBackgroundColorChange = background => {
-    setTheme(merge(theme, { background }));
+    setTheme(merge(clone(theme), { background }));
   };
 
   const handleHighlightColorChange = highlightColor => {

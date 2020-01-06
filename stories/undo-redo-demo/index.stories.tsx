@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { storiesOf } from '@storybook/react';
-import { BaseDemo } from '../common/base-demo';
 import { Diagram, iconClassName } from '@blink-mind/renderer-react';
+import { storiesOf } from '@storybook/react';
+import * as React from 'react';
 import styled from 'styled-components';
+import { BaseDemo } from '../common/base-demo';
 
 const ToolBar = styled.div`
   width: calc(100% - 18px);

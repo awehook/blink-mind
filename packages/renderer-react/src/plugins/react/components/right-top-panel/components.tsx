@@ -1,9 +1,16 @@
-import { iconClassName, IconName } from '@blink-mind/renderer-react';
-import { Button, Divider, MenuItem, Popover } from '@blueprintjs/core';
+import {
+  Button,
+  Divider,
+  MenuItem,
+  NumericInput,
+  Popover
+} from '@blueprintjs/core';
 import { Select } from '@blueprintjs/select';
 import { ItemRenderer } from '@blueprintjs/select/src/common/itemRenderer';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
+import { Flex, Margin } from '../../../../components/common';
+import { iconClassName, IconName } from '../../../../utils';
 import { ColorBar, SettingItem, WithBorder } from './styled';
 export function SettingGroup(props) {
   return (
@@ -45,6 +52,31 @@ export function SettingItemButton(props: {
   return (
     <SettingItem>
       <Button onClick={handleClick}>{title}</Button>
+    </SettingItem>
+  );
+}
+
+export interface SettingItemNumericInputProps {
+  layout?: string;
+  title: string;
+  value: number;
+  min: number;
+  max: number;
+  onValueChange: (valueAsNumber: number, valueAsString: string) => void;
+}
+
+export function SettingItemNumericInput(props: SettingItemNumericInputProps) {
+  const { layout = 'h', title, ...restProps } = props;
+  const flexProps = {
+    flexDirection: layout === 'h' ? 'row' : 'column',
+    alignItems: 'center'
+  };
+  return (
+    <SettingItem>
+      <Flex {...flexProps}>
+        <Margin margin="0 5px 0 0">{title}</Margin>
+        <NumericInput {...restProps} />
+      </Flex>
     </SettingItem>
   );
 }

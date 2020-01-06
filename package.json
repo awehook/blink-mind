@@ -16,6 +16,7 @@
     "pre-commit": "yarn lint:fix && yarn prettier && yarn lint:ts",
     "test": "lerna run test",
     "lint": "tslint --project .",
+    "lint:fixall": "tslint --fix --project .",
     "lint:ts": "tslint 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
     "lint:fix": "tslint --fix 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
     "build": "rollup --config rollup.config.js",

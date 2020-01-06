@@ -1,5 +1,4 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
-import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
 
 import { contentEditorRefKey } from '@blink-mind/renderer-react';

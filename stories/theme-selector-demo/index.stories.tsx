@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { storiesOf } from '@storybook/react';
-import { BaseDemo } from '../common/base-demo';
-import { Diagram, iconClassName, Icon } from '@blink-mind/renderer-react';
-import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
-import { Popover, Menu, MenuItem } from '@blueprintjs/core';
-import styled from 'styled-components';
 import { DiagramLayoutType } from '@blink-mind/core';
+import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
+import { Diagram, Icon, iconClassName } from '@blink-mind/renderer-react';
+import { Menu, MenuItem, Popover } from '@blueprintjs/core';
+import { storiesOf } from '@storybook/react';
+import * as React from 'react';
+import styled from 'styled-components';
+import { BaseDemo } from '../common/base-demo';
 
 const ToolBar = styled.div`
   width: calc(100% - 18px);

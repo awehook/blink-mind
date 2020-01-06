@@ -6,11 +6,8 @@ import styled from 'styled-components';
 import { BaseWidget, Btn, ZIndex } from '../../../../components/common';
 import {
   EventKey,
-  getRelativeVector,
   Icon,
-  IconName,
-  RefKey,
-  topicRefKey
+  IconName
 } from '../../../../utils';
 
 const log = debug('node:view-port-viewer');

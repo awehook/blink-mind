@@ -1,17 +1,16 @@
-import * as React from 'react';
 import { Diagram, HotKeysConfig } from '@blink-mind/renderer-react';
-import { BaseDemo } from '../common/base-demo';
-import { MenuItem, MenuDivider } from '@blueprintjs/core';
+import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';
-import * as marked from 'marked';
+import * as React from 'react';
+import { BaseDemo } from '../common/base-demo';
 //@ts-ignore
 import addTopicContextMenuMdEn from './add-topic-context-menu-en.md';
 //@ts-ignore
 import addTopicContextMenuMdZh from './add-topic-context-menu-zh.md';
 //@ts-ignore
-import changeDefaultTopicContextMenuMdZh from './change-default-topic-context-menu-zh.md';
-//@ts-ignore
 import changeDefaultTopicContextMenuMdEn from './change-default-topic-context-menu-en.md';
+//@ts-ignore
+import changeDefaultTopicContextMenuMdZh from './change-default-topic-context-menu-zh.md';
 
 function onClickMyMenu(props) {
   return function() {
@@ -72,7 +71,7 @@ export class AddTopicContextMenuDemo extends BaseDemo {
 function ChangeDefaultTopicContextMenuPlugin() {
   return {
     customizeTopicContextMenu(props, next) {
-      let defaultMenus = next();
+      const defaultMenus = next();
       defaultMenus.splice(0, 1);
       defaultMenus.splice(
         1,

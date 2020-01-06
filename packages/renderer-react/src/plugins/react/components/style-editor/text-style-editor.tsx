@@ -1,10 +1,11 @@
-import { InputGroup, NumericInput } from '@blueprintjs/core';
+import { InputGroup } from '@blueprintjs/core';
 import * as React from 'react';
 import { Flex, Margin } from '../../../../components/common';
 import {
   SettingGroup,
   SettingItem,
   SettingItemColorPicker,
+  SettingItemNumericInput,
   SettingTitle
 } from '../right-top-panel';
 import { ContentStyleEditorProps } from './types';
@@ -26,6 +27,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
   };
 
   const fontSizeNumInputProps = {
+    title: 'FontSize:',
     min: 12,
     max: 100,
     value: parseInt(contentStyle.fontSize),
@@ -45,12 +47,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
     <SettingGroup>
       <SettingTitle>Text Editor</SettingTitle>
       <Flex>
-        <SettingItem>
-          <Flex alignItems="center">
-            <Margin margin="0 5px 0 0">FontSize: </Margin>
-            <NumericInput {...fontSizeNumInputProps} />
-          </Flex>
-        </SettingItem>
+        <SettingItemNumericInput {...fontSizeNumInputProps} />
         <SettingItem>
           <Flex alignItems="center">
             <Margin margin="0 5px 0 0">LineHeight: </Margin>

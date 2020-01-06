@@ -1,4 +1,4 @@
-import { BlockType, FocusMode, OpType } from '@blink-mind/core';
+import { BlockType, OpType } from '@blink-mind/core';
 import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { TopicBlockIcon } from '../../../components/common/styled';
 import {
   cancelEvent,
-  Icon,
   iconClassName,
   IconName,
   RefKey

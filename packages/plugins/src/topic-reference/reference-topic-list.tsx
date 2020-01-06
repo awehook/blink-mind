@@ -1,4 +1,4 @@
-import { FocusMode, OpType } from '@blink-mind/core';
+import { FocusMode } from '@blink-mind/core';
 import { BaseProps, cancelEvent } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 export const Flex = styled.div`
   display: flex;
+  flex-direction: ${props =>
+    props.flexDirection ? props.flexDirection : 'row'};
   align-items: ${props => props.alignItems};
   justify-content: ${props => props.justifyContent};
 `;

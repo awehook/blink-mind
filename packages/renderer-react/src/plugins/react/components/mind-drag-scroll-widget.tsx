@@ -1,4 +1,4 @@
-import { Controller, Model, Topic } from '@blink-mind/core';
+import { Controller, Model } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
 import { DragScrollWidget } from '../../../components/common';

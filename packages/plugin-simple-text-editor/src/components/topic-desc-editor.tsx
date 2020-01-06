@@ -1,5 +1,4 @@
 import { BlockType } from '@blink-mind/core';
-import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 
 import debug from 'debug';

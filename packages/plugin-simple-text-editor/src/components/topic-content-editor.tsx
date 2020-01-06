@@ -1,6 +1,5 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import debug from 'debug';
-import * as React from 'react';
 import { SimpleTextEditor } from './simple-text-editor';
 const log = debug('node:topic-content-editor');
 

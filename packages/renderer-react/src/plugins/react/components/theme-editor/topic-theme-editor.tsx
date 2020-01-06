@@ -2,12 +2,12 @@ import { LinkStyle, TopicContentStyle, TopicStyle } from '@blink-mind/core';
 import * as React from 'react';
 import {
   SettingGroup,
-  SettingItemButton,
   SettingItemColorPicker,
   SettingTitle
 } from '../right-top-panel';
 import { BorderStyleEditor } from '../style-editor/border-style-editor';
 import { LinkStyleEditor } from '../style-editor/link-style-editor';
+import { PaddingStyleEditor } from '../style-editor/padding-style-editor';
 import { TextStyleEditor } from '../style-editor/text-style-editor';
 import { ContentStyleEditorProps } from '../style-editor/types';
 
@@ -46,6 +46,7 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
   return (
     <>
       <BorderStyleEditor {...nProps} />
+      <PaddingStyleEditor {...nProps} />
       <TextStyleEditor {...nProps} />
       <SettingGroup>
         <SettingTitle>Background</SettingTitle>

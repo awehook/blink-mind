@@ -5,7 +5,7 @@ import {
   RightTopPanelProps
 } from './components/right-top-panel/right-top-panel';
 import { StyleEditor } from './components/style-editor';
-import { ThemeEditor } from './components/theme-editor/theme-editor';
+import { ThemeEditor } from './components/theme-editor';
 
 export function RightTopPanelPlugin() {
   let selectedTabId = 'topic-style';
