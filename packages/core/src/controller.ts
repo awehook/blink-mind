@@ -4,7 +4,7 @@ import warning from 'tiny-warning';
 import { IControllerOption } from './interfaces';
 import { Model } from './models';
 import { CorePlugin } from './plugins/core';
-import { OnChangeFunction } from './types';
+import { ModelChangeCallback, OnChangeFunction } from './types';
 
 const log = debug('core:controller');
 
@@ -81,7 +81,7 @@ export class Controller {
     return this.run('getValue', { ...arg, propKey });
   }
 
-  change(model: Model, callback?: () => void) {
+  change(model: Model, callback?: ModelChangeCallback) {
     this.onChange(model, callback);
     this.currentModel = model;
   }

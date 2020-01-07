@@ -197,8 +197,8 @@ export function LayoutPlugin() {
             topicKey
           }
         ],
-        callback: () => {
-          controller.run('moveTopicToCenter', { ...props, topicKey });
+        callback: model => () => {
+          controller.run('moveTopicToCenter', { ...props, model, topicKey });
         }
       });
     }

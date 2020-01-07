@@ -13,7 +13,12 @@ export const IconName = {
   SEARCH: 'search',
   THEME: 'theme',
   EXPORT: 'export',
-  OPEN_FILE: 'openfile'
+  OPEN_FILE: 'openfile',
+  LAYOUT_LEFT_AND_RIGHT: 'layout-left-and-right',
+  LAYOUT_LEFT: 'layout-left',
+  LAYOUT_RIGHT: 'layout-right',
+  UNDO: 'undo',
+  REDO: 'redo'
 };
 
 export function iconClassName(name) {

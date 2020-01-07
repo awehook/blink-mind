@@ -13,7 +13,7 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import * as React from 'react';
-import { DefaultPlugin, HotKeysConfig } from '../plugins';
+import { DefaultPlugin } from '../plugins';
 import './diagram.css';
 const log = debug('node:Diagram');
 
@@ -33,24 +33,10 @@ export class Diagram extends React.Component<Props> implements IDiagram {
 
   public openNewModel(newModel: Model) {
     const props = this.getDiagramProps();
-    const { model, controller } = props;
-    controller.run('deleteRefKey', {
+    const { controller } = props;
+    controller.run('openNewModel', {
       ...props,
-      topicKey: model.rootTopicKey
-    });
-    controller.run('operation', {
-      ...props,
-      opType: OpType.EXPAND_TO,
-      topicKey: newModel.focusKey,
-      model: newModel,
-      callback: () => {
-        const props = this.getDiagramProps();
-        const { model } = props;
-        controller.run('moveTopicToCenter', {
-          ...props,
-          topicKey: model.focusKey
-        });
-      }
+      newModel
     });
   }
 

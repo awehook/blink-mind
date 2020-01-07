@@ -1,7 +1,8 @@
 import { OpType } from '@blink-mind/core';
-import { HotKeysConfig } from '@blink-mind/renderer-react';
+import { HotKeysConfig, ToolbarItemConfigs } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { SearchPanel } from './search-panel';
+import { ToolbarItemSearch } from './toolbar-item-search';
 import { FOCUS_MODE_SEARCH, HOT_KEY_NAME_SEARCH } from './utils';
 
 export function SearchPlugin() {
@@ -27,6 +28,15 @@ export function SearchPlugin() {
         }
       });
       return hotKeys;
+    },
+
+    customizeToolbar(props, next): ToolbarItemConfigs {
+      const res: ToolbarItemConfigs = next();
+      res.push({
+        order: 200,
+        element: ToolbarItemSearch
+      });
+      return res;
     },
 
     renderDiagramCustomize(props, next) {

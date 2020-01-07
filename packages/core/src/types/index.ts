@@ -37,7 +37,12 @@ export const FocusMode = {
   DRAGGING: 'DRAGGING'
 };
 
-export type OnChangeFunction = (model: Model, callback?: () => void) => void;
+export type ModelChangeCallback = () => void;
+
+export type OnChangeFunction = (
+  model: Model,
+  callback?: ModelChangeCallback
+) => void;
 
 export const TopicRelationship = {
   ANCESTOR: 'ANCESTOR',

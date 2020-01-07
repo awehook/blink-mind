@@ -334,7 +334,7 @@ export function OperationPlugin() {
         });
       }
       log('newModel:', newModel);
-      controller.change(newModel, callback);
+      controller.change(newModel, callback ? callback(newModel) : null);
       controller.run('afterOperation', props);
     },
 
@@ -374,6 +374,27 @@ export function OperationPlugin() {
 
     afterOpFunction(props) {
       return props.model;
+    },
+
+    openNewModel(props) {
+      const { model, controller, newModel } = props;
+      controller.run('deleteRefKey', {
+        ...props,
+        topicKey: model.rootTopicKey
+      });
+      controller.run('operation', {
+        ...props,
+        opType: OpType.EXPAND_TO,
+        topicKey: newModel.focusKey,
+        model: newModel,
+        callback: model => () => {
+          controller.run('moveTopicToCenter', {
+            ...props,
+            model,
+            topicKey: model.focusKey
+          });
+        }
+      });
     }
   };
 }

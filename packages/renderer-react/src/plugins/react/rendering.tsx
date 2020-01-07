@@ -23,6 +23,12 @@ const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
   const DiagramRoot = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  `;
+  const DiagramContainer = styled.div`
     width: 100%;
     height: 100%;
     background: ${props => props.theme.background};
@@ -48,9 +54,12 @@ export function RenderingPlugin() {
             log('renderDiagram', model);
             return (
               <Theme theme={model.config.theme}>
-                <DiagramRoot ref={saveRef(RefKey.DIAGRAM_ROOT_KEY)}>
-                  <MindDragScrollWidget {...diagramProps} />
-                  {controller.run('renderDiagramCustomize', diagramProps)}
+                <DiagramRoot>
+                  {controller.run('renderToolbar', diagramProps)}
+                  <DiagramContainer ref={saveRef(RefKey.DIAGRAM_ROOT_KEY)}>
+                    <MindDragScrollWidget {...diagramProps} />
+                    {controller.run('renderDiagramCustomize', diagramProps)}
+                  </DiagramContainer>
                 </DiagramRoot>
               </Theme>
             );

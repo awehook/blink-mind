@@ -10,8 +10,12 @@ import { ItemRenderer } from '@blueprintjs/select/src/common/itemRenderer';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
 import { Flex, Margin } from '../../../../components/common';
+import {
+  ColorBar,
+  SettingItem,
+  WithBorder
+} from '../../../../components/common/styled-setting';
 import { iconClassName, IconName } from '../../../../utils';
-import { ColorBar, SettingItem, WithBorder } from './styled';
 export function SettingGroup(props) {
   return (
     <div>

@@ -7,8 +7,6 @@ import { OperationPlugin } from './operation';
 import { ReactPlugin } from './react';
 import { StylePlugin } from './style';
 
-export * from './hotkey';
-
 export function DefaultPlugin() {
   return [
     ReactPlugin(),
