@@ -4,12 +4,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { TopicBlockIcon } from '../../../components/common/styled';
-import {
-  cancelEvent,
-  iconClassName,
-  IconName,
-  RefKey
-} from '../../../utils';
+import { cancelEvent, iconClassName, IconName, RefKey } from '../../../utils';
 
 const log = debug('node:topic-desc');
 

@@ -45,6 +45,6 @@ export function isThemeType(obj: any): boolean {
   );
 }
 
-interface Themes {
+export interface Themes {
   [fieldName: string]: ThemeType;
 }

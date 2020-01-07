@@ -14,7 +14,7 @@ import changeDefaultTopicContextMenuMdZh from './change-default-topic-context-me
 
 function onClickMyMenu(props) {
   return function() {
-    const { topicKey, controller, model } = props;
+    const { topicKey, controller } = props;
     alert(`this topic key is ${topicKey}`);
     const topicStyle = controller.run('getTopicContentStyle', props);
     alert(`this topic content style is ${JSON.stringify(topicStyle)}`);

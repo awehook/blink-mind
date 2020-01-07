@@ -72,7 +72,7 @@ export class Model extends Record(defaultModelRecord) {
 
   static fromJSON(object) {
     let model = new Model();
-    const { data = {}, topics = [], config = {}, rootTopicKey } = object;
+    const { topics = [], config = {}, rootTopicKey } = object;
     let { editorRootTopicKey } = object;
 
     if (editorRootTopicKey === undefined) editorRootTopicKey = rootTopicKey;

@@ -4,11 +4,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { BaseWidget, Btn, ZIndex } from '../../../../components/common';
-import {
-  EventKey,
-  Icon,
-  IconName
-} from '../../../../utils';
+import { EventKey, Icon, IconName } from '../../../../utils';
 
 const log = debug('node:view-port-viewer');
 

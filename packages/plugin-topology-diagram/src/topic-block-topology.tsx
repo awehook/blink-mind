@@ -8,7 +8,7 @@ import {
 } from './utils';
 
 export function TopicBlockTopology(props) {
-  const { controller, model, topicKey, getRef } = props;
+  const { controller, model, topicKey } = props;
   const onClick = e => {
     e.stopPropagation();
     controller.run('operation', {

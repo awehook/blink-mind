@@ -20,7 +20,7 @@ const Title = styled.div`
 `;
 
 export function AddReferenceTopicPanel(props) {
-  const { zIndex, controller, model, topicKey } = props;
+  const { zIndex, controller, topicKey } = props;
   const onClickCancel = e => {
     controller.run('clearSelectedReferenceKeys', props);
     controller.run('enableOperation', props);

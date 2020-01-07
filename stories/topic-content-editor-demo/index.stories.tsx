@@ -5,12 +5,12 @@ import * as React from 'react';
 import { BaseDemo } from '../common/base-demo';
 
 // @ts-ignore
-// @ts-ignore
 import richTextEditorMdEn from './plugin-rich-text-editor-en.md';
 // @ts-ignore
 import richTextEditorMdZh from './plugin-rich-text-editor-zh.md';
 // @ts-ignore
 import simpleTextEditorMdEn from './simple-text-editor-en.md';
+// @ts-ignore
 import simpleTextEditorMdZh from './simple-text-editor-zh.md';
 
 export class SimpleTopicContentEditorDemo extends BaseDemo {

@@ -207,7 +207,7 @@ function setBlockData({
 function deleteBlock({ model, topicKey, blockType }: DeleteBlockArg) {
   const topic = model.getTopic(topicKey);
   if (topic) {
-    const { index, block } = topic.getBlock(blockType);
+    const { index } = topic.getBlock(blockType);
     if (index !== -1) {
       model = model.updateIn(['topics', topicKey, 'blocks'], blocks =>
         blocks.delete(index)

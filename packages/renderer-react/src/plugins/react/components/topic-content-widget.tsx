@@ -136,7 +136,7 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
 
   onClickCollapse = e => {
     e.stopPropagation();
-    const { topicKey, getRef, controller } = this.props;
+    const { topicKey, getRef } = this.props;
     this.needRelocation = true;
     const collapseIcon = getRef(collapseRefKey(topicKey));
     const rect = collapseIcon.getBoundingClientRect();
