@@ -29,6 +29,7 @@ function toggleCollapse({ model, topicKey }: BaseModifierArg): ModifierResult {
       collapse => !collapse
     );
   }
+  model = focusTopic({ model, topicKey, focusMode: FocusMode.NORMAL });
   return model;
 }
 
