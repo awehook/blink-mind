@@ -1,6 +1,6 @@
 import { DiagramLayoutType } from '@blink-mind/core';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
-import { Diagram, Icon, iconClassName } from '@blink-mind/renderer-react';
+import { Diagram, Icon, iconClassName,IconName } from '@blink-mind/renderer-react';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
@@ -74,7 +74,7 @@ class ThemeSelectorDemo extends BaseDemo {
     return (
       <ToolBar>
         <ToolBarItem onClick={this.onClickChangeTheme}>
-          <ToolBarIcon className={iconClassName('theme')} />
+          <ToolBarIcon className={iconClassName(IconName.THEME)} />
         </ToolBarItem>
         <ToolBarItem>
           <Popover enforceFocus={false}>

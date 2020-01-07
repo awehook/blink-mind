@@ -5,5 +5,6 @@ export * from './types';
 export * from './models';
 export * from './configs';
 export * from './interfaces';
+export * from './utils';
 
 export { Controller, ModelModifier };

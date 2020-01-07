@@ -10,7 +10,10 @@ export const IconName = {
   EXPAND_ALL: 'expand',
   CENTER: 'center',
   TRASH: 'trash',
-  SEARCH: 'search'
+  SEARCH: 'search',
+  THEME: 'theme',
+  EXPORT: 'export',
+  OPEN_FILE: 'openfile'
 };
 
 export function iconClassName(name) {

@@ -4,6 +4,7 @@ import { BaseDemo, ToolBar, ToolBarItem, Icon } from '../common';
 import {
   Diagram,
   iconClassName,
+  IconName,
   browserDownloadFile,
   browserOpenFile
 } from '@blink-mind/renderer-react';
@@ -47,16 +48,16 @@ class AppDemo extends BaseDemo {
     return (
       <ToolBar>
         <ToolBarItem onClick={this.onClickOpenFile}>
-          <Icon className={iconClassName('openfile')} />
+          <Icon className={iconClassName(IconName.OPEN_FILE)} />
         </ToolBarItem>
         <ToolBarItem onClick={this.onClickExport}>
-          <Icon className={iconClassName('export')} />
+          <Icon className={iconClassName(IconName.EXPORT)} />
         </ToolBarItem>
         <ToolBarItem onClick={this.onClickChangeTheme}>
-          <Icon className={iconClassName('theme')} />
+          <Icon className={iconClassName(IconName.THEME)} />
         </ToolBarItem>
         <ToolBarItem onClick={this.onClickSearch}>
-          <Icon className={iconClassName('search')} />
+          <Icon className={iconClassName(IconName.SEARCH)} />
         </ToolBarItem>
       </ToolBar>
     );
