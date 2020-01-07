@@ -80,7 +80,10 @@ export function TopicReferencePlugin() {
       let model: Model = next();
       const { opType, topicKey } = props;
       // 注意是在beforeOpFunction里面操作
-      if (opType === OpType.DELETE_TOPIC) {
+      if (
+        opType === OpType.DELETE_TOPIC &&
+        topicKey !== model.editorRootTopicKey
+      ) {
         const allDeleteKeys = getAllSubTopicKeys(model, topicKey);
         allDeleteKeys.push(topicKey);
 

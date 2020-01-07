@@ -133,7 +133,7 @@ function addSibling({ model, topicKey }: BaseModifierArg): ModifierResult {
 }
 
 function deleteTopic({ model, topicKey }: BaseModifierArg): ModifierResult {
-  if (topicKey === model.rootTopicKey) return model;
+  if (topicKey === model.editorRootTopicKey) return model;
   const item = model.getTopic(topicKey);
   if (item) {
     model = model.withMutations(m => {

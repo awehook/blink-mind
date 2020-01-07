@@ -362,8 +362,11 @@ export function OperationPlugin() {
 
     // 在单个OpFunction执行之前被调用
     beforeOpFunction(props) {
-      const { controller, opType, model } = props;
-      if (opType === OpType.DELETE_TOPIC) {
+      const { controller, opType, model, topicKey } = props;
+      if (
+        opType === OpType.DELETE_TOPIC &&
+        topicKey !== model.editorRootTopicKey
+      ) {
         controller.run('deleteRefKey', props);
       }
       return model;

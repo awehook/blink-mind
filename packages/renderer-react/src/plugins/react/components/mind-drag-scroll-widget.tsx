@@ -1,4 +1,6 @@
-import { Controller, Model } from '@blink-mind/core';
+import { Controller, FocusMode, Model } from '@blink-mind/core';
+import { HotKeysConfig } from '@blink-mind/renderer-react';
+import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
 import { DragScrollWidget } from '../../../components/common';
@@ -23,11 +25,40 @@ export interface MindDragScrollWidgetProps {
   getRef?: Function;
 }
 
+@HotkeysTarget
 export class MindDragScrollWidget<
   P extends MindDragScrollWidgetProps
 > extends React.Component<MindDragScrollWidgetProps> {
   constructor(props: MindDragScrollWidgetProps) {
     super(props);
+  }
+
+  renderHotkeys() {
+    const props = this.props;
+    const { controller, model } = props;
+    const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', props);
+    if (hotKeys === null) return null;
+    if (
+      !(
+        hotKeys.topicHotKeys instanceof Map &&
+        hotKeys.globalHotKeys instanceof Map
+      )
+    ) {
+      throw new TypeError('topicHotKeys and globalHotKeys must be a Map');
+    }
+    const children = [];
+    if (
+      model.focusMode === FocusMode.NORMAL ||
+      model.focusMode === FocusMode.SHOW_POPUP
+    ) {
+      hotKeys.topicHotKeys.forEach((v, k) => {
+        children.push(<Hotkey key={k} {...v} global />);
+      });
+    }
+    hotKeys.globalHotKeys.forEach((v, k) => {
+      children.push(<Hotkey key={k} {...v} global />);
+    });
+    return <Hotkeys>{children}</Hotkeys>;
   }
 
   componentDidMount(): void {
