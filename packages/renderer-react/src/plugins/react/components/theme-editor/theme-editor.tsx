@@ -35,12 +35,12 @@ export function ThemeEditor(props: BaseProps) {
     controller.run('operation', {
       ...props,
       opType: OpType.SET_THEME,
-      theme
+      theme: clone(theme)
     });
   };
 
   const handleBackgroundColorChange = background => {
-    setTheme(merge(clone(theme), { background }));
+    setTheme(merge(theme, { background }));
   };
 
   const handleHighlightColorChange = highlightColor => {
