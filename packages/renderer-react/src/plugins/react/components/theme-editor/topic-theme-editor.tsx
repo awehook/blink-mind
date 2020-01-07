@@ -1,5 +1,6 @@
 import { LinkStyle, TopicContentStyle, TopicStyle } from '@blink-mind/core';
 import * as React from 'react';
+import styled from 'styled-components';
 import {
   SettingGroup,
   SettingItemColorPicker,
@@ -10,6 +11,11 @@ import { LinkStyleEditor } from '../style-editor/link-style-editor';
 import { PaddingStyleEditor } from '../style-editor/padding-style-editor';
 import { TextStyleEditor } from '../style-editor/text-style-editor';
 import { ContentStyleEditorProps } from '../style-editor/types';
+
+const TopicThemeEditorRoot = styled.div`
+  height: 250px;
+  overflow: auto;
+`;
 
 export interface TopicThemeEditorProps {
   topicStyle: TopicStyle;
@@ -38,13 +44,14 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
   };
 
   const linkStyleEditorProps = {
+    showLinkStyle: false,
     linkStyle,
     subLinkStyle,
     setLinkStyle,
     setSubLinkStyle
   };
   return (
-    <>
+    <TopicThemeEditorRoot>
       <BorderStyleEditor {...nProps} />
       <PaddingStyleEditor {...nProps} />
       <TextStyleEditor {...nProps} />
@@ -58,6 +65,6 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
         />
       </SettingGroup>
       <LinkStyleEditor {...linkStyleEditorProps} />
-    </>
+    </TopicThemeEditorRoot>
   );
 }

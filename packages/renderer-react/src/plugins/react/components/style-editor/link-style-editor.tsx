@@ -19,6 +19,8 @@ const renderLineTypeItem = (lineType, { handleClick, modifiers, query }) => {
 };
 
 export interface LinkStyleEditorProps {
+  showLinkStyle?: boolean;
+  showSubLinkStyle?: boolean;
   linkStyle: LinkStyle;
   subLinkStyle: LinkStyle;
   setLinkStyle: (LinkStyle) => void;
@@ -27,6 +29,8 @@ export interface LinkStyleEditorProps {
 
 export function LinkStyleEditor(props: LinkStyleEditorProps) {
   const {
+    showLinkStyle = true,
+    showSubLinkStyle = true,
     linkStyle = {},
     subLinkStyle = {},
     setLinkStyle,
@@ -59,44 +63,48 @@ export function LinkStyleEditor(props: LinkStyleEditorProps) {
   return (
     <SettingGroup>
       <SettingTitle>Link</SettingTitle>
-      <SettingRow alignItems="center">
-        <Margin margin="0 5px 0 0">LinkToParent: </Margin>
-        <SettingItemSelect
-          text={`width: ${linkStyle ? linkStyle.lineWidth : '0px'}`}
-          items={borderWidthItems}
-          itemRenderer={renderItem('px')}
-          onItemSelect={handleLinkWidthChange}
-        />
-        <SettingItemSelect
-          text={`lineType: ${linkStyle.lineType}`}
-          items={lineTypes}
-          itemRenderer={renderLineTypeItem}
-          onItemSelect={handleLinkTypeChange}
-        />
-        <SettingItemColorPicker
-          color={linkStyle.lineColor}
-          handleColorChange={handleLinkColorChange}
-        />
-      </SettingRow>
-      <SettingRow alignItems="center">
-        <Margin margin="0 5px 0 0">SubLinks: </Margin>
-        <SettingItemSelect
-          text={`width: ${subLinkStyle ? subLinkStyle.lineWidth : '0px'}`}
-          items={borderWidthItems}
-          itemRenderer={renderItem('px')}
-          onItemSelect={handleSubLinkWidthChange}
-        />
-        <SettingItemSelect
-          text={`lineType: ${subLinkStyle.lineType}`}
-          items={lineTypes}
-          itemRenderer={renderLineTypeItem}
-          onItemSelect={handleSubLinkTypeChange}
-        />
-        <SettingItemColorPicker
-          color={subLinkStyle.lineColor}
-          handleColorChange={handleSubLinkColorChange}
-        />
-      </SettingRow>
+      {showLinkStyle && (
+        <SettingRow alignItems="center">
+          <Margin margin="0 5px 0 0">LinkToParent: </Margin>
+          <SettingItemSelect
+            text={`width: ${linkStyle ? linkStyle.lineWidth : '0px'}`}
+            items={borderWidthItems}
+            itemRenderer={renderItem('px')}
+            onItemSelect={handleLinkWidthChange}
+          />
+          <SettingItemSelect
+            text={`lineType: ${linkStyle.lineType}`}
+            items={lineTypes}
+            itemRenderer={renderLineTypeItem}
+            onItemSelect={handleLinkTypeChange}
+          />
+          <SettingItemColorPicker
+            color={linkStyle.lineColor}
+            handleColorChange={handleLinkColorChange}
+          />
+        </SettingRow>
+      )}
+      {showSubLinkStyle && (
+        <SettingRow alignItems="center">
+          <Margin margin="0 5px 0 0">SubLinks: </Margin>
+          <SettingItemSelect
+            text={`width: ${subLinkStyle ? subLinkStyle.lineWidth : '0px'}`}
+            items={borderWidthItems}
+            itemRenderer={renderItem('px')}
+            onItemSelect={handleSubLinkWidthChange}
+          />
+          <SettingItemSelect
+            text={`lineType: ${subLinkStyle.lineType}`}
+            items={lineTypes}
+            itemRenderer={renderLineTypeItem}
+            onItemSelect={handleSubLinkTypeChange}
+          />
+          <SettingItemColorPicker
+            color={subLinkStyle.lineColor}
+            handleColorChange={handleSubLinkColorChange}
+          />
+        </SettingRow>
+      )}
     </SettingGroup>
   );
 }
