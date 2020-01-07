@@ -81,8 +81,8 @@ export class Controller {
     return this.run('getValue', { ...arg, propKey });
   }
 
-  change(model: Model) {
-    this.onChange(model);
+  change(model: Model, callback?: () => void) {
+    this.onChange(model, callback);
     this.currentModel = model;
   }
 }

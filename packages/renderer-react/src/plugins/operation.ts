@@ -266,7 +266,7 @@ export function OperationPlugin() {
 
     //TODO 有空重构这个函数
     operation(props) {
-      const { controller, opType, model, opArray } = props;
+      const { controller, opType, model, opArray, callback } = props;
       if (opArray != null && !Array.isArray(opArray)) {
         throw new Error('operation: the type of opArray must be array!');
       }
@@ -334,7 +334,7 @@ export function OperationPlugin() {
         });
       }
       log('newModel:', newModel);
-      controller.change(newModel);
+      controller.change(newModel, callback);
       controller.run('afterOperation', props);
     },
 

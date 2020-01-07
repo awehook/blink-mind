@@ -161,8 +161,7 @@ export function LayoutPlugin() {
     },
 
     moveTopicToCenter(props) {
-      const { getRef, topicKey, controller } = props;
-      const model = controller.currentModel;
+      const { getRef, topicKey, model } = props;
       if (
         model.editorRootTopicKey !== topicKey &&
         getRelationship(model, topicKey, model.editorRootTopicKey) !==
@@ -175,6 +174,9 @@ export function LayoutPlugin() {
       const topic = getRef(topicRefKey(topicKey));
       const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
       const viewBox = dragScroll.viewBox;
+      if (!topic || !viewBox) {
+        throw new Error(`moveTopicToCenter error: topic or viewBox is null`);
+      }
       const vector = getRelativeVector(topic, viewBox);
       //TODO
       dragScroll.setViewBoxScrollDelta(vector[0], vector[1]);
@@ -194,10 +196,10 @@ export function LayoutPlugin() {
             opType: OpType.EXPAND_TO,
             topicKey
           }
-        ]
-      });
-      setTimeout(() => {
-        controller.run('moveTopicToCenter', { ...props, topicKey });
+        ],
+        callback: () => {
+          controller.run('moveTopicToCenter', { ...props, topicKey });
+        }
       });
     }
   };

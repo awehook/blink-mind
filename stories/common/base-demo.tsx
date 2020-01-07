@@ -16,10 +16,13 @@ export class BaseDemo extends React.Component<Props, State> {
     super(props);
     this.initModel();
   }
-  onChange = (model: Model) => {
-    this.setState({
-      model
-    });
+  onChange = (model: Model, callback?: () => void) => {
+    this.setState(
+      {
+        model
+      },
+      callback
+    );
   };
 
   initModel() {

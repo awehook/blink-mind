@@ -3,7 +3,8 @@ import {
   IDiagram,
   IDiagramProps,
   Model,
-  OnChangeFunction
+  OnChangeFunction,
+  OpType
 } from '@blink-mind/core';
 // TODO
 import '@blink-mind/icons';
@@ -37,14 +38,19 @@ export class Diagram extends React.Component<Props> implements IDiagram {
       ...props,
       topicKey: model.rootTopicKey
     });
-    controller.change(newModel);
-    setTimeout(() => {
-      const props = this.getDiagramProps();
-      const { model } = props;
-      controller.run('moveTopicToCenter', {
-        ...props,
-        topicKey: model.focusKey
-      });
+    controller.run('operation', {
+      ...props,
+      opType: OpType.EXPAND_TO,
+      topicKey: newModel.focusKey,
+      model: newModel,
+      callback: () => {
+        const props = this.getDiagramProps();
+        const { model } = props;
+        controller.run('moveTopicToCenter', {
+          ...props,
+          topicKey: model.focusKey
+        });
+      }
     });
   }
 
