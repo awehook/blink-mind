@@ -103,10 +103,10 @@ export function StyleEditor(props: BaseProps) {
       <SettingGroup>
         <SettingItemButton
           title="Clear Topic Style"
-          handleClick={handleClearStyle}
+          onClick={handleClearStyle}
         />
-        <SettingItemButton title="Copy Style" handleClick={handleCopyStyle} />
-        <SettingItemButton title="Paste Style" handleClick={handlePasteStyle} />
+        <SettingItemButton title="Copy Style" onClick={handleCopyStyle} />
+        <SettingItemButton title="Paste Style" onClick={handlePasteStyle} />
       </SettingGroup>
       {ClearAllCustomStyle(props)}
     </PanelTabRoot>

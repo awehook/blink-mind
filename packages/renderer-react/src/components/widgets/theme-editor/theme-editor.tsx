@@ -149,14 +149,8 @@ export function ThemeEditor(props: BaseProps) {
       {topicThemes}
 
       <SettingGroup>
-        <SettingItemButton
-          title="Export Theme"
-          handleClick={handleExportTheme}
-        />
-        <SettingItemButton
-          title="Import Theme"
-          handleClick={handleImportTheme}
-        />
+        <SettingItemButton title="Export Theme" onClick={handleExportTheme} />
+        <SettingItemButton title="Import Theme" onClick={handleImportTheme} />
       </SettingGroup>
 
       {/*<Dialog*/}

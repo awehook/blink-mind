@@ -4,6 +4,7 @@ import {
   SettingGroup,
   SettingItemColorPicker,
   SettingItemSelect,
+  SettingRow,
   SettingTitle
 } from '../right-top-panel';
 import { ContentStyleEditorProps } from './types';
@@ -35,7 +36,7 @@ export function BorderStyleEditor(props: ContentStyleEditorProps) {
   return (
     <SettingGroup>
       <SettingTitle>Border</SettingTitle>
-      <div>
+      <SettingRow>
         <SettingItemSelect
           text={`width: ${
             contentStyle.borderWidth ? contentStyle.borderWidth : '0px'
@@ -62,7 +63,7 @@ export function BorderStyleEditor(props: ContentStyleEditorProps) {
           color={contentStyle.borderColor}
           handleColorChange={handleBorderColorChange}
         />
-      </div>
+      </SettingRow>
     </SettingGroup>
   );
 }

@@ -149,7 +149,7 @@ export class Model extends Record(defaultModelRecord) {
     return this.topics.get(key);
   }
 
-  getExtDataItem<T>(key: string, c: new () => T): any {
+  getExtDataItem<T>(key: string, c: new () => T): T {
     return this.extData.get(key) || new c();
   }
 

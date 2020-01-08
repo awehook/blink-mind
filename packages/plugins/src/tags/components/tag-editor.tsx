@@ -1,18 +1,22 @@
-import { PanelTabRoot } from '@blink-mind/renderer-react';
 import {
+  PanelTabRoot,
   SettingBoxContainer,
-  SettingItem,
   SettingTitle
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
+import { AddTagWidget } from './add-tag-widget';
+import { AllTagsWidget } from './all-tags-widget';
+import { TopicTagsWidget } from './topic-tags-widget';
 export function TagEditor(props) {
   return (
     <PanelTabRoot>
       <SettingBoxContainer>
         <SettingTitle>Tags Manager</SettingTitle>
+        <AddTagWidget {...props} />
+        <AllTagsWidget {...props} />
       </SettingBoxContainer>
       <SettingBoxContainer>
-        <SettingTitle>Current Topic Tags</SettingTitle>
+        <TopicTagsWidget {...props} />
       </SettingBoxContainer>
     </PanelTabRoot>
   );

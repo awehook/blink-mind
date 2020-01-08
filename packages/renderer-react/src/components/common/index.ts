@@ -4,3 +4,4 @@ export * from './save-ref';
 export * from './styled';
 export * from './base-props';
 export * from './styled-setting';
+export * from './setting-item';

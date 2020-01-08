@@ -5,6 +5,8 @@ import {
   SettingGroup,
   SettingItem,
   SettingItemColorPicker,
+  SettingItemInput,
+  SettingItemInputProps,
   SettingItemNumericInput,
   SettingTitle
 } from '../right-top-panel';
@@ -36,7 +38,8 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
     },
     onValueChange: handleFontSizeChange
   };
-  const lineHeightInputProps = {
+  const lineHeightInputProps: SettingItemInputProps = {
+    title: 'LineHeight:',
     style: {
       width: 50
     },
@@ -48,12 +51,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
       <SettingTitle>Text Editor</SettingTitle>
       <Flex>
         <SettingItemNumericInput {...fontSizeNumInputProps} />
-        <SettingItem>
-          <Flex alignItems="center">
-            <Margin margin="0 5px 0 0">LineHeight: </Margin>
-            <InputGroup {...lineHeightInputProps} />
-          </Flex>
-        </SettingItem>
+        <SettingItemInput {...lineHeightInputProps} />
         <SettingItemColorPicker
           color={contentStyle.color}
           handleColorChange={handleColorChange}

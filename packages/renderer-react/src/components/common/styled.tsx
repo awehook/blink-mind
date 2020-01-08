@@ -56,7 +56,8 @@ export const ZIndex = styled.div`
 `;
 
 export const PanelTabRoot = styled.div`
-  min-width: 360px;
+  min-width: 380px;
+  max-width: 480px;
   max-height: 470px;
   overflow: auto;
 `;
