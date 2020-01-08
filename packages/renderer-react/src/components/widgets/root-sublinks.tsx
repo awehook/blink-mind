@@ -1,7 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../../../components/common';
-import { BaseProps } from '../../../components/common/base-props';
 import {
   centerPointX,
   centerPointY,
@@ -10,10 +8,12 @@ import {
   getRelativeRect,
   Point,
   RefKey
-} from '../../../utils';
+} from '../../utils';
+import { BaseWidget } from '../common';
+import { BaseProps } from '../common/base-props';
 
 import debug from 'debug';
-import { contentRefKey, linksSvgRefKey } from '../../../utils';
+import { contentRefKey, linksSvgRefKey } from '../../utils';
 const RootLinksSvg = styled.svg`
   width: 100%;
   height: 100%;

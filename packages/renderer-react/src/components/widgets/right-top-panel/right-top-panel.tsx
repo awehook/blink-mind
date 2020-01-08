@@ -2,6 +2,7 @@ import { TabId, Tabs } from '@blueprintjs/core';
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { iconClassName, IconName } from '../../../utils';
 import {
   BaseProps,
   CloseIcon,
@@ -9,8 +10,7 @@ import {
   ShowMenuIcon,
   Title,
   ZIndex
-} from '../../../../components/common';
-import { iconClassName, IconName } from '../../../../utils';
+} from '../../common';
 
 const PanelRoot = styled(ZIndex)`
   position: absolute;

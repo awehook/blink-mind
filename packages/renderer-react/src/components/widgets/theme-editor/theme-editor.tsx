@@ -3,13 +3,9 @@ import { Alert, Tab, Tabs } from '@blueprintjs/core';
 import { clone, merge } from 'lodash';
 import * as React from 'react';
 import { useState } from 'react';
-import {
-  BaseProps,
-  PanelTabRoot,
-  StyledCheckbox
-} from '../../../../components/common';
-import { browserDownloadText, browserOpenFile } from '../../../../utils';
-import { handleBooleanChange } from '../../../../utils/blueprint';
+import { browserDownloadText, browserOpenFile } from '../../../utils';
+import { handleBooleanChange } from '../../../utils/blueprint';
+import { BaseProps, PanelTabRoot, StyledCheckbox } from '../../common';
 import {
   SettingBoxContainer,
   SettingGroup,

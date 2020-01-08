@@ -1,13 +1,13 @@
 import { LinkStyle, OpType, TopicContentStyle } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
-import { BaseProps, PanelTabRoot } from '../../../../components/common';
+import { BaseProps, PanelTabRoot } from '../../common';
 import {
   SettingGroup,
   SettingItemButton,
   SettingItemColorPicker,
   SettingTitle
-} from '../right-top-panel/';
+} from '../right-top-panel';
 import { BorderStyleEditor } from './border-style-editor';
 import { ClearAllCustomStyle } from './clear-all-custom-style';
 import { LinkStyleEditor, LinkStyleEditorProps } from './link-style-editor';

@@ -1,14 +1,14 @@
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../../../components/common';
-import { BaseProps } from '../../../components/common/base-props';
 import {
   contentRefKey,
   dropAreaRefKey,
   getRelativeRect,
   RefKey
-} from '../../../utils';
+} from '../../utils';
+import { BaseWidget } from '../common';
+import { BaseProps } from '../common/base-props';
 const log = debug('node:topic-drop-effect');
 
 const DropEffectSvg = styled.svg`

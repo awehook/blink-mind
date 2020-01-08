@@ -1,8 +1,6 @@
 import { TopicDirection } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../../../components/common';
-import { BaseProps } from '../../../components/common/base-props';
 import {
   centerPointX,
   centerPointY,
@@ -13,7 +11,9 @@ import {
   linksSvgRefKey,
   Point,
   RefKey
-} from '../../../utils';
+} from '../../utils';
+import { BaseWidget } from '../common';
+import { BaseProps } from '../common/base-props';
 
 const TopicLinksSvg = styled.svg`
   width: 100%;

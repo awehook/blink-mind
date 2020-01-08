@@ -1,7 +1,7 @@
 import { LinkStyle } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
-import { Margin } from '../../../../components/common';
+import { Margin } from '../../common';
 import {
   borderWidthItems,
   renderItem,

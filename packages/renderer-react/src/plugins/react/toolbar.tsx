@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Toolbar, ToolbarItemLayout } from './components/toolbar';
+import { Toolbar, ToolbarItemLayout } from '../../components/widgets/toolbar';
 
 import { ToolbarItemConfigs } from '../../types';
 

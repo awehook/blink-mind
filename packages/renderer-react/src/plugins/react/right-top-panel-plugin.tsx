@@ -3,9 +3,9 @@ import * as React from 'react';
 import {
   RightTopPanel,
   RightTopPanelProps
-} from './components/right-top-panel/right-top-panel';
-import { StyleEditor } from './components/style-editor';
-import { ThemeEditor } from './components/theme-editor';
+} from '../../components/widgets/right-top-panel/right-top-panel';
+import { StyleEditor } from '../../components/widgets/style-editor';
+import { ThemeEditor } from '../../components/widgets/theme-editor';
 
 export function RightTopPanelPlugin() {
   let selectedTabId = 'topic-style';

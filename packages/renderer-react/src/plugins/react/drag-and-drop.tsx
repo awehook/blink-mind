@@ -7,8 +7,8 @@ import {
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
+import { TopicDropEffect } from '../../components/widgets/topic-drop-effect';
 import { contentRefKey, dropAreaRefKey, RefKey } from '../../utils';
-import { TopicDropEffect } from './components/topic-drop-effect';
 const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
   height: ${props => `${props.height}px`};

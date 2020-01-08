@@ -7,8 +7,8 @@ import {
 } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget, ZIndex } from '../../../components/common';
-import { PropKey } from '../../../utils';
+import { PropKey } from '../../utils';
+import { BaseWidget, ZIndex } from '../common';
 
 const EditorRootBreadcrumbsRoot = styled(ZIndex)`
   position: absolute;

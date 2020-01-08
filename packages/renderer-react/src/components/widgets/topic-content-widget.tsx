@@ -3,9 +3,9 @@ import { ContextMenuTarget } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../../../components/common';
-import { BaseProps } from '../../../components/common/base-props';
-import { collapseRefKey, contentRefKey, PropKey } from '../../../utils';
+import { collapseRefKey, contentRefKey, PropKey } from '../../utils';
+import { BaseWidget } from '../common';
+import { BaseProps } from '../common/base-props';
 
 const log = debug('node:topic-content-widget');
 

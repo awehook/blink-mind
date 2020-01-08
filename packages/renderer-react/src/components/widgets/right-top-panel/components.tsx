@@ -9,13 +9,8 @@ import { Select } from '@blueprintjs/select';
 import { ItemRenderer } from '@blueprintjs/select/src/common/itemRenderer';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
-import { Flex, Margin } from '../../../../components/common';
-import {
-  ColorBar,
-  SettingItem,
-  WithBorder
-} from '../../../../components/common/styled-setting';
-import { iconClassName, IconName } from '../../../../utils';
+import { iconClassName, IconName } from '../../../utils';
+import { ColorBar, Flex, Margin, SettingItem, WithBorder } from '../../common';
 export function SettingGroup(props) {
   return (
     <div>

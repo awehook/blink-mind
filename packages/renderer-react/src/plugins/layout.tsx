@@ -9,6 +9,10 @@ import {
   Topic,
   TopicRelationship
 } from '@blink-mind/core';
+import { RootSubLinks } from '../components/widgets/root-sublinks';
+import { TopicDropEffect } from '../components/widgets/topic-drop-effect';
+import { TopicHighlight } from '../components/widgets/topic-highlight';
+import { TopicWidget } from '../components/widgets/topic-widget';
 import {
   getRelativeRect,
   getRelativeVector,
@@ -17,10 +21,6 @@ import {
   topicRefKey,
   topicWidgetRefKey
 } from '../utils';
-import { RootSubLinks } from './react/components/root-sublinks';
-import { TopicDropEffect } from './react/components/topic-drop-effect';
-import { TopicHighlight } from './react/components/topic-highlight';
-import { TopicWidget } from './react/components/topic-widget';
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;

@@ -1,6 +1,6 @@
 import { InputGroup } from '@blueprintjs/core';
 import * as React from 'react';
-import { Flex, Margin } from '../../../../components/common';
+import { Flex, Margin } from '../../common';
 import {
   SettingGroup,
   SettingItem,

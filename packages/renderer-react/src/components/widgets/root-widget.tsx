@@ -2,8 +2,8 @@ import { DiagramLayoutType, KeyType, TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseProps } from '../../../components/common/base-props';
-import { topicRefKey } from '../../../utils';
+import { topicRefKey } from '../../utils';
+import { BaseProps } from '../common/base-props';
 
 const log = debug('RootNode');
 

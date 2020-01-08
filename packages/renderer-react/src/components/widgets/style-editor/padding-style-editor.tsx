@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { paddingCss } from '../../../../utils';
+import { paddingCss } from '../../../utils';
 import {
   SettingGroup,
   SettingItemNumericInput,

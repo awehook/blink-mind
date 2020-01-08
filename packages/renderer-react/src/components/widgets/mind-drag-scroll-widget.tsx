@@ -3,8 +3,8 @@ import { HotKeysConfig } from '@blink-mind/renderer-react';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { DragScrollWidget } from '../../../components/common';
-import { EventKey, RefKey, topicRefKey } from '../../../utils';
+import { EventKey, RefKey, topicRefKey } from '../../utils';
+import { DragScrollWidget } from '../common';
 const NodeLayer = styled.div`
   position: relative;
   display: flex;
