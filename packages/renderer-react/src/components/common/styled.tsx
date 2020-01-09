@@ -57,7 +57,7 @@ export const ZIndex = styled.div`
 
 export const PanelTabRoot = styled.div`
   min-width: 380px;
-  max-width: 480px;
+  max-width: 482px;
   max-height: 470px;
   overflow: auto;
 `;
@@ -82,4 +82,10 @@ export const ToolbarItemPopoverTarget = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
+`;
+
+export const VListContainer = styled.div`
+  max-height: ${props => props.maxHeight || '300px'};
+  overflow-y: auto;
+  overflow-x: hidden;
 `;

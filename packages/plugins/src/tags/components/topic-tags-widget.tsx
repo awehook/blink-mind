@@ -1,4 +1,3 @@
-import { OpType } from '@blink-mind/core';
 import {
   BaseProps,
   SettingBoxContainer,
@@ -7,11 +6,7 @@ import {
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { TagRecord } from '../ext-data-tags';
-import {
-  OP_TYPE_ADD_TAG,
-  OP_TYPE_ADD_TOPIC_TAG,
-  OP_TYPE_REMOVE_TOPIC_TAG
-} from '../utils';
+import { OP_TYPE_ADD_TOPIC_TAG, OP_TYPE_REMOVE_TOPIC_TAG } from '../utils';
 import { TagWidget } from './tag-widget';
 
 export function TopicTagsWidget(props: BaseProps) {
@@ -23,6 +18,8 @@ export function TopicTagsWidget(props: BaseProps) {
   );
   const topicTagsWidget = topicTags.map(tag => {
     const tagProps = {
+      ...props,
+      isTopicTag: true,
       tag,
       onRemove: (tag: TagRecord) => e => {
         controller.run('operation', {
@@ -37,6 +34,8 @@ export function TopicTagsWidget(props: BaseProps) {
 
   const tagsCanBeAddedWidget = tagsCanBeAdded.map(tag => {
     const tagProps = {
+      ...props,
+      isTopicTag: true,
       tag,
       onClick: (tag: TagRecord) => e => {
         controller.run('operation', {

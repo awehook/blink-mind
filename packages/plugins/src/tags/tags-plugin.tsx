@@ -2,16 +2,26 @@ import * as React from 'react';
 import { TagEditor } from './components/tag-editor';
 
 import { Tab } from '@blueprintjs/core';
-import { addNewTag, addTopicTag, removeTopicTag } from './op-function';
+import {
+  addNewTag,
+  addTopicTag,
+  deleteTag,
+  removeTopicTag,
+  updateTag
+} from './op-function';
 import {
   EXT_DATA_KEY_TAGS,
+  EXT_KEY_TAGS,
   OP_TYPE_ADD_TAG,
   OP_TYPE_ADD_TOPIC_TAG,
-  OP_TYPE_REMOVE_TOPIC_TAG
+  OP_TYPE_DELETE_TAG,
+  OP_TYPE_REMOVE_TOPIC_TAG,
+  OP_TYPE_UPDATE_TAG
 } from './utils';
 
 import { IControllerRunContext } from '@blink-mind/core';
-import { List, Map } from 'immutable';
+import { List } from 'immutable';
+import { TagWidget } from './components/tag-widget';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
 
 export function TagsPlugin() {
@@ -31,9 +41,38 @@ export function TagsPlugin() {
     getOpMap(props, next) {
       const opMap = next();
       opMap.set(OP_TYPE_ADD_TAG, addNewTag);
+      opMap.set(OP_TYPE_DELETE_TAG, deleteTag);
+      opMap.set(OP_TYPE_UPDATE_TAG, updateTag);
       opMap.set(OP_TYPE_ADD_TOPIC_TAG, addTopicTag);
       opMap.set(OP_TYPE_REMOVE_TOPIC_TAG, removeTopicTag);
       return opMap;
+    },
+
+    renderTopicContentOthers(props, next) {
+      const { controller } = props;
+      const res = next();
+      res.push(
+        controller.run('renderTopicExtTag', {
+          ...props,
+          key: EXT_KEY_TAGS
+        })
+      );
+      return res;
+    },
+
+    renderTopicExtTag(props) {
+      const { controller } = props;
+      const tags: TagRecord[] = controller.run('getTopicTags', props);
+      const tagsWidget = tags.map(tag => {
+        const tagProps = {
+          ...props,
+          isTopicTag: true,
+          large: false,
+          tag
+        };
+        return <TagWidget key={tag.name} {...tagProps} />;
+      });
+      return tagsWidget;
     },
 
     //TODO
@@ -58,7 +97,7 @@ export function TagsPlugin() {
       return next();
     },
 
-    getTopicTags(props: IControllerRunContext) {
+    getTopicTags(props: IControllerRunContext): TagRecord[] {
       const { model, topicKey } = props;
       const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
       const res = [];

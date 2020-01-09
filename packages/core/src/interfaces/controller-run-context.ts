@@ -4,4 +4,5 @@ export interface IControllerRunContext {
   controller: Controller;
   model?: Model;
   topicKey?: KeyType;
+  getRef?: Function;
 }

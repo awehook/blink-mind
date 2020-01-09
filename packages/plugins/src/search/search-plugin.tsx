@@ -33,7 +33,7 @@ export function SearchPlugin() {
     customizeToolbar(props, next): ToolbarItemConfigs {
       const res: ToolbarItemConfigs = next();
       res.push({
-        order: 200,
+        order: 300,
         element: ToolbarItemSearch
       });
       return res;

@@ -2,6 +2,7 @@ import {
   DiagramLayoutType,
   FocusMode,
   getRelationship,
+  IControllerRunContext,
   KeyType,
   Model,
   ModelModifier,
@@ -13,6 +14,7 @@ import { RootSubLinks } from '../components/widgets/root-sublinks';
 import { TopicDropEffect } from '../components/widgets/topic-drop-effect';
 import { TopicHighlight } from '../components/widgets/topic-highlight';
 import { TopicWidget } from '../components/widgets/topic-widget';
+import { MoveTopicDir } from '../types';
 import {
   getRelativeRect,
   getRelativeVector,
@@ -160,8 +162,13 @@ export function LayoutPlugin() {
       );
     },
 
-    moveTopicToCenter(props) {
-      const { getRef, topicKey, model } = props;
+    moveTopicToCenter(props: IControllerRunContext & { moveDir?: number }) {
+      const {
+        getRef,
+        topicKey,
+        model,
+        moveDir = MoveTopicDir.LEFT_CENTER
+      } = props;
       if (
         model.editorRootTopicKey !== topicKey &&
         getRelationship(model, topicKey, model.editorRootTopicKey) !==
@@ -179,7 +186,14 @@ export function LayoutPlugin() {
       }
       const vector = getRelativeVector(topic, viewBox);
       //TODO
-      dragScroll.setViewBoxScrollDelta(vector[0], vector[1]);
+      if (moveDir === MoveTopicDir.CENTER)
+        dragScroll.setViewBoxScrollDelta(vector[0], vector[1]);
+      else if (moveDir === MoveTopicDir.LEFT_CENTER) {
+        const boxRect = viewBox.getBoundingClientRect();
+        const topicRect = topic.getBoundingClientRect();
+        const delta = (boxRect.width - topicRect.width) / 2;
+        dragScroll.setViewBoxScrollDelta(vector[0] + delta - 200, vector[1]);
+      }
     },
 
     focusTopicAndMoveToCenter(props) {

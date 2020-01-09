@@ -3,8 +3,7 @@ import {
   IDiagram,
   IDiagramProps,
   Model,
-  OnChangeFunction,
-  OpType
+  OnChangeFunction
 } from '@blink-mind/core';
 // TODO
 import '@blink-mind/icons';

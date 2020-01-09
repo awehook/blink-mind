@@ -27,3 +27,8 @@ export const HotKeyName = {
   EDIT_NOTES: 'EDIT_NOTES',
   SET_EDITOR_ROOT: 'SET_EDITOR_ROOT'
 };
+
+export const MoveTopicDir = {
+  CENTER: 0,
+  LEFT_CENTER: 1
+};

@@ -1,13 +1,13 @@
 import { FocusMode, OpType } from '@blink-mind/core';
-import { BaseProps } from '@blink-mind/renderer-react';
-import {
-  IInputGroupProps,
-  Popover,
-  PopoverInteractionKind
-} from '@blueprintjs/core';
+import { BaseProps, PropKey } from '@blink-mind/renderer-react';
+import { IInputGroupProps } from '@blueprintjs/core';
 import { ItemListPredicate, ItemRenderer, Omnibar } from '@blueprintjs/select';
 import * as React from 'react';
 import styled from 'styled-components';
+import {
+  TopicTitleThumbnail,
+  TopicTitleThumbnailProps
+} from '../common/components/topic-title-thumbnail';
 import './search-panel.css';
 
 const NavOmniBar = Omnibar.ofType<INavigationSection>();
@@ -18,37 +18,8 @@ const StyledNavOmniBar = styled(NavOmniBar)`
   width: 50% !important;
 `;
 
-const TopicTitle = styled.div`
-  margin: 0 5px;
-  padding: 10px 5px;
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
-  &:hover {
-    background: #e3e8ec;
-  }
-`;
-
-const StyledPopover = styled(Popover)`
-  display: block;
-`;
-
-const Tip = styled.div`
-  padding: 10px;
-  font-size: 16px;
-  //max-width: 800px;
-  //max-height: 600px;
-  overflow: auto;
-`;
-
-const TipContent = styled.div`
-  white-space: break-spaces;
-`;
-
 export interface INavigationSection {
-  // path: string[];
-  key: KeyType;
-  title: string;
+  topicKey: KeyType;
 }
 
 const INPUT_PROPS: IInputGroupProps = {
@@ -71,62 +42,32 @@ export function SearchPanel(props: SearchPanelProps) {
     const res = [];
     model.topics.forEach((topic, topicKey) => {
       res.push({
-        key: topicKey,
-        title: controller.run('getTopicTitle', {
-          ...props,
-          topicKey
-        })
+        topicKey
       });
     });
     return res;
   };
 
-  const navigateToTopic = topicKey => e => {
-    controller.run('focusTopicAndMoveToCenter', { ...props, topicKey });
-  };
-
-  const renderItem: ItemRenderer<INavigationSection> = (section, props) => {
-    // const pathElements = section.path.reduce<React.ReactChild[]>(
-    //   (elems, el) => {
-    //     elems.push(el, <Icon key={el} icon="caret-right" />);
-    //     return elems;
-    //   },
-    //   []
-    // );
-    const { key, title: sectionTitle } = section;
-    const maxLength = 100;
-    const needTip = sectionTitle.length > maxLength;
-    const title = needTip
-      ? sectionTitle.substr(0, maxLength) + '...'
-      : sectionTitle;
-    const titleProps = {
-      key,
-      onClick: navigateToTopic(key)
+  const renderItem: ItemRenderer<INavigationSection> = section => {
+    const { topicKey } = section;
+    const thumbnailProps: TopicTitleThumbnailProps = {
+      ...props,
+      topicKey
     };
-    const titleEl = <TopicTitle {...titleProps}>{title}</TopicTitle>;
-    const tip = (
-      <Tip>
-        <TipContent>{sectionTitle}</TipContent>
-      </Tip>
-    );
-    const popoverProps = {
-      key,
-      target: titleEl,
-      content: tip,
-      fill: true,
-      interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY,
-      hoverOpenDelay: 1000
-    };
-    return needTip ? <StyledPopover {...popoverProps} /> : titleEl;
+    return <TopicTitleThumbnail key={topicKey} {...thumbnailProps} />;
   };
 
   const filterMatches: ItemListPredicate<INavigationSection> = (
     query,
     items
   ) => {
-    return items.filter(item =>
-      item.title.toLowerCase().includes(query.toLowerCase())
-    );
+    return items.filter(item => {
+      const topicTitle = controller.getValue(PropKey.TOPIC_TITLE, {
+        ...props,
+        topicKey: item.topicKey
+      });
+      return topicTitle.toLowerCase().includes(query.toLowerCase());
+    });
   };
 
   const sections = getAllSections();

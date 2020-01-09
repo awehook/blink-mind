@@ -7,20 +7,26 @@ import {
   SettingItemInputProps,
   SettingRow
 } from '@blink-mind/renderer-react';
-import { Alert } from '@blueprintjs/core';
 import * as React from 'react';
 import { useState } from 'react';
 import { ExtDataTags, TagRecord } from '../ext-data-tags';
-import { EXT_DATA_KEY_TAGS, OP_TYPE_ADD_TAG, TAG_NAME_MAX_LEN } from '../utils';
+import {
+  EXT_DATA_KEY_TAGS,
+  OP_TYPE_UPDATE_TAG,
+  TAG_NAME_MAX_LEN
+} from '../utils';
 
-export function AddTagWidget(props: BaseProps) {
-  const [tagName, setTagName] = useState('');
-  const [background, setBackground] = useState('grey');
-  const [color, setColor] = useState('black');
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertTitle, setAlertTitle] = useState('');
+export interface UpdateTagWidgetProps extends BaseProps {
+  tag: TagRecord;
+}
 
-  const { controller, model } = props;
+export function UpdateTagWidget(props: UpdateTagWidgetProps) {
+  const { controller, model, tag } = props;
+  const style = JSON.parse(tag.style);
+  const [tagName, setTagName] = useState(tag.name);
+  const [background, setBackground] = useState(style.backgroundColor);
+  const [color, setColor] = useState(style.color);
+
   const handleTagNameChange = e => {
     setTagName(e.target.value);
   };
@@ -53,7 +59,11 @@ export function AddTagWidget(props: BaseProps) {
   const colorItem = <SettingItemColorPicker {...colorProps} />;
 
   const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
-  const disabled = extData.tags.has(tagName) || tagName.trim() === '';
+  const trimTagName = tagName.trim();
+  const disabled =
+    (extData.tags.has(trimTagName) && trimTagName !== tag.name) ||
+    trimTagName === '' ||
+    trimTagName.length > TAG_NAME_MAX_LEN;
   const getTagStyle = () => {
     const style = {
       backgroundColor: background,
@@ -61,47 +71,31 @@ export function AddTagWidget(props: BaseProps) {
     };
     return JSON.stringify(style);
   };
-  const addTagBtnProps = {
-    title: 'Add Tag',
+  const btnProps = {
+    title: 'Update Tag',
     disabled,
     onClick: () => {
-      if (tagName.trim().length > TAG_NAME_MAX_LEN) {
-        setShowAlert(true);
-        setAlertTitle('The length of tag name over the maximum length : 50 !');
-        return;
-      }
-      const tag = new TagRecord({
-        name: tagName.trim(),
-        style: getTagStyle()
+      const newTag = new TagRecord({
+        name: trimTagName,
+        style: getTagStyle(),
+        topicKeys: tag.topicKeys
       });
       controller.run('operation', {
         ...props,
-        opType: OP_TYPE_ADD_TAG,
-        tag
+        opType: OP_TYPE_UPDATE_TAG,
+        oldTagName: tag.name,
+        newTag: newTag
       });
     }
   };
 
-  const alertProps = {
-    isOpen: showAlert,
-
-    onClose: e => {
-      setShowAlert(false);
-    }
-  };
-  const alert = showAlert && (
-    <Alert {...alertProps}>
-      <p>{alertTitle}</p>
-    </Alert>
-  );
-  const addTagBtn = <SettingItemButton {...addTagBtnProps} />;
+  const btn = <SettingItemButton {...btnProps} />;
   return (
     <SettingRow>
       {nameItem}
       {bgColorItem}
       {colorItem}
-      {addTagBtn}
-      {alert}
+      {btn}
     </SettingRow>
   );
 }

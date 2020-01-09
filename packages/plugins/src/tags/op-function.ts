@@ -20,6 +20,39 @@ export function addNewTag({
   return model;
 }
 
+export function deleteTag({
+  model,
+  tagName
+}: BaseModifierArg & { tagName: string }) {
+  let extData: ExtDataTags = model.getExtDataItem(
+    EXT_DATA_KEY_TAGS,
+    ExtDataTags
+  );
+
+  if (!extData.tags.has(tagName)) {
+    return model;
+  }
+  extData = extData.update('tags', tags => tags.delete(tagName));
+  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return model;
+}
+
+export function updateTag({
+  model,
+  oldTagName,
+  newTag
+}: BaseModifierArg & { oldTagName: string; newTag: TagRecord }) {
+  let extData: ExtDataTags = model.getExtDataItem(
+    EXT_DATA_KEY_TAGS,
+    ExtDataTags
+  );
+  extData = extData.update('tags', tags =>
+    tags.delete(oldTagName).set(newTag.name, newTag)
+  );
+  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return model;
+}
+
 export function addTopicTag({
   model,
   topicKey,

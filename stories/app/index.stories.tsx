@@ -17,6 +17,7 @@ import {
   SearchPlugin,
   OpenFilePlugin,
   ExportFilePlugin,
+  UndoRedoPlugin,
   TagsPlugin
 } from '@blink-mind/plugins';
 import styled from 'styled-components';
@@ -67,6 +68,7 @@ const plugins = [
   SearchPlugin(),
   OpenFilePlugin(),
   ExportFilePlugin(),
+  UndoRedoPlugin(),
   TagsPlugin(),
   ChangeThemePlugin(),
   TopologyDiagramPlugin(),
