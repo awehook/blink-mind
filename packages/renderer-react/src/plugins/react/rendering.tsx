@@ -30,7 +30,9 @@ export function RenderingPlugin() {
   `;
   const DiagramContainer = styled.div`
     width: 100%;
-    height: 100%;
+    //height: 100%;
+    overflow: auto;
+    flex-grow: 1;
     background: ${props => props.theme.background};
     position: relative;
   `;
