@@ -1,6 +1,7 @@
 import { BaseProps } from '@blink-mind/renderer-react';
 import { ContextMenuTarget, Divider, Menu } from '@blueprintjs/core';
 import * as React from 'react';
+import styled from 'styled-components';
 import { TagRecord } from '../ext-data-tags';
 import { StyledTag } from './styled';
 import { TagTopicList } from './tag-topic-list';
@@ -42,10 +43,19 @@ export class TagWidget extends React.PureComponent<TagWidgetProps> {
       interactive: true,
       large
     };
-    return (
-      <span>
-        <StyledTag {...tagProps}>{tag.name}</StyledTag>
-      </span>
-    );
+    return <StyledTag {...tagProps}>{tag.name}</StyledTag>;
   }
+}
+
+const TagWidgetWrapper = styled.div`
+  display: inline-block;
+  margin-bottom: 10px;
+`;
+
+export function StyledTagWidget(props) {
+  return (
+    <TagWidgetWrapper>
+      <TagWidget {...props} />
+    </TagWidgetWrapper>
+  );
 }

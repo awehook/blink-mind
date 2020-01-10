@@ -21,16 +21,17 @@ import {
 
 import { IControllerRunContext } from '@blink-mind/core';
 import { List } from 'immutable';
-import { TagWidget } from './components/tag-widget';
+import { TagWidget, TagWidgetProps } from './components/tag-widget';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
 
 export function TagsPlugin() {
+  const tabId = 'tags-editor';
   return {
     renderRightTopPanelTabs(props, next) {
       const res = next();
       const tProps = {
-        id: 'tags-editor',
-        key: 'tags-editor',
+        id: tabId,
+        key: tabId,
         title: 'Tags',
         panel: <TagEditor {...props} />
       };
@@ -61,16 +62,34 @@ export function TagsPlugin() {
     },
 
     renderTopicExtTag(props) {
-      const { controller } = props;
+      const { controller, diagramState, setDiagramState } = props;
       const tags: TagRecord[] = controller.run('getTopicTags', props);
       const tagsWidget = tags.map(tag => {
-        const tagProps = {
+        const tagProps: TagWidgetProps = {
           ...props,
+          key: tag.name,
+          onClick: () => e => {
+            setDiagramState({
+              ...diagramState,
+              rightTopPanel: {
+                ...diagramState.rightTopPanel,
+                isOpen: true,
+                selectedTabId: tabId
+              }
+            });
+            controller.run('setRightTopPanelProps', {
+              ...props,
+              value: {
+                isOpen: true,
+                selectedTabId: tabId
+              }
+            });
+          },
           isTopicTag: true,
           large: false,
           tag
         };
-        return <TagWidget key={tag.name} {...tagProps} />;
+        return <TagWidget {...tagProps} />;
       });
       return tagsWidget;
     },

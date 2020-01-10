@@ -28,7 +28,7 @@ export interface MindDragScrollWidgetProps {
 @HotkeysTarget
 export class MindDragScrollWidget<
   P extends MindDragScrollWidgetProps
-> extends React.Component<MindDragScrollWidgetProps> {
+> extends React.PureComponent<MindDragScrollWidgetProps> {
   constructor(props: MindDragScrollWidgetProps) {
     super(props);
   }

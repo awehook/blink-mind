@@ -1,5 +1,4 @@
 import { ToolbarItemConfigs } from '@blink-mind/renderer-react';
-import * as React from 'react';
 import { ToolbarItemOpenFile } from './toolbar-item-openfile';
 
 export function OpenFilePlugin() {

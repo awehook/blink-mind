@@ -1,15 +1,14 @@
-import { InputGroup } from '@blueprintjs/core';
 import * as React from 'react';
-import { Flex, Margin } from '../../common';
 import {
+  Flex,
   SettingGroup,
-  SettingItem,
   SettingItemColorPicker,
   SettingItemInput,
   SettingItemInputProps,
   SettingItemNumericInput,
   SettingTitle
-} from '../right-top-panel';
+} from '../../common';
+
 import { ContentStyleEditorProps } from './types';
 
 export function TextStyleEditor(props: ContentStyleEditorProps) {

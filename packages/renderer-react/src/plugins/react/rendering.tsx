@@ -1,10 +1,9 @@
 import { BlockType } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
-import styled from 'styled-components';
 import { SaveRef } from '../../components/common';
+import { DiagramRoot } from '../../components/widgets/diagram-root';
 import { EditorRootBreadcrumbs } from '../../components/widgets/editor-root-breadcrumbs';
-import { MindDragScrollWidget } from '../../components/widgets/mind-drag-scroll-widget';
 import { Modals } from '../../components/widgets/modals';
 import { RootSubLinks } from '../../components/widgets/root-sublinks';
 import { RootWidget } from '../../components/widgets/root-widget';
@@ -22,27 +21,13 @@ import Theme from './theme';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
-  const DiagramRoot = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  `;
-  const DiagramContainer = styled.div`
-    width: 100%;
-    //height: 100%;
-    overflow: auto;
-    flex-grow: 1;
-    background: ${props => props.theme.background};
-    position: relative;
-  `;
   let diagramProps;
   return {
     getDiagramProps() {
       return diagramProps;
     },
     renderDiagram(props) {
-      const { model, controller } = props;
+      const { model } = props;
       return (
         <SaveRef>
           {(saveRef, getRef, deleteRef) => {
@@ -56,13 +41,7 @@ export function RenderingPlugin() {
             log('renderDiagram', model);
             return (
               <Theme theme={model.config.theme}>
-                <DiagramRoot>
-                  {controller.run('renderToolbar', diagramProps)}
-                  <DiagramContainer ref={saveRef(RefKey.DIAGRAM_ROOT_KEY)}>
-                    <MindDragScrollWidget {...diagramProps} />
-                    {controller.run('renderDiagramCustomize', diagramProps)}
-                  </DiagramContainer>
-                </DiagramRoot>
+                {React.createElement(DiagramRoot, diagramProps)}
               </Theme>
             );
           }}
@@ -70,6 +49,12 @@ export function RenderingPlugin() {
       );
     },
     renderDrawer,
+
+    getInitialDiagramState(props) {
+      return {
+        rightTopPanel: { isOpen: false, selectedTabId: 'topic-style' }
+      };
+    },
 
     renderDiagramCustomize(props) {
       const { controller, model } = props;

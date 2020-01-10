@@ -5,22 +5,23 @@ import * as React from 'react';
 import { useState } from 'react';
 import { browserDownloadText, browserOpenFile } from '../../../utils';
 import { handleBooleanChange } from '../../../utils/blueprint';
-import { BaseProps, PanelTabRoot, StyledCheckbox } from '../../common';
 import {
+  BaseProps,
+  PanelTabRoot,
   SettingBoxContainer,
   SettingGroup,
   SettingItemButton,
   SettingItemColorPicker,
   SettingLabel,
   SettingRow,
-  SettingTitle
-} from '../right-top-panel';
+  SettingTitle,
+  StyledCheckbox
+} from '../../common';
 import { TopicThemeEditor, TopicThemeEditorProps } from './topic-theme-editor';
 
 let tabId = 'normal';
 
 export function ThemeEditor(props: BaseProps) {
-  const [showExportDialog, setShowExportDialog] = useState(false);
   const [alertThemeError, setAlertThemeError] = useState(false);
   const { model, controller } = props;
   const theme: ThemeType = model.config.theme;

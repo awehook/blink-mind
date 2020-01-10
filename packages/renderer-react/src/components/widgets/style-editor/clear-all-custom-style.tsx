@@ -1,6 +1,6 @@
 import { Button } from '@blueprintjs/core';
 import * as React from 'react';
-import { SettingGroup, SettingItem } from '../right-top-panel';
+import { SettingGroup, SettingItem } from '../../common';
 
 export function ClearAllCustomStyle(props) {
   const { controller } = props;

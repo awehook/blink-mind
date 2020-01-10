@@ -1,5 +1,4 @@
-import { Controller, KeyType, Model } from '@blink-mind/core';
-import { BaseWidget } from '@blink-mind/renderer-react';
+import { BaseProps, BaseWidget } from '@blink-mind/renderer-react';
 import RichMarkDownEditor from 'awehook-rich-markdown-editor';
 import debug from 'debug';
 import * as React from 'react';
@@ -15,19 +14,12 @@ const NodeContent = styled.div`
     // min-height: 150px
   `};
 `;
-interface Props {
-  controller: Controller;
-  model: Model;
-  readOnly: boolean;
-  topicKey: KeyType;
-  saveRef?: Function;
-}
 
 interface State {
   content: any;
 }
 
-export class RichTextEditor extends BaseWidget<Props, State> {
+export class RichTextEditor extends BaseWidget<BaseProps, State> {
   constructor(props) {
     super(props);
     this.initState();

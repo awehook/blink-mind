@@ -32,3 +32,8 @@ export const MoveTopicDir = {
   CENTER: 0,
   LEFT_CENTER: 1
 };
+
+export interface RightTopPanelProps {
+  isOpen: boolean;
+  selectedTabId: string;
+}

@@ -7,10 +7,10 @@ import {
 import * as React from 'react';
 import { TagRecord } from '../ext-data-tags';
 import { OP_TYPE_ADD_TOPIC_TAG, OP_TYPE_REMOVE_TOPIC_TAG } from '../utils';
-import { TagWidget } from './tag-widget';
+import { StyledTagWidget as TagWidget } from './tag-widget';
 
 export function TopicTagsWidget(props: BaseProps) {
-  const { controller, topicKey } = props;
+  const { controller } = props;
   const topicTags: TagRecord[] = controller.run('getTopicTags', props);
   const tagsCanBeAdded: TagRecord[] = controller.run(
     'getTopicTagsCanBeAdded',

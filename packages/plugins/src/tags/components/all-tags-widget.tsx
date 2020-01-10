@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { ExtDataTags, TagRecord } from '../ext-data-tags';
 import { EXT_DATA_KEY_TAGS, OP_TYPE_DELETE_TAG } from '../utils';
-import { TagWidget } from './tag-widget';
+import { StyledTagWidget as TagWidget } from './tag-widget';
 
 let currentTag: TagRecord;
 export function AllTagsWidget(props: BaseProps) {
@@ -15,6 +15,7 @@ export function AllTagsWidget(props: BaseProps) {
   const tags = extData.tags.toArray().map(([name, tag]) => {
     const tagProps = {
       ...props,
+      key: name,
       tag,
       onClick: tag => e => {
         currentTag = tag;
@@ -24,7 +25,7 @@ export function AllTagsWidget(props: BaseProps) {
         setShowAlert(true);
       }
     };
-    return <TagWidget key={name} {...tagProps} />;
+    return <TagWidget {...tagProps} />;
   });
   const alertProps = {
     isOpen: showAlert,

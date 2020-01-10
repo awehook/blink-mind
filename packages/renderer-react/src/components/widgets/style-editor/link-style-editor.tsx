@@ -1,16 +1,16 @@
 import { LinkStyle } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
-import { Margin } from '../../common';
 import {
   borderWidthItems,
+  Margin,
   renderItem,
   SettingGroup,
   SettingItemColorPicker,
   SettingItemSelect,
   SettingRow,
   SettingTitle
-} from '../right-top-panel';
+} from '../../common';
 
 const lineTypes = ['curve', 'round', 'line'];
 

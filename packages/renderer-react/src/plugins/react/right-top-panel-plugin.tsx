@@ -1,26 +1,18 @@
+import { BaseProps } from '@blink-mind/renderer-react';
 import { Tab } from '@blueprintjs/core';
 import * as React from 'react';
-import {
-  RightTopPanel,
-  RightTopPanelProps
-} from '../../components/widgets/right-top-panel/right-top-panel';
+import { RightTopPanelWidget } from '../../components/widgets/right-top-panel';
 import { StyleEditor } from '../../components/widgets/style-editor';
 import { ThemeEditor } from '../../components/widgets/theme-editor';
 
 export function RightTopPanelPlugin() {
-  let selectedTabId = 'topic-style';
-  const handleTabIdChange = tabId => {
-    selectedTabId = tabId;
-  };
   return {
-    renderRightTopPanel(props) {
-      const nProps: RightTopPanelProps = {
+    renderRightTopPanel(props: BaseProps) {
+      const nProps: BaseProps = {
         ...props,
-        key: 'right-top-panel',
-        selectedTabId,
-        handleTabIdChange
+        key: 'right-top-panel'
       };
-      return <RightTopPanel {...nProps} />;
+      return <RightTopPanelWidget {...nProps} />;
     },
 
     renderRightTopPanelTabs(props) {

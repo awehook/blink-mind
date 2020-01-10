@@ -5,7 +5,7 @@ import {
   SettingItemNumericInput,
   SettingRow,
   SettingTitle
-} from '../right-top-panel';
+} from '../../common';
 import { ContentStyleEditorProps } from './types';
 
 const expand = require('css-shorthand-expand');

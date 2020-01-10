@@ -1,6 +1,5 @@
-import { TabId, Tabs } from '@blueprintjs/core';
+import { Tabs } from '@blueprintjs/core';
 import * as React from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
 import { iconClassName, IconName } from '../../../utils';
 import {
@@ -25,35 +24,54 @@ const StyledTabs = styled(Tabs)`
   padding: 0px 10px;
 `;
 
-export type RightTopPanelProps = BaseProps & {
-  selectedTabId: TabId;
-  handleTabIdChange: (tabId: TabId) => void;
-  zIndex: number;
-};
+export function RightTopPanelWidget(props: BaseProps) {
+  const { controller, zIndex, diagramState, setDiagramState } = props;
 
-export function RightTopPanel(props: RightTopPanelProps) {
-  const { controller, zIndex, selectedTabId, handleTabIdChange } = props;
-  const [expand, setExpand] = useState(false);
+  const { rightTopPanel } = diagramState;
 
-  if (!expand) {
+  const { isOpen, selectedTabId } = rightTopPanel;
+
+  const setRightTopPanelState = obj => {
+    setDiagramState({
+      ...diagramState,
+      rightTopPanel: { ...rightTopPanel, ...obj }
+    });
+  };
+
+  if (!isOpen) {
     return (
       <PanelRoot zIndex={zIndex}>
-        <IconBg onClick={() => setExpand(true)}>
+        <IconBg
+          onClick={() => {
+            setRightTopPanelState({ isOpen: true });
+          }}
+        >
           <ShowMenuIcon className={iconClassName(IconName.SHOW_MENU)} />
         </IconBg>
       </PanelRoot>
     );
   }
+  const handleTabIdChange = tabId => {
+    setRightTopPanelState({
+      selectedTabId: tabId
+    });
+  };
 
   return (
     <PanelRoot zIndex={zIndex}>
       <Title>
         <CloseIcon
           className={iconClassName(IconName.CLOSE)}
-          onClick={() => setExpand(false)}
+          onClick={() => {
+            setRightTopPanelState({ isOpen: false });
+          }}
         />
       </Title>
-      <StyledTabs id={selectedTabId} onChange={handleTabIdChange}>
+      <StyledTabs
+        id="tabs"
+        selectedTabId={selectedTabId}
+        onChange={handleTabIdChange}
+      >
         {controller.run('renderRightTopPanelTabs', props)}
       </StyledTabs>
     </PanelRoot>

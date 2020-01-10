@@ -14,6 +14,7 @@ export const IconName = {
   THEME: 'theme',
   EXPORT: 'export',
   OPEN_FILE: 'openfile',
+  SAVE: 'save',
   LAYOUT_LEFT_AND_RIGHT: 'layout-left-and-right',
   LAYOUT_LEFT: 'layout-left',
   LAYOUT_RIGHT: 'layout-right',

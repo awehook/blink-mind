@@ -5,7 +5,7 @@ import {
   SettingGroup,
   SettingItemColorPicker,
   SettingTitle
-} from '../right-top-panel';
+} from '../../common';
 import { BorderStyleEditor } from '../style-editor/border-style-editor';
 import { LinkStyleEditor } from '../style-editor/link-style-editor';
 import { PaddingStyleEditor } from '../style-editor/padding-style-editor';

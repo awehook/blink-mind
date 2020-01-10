@@ -6,7 +6,7 @@ import {
   SettingItemSelect,
   SettingRow,
   SettingTitle
-} from '../right-top-panel';
+} from '../../common';
 import { ContentStyleEditorProps } from './types';
 
 const borderWidthItems = [...Array(7).keys()];

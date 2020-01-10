@@ -1,2 +1,1 @@
-export * from './right-top-panel';
-export * from '../../common';
+export * from './right-top-panel-widget';
