@@ -34,7 +34,6 @@ function toggleCollapse({ model, topicKey }: BaseModifierArg): ModifierResult {
 }
 
 function collapseAll({ model }: BaseModifierArg): ModifierResult {
-  log('collapseAll');
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -42,7 +41,11 @@ function collapseAll({ model }: BaseModifierArg): ModifierResult {
       m.setIn(['topics', topicKey, 'collapse'], true);
     });
   });
-  log(model);
+  model = focusTopic({
+    model,
+    topicKey: model.editorRootTopicKey,
+    focusMode: FocusMode.NORMAL
+  });
   return model;
 }
 
