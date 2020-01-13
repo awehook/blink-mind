@@ -7,7 +7,7 @@
   "main": "./lib/main.js",
   "module": "lib/main.es.js",
   "umd": "dist/main.js",
-  "version": "0.0.20-beta.7",
+  "version": "0.0.20-beta.8",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,9 +24,9 @@
     "styled-components": "*"
   },
   "dependencies": {
-    "@blink-mind/core": "^0.0.20-beta.7",
-    "@blink-mind/icons": "^0.0.20-beta.7",
-    "@blink-mind/renderer-react": "^0.0.20-beta.7"
+    "@blink-mind/core": "^0.0.20-beta.8",
+    "@blink-mind/icons": "^0.0.20-beta.8",
+    "@blink-mind/renderer-react": "^0.0.20-beta.8"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

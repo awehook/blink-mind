@@ -6,7 +6,7 @@
   "main": "lib/main.js",
   "module": "lib/main.es.js",
   "umd": "dist/main.js",
-  "version": "0.0.20-beta.7",
+  "version": "0.0.20-beta.8",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

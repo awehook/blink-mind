@@ -3,7 +3,7 @@
   "files": [
     "lib/"
   ],
-  "version": "0.0.20-beta.7",
+  "version": "0.0.20-beta.8",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -19,9 +19,9 @@
     "react-dom": "^16.10.2"
   },
   "dependencies": {
-    "@blink-mind/core": "^0.0.20-beta.7",
-    "@blink-mind/icons": "^0.0.20-beta.7",
-    "@blink-mind/plugin-simple-text-editor": "^0.0.20-beta.7",
+    "@blink-mind/core": "^0.0.20-beta.8",
+    "@blink-mind/icons": "^0.0.20-beta.8",
+    "@blink-mind/plugin-simple-text-editor": "^0.0.20-beta.8",
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/select": "^3.11.1",
     "classnames": "^2.2.6",
