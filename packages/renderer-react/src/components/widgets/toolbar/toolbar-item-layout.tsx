@@ -1,4 +1,4 @@
-import { DiagramLayoutType } from '@blink-mind/core';
+import { DiagramLayoutType, OpType } from '@blink-mind/core';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import * as React from 'react';
 import { Icon, iconClassName, IconName } from '../../../utils';
@@ -17,7 +17,11 @@ export function ToolbarItemLayout(props) {
 
   const onClickSetLayout = layoutDir => e => {
     const { controller } = props;
-    controller.run('setLayoutDir', { ...props, layoutDir });
+    controller.run('operation', {
+      ...props,
+      opType: OpType.SET_LAYOUT_DIR,
+      layoutDir
+    });
   };
 
   return (

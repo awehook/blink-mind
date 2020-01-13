@@ -19,7 +19,7 @@ function createSimpleModel() {
       {
         key: 'sub2',
         parentKey: 'root',
-        blocks: [{ type: 'CONTENT', data: 'SubTopic2' }],
+        blocks: [{ type: 'CONTENT', data: 'SubTopic2' }]
       }
     ]
   });

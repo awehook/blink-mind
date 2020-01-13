@@ -17,8 +17,8 @@ const DropArea = styled.div`
 `;
 
 export function DragAndDropPlugin() {
-  let dragTargetKey: KeyType = null;
-  let dragTargetDir: string = null;
+  // let dragTargetKey: KeyType = null;
+  // let dragTargetDir: string = null;
 
   return {
     renderTopicDropArea(props) {
@@ -64,13 +64,6 @@ export function DragAndDropPlugin() {
       );
     },
 
-    getDragTargetProps(props) {
-      return {
-        key: dragTargetKey,
-        dropDir: dragTargetDir
-      };
-    },
-
     handleTopicDragStart(props) {
       const { controller, ev } = props;
       ev.stopPropagation();
@@ -97,7 +90,14 @@ export function DragAndDropPlugin() {
     },
 
     handleTopicDragEnter(props) {
-      const { dropDir, topicKey, controller, model } = props;
+      const {
+        dropDir,
+        topicKey,
+        controller,
+        model,
+        diagramState,
+        setDiagramState
+      } = props;
       log('handleTopicDragEnter:', topicKey, dropDir);
       const canDrop = controller.run('canDrop', {
         ...props,
@@ -105,32 +105,46 @@ export function DragAndDropPlugin() {
         dstKey: topicKey
       });
       if (canDrop) {
-        dragTargetKey = topicKey;
-        dragTargetDir = dropDir;
-        controller.change(model);
+        setDiagramState({
+          ...diagramState,
+          dragDrop: {
+            targetKey: topicKey,
+            targetDir: dropDir
+          }
+        });
       }
     },
 
     handleTopicDragLeave(props) {
-      const { controller, model, topicKey, dropDir, getRef, ev } = props;
+      const {
+        topicKey,
+        dropDir,
+        getRef,
+        ev,
+        diagramState,
+        setDiagramState
+      } = props;
       const relatedTarget = ev.nativeEvent.relatedTarget;
       log('handleTopicDragLeave:', topicKey, dropDir);
       const content = getRef(contentRefKey(topicKey));
       if (content == relatedTarget || content.contains(relatedTarget)) {
         return;
       }
-      dragTargetKey = null;
-      dragTargetDir = null;
-      controller.change(model);
+      setDiagramState({ ...diagramState, dragDrop: null });
     },
 
     handleTopicDrop(props) {
       log('handleTopicDrop');
-      const { controller, topicKey, model } = props;
+      const {
+        controller,
+        topicKey,
+        model,
+        diagramState,
+        setDiagramState
+      } = props;
       props = { ...props, srcKey: model.focusKey, dstKey: topicKey };
 
-      dragTargetKey = null;
-      dragTargetDir = null;
+      setDiagramState({ ...diagramState, dragDrop: null });
       if (controller.run('canDrop', props)) {
         controller.run('operation', {
           ...props,

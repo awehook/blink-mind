@@ -126,13 +126,15 @@ export function OperationPlugin() {
     [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
     [OpType.SET_FOCUS_MODE, ModelModifier.setFocusMode],
     [OpType.SET_STYLE, ModelModifier.setStyle],
+    [OpType.CLEAR_ALL_CUSTOM_STYLE, ModelModifier.clearAllCustomStyle],
     [OpType.SET_THEME, ModelModifier.setTheme],
     [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
     [OpType.DELETE_TOPIC_BLOCK, ModelModifier.deleteBlock],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop],
-    [OpType.SET_EDITOR_ROOT, ModelModifier.setEditorRootTopicKey]
+    [OpType.SET_EDITOR_ROOT, ModelModifier.setEditorRootTopicKey],
+    [OpType.SET_LAYOUT_DIR, ModelModifier.setLayoutDir]
   ]);
 
   let undoStack = Stack<Model>();

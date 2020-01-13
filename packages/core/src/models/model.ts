@@ -22,7 +22,7 @@ type ModelRecordType = {
 const defaultModelRecord: ModelRecordType = {
   topics: Map(),
   extData: Map(),
-  config: null,
+  config: new Config(),
   rootTopicKey: null,
   editorRootTopicKey: null,
   focusKey: null,
@@ -62,10 +62,11 @@ export class Model extends Record(defaultModelRecord) {
 
   static createEmpty(): Model {
     const model = new Model();
-    const rootTopic = Topic.create({ key: createKey() });
+    const rootTopic = Topic.create({ key: createKey(), content: 'RootTopic' });
     return model
       .update('topics', topics => topics.set(rootTopic.key, rootTopic))
       .set('rootTopicKey', rootTopic.key)
+      .set('editorRootTopicKey', rootTopic.key)
       .set('focusKey', rootTopic.key)
       .set('focusMode', FocusMode.NORMAL);
   }

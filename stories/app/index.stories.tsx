@@ -1,6 +1,15 @@
-import * as React from 'react';
-import { storiesOf } from '@storybook/react';
-import { BaseDemo } from '../common';
+import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
+import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
+import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
+import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
+import {
+  ExportFilePlugin,
+  OpenFilePlugin,
+  SearchPlugin,
+  TagsPlugin,
+  TopicReferencePlugin,
+  UndoRedoPlugin
+} from '@blink-mind/plugins';
 import {
   Diagram,
   iconClassName,
@@ -8,22 +17,12 @@ import {
   ToolbarItem,
   ToolbarItemConfigs
 } from '@blink-mind/renderer-react';
-import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
-import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
-import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
-import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
-import {
-  TopicReferencePlugin,
-  SearchPlugin,
-  OpenFilePlugin,
-  ExportFilePlugin,
-  UndoRedoPlugin,
-  TagsPlugin
-} from '@blink-mind/plugins';
+import { storiesOf } from '@storybook/react';
+import * as React from 'react';
 import styled from 'styled-components';
-import debug from 'debug';
-
-const log = debug('story:app');
+import { BaseDemo } from '../common';
+// import debug from 'debug';
+// const log = debug('story:app');
 
 const Container = styled.div`
   width: 100%;
@@ -78,6 +77,10 @@ const plugins = [
 class AppDemo extends BaseDemo {
   constructor(props) {
     super(props);
+  }
+
+  initModel() {
+    this.state = { model: null };
   }
 
   diagram;

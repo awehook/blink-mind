@@ -1,4 +1,4 @@
-import { ModelModifier } from '@blink-mind/core';
+import { OpType } from '@blink-mind/core';
 import {
   Breadcrumb,
   Breadcrumbs,
@@ -29,20 +29,16 @@ const BreadcrumbTitle = styled.span``;
 export class EditorRootBreadcrumbs extends BaseWidget {
   constructor(props) {
     super(props);
-    this.state = {
-      show: false
-    };
   }
 
   setEditorRootTopicKey = topicKey => () => {
     const { model, controller } = this.props;
     if (model.editorRootTopicKey !== topicKey) {
-      controller.change(
-        ModelModifier.setEditorRootTopicKey({
-          model,
-          topicKey
-        })
-      );
+      controller.run('operation', {
+        ...this.props,
+        opType: OpType.SET_EDITOR_ROOT,
+        topicKey
+      });
     }
   };
 
@@ -67,12 +63,6 @@ export class EditorRootBreadcrumbs extends BaseWidget {
     ) : (
       breadcrumb
     );
-
-    // return (
-    //   <Breadcrumb {...breadProps}>
-    //     <BreadcrumbTitle>{title}</BreadcrumbTitle>
-    //   </Breadcrumb>
-    // );
   };
 
   render() {

@@ -48,8 +48,8 @@ describe('Modifier test', () => {
     model = addChild({ model, topicKey: model.focusKey });
 
     expect(model.topics.size).toBe(5);
-    expect(getAllSubTopicKeys(model,key).length).toBe(2);
-    model = deleteTopic({model,topicKey: key});
+    expect(getAllSubTopicKeys(model, key).length).toBe(2);
+    model = deleteTopic({ model, topicKey: key });
     expect(model.topics.size).toBe(2);
   });
 

@@ -48,6 +48,7 @@ export function StylePlugin() {
           }
         };
       }
+
       const topic = model.getTopic(topicKey);
       if (!topic.style) {
         return themeStyle;
@@ -236,16 +237,6 @@ export function StylePlugin() {
       colorMap.set(topicKey, color);
       log('getRandomColor', topicKey, color);
       return color;
-    },
-
-    clearAllCustomStyle(props) {
-      const { model, controller } = props;
-      const newModel = model.withMutations(model => {
-        model.topics.keySeq().forEach(key => {
-          model.setIn(['topics', key, 'style'], null);
-        });
-      });
-      controller.change(newModel);
     }
   };
 }

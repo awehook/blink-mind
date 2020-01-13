@@ -1,9 +1,11 @@
-import { defaultTheme, ModelModifier, ThemeType } from '@blink-mind/core';
+import { defaultTheme, Model, OpType, ThemeType } from '@blink-mind/core';
 import { themeRandomColorSquare } from './themes';
 import { theme1 } from './themes';
 import { theme2 } from './themes';
 import { theme3 } from './themes';
 import { theme4 } from './themes';
+
+export type ThemeMap = Map<string, ThemeType>;
 
 export function ThemeSelectorPlugin() {
   const themeMap = new Map<string, ThemeType>([
@@ -14,22 +16,33 @@ export function ThemeSelectorPlugin() {
     ['theme3', theme3],
     ['theme4', theme4]
   ]);
-  let currentThemeKey: string = null;
   return {
     getAllThemes(props) {
       return themeMap;
     },
 
-    setTheme(props) {
-      const { model, controller, themeKey } = props;
-      currentThemeKey = themeKey;
-      const allTheme = controller.run('getAllThemes', props);
-      if (!allTheme.has(themeKey)) {
-        throw new Error('setTheme: the theme key is not correct!');
+    getTheme(props) {
+      const { controller, themeKey } = props;
+      return controller.run('getAllThemes', props).get(themeKey);
+    },
+
+    setTheme(ctx) {
+      const { controller, themeKey } = ctx;
+      const allThemes: ThemeMap = controller.run('getAllThemes', ctx);
+      if (!allThemes.has(themeKey)) {
+        throw new Error(`the theme key ${themeKey} is not exist!`);
       }
-      const theme = allTheme.get(themeKey);
-      const newModel = ModelModifier.setTheme({ model, theme });
-      controller.change(newModel);
+      controller.run('operation', {
+        ...ctx,
+        opType: OpType.SET_THEME,
+        theme: allThemes.get(themeKey)
+      });
+    },
+
+    createNewModel(props, next) {
+      let model: Model = next();
+      model = model.setIn(['config', 'theme'], themeRandomColorSquare);
+      return model;
     }
   };
 }

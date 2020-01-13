@@ -5,7 +5,6 @@ import {
   IControllerRunContext,
   KeyType,
   Model,
-  ModelModifier,
   OpType,
   Topic,
   TopicRelationship
@@ -105,11 +104,6 @@ export function LayoutPlugin() {
           }
         }
       }
-    },
-
-    setLayoutDir(props) {
-      const { layoutDir, model, controller } = props;
-      controller.change(ModelModifier.setLayoutDir({ model, layoutDir }));
     },
 
     getRelativeRect(props) {

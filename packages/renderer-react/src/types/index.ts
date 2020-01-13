@@ -33,7 +33,12 @@ export const MoveTopicDir = {
   LEFT_CENTER: 1
 };
 
-export interface RightTopPanelProps {
+export interface RightTopPanelState {
   isOpen: boolean;
   selectedTabId: string;
+}
+
+export interface DragDropState {
+  targetKey: KeyType;
+  targetDir: 'in' | 'prev' | 'next';
 }

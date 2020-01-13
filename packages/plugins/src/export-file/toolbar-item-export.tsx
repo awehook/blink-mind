@@ -13,7 +13,7 @@ export function ToolbarItemExport(props) {
   const onClickExport = () => {
     const { controller } = props;
     const json = controller.run('serializeModel', props);
-    const jsonStr = JSON.stringify(json);
+    const jsonStr = JSON.stringify(json, null, 2);
     const url = `data:text/plain,${encodeURIComponent(jsonStr)}`;
     browserDownloadFile(url, 'example.json');
     setShowDialog(false);

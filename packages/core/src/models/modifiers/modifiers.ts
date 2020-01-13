@@ -240,6 +240,15 @@ function setStyle({
   return model;
 }
 
+function clearAllCustomStyle({ model }: BaseModifierArg): ModifierResult {
+  model = model.withMutations(model => {
+    model.topics.keySeq().forEach(key => {
+      model.setIn(['topics', key, 'style'], null);
+    });
+  });
+  return model;
+}
+
 function setTheme({ model, theme }: SetThemeArg): ModifierResult {
   model = model.setIn(['config', 'theme'], theme);
   return model;
@@ -284,6 +293,7 @@ export default {
   setBlockData,
   deleteBlock,
   setStyle,
+  clearAllCustomStyle,
   setTheme,
   setLayoutDir,
   setEditorRootTopicKey,

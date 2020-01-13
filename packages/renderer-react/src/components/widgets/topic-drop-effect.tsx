@@ -32,22 +32,28 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
 
   layout() {
     const props = this.props;
-    const { getRef, model, zoomFactor, controller } = this.props;
-    const targetProps = controller.run('getDragTargetProps', props);
-    const { key, dropDir } = targetProps;
-    log('layout', dropDir);
+    const { getRef, model, zoomFactor, diagramState } = props;
+    const dragDrop = diagramState.dragDrop;
+    if (dragDrop == null) {
+      this.setState({
+        content: null
+      });
+      return;
+    }
+    const { targetKey, targetDir } = dragDrop;
+    log('layout', targetDir);
 
-    if (key === null) {
+    if (targetKey == null) {
       this.setState({
         content: null
       });
       return;
     }
     let refKey;
-    if (dropDir === 'in') {
-      refKey = contentRefKey(key);
+    if (targetDir === 'in') {
+      refKey = contentRefKey(targetKey);
     } else {
-      refKey = dropAreaRefKey(key, dropDir);
+      refKey = dropAreaRefKey(targetKey, targetDir);
     }
     const content = getRef(refKey);
     const svg = getRef('svg-drop-effect');

@@ -26,7 +26,10 @@ export function ThemeEditor(props: BaseProps) {
   const { model, controller } = props;
   const theme: ThemeType = model.config.theme;
 
-  const { rootTopic, primaryTopic, normalTopic } = theme;
+  const { rootTopic, primaryTopic, normalTopic } = controller.run(
+    'getThemeOfTopic',
+    props
+  );
 
   const setTheme = theme => {
     controller.run('operation', {
