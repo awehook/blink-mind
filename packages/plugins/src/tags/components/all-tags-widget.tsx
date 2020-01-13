@@ -29,7 +29,8 @@ export function AllTagsWidget(props: BaseProps) {
   });
   const alertProps = {
     isOpen: showAlert,
-
+    canEscapeKeyCancel: true,
+    cancelButtonText: 'cancel',
     onConfirm: e => {
       controller.run('operation', {
         ...props,
