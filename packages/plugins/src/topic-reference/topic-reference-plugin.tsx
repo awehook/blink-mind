@@ -1,6 +1,7 @@
 import {
   BaseModifierArg,
   getAllSubTopicKeys,
+  IControllerRunContext,
   Model,
   ModelModifier,
   OpType
@@ -17,7 +18,6 @@ import {
   OP_TYPE_START_SET_REFERENCE_TOPICS
 } from './utils';
 
-import { IControllerRunContext } from '@blink-mind/core/src/interfaces';
 import { List, Map } from 'immutable';
 import { ExtDataReference, ReferenceRecord } from './ext-data-reference';
 import { setReferenceTopicKeys } from './op-function';

@@ -1,8 +1,12 @@
 import { BlockType } from '@blink-mind/core';
 import { descEditorRefKey } from '@blink-mind/renderer-react';
+import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
 
 export class TopicDescEditor extends RichTextEditor {
+  constructor(props) {
+    super(props);
+  }
   initState() {
     super.initState();
     const { controller, topicKey } = this.props;

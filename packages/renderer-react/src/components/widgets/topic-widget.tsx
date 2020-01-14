@@ -3,7 +3,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { linksRefKey, topicRefKey } from '../../utils';
-import { BaseProps } from '../common/base-props';
+import { BaseProps } from '../common';
 import { TopicSubLinks } from './topic-sub-links';
 
 const log = debug('node:topic-widget');

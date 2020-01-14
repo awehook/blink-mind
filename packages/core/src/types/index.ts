@@ -1,4 +1,4 @@
-import { Model } from '@blink-mind/core';
+import { Model } from '../models';
 
 export type KeyType = string;
 

@@ -3,10 +3,10 @@ import {
   Config,
   ExtData,
   FocusMode,
+  IControllerRunContext,
   Model,
   Topic
 } from '@blink-mind/core';
-import { IControllerRunContext } from '@blink-mind/core/src/interfaces';
 import debug from 'debug';
 import { isImmutable, List, Map } from 'immutable';
 

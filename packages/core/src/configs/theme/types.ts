@@ -6,10 +6,12 @@ export type LinkStyle = {
 };
 
 export type TopicContentStyle = {
+  [key: string]: any;
   background?: string;
   color?: string;
   fontSize?: string;
   lineHeight?: string;
+  border?: string;
   borderRadius?: string;
   borderWidth?: string;
   borderStyle?: string;

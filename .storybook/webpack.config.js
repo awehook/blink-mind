@@ -72,10 +72,6 @@ module.exports = {
         __dirname,
         '../packages/plugin-json-serializer/src/index'
       ),
-      '@blink-mind/plugin-simple-text-editor': path.join(
-        __dirname,
-        '../packages/plugin-simple-text-editor/src/index'
-      ),
       '@blink-mind/plugin-rich-text-editor': path.join(
         __dirname,
         '../packages/plugin-rich-text-editor/src/index'

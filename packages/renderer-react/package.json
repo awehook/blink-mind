@@ -11,7 +11,10 @@
   "main": "lib/main.js",
   "module": "lib/main.es.js",
   "umd": "dist/main.js",
-  "scripts": {},
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf lib"
+  },
   "peerDependencies": {
     "debug": "*",
     "memoize-one": "*",
@@ -33,7 +36,9 @@
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^4.4.0",
     "tiny-invariant": "^1.0.6",
-    "tiny-warning": "^1.0.3"
+    "tiny-warning": "^1.0.3",
+    "slate-plain-serializer": "^0.7.11",
+    "slate-react": "^0.21.20"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

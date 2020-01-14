@@ -99,6 +99,7 @@ export function SettingItemNumericInput(props: SettingItemNumericInputProps) {
 export interface SettingItemInputProps {
   layout?: string;
   title: string;
+  style?: Object;
   value: string;
   onChange: React.FormEventHandler<HTMLElement>;
 }

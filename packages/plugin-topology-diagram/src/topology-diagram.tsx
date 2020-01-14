@@ -1,4 +1,4 @@
-import { BaseWidget } from '@blink-mind/renderer-react';
+import { BaseProps, BaseWidget } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { Topology } from 'topology-core';
 import { registerNode } from 'topology-core/middles';
@@ -136,13 +136,19 @@ const ToolbarButtons = styled.div`
   }
 `;
 
-export class TopologyDiagram extends BaseWidget {
-  state = {
+interface IState {
+  id: string;
+  data: any;
+  toolsConfig: any[];
+}
+
+export class TopologyDiagram extends BaseWidget<BaseProps, IState> {
+  state: IState = {
     id: '',
     data: null,
-    toolsConfig: ToolsConfig,
-    iconfont: { fontSize: '0.24rem' }
+    toolsConfig: ToolsConfig
   };
+  iconfont: { fontSize: '0.24rem' };
   topology: Topology;
 
   canvasOptions: Options = {};
@@ -336,7 +342,7 @@ export class TopologyDiagram extends BaseWidget {
                     >
                       <i
                         className={'iconfont ' + btn.icon}
-                        style={this.state.iconfont}
+                        style={this.iconfont}
                       />
                     </a>
                   );

@@ -4,7 +4,7 @@
     "suppressExcessPropertyErrors": true,
     "downlevelIteration": true,
     "allowJs": true,
-    //    "declaration": true,
+    "declaration": true,
     "outDir": "./lib",
     "target": "es5",
     "strictNullChecks": false,
@@ -33,11 +33,18 @@
       "@blink-mind/plugin-topology-diagram": [
         "packages/plugin-topology-diagram/src"
       ],
-      "@blink-mind/plugins": [
-        "packages/plugins/src"
-      ]
+      "@blink-mind/plugins": ["packages/plugins/src"]
     }
   },
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/renderer-react" },
+    { "path": "./packages/plugin-json-serializer" },
+    { "path": "./packages/plugins" },
+    { "path": "./packages/plugin-rich-text-editor" },
+    { "path": "./packages/plugin-theme-selector" },
+    { "path": "./packages/plugin-topology-diagram" }
+  ],
   "include": ["packages/*/src", "stories/"],
   "exclude": ["node_modules", "**/*.spec.ts", "./dist", "**/*.test.ts"]
 }

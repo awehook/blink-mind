@@ -1,5 +1,5 @@
 import { Controller, FocusMode, Model } from '@blink-mind/core';
-import { HotKeysConfig } from '@blink-mind/renderer-react';
+import { HotKeysConfig } from '../../types';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';

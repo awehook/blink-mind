@@ -4,8 +4,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { collapseRefKey, contentRefKey, PropKey } from '../../utils';
-import { BaseWidget } from '../common';
-import { BaseProps } from '../common/base-props';
+import { BaseProps, BaseWidget } from '../common';
 
 const log = debug('node:topic-content-widget');
 

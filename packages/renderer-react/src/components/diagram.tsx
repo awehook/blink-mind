@@ -45,10 +45,8 @@ export class Diagram extends React.Component<Props> implements IDiagram {
     const defaultPlugin = TheDefaultPlugin();
     this.controller = new Controller({
       plugins: [plugins, defaultPlugin],
-      construct: false,
       onChange: this.props.onChange
     });
-    // this.controller.run('onConstruct');
   });
 
   render() {

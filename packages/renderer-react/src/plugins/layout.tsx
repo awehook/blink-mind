@@ -28,18 +28,11 @@ export type GetPartTopicsArg = {
   model: Model;
   topicKey: KeyType;
 };
-export interface GetPartTopicsRes {
-  [part: number]: KeyType[];
-}
 
 export function LayoutPlugin() {
   const _zoomFactor = 1;
   return {
-    getPartTopics({
-      layout,
-      model,
-      topicKey
-    }: GetPartTopicsArg): GetPartTopicsRes {
+    getPartTopics({ layout, model, topicKey }: GetPartTopicsArg) {
       const topic = model.getTopic(topicKey);
       const subTopicCount = topic.subKeys.size;
       const topics = topic.subKeys.toArray();

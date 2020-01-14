@@ -1,8 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 import styled from 'styled-components';
-import { BaseWidget } from '../common';
-import { BaseProps } from '../common/base-props';
+import { BaseProps, BaseWidget } from '../common';
 
 export type TopicContextMenuItemConfig = {
   type: string;

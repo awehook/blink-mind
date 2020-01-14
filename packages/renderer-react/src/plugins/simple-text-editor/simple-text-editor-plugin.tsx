@@ -4,7 +4,7 @@ import plainSerializer from 'slate-plain-serializer';
 import { TopicContentEditor } from './components/topic-content-editor';
 import { TopicDescEditor } from './components/topic-desc-editor';
 
-export default function SimpleTextEditorPlugin() {
+export function SimpleTextEditorPlugin() {
   return {
     getTopicTitle(props) {
       const { model, controller, topicKey, maxLength } = props;

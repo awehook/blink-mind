@@ -3,7 +3,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { topicRefKey } from '../../utils';
-import { BaseProps } from '../common/base-props';
+import { BaseProps } from '../common';
 
 const log = debug('RootNode');
 

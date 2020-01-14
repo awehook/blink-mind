@@ -1,5 +1,4 @@
-import ts from 'rollup-plugin-typescript2';
-import typescript from 'typescript';
+import rollupTs from 'rollup-plugin-typescript2';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import cssPorter from 'rollup-plugin-css-porter';
@@ -20,10 +19,16 @@ function configure(pkg, env, target) {
     .concat(pkg.dependencies ? Object.keys(pkg.dependencies) : [])
     .concat(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : []);
 
+
   const plugins = [
     // resolve({
     //   browser: true
     // }),
+    rollupTs({
+      abortOnError: false,
+      tsconfig: `./packages/${pkgDir}/tsconfig.json`,
+      clean: true
+    }),
     commonjs({
       exclude: [`packages/${pkgDir}/src/**`],
       namedExports: {
@@ -45,8 +50,8 @@ function configure(pkg, env, target) {
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
     }),
-    cssPorter(),
-    ts({ typescript, tsconfig })
+    cssPorter()
+    // rollupTs({ typescript, tsconfig })
   ];
 
   if (isModule) {
@@ -63,8 +68,8 @@ function configure(pkg, env, target) {
           file: `packages/${pkgDir}/${pkg.main}`,
           format: 'cjs',
           exports: 'named',
-          sourcemap: true,
-        },
+          sourcemap: true
+        }
       ],
       external: id => {
         // console.log('external:',id);

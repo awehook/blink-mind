@@ -9,8 +9,7 @@ import {
   Point,
   RefKey
 } from '../../utils';
-import { BaseWidget } from '../common';
-import { BaseProps } from '../common/base-props';
+import { BaseProps, BaseWidget } from '../common';
 
 import debug from 'debug';
 import { contentRefKey, linksSvgRefKey } from '../../utils';

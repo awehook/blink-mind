@@ -1,6 +1,6 @@
-import { BaseProps } from '@blink-mind/renderer-react';
 import { Tab } from '@blueprintjs/core';
 import * as React from 'react';
+import { BaseProps } from '../../components/common';
 import { RightTopPanelWidget } from '../../components/widgets/right-top-panel';
 import { StyleEditor } from '../../components/widgets/style-editor';
 import { ThemeEditor } from '../../components/widgets/theme-editor';

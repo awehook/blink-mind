@@ -1,7 +1,6 @@
 import { Classes, Dialog } from '@blueprintjs/core';
 import * as React from 'react';
-import { BaseWidget } from '../common';
-import { BaseProps } from '../common/base-props';
+import { BaseProps, BaseWidget } from '../common';
 
 interface Props extends BaseProps {
   saveRef?: Function;

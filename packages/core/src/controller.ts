@@ -1,12 +1,35 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import { IControllerOption } from './interfaces';
 import { Model } from './models';
 import { CorePlugin } from './plugins/core';
 import { ModelChangeCallback, OnChangeFunction } from './types';
 
 const log = debug('core:controller');
+
+export interface IControllerOption {
+  plugins?: Array<any>;
+  model?: Model;
+  readOnly?: boolean;
+  onChange?: OnChangeFunction;
+}
+
+export interface IControllerRunContext {
+  controller: Controller;
+  model?: Model;
+  topicKey?: KeyType;
+  getRef?: Function;
+}
+
+export interface IDiagram {
+  getDiagramProps(): IDiagramProps;
+  openNewModel(newModel: Model);
+}
+
+export interface IDiagramProps {
+  model: Model;
+  controller: Controller;
+}
 
 function registerPlugin(controller: Controller, plugin: any) {
   if (Array.isArray(plugin)) {

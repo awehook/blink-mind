@@ -1,6 +1,24 @@
 import * as React from 'react';
 
-import { BaseProps } from './base-props';
+import { Controller, KeyType, Model, TopicStyle } from '@blink-mind/core';
+
+export interface BaseProps {
+  model: Model;
+  key?: string;
+  topicKey?: KeyType;
+  readOnly?: boolean;
+  topicStyle?: TopicStyle;
+  controller?: Controller;
+  dir?: string;
+  saveRef?: Function;
+  getRef?: Function;
+  setViewBoxScrollDelta?: Function;
+  setViewBoxScroll?: Function;
+  zoomFactor?: number;
+  zIndex?: number;
+  diagramState: any;
+  setDiagramState: (any) => void;
+}
 
 export class BaseWidget<
   P extends BaseProps = BaseProps,

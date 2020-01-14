@@ -7,8 +7,7 @@ import {
   getRelativeRect,
   RefKey
 } from '../../utils';
-import { BaseWidget } from '../common';
-import { BaseProps } from '../common/base-props';
+import { BaseProps, BaseWidget } from '../common';
 const log = debug('node:topic-drop-effect');
 
 const DropEffectSvg = styled.svg`

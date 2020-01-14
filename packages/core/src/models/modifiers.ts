@@ -1,22 +1,69 @@
 import debug from 'debug';
-import { FocusMode, TopicRelationship } from '../../types';
-import { createKey } from '../../utils';
-import { Block } from '../block';
-import { Topic } from '../topic';
-import { getAllSubTopicKeys, getKeyPath, getRelationship } from '../utils';
+import { ThemeType } from '../configs/theme/types';
 import {
-  BaseModifierArg,
-  DeleteBlockArg,
-  ModifierResult,
-  SetBlockDataArg,
-  SetFocusModeArg,
-  SetLayoutDirArg,
-  SetThemeArg,
-  SetTopicStyleArg,
-  SetZoomFactorArg
-} from './types';
+  DiagramLayoutType,
+  FocusMode,
+  KeyType,
+  TopicRelationship
+} from '../types';
+import { createKey } from '../utils';
+import { Block } from './block';
+import { Model } from './model';
+import { Topic } from './topic';
+import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
 
 const log = debug('modifier');
+
+export type ModifierArg =
+  | BaseModifierArg
+  | SetTopicArg
+  | SetBlockDataArg
+  | SetFocusModeArg
+  | SetTopicStyleArg
+  | SetZoomFactorArg
+  | SetThemeArg
+  | SetLayoutDirArg;
+
+export type BaseModifierArg = {
+  model: Model;
+  topicKey?: KeyType;
+};
+
+export type SetTopicArg = BaseModifierArg & {
+  topic: Topic;
+};
+
+export type SetBlockDataArg = BaseModifierArg & {
+  blockType: string;
+  data: any;
+  focusMode?: string;
+};
+
+export type DeleteBlockArg = BaseModifierArg & {
+  blockType: string;
+};
+
+export type SetFocusModeArg = BaseModifierArg & {
+  focusMode: string;
+};
+
+export type SetTopicStyleArg = BaseModifierArg & {
+  style: string;
+};
+
+export type SetZoomFactorArg = BaseModifierArg & {
+  zoomFactor: number;
+};
+
+export type SetThemeArg = BaseModifierArg & {
+  theme: ThemeType;
+};
+
+export type SetLayoutDirArg = BaseModifierArg & {
+  layoutDir: DiagramLayoutType;
+};
+
+export type ModifierResult = Model;
 
 function toggleCollapse({ model, topicKey }: BaseModifierArg): ModifierResult {
   let topic = model.getTopic(topicKey);
