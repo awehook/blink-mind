@@ -3,7 +3,7 @@
   "files": [
     "lib/"
   ],
-  "version": "0.0.20-beta.9",
+  "version": "0.0.20-beta.10",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -22,8 +22,8 @@
     "react-dom": "^16.10.2"
   },
   "dependencies": {
-    "@blink-mind/core": "^0.0.20-beta.9",
-    "@blink-mind/icons": "^0.0.20-beta.9",
+    "@blink-mind/core": "^0.0.20-beta.10",
+    "@blink-mind/icons": "^0.0.20-beta.10",
     "@blink-mind/plugin-simple-text-editor": "^0.0.20-beta.9",
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/select": "^3.11.1",
@@ -34,11 +34,11 @@
     "memoize-one": "^5.1.1",
     "react-color": "^2.17.3",
     "resize-observer-polyfill": "^1.5.1",
+    "slate-plain-serializer": "^0.7.11",
+    "slate-react": "^0.21.20",
     "styled-components": "^4.4.0",
     "tiny-invariant": "^1.0.6",
-    "tiny-warning": "^1.0.3",
-    "slate-plain-serializer": "^0.7.11",
-    "slate-react": "^0.21.20"
+    "tiny-warning": "^1.0.3"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }
