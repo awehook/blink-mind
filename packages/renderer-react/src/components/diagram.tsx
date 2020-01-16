@@ -17,7 +17,7 @@ import './diagram.css';
 const log = debug('node:Diagram');
 
 interface Props {
-  model: Model;
+  model: Model | null | undefined;
   onChange: OnChangeFunction;
   commands?: any;
   plugins?: any;

@@ -31,8 +31,8 @@ export function DiagramRoot(props) {
     <Root>
       {controller.run('renderToolbar', props)}
       <DiagramContainer ref={saveRef(RefKey.DIAGRAM_ROOT_KEY)}>
-        {/*<MindDragScrollWidget {...props} />*/}
-        {React.createElement(MindDragScrollWidget, nProps)}
+        {/*{React.createElement(MindDragScrollWidget, nProps)}*/}
+        <MindDragScrollWidget {...nProps} />
         {controller.run('renderDiagramCustomize', nProps)}
       </DiagramContainer>
     </Root>

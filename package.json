@@ -20,7 +20,7 @@
     "lint:ts": "tslint 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
     "lint:fix": "tslint --fix 'packages/**/*.ts{,x}' -e '**/*.test.ts'",
     "clean": "lerna run clean",
-    "build": "yarn clean && rollup --config rollup.config.js",
+    "build": "rollup --config rollup.config.js",
     "debug-build": "node --inspect-brk ./node_modules/.bin/rollup --config rollup.config.js",
     "link-package": "cd support && sh yarn-link.sh link",
     "unlink-package": "cd support && sh yarn-link.sh unlink"
