@@ -18,7 +18,8 @@ const log = debug('node:Diagram');
 
 interface Props {
   model: Model | null | undefined;
-  onChange: OnChangeFunction;
+  onChange?: OnChangeFunction;
+  controller?: Controller;
   commands?: any;
   plugins?: any;
 }
@@ -50,8 +51,9 @@ export class Diagram extends React.Component<Props> implements IDiagram {
   });
 
   render() {
-    const { plugins } = this.props;
-    this.resolveController(plugins, DefaultPlugin);
+    const { plugins, controller } = this.props;
+    if (controller) this.controller = controller;
+    else this.resolveController(plugins, DefaultPlugin);
     let { model } = this.props;
     if (!model) {
       model = this.controller.run('createNewModel');

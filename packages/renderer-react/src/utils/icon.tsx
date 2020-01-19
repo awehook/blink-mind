@@ -14,12 +14,14 @@ export const IconName = {
   THEME: 'theme',
   EXPORT: 'export',
   OPEN_FILE: 'openfile',
+  OPEN: 'open',
+  NEW_FILE: 'newfile',
   SAVE: 'save',
   LAYOUT_LEFT_AND_RIGHT: 'layout-left-and-right',
   LAYOUT_LEFT: 'layout-left',
   LAYOUT_RIGHT: 'layout-right',
   UNDO: 'undo',
-  REDO: 'redo'
+  REDO: 'redo',
 };
 
 export function iconClassName(name) {
