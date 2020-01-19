@@ -7,7 +7,7 @@
   "module": "lib/main.es.js",
   "umd": "dist/main.js",
   "types": "lib/index.d.ts",
-  "version": "0.0.20-beta.10",
+  "version": "0.0.20-beta.11",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
