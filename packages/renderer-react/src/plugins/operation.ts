@@ -160,21 +160,25 @@ export function OperationPlugin() {
 
     /** plugin can extend Operation Map
      * for example: A plugin can write a function
-     * getOpMap(props,next) {
+     * getOpMap(ctx,next) {
      *   let opMap = next();
      *   opMap.set("OpTypeName",opFunc);
      *   return opMap;
      * }
-     * @param props
+     * @param ctx
      */
-    getOpMap(props) {
+    getOpMap(ctx) {
       return OpMap;
     },
-    getAllowUndo(props) {
-      const { model, opType } = props;
+
+    //是否允许undo
+    getAllowUndo(ctx) {
+      const { model, opType } = ctx;
       if (opType) {
         switch (opType) {
+          // 这几种情况不加入undo 队列
           case OpType.FOCUS_TOPIC:
+          case OpType.SET_FOCUS_MODE:
           case OpType.START_EDITING_CONTENT:
           case OpType.START_EDITING_DESC:
             return false;
@@ -197,85 +201,79 @@ export function OperationPlugin() {
       };
     },
 
-    setUndoStack(props) {
-      log('setUndoStack', props.undoStack);
-      undoStack = props.undoStack;
+    setUndoStack(ctx) {
+      log('setUndoStack', ctx.undoStack);
+      undoStack = ctx.undoStack;
     },
 
-    setRedoStack(props) {
-      log('setRedoStack', props.redoStack);
-      redoStack = props.redoStack;
+    setRedoStack(ctx) {
+      log('setRedoStack', ctx.redoStack);
+      redoStack = ctx.redoStack;
     },
 
-    canUndo(props) {
-      const { controller } = props;
-      const { undoStack } = controller.run('getUndoRedoStack', props);
-      const allowUndo = controller.run('getAllowUndo', props);
+    canUndo(ctx) {
+      const { controller } = ctx;
+      const { undoStack } = controller.run('getUndoRedoStack', ctx);
+      const allowUndo = controller.run('getAllowUndo', ctx);
       return undoStack.size > 0 && allowUndo;
     },
 
-    canRedo(props) {
-      const { controller } = props;
-      const { redoStack } = controller.run('getUndoRedoStack', props);
-      const allowUndo = controller.run('getAllowUndo', props);
+    canRedo(ctx) {
+      const { controller } = ctx;
+      const { redoStack } = controller.run('getUndoRedoStack', ctx);
+      const allowUndo = controller.run('getAllowUndo', ctx);
       return redoStack.size > 0 && allowUndo;
     },
 
-    undo(props) {
-      const { controller, model } = props;
-      if (!controller.run('getAllowUndo', props)) {
+    undo(ctx) {
+      const { controller, model } = ctx;
+      if (!controller.run('getAllowUndo', ctx)) {
         return;
       }
-      const { undoStack, redoStack } = controller.run(
-        'getUndoRedoStack',
-        props
-      );
+      const { undoStack, redoStack } = controller.run('getUndoRedoStack', ctx);
       const newModel = undoStack.peek();
       if (!newModel) return;
       controller.run('setUndoStack', {
-        ...props,
+        ...ctx,
         undoStack: undoStack.shift()
       });
       controller.run('setRedoStack', {
-        ...props,
+        ...ctx,
         redoStack: redoStack.push(model)
       });
       log(newModel);
       controller.change(newModel);
     },
 
-    redo(props) {
-      const { controller, model } = props;
-      if (!controller.run('getAllowUndo', props)) {
+    redo(ctx) {
+      const { controller, model } = ctx;
+      if (!controller.run('getAllowUndo', ctx)) {
         return;
       }
-      const { undoStack, redoStack } = controller.run(
-        'getUndoRedoStack',
-        props
-      );
+      const { undoStack, redoStack } = controller.run('getUndoRedoStack', ctx);
       const newModel = redoStack.peek();
       if (!newModel) return;
       controller.run('setUndoStack', {
-        ...props,
+        ...ctx,
         undoStack: undoStack.push(model)
       });
       controller.run('setRedoStack', {
-        ...props,
+        ...ctx,
         redoStack: redoStack.shift()
       });
       controller.change(newModel);
     },
 
     //TODO 有空重构这个函数
-    operation(props) {
-      const { controller, opType, model, opArray, callback } = props;
+    operation(ctx) {
+      const { controller, opType, model, opArray, callback } = ctx;
       if (opArray != null && !Array.isArray(opArray)) {
         throw new Error('operation: the type of opArray must be array!');
       }
       if (opType != null && opArray != null) {
         throw new Error('operation: opType and opArray conflict!');
       }
-      const isOperationEnabled = controller.run('isOperationEnabled', props);
+      const isOperationEnabled = controller.run('isOperationEnabled', ctx);
       if (!isOperationEnabled) {
         // warning(
         //   true,
@@ -297,14 +295,14 @@ export function OperationPlugin() {
 
       log('operation:', opType);
       log('operation:', model);
-      log('operation:', props);
+      log('operation:', ctx);
 
-      const opMap = controller.run('getOpMap', props);
-      controller.run('beforeOperation', props);
-      if (controller.run('getAllowUndo', props)) {
-        const { undoStack } = controller.run('getUndoRedoStack', props);
+      const opMap = controller.run('getOpMap', ctx);
+      controller.run('beforeOperation', ctx);
+      if (controller.run('getAllowUndo', ctx)) {
+        const { undoStack } = controller.run('getUndoRedoStack', ctx);
         controller.run('setUndoStack', {
-          ...props,
+          ...ctx,
           undoStack: undoStack.push(model)
         });
       }
@@ -328,20 +326,20 @@ export function OperationPlugin() {
       } else {
         if (!opMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
         const opFunc = opMap.get(opType);
-        newModel = controller.run('beforeOpFunction', props);
-        newModel = opFunc({ ...props, model: newModel });
+        newModel = controller.run('beforeOpFunction', ctx);
+        newModel = opFunc({ ...ctx, model: newModel });
         newModel = controller.run('afterOpFunction', {
-          ...props,
+          ...ctx,
           model: newModel
         });
       }
       log('newModel:', newModel);
       controller.change(newModel, callback ? callback(newModel) : null);
-      controller.run('afterOperation', props);
+      controller.run('afterOperation', ctx);
     },
 
-    deleteRefKey(props) {
-      const { model, topicKey, deleteRef } = props;
+    deleteRefKey(ctx) {
+      const { model, topicKey, deleteRef } = ctx;
       const allSubKeys = getAllSubTopicKeys(model, topicKey);
       allSubKeys.push(topicKey);
       for (const key of allSubKeys) {
@@ -363,35 +361,35 @@ export function OperationPlugin() {
     afterOperation(props) {},
 
     // 在单个OpFunction执行之前被调用
-    beforeOpFunction(props) {
-      const { controller, opType, model, topicKey } = props;
+    beforeOpFunction(ctx) {
+      const { controller, opType, model, topicKey } = ctx;
       if (
         opType === OpType.DELETE_TOPIC &&
         topicKey !== model.editorRootTopicKey
       ) {
-        controller.run('deleteRefKey', props);
+        controller.run('deleteRefKey', ctx);
       }
       return model;
     },
 
-    afterOpFunction(props) {
-      return props.model;
+    afterOpFunction(ctx) {
+      return ctx.model;
     },
 
-    openNewModel(props) {
-      const { model, controller, newModel } = props;
+    openNewModel(ctx) {
+      const { model, controller, newModel } = ctx;
       controller.run('deleteRefKey', {
-        ...props,
+        ...ctx,
         topicKey: model.rootTopicKey
       });
       controller.run('operation', {
-        ...props,
+        ...ctx,
         opType: OpType.EXPAND_TO,
         topicKey: newModel.focusKey,
         model: newModel,
         callback: model => () => {
           controller.run('moveTopicToCenter', {
-            ...props,
+            ...ctx,
             model,
             topicKey: model.focusKey
           });
