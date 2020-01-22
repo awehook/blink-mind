@@ -173,7 +173,9 @@ export function OperationPlugin() {
 
     //是否允许undo
     getAllowUndo(ctx) {
-      const { model, opType } = ctx;
+      const { model, opType, allowUndo = true } = ctx;
+      if(allowUndo===false)
+        return false;
       if (opType) {
         switch (opType) {
           // 这几种情况不加入undo 队列
@@ -213,6 +215,9 @@ export function OperationPlugin() {
 
     canUndo(ctx) {
       const { controller } = ctx;
+      const isOperationEnabled = controller.run('isOperationEnabled',ctx);
+      if(!isOperationEnabled)
+        return false;
       const { undoStack } = controller.run('getUndoRedoStack', ctx);
       const allowUndo = controller.run('getAllowUndo', ctx);
       return undoStack.size > 0 && allowUndo;
@@ -220,6 +225,9 @@ export function OperationPlugin() {
 
     canRedo(ctx) {
       const { controller } = ctx;
+      const isOperationEnabled = controller.run('isOperationEnabled',ctx);
+      if(!isOperationEnabled)
+        return false;
       const { redoStack } = controller.run('getUndoRedoStack', ctx);
       const allowUndo = controller.run('getAllowUndo', ctx);
       return redoStack.size > 0 && allowUndo;
@@ -293,7 +301,7 @@ export function OperationPlugin() {
         }
       }
 
-      log('operation:', opType);
+      log('operation:', opType || opArray.map(op=>op.opType));
       log('operation:', model);
       log('operation:', ctx);
 

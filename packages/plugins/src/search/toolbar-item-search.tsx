@@ -21,6 +21,7 @@ export function ToolbarItemSearch(props) {
     <ToolbarItem
       className={iconClassName(IconName.SEARCH)}
       onClick={onClickSearch}
+      {...props}
     />
   );
 }

@@ -62,19 +62,7 @@ export const PanelTabRoot = styled.div`
   overflow: auto;
 `;
 
-export const ToolbarItem = styled.div`
-  position: relative;
-  padding: 6px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  color: ${props => (props.disabled ? 'grey' : 'black')};
-  font-size: 24px;
-  display: inline-block;
-  &:hover {
-    color: ${props => (props.disabled ? 'grey' : 'rgb(44, 184, 146)')};
-  }
-`;
+
 
 export const ToolbarItemPopoverTarget = styled.div`
   position: absolute;

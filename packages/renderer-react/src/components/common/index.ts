@@ -4,3 +4,4 @@ export * from './save-ref';
 export * from './styled';
 export * from './styled-setting';
 export * from './setting-item';
+export * from './toolbar-item';

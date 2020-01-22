@@ -68,6 +68,7 @@ export function TopicReferencePlugin() {
         </>
       );
     },
+    
 
     getOpMap(props, next) {
       const opMap = next();

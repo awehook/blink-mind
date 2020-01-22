@@ -23,7 +23,8 @@ export function ToolbarItemExport(props) {
       <ToolbarItem
         className={iconClassName(IconName.EXPORT)}
         onClick={() => setShowDialog(true)}
-      ></ToolbarItem>
+        {...props}
+      />
       <Dialog
         onClose={() => {
           setShowDialog(false);

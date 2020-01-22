@@ -19,6 +19,7 @@ export function ToolbarItemOpenFile(props) {
     <ToolbarItem
       className={iconClassName(IconName.OPEN_FILE)}
       onClick={onClickOpenFile}
+      {...props}
     />
   );
 }

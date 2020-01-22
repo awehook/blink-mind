@@ -46,7 +46,8 @@ export function AddReferenceTopicPanel(props) {
           topicKey,
           focusMode: FocusMode.NORMAL
         }
-      ]
+      ],
+      allowUndo: false
     });
     controller.run('clearSelectedReferenceKeys', props);
   };

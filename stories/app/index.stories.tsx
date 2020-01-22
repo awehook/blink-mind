@@ -45,6 +45,7 @@ function ChangeThemePlugin() {
       <ToolbarItem
         className={iconClassName(IconName.THEME)}
         onClick={onClickChangeTheme}
+        {...props}
       />
     );
   }

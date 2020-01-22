@@ -18,6 +18,7 @@ export function UndoRedoPlugin() {
         className={iconClassName(IconName.UNDO)}
         disabled={!canUndo}
         onClick={onClickUndo}
+        {...props}
       />
     );
   }
@@ -33,6 +34,7 @@ export function UndoRedoPlugin() {
         className={iconClassName(IconName.REDO)}
         disabled={!canUndo}
         onClick={onClickRedo}
+        {...props}
       />
     );
   }

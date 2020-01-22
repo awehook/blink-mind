@@ -25,7 +25,10 @@ export function ToolbarItemLayout(props) {
   };
 
   return (
-    <ToolbarItem className={iconClassName(IconName.LAYOUT_LEFT_AND_RIGHT)}>
+    <ToolbarItem
+      className={iconClassName(IconName.LAYOUT_LEFT_AND_RIGHT)}
+      {...props}
+    >
       <Popover enforceFocus={false}>
         <ToolbarItemPopoverTarget />
         <Menu>
