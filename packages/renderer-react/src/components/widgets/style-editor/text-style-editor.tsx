@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { getI18nText, I18nKey } from '../../../utils';
 import {
   Flex,
   SettingGroup,
@@ -28,7 +29,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
   };
 
   const fontSizeNumInputProps = {
-    title: 'FontSize:',
+    title: `${getI18nText(props, I18nKey.FONT_SIZE)}:`,
     min: 12,
     max: 100,
     value: parseInt(contentStyle.fontSize),
@@ -38,7 +39,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
     onValueChange: handleFontSizeChange
   };
   const lineHeightInputProps: SettingItemInputProps = {
-    title: 'LineHeight:',
+    title: `${getI18nText(props, I18nKey.LINE_HEIGHT)}:`,
     style: {
       width: 50
     },
@@ -47,7 +48,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
   };
   return (
     <SettingGroup>
-      <SettingTitle>Text Editor</SettingTitle>
+      <SettingTitle>{getI18nText(props, I18nKey.TEXT_EDITOR)}</SettingTitle>
       <Flex>
         <SettingItemNumericInput {...fontSizeNumInputProps} />
         <SettingItemInput {...lineHeightInputProps} />

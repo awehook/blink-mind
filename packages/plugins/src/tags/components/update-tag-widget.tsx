@@ -1,5 +1,7 @@
 import {
   BaseProps,
+  getI18nText,
+  I18nKey,
   SettingItemButton,
   SettingItemColorPicker,
   SettingItemColorPickerProps,
@@ -31,7 +33,7 @@ export function UpdateTagWidget(props: UpdateTagWidgetProps) {
     setTagName(e.target.value);
   };
   const nameProps: SettingItemInputProps = {
-    title: 'TagName:',
+    title: getI18nText(props, I18nKey.TAG_NAME) + ':',
     value: tagName,
     onChange: handleTagNameChange,
     style: {
@@ -40,7 +42,7 @@ export function UpdateTagWidget(props: UpdateTagWidgetProps) {
   };
   const nameItem = <SettingItemInput {...nameProps} />;
   const bgColorProps: SettingItemColorPickerProps = {
-    title: 'Background:',
+    title: getI18nText(props, I18nKey.BACKGROUND) + ':',
     color: background,
     handleColorChange: color => {
       setBackground(color);
@@ -49,7 +51,7 @@ export function UpdateTagWidget(props: UpdateTagWidgetProps) {
   const bgColorItem = <SettingItemColorPicker {...bgColorProps} />;
 
   const colorProps: SettingItemColorPickerProps = {
-    title: 'Color:',
+    title: getI18nText(props, I18nKey.COLOR) + ':',
     color: color,
     handleColorChange: color => {
       setColor(color);
@@ -72,7 +74,7 @@ export function UpdateTagWidget(props: UpdateTagWidgetProps) {
     return JSON.stringify(style);
   };
   const btnProps = {
-    title: 'Update Tag',
+    title: getI18nText(props, I18nKey.UPDATE_TAG),
     disabled,
     onClick: () => {
       const newTag = new TagRecord({

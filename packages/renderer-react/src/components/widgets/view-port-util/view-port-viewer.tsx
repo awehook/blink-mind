@@ -3,7 +3,7 @@ import { Classes, Position, Tooltip } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { EventKey, Icon, IconName } from '../../../utils';
+import { EventKey, getI18nText, I18nKey, Icon, IconName } from '../../../utils';
 import { BaseWidget, Btn, ZIndex } from '../../common';
 
 const log = debug('node:view-port-viewer');
@@ -145,24 +145,42 @@ export class ViewPortViewer extends BaseWidget {
     const zoomFactor = controller.run('getZoomFactor', props);
     return (
       <ViewerRoot zIndex={zIndex}>
-        <Item onClick={this.onClickCollapseAll} tooltip="collapse all">
+        <Item
+          onClick={this.onClickCollapseAll}
+          tooltip={getI18nText(props, I18nKey.COLLAPSE_ALL)}
+        >
           {Icon(IconName.COLLAPSE_ALL)}
         </Item>
-        <Item onClick={this.onClickExpandAll} tooltip="expand all">
+        <Item
+          onClick={this.onClickExpandAll}
+          tooltip={getI18nText(props, I18nKey.EXPAND_ALL)}
+        >
           {Icon(IconName.EXPAND_ALL)}
         </Item>
-        <Item onClick={this.centerRootTopic} tooltip="center root topic">
+        <Item
+          onClick={this.centerRootTopic}
+          tooltip={getI18nText(props, I18nKey.CENTER_ROOT_TOPIC)}
+        >
           {Icon(IconName.CENTER)}
         </Item>
-        <Item onClick={this.onClickMinusZoom} tooltip="zoom in">
+        <Item
+          onClick={this.onClickMinusZoom}
+          tooltip={getI18nText(props, I18nKey.ZOOM_IN)}
+        >
           {Icon(IconName.MINUS)}
         </Item>
-        <Item onClick={this.onClickResetZoom} tooltip="reset zoom">
-          <ZoomFactorSpan>{`zoom:${Math.floor(
+        <Item
+          onClick={this.onClickResetZoom}
+          tooltip={getI18nText(props, I18nKey.RESET)}
+        >
+          <ZoomFactorSpan>{`${getI18nText(props, I18nKey.ZOOM)}:${Math.floor(
             zoomFactor * 100
           )}%`}</ZoomFactorSpan>
         </Item>
-        <Item onClick={this.onClickAddZoom} tooltip="zoom out">
+        <Item
+          onClick={this.onClickAddZoom}
+          tooltip={getI18nText(props, I18nKey.ZOOM_OUT)}
+        >
           {Icon(IconName.PLUS)}
         </Item>
       </ViewerRoot>

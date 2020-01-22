@@ -10,7 +10,7 @@ import { Select } from '@blueprintjs/select';
 import { ItemRenderer } from '@blueprintjs/select/src/common/itemRenderer';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
-import { iconClassName, IconName } from '../../utils';
+import { getI18nText, iconClassName, IconName } from '../../utils';
 import { Flex, Margin } from './styled';
 import { ColorBar, SettingItem, WithBorder } from './styled-setting';
 export function SettingGroup(props) {
@@ -143,10 +143,12 @@ export function SettingItemSelect<T>(props: {
   );
 }
 
-export const renderItem = unit => (width, { handleClick }) => {
-  return (
-    <MenuItem text={`${width}${unit}`} key={width} onClick={handleClick} />
-  );
+export const renderItem = unit => (v, { handleClick }) => {
+  return <MenuItem text={`${v}${unit}`} key={v} onClick={handleClick} />;
+};
+
+export const renderItemI18n = ctx => (v, { handleClick }) => {
+  return <MenuItem text={getI18nText(ctx, v)} key={v} onClick={handleClick} />;
 };
 
 export const PxSelect = Select.ofType();

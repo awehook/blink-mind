@@ -1,5 +1,7 @@
 import {
   BaseProps,
+  getI18nText,
+  I18nKey,
   SettingItemButton,
   SettingItemColorPicker,
   SettingItemColorPickerProps,
@@ -25,7 +27,7 @@ export function AddTagWidget(props: BaseProps) {
     setTagName(e.target.value);
   };
   const nameProps: SettingItemInputProps = {
-    title: 'TagName:',
+    title: getI18nText(props, I18nKey.TAG_NAME) + ':',
     value: tagName,
     onChange: handleTagNameChange,
     style: {
@@ -34,7 +36,7 @@ export function AddTagWidget(props: BaseProps) {
   };
   const nameItem = <SettingItemInput {...nameProps} />;
   const bgColorProps: SettingItemColorPickerProps = {
-    title: 'Background:',
+    title: getI18nText(props, I18nKey.BACKGROUND) + ':',
     color: background,
     handleColorChange: color => {
       setBackground(color);
@@ -43,7 +45,7 @@ export function AddTagWidget(props: BaseProps) {
   const bgColorItem = <SettingItemColorPicker {...bgColorProps} />;
 
   const colorProps: SettingItemColorPickerProps = {
-    title: 'Color:',
+    title: getI18nText(props, I18nKey.COLOR) + ':',
     color: color,
     handleColorChange: color => {
       setColor(color);
@@ -62,12 +64,12 @@ export function AddTagWidget(props: BaseProps) {
     return JSON.stringify(style);
   };
   const addTagBtnProps = {
-    title: 'Add Tag',
+    title: getI18nText(props, I18nKey.ADD_TAG),
     disabled,
     onClick: () => {
       if (tagName.trim().length > TAG_NAME_MAX_LEN) {
         setShowAlert(true);
-        setAlertTitle('The length of tag name over the maximum length : 50 !');
+        setAlertTitle(getI18nText(props, I18nKey.TAG_NAME_OVER_MAX_TIP));
         return;
       }
       const tag = new TagRecord({

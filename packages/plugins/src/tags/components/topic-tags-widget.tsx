@@ -1,5 +1,7 @@
 import {
   BaseProps,
+  getI18nText,
+  I18nKey,
   SettingBoxContainer,
   SettingGroup,
   SettingTitle
@@ -50,12 +52,12 @@ export function TopicTagsWidget(props: BaseProps) {
   return (
     <>
       <SettingGroup>
-        <SettingTitle>Tags Already Added</SettingTitle>
+        <SettingTitle>{getI18nText(props, I18nKey.ALREADY_ADDED)}</SettingTitle>
         <SettingBoxContainer>{topicTagsWidget}</SettingBoxContainer>
       </SettingGroup>
 
       <SettingGroup>
-        <SettingTitle>Tags that Can be Added</SettingTitle>
+        <SettingTitle>{getI18nText(props, I18nKey.CAN_BE_ADDED)}</SettingTitle>
         <SettingBoxContainer>{tagsCanBeAddedWidget}</SettingBoxContainer>
       </SettingGroup>
     </>

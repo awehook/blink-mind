@@ -18,11 +18,11 @@
   "peerDependencies": {
     "debug": "*",
     "react": "*",
-    "styled-components": "*"
+    "styled-components": "*",
+    "@blink-mind/core": "*",
+    "@blink-mind/renderer-react": "*"
   },
   "dependencies": {
-    "@blink-mind/core": "^0.0.20-beta.11",
-    "@blink-mind/renderer-react": "^0.0.20-beta.11",
     "awehook-rich-markdown-editor": "^1.0.1",
     "slate-md-serializer": "^5.4.4"
   },

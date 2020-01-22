@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { getI18nText, I18nKey } from '../../../utils';
 import {
   renderItem,
+  renderItemI18n,
   SettingGroup,
   SettingItemColorPicker,
   SettingItemSelect,
@@ -35,26 +37,30 @@ export function BorderStyleEditor(props: ContentStyleEditorProps) {
 
   return (
     <SettingGroup>
-      <SettingTitle>Border</SettingTitle>
+      <SettingTitle>{getI18nText(props, I18nKey.BORDER)}</SettingTitle>
       <SettingRow>
         <SettingItemSelect
-          text={`width: ${
-            contentStyle.borderWidth ? contentStyle.borderWidth : '0px'
+          text={`${getI18nText(props, I18nKey.WIDTH)}: ${
+            contentStyle.borderWidth ? contentStyle.borderWidth : getI18nText(props,I18nKey.DEFAULT)
           }`}
           items={borderWidthItems}
           itemRenderer={renderItem('px')}
           onItemSelect={handleBorderWidthChange}
         />
         <SettingItemSelect
-          text={`style: ${
-            contentStyle.borderStyle ? contentStyle.borderStyle : 'none'
+          text={`${getI18nText(props, I18nKey.STYLE)}: ${
+            contentStyle.borderStyle
+              ? getI18nText(props, contentStyle.borderStyle)
+              : getI18nText(props, I18nKey.NONE)
           }`}
           items={borderStyleItems}
-          itemRenderer={renderItem('')}
+          itemRenderer={renderItemI18n(props)}
           onItemSelect={handleBorderStyleChange}
         />
         <SettingItemSelect
-          text={`radius: ${contentStyle.borderRadius}`}
+          text={`${getI18nText(props, I18nKey.RADIUS)}: ${
+            contentStyle.borderRadius
+          }`}
           items={borderRadiusItems}
           itemRenderer={renderItem('px')}
           onItemSelect={handleBorderRadiusChange}

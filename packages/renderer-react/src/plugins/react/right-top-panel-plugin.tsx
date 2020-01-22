@@ -4,6 +4,7 @@ import { BaseProps } from '../../components/common';
 import { RightTopPanelWidget } from '../../components/widgets/right-top-panel';
 import { StyleEditor } from '../../components/widgets/style-editor';
 import { ThemeEditor } from '../../components/widgets/theme-editor';
+import { I18nKey, getI18nText } from '../../utils';
 
 export function RightTopPanelPlugin() {
   return {
@@ -23,12 +24,12 @@ export function RightTopPanelPlugin() {
       return [styleEditorTab, themeEditorTab];
     },
 
-    renderTopicStyleEditor(props) {
+    renderTopicStyleEditor(ctx) {
       const tProps = {
         id: 'topic-style',
         key: 'topic-style',
-        title: 'TopicStyle',
-        panel: <StyleEditor {...props} />
+        title: getI18nText(ctx, I18nKey.TOPIC_STYLE),
+        panel: <StyleEditor {...ctx} />
       };
       return <Tab {...tProps} />;
     },
@@ -37,7 +38,7 @@ export function RightTopPanelPlugin() {
       const tProps = {
         id: 'theme-editor',
         key: 'theme-editor',
-        title: 'Theme',
+        title: getI18nText(props, I18nKey.THEME),
         panel: <ThemeEditor {...props} />
       };
       return <Tab {...tProps} />;

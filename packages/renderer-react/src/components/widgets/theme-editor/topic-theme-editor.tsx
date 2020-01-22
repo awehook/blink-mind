@@ -1,7 +1,9 @@
 import { LinkStyle, TopicContentStyle, TopicStyle } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
+import {getI18nText, I18nKey} from "../../../utils";
 import {
+  BaseProps,
   SettingGroup,
   SettingItemColorPicker,
   SettingTitle
@@ -17,7 +19,7 @@ const TopicThemeEditorRoot = styled.div`
   overflow: auto;
 `;
 
-export interface TopicThemeEditorProps {
+export interface TopicThemeEditorProps extends BaseProps{
   topicStyle: TopicStyle;
   setTopicStyle: (style: TopicStyle) => void;
 }
@@ -31,6 +33,7 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
   };
 
   const nProps: ContentStyleEditorProps = {
+      ...props,
     contentStyle,
     setContentStyle
   };
@@ -44,6 +47,7 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
   };
 
   const linkStyleEditorProps = {
+    ...props,
     showLinkStyle: false,
     linkStyle,
     subLinkStyle,
@@ -56,7 +60,7 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
       <PaddingStyleEditor {...nProps} />
       <TextStyleEditor {...nProps} />
       <SettingGroup>
-        <SettingTitle>Background</SettingTitle>
+        <SettingTitle>{getI18nText(props, I18nKey.BACKGROUND)}</SettingTitle>
         <SettingItemColorPicker
           color={contentStyle.background}
           handleColorChange={color => {

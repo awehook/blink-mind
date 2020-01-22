@@ -1,4 +1,6 @@
 import {
+  getI18nText,
+  I18nKey,
   PanelTabRoot,
   SettingBoxContainer,
   SettingTitle
@@ -11,7 +13,7 @@ export function TagEditor(props) {
   return (
     <PanelTabRoot>
       <SettingBoxContainer>
-        <SettingTitle>Tags Manager</SettingTitle>
+        <SettingTitle>{getI18nText(props, I18nKey.TAGS_MANAGER)}</SettingTitle>
         <AddTagWidget {...props} />
         <AllTagsWidget {...props} />
       </SettingBoxContainer>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { paddingCss } from '../../../utils';
+import { getI18nText, I18nKey, paddingCss } from '../../../utils';
 import {
   SettingGroup,
   SettingItemNumericInput,
@@ -37,31 +37,31 @@ export function PaddingStyleEditor(props: ContentStyleEditorProps) {
   };
   const topProps = {
     ...commonProps,
-    title: 'top',
+    title: getI18nText(props,I18nKey.TOP),
     value: top,
     onValueChange: setPadding('top')
   };
   const rightProps = {
     ...commonProps,
-    title: 'right',
+    title: getI18nText(props,I18nKey.RIGHT),
     value: right,
     onValueChange: setPadding('right')
   };
   const bottomProps = {
     ...commonProps,
-    title: 'bottom',
+    title: getI18nText(props,I18nKey.BOTTOM),
     value: bottom,
     onValueChange: setPadding('bottom')
   };
   const leftProps = {
     ...commonProps,
-    title: 'left',
+    title: getI18nText(props,I18nKey.LEFT),
     value: left,
     onValueChange: setPadding('left')
   };
   return (
     <SettingGroup>
-      <SettingTitle>Padding</SettingTitle>
+      <SettingTitle>{getI18nText(props, I18nKey.PADDING)}</SettingTitle>
       <SettingRow>
         <SettingItemNumericInput {...topProps} />
         <SettingItemNumericInput {...rightProps} />

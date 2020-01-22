@@ -1,5 +1,7 @@
 import {
   BaseProps,
+  getI18nText,
+  I18nKey,
   SettingBoxContainer,
   SettingTitle,
   VListContainer
@@ -25,7 +27,9 @@ export function TagTopicList(props: TagTopicListProps) {
   });
   return (
     <>
-      <SettingTitle>Topics that Used this Tag</SettingTitle>
+      <SettingTitle>
+        {getI18nText(props, I18nKey.TOPICS_THAT_USE_THIS_TAG)}
+      </SettingTitle>
       <SettingBoxContainer>
         <VListContainer>{topicList}</VListContainer>
       </SettingBoxContainer>

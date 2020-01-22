@@ -1,3 +1,4 @@
+import { getI18nText, I18nKey } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { TagEditor } from './components/tag-editor';
 
@@ -32,7 +33,7 @@ export function TagsPlugin() {
       const tProps = {
         id: tabId,
         key: tabId,
-        title: 'Tags',
+        title: getI18nText(props, I18nKey.TAGS),
         panel: <TagEditor {...props} />
       };
       const tab = <Tab {...tProps} />;

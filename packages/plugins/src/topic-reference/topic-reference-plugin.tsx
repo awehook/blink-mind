@@ -6,7 +6,12 @@ import {
   ModelModifier,
   OpType
 } from '@blink-mind/core';
-import { Icon, PropKey } from '@blink-mind/renderer-react';
+import {
+  getI18nText,
+  I18nKey,
+  Icon,
+  PropKey
+} from '@blink-mind/renderer-react';
 import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { AddReferenceTopicPanel } from './add-reference-topic-panel';
@@ -62,13 +67,12 @@ export function TopicReferencePlugin() {
           <MenuItem
             key={EXT_KEY_TOPIC_REFERENCE}
             icon={Icon('reference')}
-            text="Set Reference Topics"
+            text={getI18nText(props, I18nKey.SET_TOPIC_REFERENCES)}
             onClick={onClickSetReferenceTopics}
           />
         </>
       );
     },
-    
 
     getOpMap(props, next) {
       const opMap = next();

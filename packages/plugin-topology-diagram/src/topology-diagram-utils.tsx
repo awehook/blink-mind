@@ -1,5 +1,12 @@
 import { OpType } from '@blink-mind/core';
-import { BaseProps, Btn, Icon, IconName } from '@blink-mind/renderer-react';
+import {
+  BaseProps,
+  Btn,
+  getI18nText,
+  I18nKey,
+  Icon,
+  IconName
+} from '@blink-mind/renderer-react';
 import { Alert, Classes, Position, Tooltip } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -76,7 +83,8 @@ export class TopologyDiagramUtils extends React.Component<BaseProps, State> {
     };
     const deleteAlertProps = {
       isOpen: this.state.deleteConfirm,
-      cancelButtonText: 'cancel',
+      cancelButtonText: getI18nText(props,I18nKey.CANCEL),
+      confirmButtonText: getI18nText(props,I18nKey.CONFIRM),
       onConfirm: e => {
         controller.run('operation', {
           ...props,
@@ -95,14 +103,22 @@ export class TopologyDiagramUtils extends React.Component<BaseProps, State> {
     const scale = canvasData ? canvasData.scale : 1;
     return (
       <Root>
-        <Item onClick={this.onClickResetZoom} tooltip="reset zoom">
-          <ZoomFactorSpan>{`zoom:${Math.floor(scale * 100)}%`}</ZoomFactorSpan>
+        <Item
+          onClick={this.onClickResetZoom}
+          tooltip={getI18nText(props, I18nKey.RESET_ZOOM)}
+        >
+          <ZoomFactorSpan>{`${getI18nText(props, I18nKey.ZOOM)}:${Math.floor(
+            scale * 100
+          )}%`}</ZoomFactorSpan>
         </Item>
-        <Item onClick={onClickDelete} tooltip="delete this diagram">
+        <Item
+          onClick={onClickDelete}
+          tooltip={getI18nText(props, I18nKey.DELETE)}
+        >
           {Icon(IconName.TRASH)}
         </Item>
         <Alert {...deleteAlertProps}>
-          <p>Are you confirm to delete this topology diagram?</p>
+          <p>{getI18nText(props,I18nKey.DELETE_TOPOLOGY_TIP)}</p>
         </Alert>
       </Root>
     );

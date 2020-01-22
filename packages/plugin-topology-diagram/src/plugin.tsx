@@ -1,5 +1,5 @@
 import { BaseModifierArg, ModelModifier } from '@blink-mind/core';
-import { Icon } from '@blink-mind/renderer-react';
+import { getI18nText, I18nKey, Icon } from '@blink-mind/renderer-react';
 import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { TopicBlockTopology } from './topic-block-topology';
@@ -70,7 +70,7 @@ export default function TopologyDiagramPlugin() {
           <MenuDivider />
           <MenuItem
             icon={Icon('topology')}
-            text="Edit Topology Diagram"
+            text={getI18nText(props, I18nKey.EDIT_TOPOLOGY_DIAGRAM)}
             onClick={editTopology}
           />
         </>

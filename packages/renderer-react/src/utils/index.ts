@@ -65,3 +65,4 @@ export * from './keys';
 export * from './events';
 export * from './file';
 export * from './css';
+export * from './i18n';

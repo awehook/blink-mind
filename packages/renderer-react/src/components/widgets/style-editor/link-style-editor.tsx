@@ -1,10 +1,13 @@
 import { LinkStyle } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
+import { getI18nText, I18nKey } from '../../../utils';
 import {
+  BaseProps,
   borderWidthItems,
   Margin,
   renderItem,
+  renderItemI18n,
   SettingGroup,
   SettingItemColorPicker,
   SettingItemSelect,
@@ -18,7 +21,7 @@ const renderLineTypeItem = (lineType, { handleClick, modifiers, query }) => {
   return <MenuItem text={`${lineType}`} key={lineType} onClick={handleClick} />;
 };
 
-export interface LinkStyleEditorProps {
+export interface LinkStyleEditorProps extends BaseProps {
   showLinkStyle?: boolean;
   showSubLinkStyle?: boolean;
   linkStyle: LinkStyle;
@@ -62,20 +65,27 @@ export function LinkStyleEditor(props: LinkStyleEditorProps) {
   };
   return (
     <SettingGroup>
-      <SettingTitle>Link</SettingTitle>
+      <SettingTitle>{getI18nText(props, I18nKey.LINK)}</SettingTitle>
       {showLinkStyle && (
         <SettingRow alignItems="center">
-          <Margin margin="0 5px 0 0">LinkToParent: </Margin>
+          <Margin margin="0 5px 0 0">
+            {getI18nText(props, I18nKey.LINK_TO_PARENT) + ':'}{' '}
+          </Margin>
           <SettingItemSelect
-            text={`width: ${linkStyle ? linkStyle.lineWidth : '0px'}`}
+            text={`${getI18nText(props, I18nKey.WIDTH)}: ${
+              linkStyle ? linkStyle.lineWidth : '0px'
+            }`}
             items={borderWidthItems}
             itemRenderer={renderItem('px')}
             onItemSelect={handleLinkWidthChange}
           />
           <SettingItemSelect
-            text={`lineType: ${linkStyle.lineType}`}
+            text={`${getI18nText(props, I18nKey.LINE_TYPE)}: ${getI18nText(
+              props,
+              linkStyle.lineType
+            )}`}
             items={lineTypes}
-            itemRenderer={renderLineTypeItem}
+            itemRenderer={renderItemI18n(props)}
             onItemSelect={handleLinkTypeChange}
           />
           <SettingItemColorPicker
@@ -86,17 +96,24 @@ export function LinkStyleEditor(props: LinkStyleEditorProps) {
       )}
       {showSubLinkStyle && (
         <SettingRow alignItems="center">
-          <Margin margin="0 5px 0 0">SubLinks: </Margin>
+          <Margin margin="0 5px 0 0">
+            {getI18nText(props, I18nKey.SUB_LINKS) + ': '}
+          </Margin>
           <SettingItemSelect
-            text={`width: ${subLinkStyle ? subLinkStyle.lineWidth : '0px'}`}
+            text={`${getI18nText(props, I18nKey.WIDTH)}: ${
+              subLinkStyle ? subLinkStyle.lineWidth : '0px'
+            }`}
             items={borderWidthItems}
             itemRenderer={renderItem('px')}
             onItemSelect={handleSubLinkWidthChange}
           />
           <SettingItemSelect
-            text={`lineType: ${subLinkStyle.lineType}`}
+            text={`${getI18nText(props, I18nKey.LINE_TYPE)}: ${getI18nText(
+              props,
+              subLinkStyle.lineType
+            )}`}
             items={lineTypes}
-            itemRenderer={renderLineTypeItem}
+            itemRenderer={renderItemI18n(props)}
             onItemSelect={handleSubLinkTypeChange}
           />
           <SettingItemColorPicker

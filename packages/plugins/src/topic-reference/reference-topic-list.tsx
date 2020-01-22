@@ -1,5 +1,10 @@
 import { FocusMode } from '@blink-mind/core';
-import { BaseProps, cancelEvent } from '@blink-mind/renderer-react';
+import {
+  BaseProps,
+  cancelEvent,
+  getI18nText,
+  I18nKey
+} from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';
 import { ExtDataReference } from './ext-data-reference';
@@ -57,7 +62,9 @@ export function ReferenceTopicList(props: BaseProps) {
   const referenceGroup =
     referenceKeys.length === 0 ? null : (
       <Group>
-        <GroupTitle>Reference Topics:</GroupTitle>
+        <GroupTitle>
+          {getI18nText(props, I18nKey.REFERENCE_TOPICS) + ':'}
+        </GroupTitle>
         <GroupList>
           {referenceKeys.map(key => {
             const thumbProps = {
@@ -79,7 +86,9 @@ export function ReferenceTopicList(props: BaseProps) {
   const referencedGroup =
     referencedKeys.length === 0 ? null : (
       <Group>
-        <GroupTitle>Referenced Topics:</GroupTitle>
+        <GroupTitle>
+          {getI18nText(props, I18nKey.REFERENCED_TOPICS) + ':'}
+        </GroupTitle>
         <GroupList>
           {referencedKeys.map(key => {
             const thumbProps = {

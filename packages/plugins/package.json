@@ -23,12 +23,11 @@
     "debug": "*",
     "immutable": "*",
     "react": "*",
-    "styled-components": "*"
+    "styled-components": "*",
+    "@blink-mind/core": "*",
+    "@blink-mind/icons": "*",
+    "@blink-mind/renderer-react": "*"
   },
-  "dependencies": {
-    "@blink-mind/core": "^0.0.20-beta.11",
-    "@blink-mind/icons": "^0.0.20-beta.11",
-    "@blink-mind/renderer-react": "^0.0.20-beta.11"
-  },
+  "dependencies": {},
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

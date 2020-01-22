@@ -2,6 +2,7 @@ import { CreateModelPlugin } from './create-model';
 import { EventPlugin } from './event';
 import { GetValuePlugin } from './get-value';
 import { HotKeyPlugin } from './hotkey';
+import { I18nPlugin } from './i18n';
 import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
 import { ReactPlugin } from './react';
@@ -20,6 +21,7 @@ export function DefaultPlugin() {
     GetValuePlugin(),
     SimpleTextEditorPlugin(),
     CreateModelPlugin(),
-    ThemePlugin()
+    ThemePlugin(),
+    I18nPlugin()
   ];
 }

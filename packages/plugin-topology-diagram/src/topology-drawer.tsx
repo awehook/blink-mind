@@ -1,4 +1,9 @@
-import { cancelEvent, Icon } from '@blink-mind/renderer-react';
+import {
+  cancelEvent,
+  getI18nText,
+  I18nKey,
+  Icon
+} from '@blink-mind/renderer-react';
 import { Drawer } from '@blueprintjs/core';
 import * as React from 'react';
 import { TopologyDiagram } from './topology-diagram';
@@ -52,7 +57,9 @@ export function TopologyDrawer(props) {
   };
   return (
     <Drawer
-      title={<Title>Topology Diagram Editor</Title>}
+      title={
+        <Title>{getI18nText(props, I18nKey.TOPOLOGY_DIAGRAM_EDITOR)}</Title>
+      }
       icon={Icon('topology')}
       isOpen
       hasBackdrop

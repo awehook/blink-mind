@@ -23,7 +23,7 @@ export interface BaseProps {
 export class BaseWidget<
   P extends BaseProps = BaseProps,
   S = any
-> extends React.PureComponent<P, S> {
+> extends React.Component<P, S> {
   constructor(props: P) {
     super(props);
   }

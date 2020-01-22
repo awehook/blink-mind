@@ -1,6 +1,7 @@
 import { LinkStyle, OpType, TopicContentStyle } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
+import { getI18nText, I18nKey } from '../../../utils';
 import {
   BaseProps,
   PanelTabRoot,
@@ -79,6 +80,7 @@ export function StyleEditor(props: BaseProps) {
   };
 
   const linkStyleEditorProps: LinkStyleEditorProps = {
+    ...props,
     linkStyle,
     subLinkStyle,
     setLinkStyle,
@@ -86,6 +88,7 @@ export function StyleEditor(props: BaseProps) {
   };
 
   const contentStyleEditorPros: ContentStyleEditorProps = {
+    ...props,
     contentStyle,
     setContentStyle
   };
@@ -95,7 +98,7 @@ export function StyleEditor(props: BaseProps) {
       <BorderStyleEditor {...contentStyleEditorPros} />
       <TextStyleEditor {...contentStyleEditorPros} />
       <SettingGroup>
-        <SettingTitle>Background</SettingTitle>
+        <SettingTitle>{getI18nText(props, I18nKey.BACKGROUND)}</SettingTitle>
         <SettingItemColorPicker
           color={contentStyle.background}
           handleColorChange={handleBackgroundColorChange}
@@ -104,11 +107,17 @@ export function StyleEditor(props: BaseProps) {
       <LinkStyleEditor {...linkStyleEditorProps} />
       <SettingGroup>
         <SettingItemButton
-          title="Clear Topic Style"
+          title={getI18nText(props, I18nKey.CLEAR_TOPIC_STYLE)}
           onClick={handleClearStyle}
         />
-        <SettingItemButton title="Copy Style" onClick={handleCopyStyle} />
-        <SettingItemButton title="Paste Style" onClick={handlePasteStyle} />
+        <SettingItemButton
+          title={getI18nText(props, I18nKey.COPY_STYLE)}
+          onClick={handleCopyStyle}
+        />
+        <SettingItemButton
+          title={getI18nText(props, I18nKey.PASTE_STYLE)}
+          onClick={handlePasteStyle}
+        />
       </SettingGroup>
       {ClearAllCustomStyle(props)}
     </PanelTabRoot>

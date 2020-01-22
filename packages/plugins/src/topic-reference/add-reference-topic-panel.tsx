@@ -1,5 +1,5 @@
 import { FocusMode, OpType } from '@blink-mind/core';
-import { Flex, ZIndex } from '@blink-mind/renderer-react';
+import { Flex, getI18nText, I18nKey, ZIndex } from '@blink-mind/renderer-react';
 import { Button } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -53,13 +53,14 @@ export function AddReferenceTopicPanel(props) {
   };
   return (
     <Root zIndex={zIndex}>
-      <Title>
-        Please select the topics you want to reference. After selection, click
-        the confirm button.
-      </Title>
+      <Title>{getI18nText(props, I18nKey.SELECT_REF_TOPICS_TIP)}</Title>
       <Flex justifyContent={'space-around'}>
-        <Button onClick={onClickConfirm}>Confirm</Button>
-        <Button onClick={onClickCancel}>Cancel</Button>
+        <Button onClick={onClickConfirm}>
+          {getI18nText(props, I18nKey.CONFIRM)}
+        </Button>
+        <Button onClick={onClickCancel}>
+          {getI18nText(props, I18nKey.CANCEL)}
+        </Button>
       </Flex>
     </Root>
   );

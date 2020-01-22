@@ -1,18 +1,32 @@
 import { DiagramLayoutType, OpType } from '@blink-mind/core';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import * as React from 'react';
-import { Icon, iconClassName, IconName } from '../../../utils';
+import {
+  getI18nText,
+  I18nKey,
+  Icon,
+  iconClassName,
+  IconName
+} from '../../../utils';
 import { ToolbarItem, ToolbarItemPopoverTarget } from '../../common';
 
 export function ToolbarItemLayout(props) {
   const layoutDirs = [
     [
       DiagramLayoutType.LEFT_AND_RIGHT,
-      'Left And Right',
+      getI18nText(props, I18nKey.LEFT_AND_RIGHT),
       'layout-left-and-right'
     ],
-    [DiagramLayoutType.LEFT_TO_RIGHT, 'Only Right', 'layout-right'],
-    [DiagramLayoutType.RIGHT_TO_LEFT, 'Only Left', 'layout-left']
+    [
+      DiagramLayoutType.LEFT_TO_RIGHT,
+      getI18nText(props, I18nKey.ONLY_RIGHT),
+      'layout-right'
+    ],
+    [
+      DiagramLayoutType.RIGHT_TO_LEFT,
+      getI18nText(props, I18nKey.ONLY_LEFT),
+      'layout-left'
+    ]
   ];
 
   const onClickSetLayout = layoutDir => e => {

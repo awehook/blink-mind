@@ -1,5 +1,10 @@
 import { FocusMode, OpType } from '@blink-mind/core';
-import { BaseProps, PropKey } from '@blink-mind/renderer-react';
+import {
+  BaseProps,
+  getI18nText,
+  I18nKey,
+  PropKey
+} from '@blink-mind/renderer-react';
 import { IInputGroupProps } from '@blueprintjs/core';
 import { ItemListPredicate, ItemRenderer, Omnibar } from '@blueprintjs/select';
 import * as React from 'react';
@@ -22,14 +27,14 @@ export interface INavigationSection {
   topicKey: KeyType;
 }
 
-const INPUT_PROPS: IInputGroupProps = {
-  placeholder: 'Search'
-};
 export type SearchPanelProps = BaseProps & {
   setSearchWord: (s: string) => void;
 };
 export function SearchPanel(props: SearchPanelProps) {
   const { model, setSearchWord, controller } = props;
+  const INPUT_PROPS: IInputGroupProps = {
+    placeholder: getI18nText(props, I18nKey.SEARCH)
+  };
   const onClose = () => {
     controller.run('operation', {
       ...props,

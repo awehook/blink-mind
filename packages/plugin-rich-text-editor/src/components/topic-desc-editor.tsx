@@ -1,5 +1,5 @@
 import { BlockType } from '@blink-mind/core';
-import { descEditorRefKey } from '@blink-mind/renderer-react';
+import {descEditorRefKey, getI18nText, I18nKey} from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { RichTextEditor } from './rich-text-editor';
 
@@ -16,7 +16,8 @@ export class TopicDescEditor extends RichTextEditor {
   }
 
   getCustomizeProps() {
-    const { model, topicKey } = this.props;
+    const props = this.props;
+    const { model, topicKey } = props;
     const block = model.getTopic(topicKey).getBlock(BlockType.DESC).block;
     const readOnly = model.editingDescKey !== topicKey;
     //TODO
@@ -25,7 +26,7 @@ export class TopicDescEditor extends RichTextEditor {
       block,
       readOnly,
       getRefKeyFunc,
-      placeholder: 'write topic notes here'
+      placeholder: getI18nText(props,I18nKey.NOTE_PLACEHOLDER)
     };
   }
 

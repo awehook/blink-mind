@@ -1,4 +1,9 @@
-import { BaseProps, SettingBoxContainer } from '@blink-mind/renderer-react';
+import {
+  BaseProps,
+  getI18nText,
+  I18nKey,
+  SettingBoxContainer
+} from '@blink-mind/renderer-react';
 import { Alert } from '@blueprintjs/core';
 import * as React from 'react';
 import { useState } from 'react';
@@ -30,7 +35,8 @@ export function AllTagsWidget(props: BaseProps) {
   const alertProps = {
     isOpen: showAlert,
     canEscapeKeyCancel: true,
-    cancelButtonText: 'cancel',
+    cancelButtonText: getI18nText(props, I18nKey.CANCEL),
+    confirmButtonText: getI18nText(props, I18nKey.CONFIRM),
     onConfirm: e => {
       controller.run('operation', {
         ...props,
@@ -50,10 +56,7 @@ export function AllTagsWidget(props: BaseProps) {
       <SettingBoxContainer>{tags}</SettingBoxContainer>
 
       <Alert {...alertProps}>
-        <p>
-          All the relationship about this tag will lost if you delete this tag!
-          Are you confirm?
-        </p>
+        <p>{getI18nText(props, I18nKey.DELETE_TAG_TIP)}</p>
       </Alert>
     </>
   );
