@@ -1,6 +1,7 @@
 import { isThemeType, OpType, ThemeType, TopicStyle } from '@blink-mind/core';
 import { Alert, Tab, Tabs } from '@blueprintjs/core';
-import { clone, merge } from 'lodash';
+import debug from 'debug';
+import { cloneDeep, merge } from 'lodash';
 import * as React from 'react';
 import { useState } from 'react';
 import {
@@ -23,24 +24,28 @@ import {
   StyledCheckbox
 } from '../../common';
 import { TopicThemeEditor, TopicThemeEditorProps } from './topic-theme-editor';
+const log = debug('node:theme-editor');
 
 let tabId = 'normal';
 
 export function ThemeEditor(props: BaseProps) {
   const [alertThemeError, setAlertThemeError] = useState(false);
   const { model, controller } = props;
-  const theme: ThemeType = model.config.theme;
 
-  const { rootTopic, primaryTopic, normalTopic } = controller.run(
-    'getThemeOfTopic',
-    props
-  );
+  // 注意这里一定要用cloneDeep
+  const theme: ThemeType = cloneDeep(model.config.theme);
+
+  const {
+    rootTopic,
+    primaryTopic,
+    normalTopic
+  } = controller.run('getThemeOfTopic', { ...props, isClone: true });
 
   const setTheme = theme => {
     controller.run('operation', {
       ...props,
       opType: OpType.SET_THEME,
-      theme: clone(theme)
+      theme
     });
   };
 

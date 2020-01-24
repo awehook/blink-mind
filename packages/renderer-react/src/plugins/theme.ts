@@ -5,6 +5,7 @@ export function ThemePlugin() {
     getThemeOfTopic(ctx: IControllerRunContext) {
       const { model } = ctx;
       const theme = model.config.theme;
+
       const { contentStyle, rootTopic, primaryTopic, normalTopic } = theme;
       return {
         rootTopic: {

@@ -1,7 +1,7 @@
 import { LinkStyle, TopicContentStyle, TopicStyle } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import {getI18nText, I18nKey} from "../../../utils";
+import { getI18nText, I18nKey } from '../../../utils';
 import {
   BaseProps,
   SettingGroup,
@@ -19,7 +19,7 @@ const TopicThemeEditorRoot = styled.div`
   overflow: auto;
 `;
 
-export interface TopicThemeEditorProps extends BaseProps{
+export interface TopicThemeEditorProps extends BaseProps {
   topicStyle: TopicStyle;
   setTopicStyle: (style: TopicStyle) => void;
 }
@@ -33,7 +33,7 @@ export function TopicThemeEditor(props: TopicThemeEditorProps) {
   };
 
   const nProps: ContentStyleEditorProps = {
-      ...props,
+    ...props,
     contentStyle,
     setContentStyle
   };

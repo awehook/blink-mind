@@ -12,6 +12,7 @@ const debugNameSpaces = [
   // 'node:topic-content-widget',
   // 'node:topic-desc-editor',
   // 'node:style-editor',
+  'node:theme-editor',
   // 'plugin:StylePlugin',
   // 'plugin:*',
   // 'plugin:event',
