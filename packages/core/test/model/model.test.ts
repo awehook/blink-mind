@@ -1,8 +1,8 @@
-import { Model, ModelModifier } from '../../src';
+import { CanvasModel, ModelModifier } from '../../src';
 import { BlockType } from '../../src/types';
 
 function createSimpleModel() {
-  const model = Model.create({
+  const model = CanvasModel.create({
     rootTopicKey: 'root',
     topics: [
       {
@@ -27,7 +27,7 @@ function createSimpleModel() {
 }
 
 describe('Modifier test', () => {
-  it('Model create test', () => {
+  it('CanvasModel create test', () => {
     const model = createSimpleModel();
 
     expect(model.rootTopicKey).toBe('root');
@@ -41,14 +41,14 @@ describe('Modifier test', () => {
     expect(topicSub1.getBlock(BlockType.CONTENT).block.data).toBe('SubTopic1');
   });
 
-  it('Model toPlainObject test', () => {
+  it('CanvasModel toPlainObject test', () => {
     const model = createSimpleModel();
     const obj = model.toJS();
     const str = JSON.stringify(obj);
-    const newModel = Model.create(JSON.parse(str));
+    const newModel = CanvasModel.create(JSON.parse(str));
   });
 
-  it('Model topic  test', () => {
+  it('CanvasModel topic  test', () => {
     const model = createSimpleModel();
     const topics = model.topics.valueSeq().toArray();
     expect(topics.length).toBe(3);

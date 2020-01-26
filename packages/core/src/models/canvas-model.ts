@@ -31,19 +31,19 @@ const defaultModelRecord: ModelRecordType = {
   zoomFactor: 1
 };
 
-export class Model extends Record(defaultModelRecord) {
+export class CanvasModel extends Record(defaultModelRecord) {
   static isModel(obj) {
-    return obj instanceof Model;
+    return obj instanceof CanvasModel;
   }
-  static create(attrs: any = null): Model {
-    if (attrs == null) return Model.createEmpty();
-    let res: Model;
-    if (Model.isModel(attrs)) {
+  static create(attrs: any = null): CanvasModel {
+    if (attrs == null) return CanvasModel.createEmpty();
+    let res: CanvasModel;
+    if (CanvasModel.isModel(attrs)) {
       res = attrs;
     }
 
     if (isPlainObject(attrs)) {
-      res = Model.fromJSON(attrs);
+      res = CanvasModel.fromJSON(attrs);
     }
     if (res) {
       if (res.focusKey == null) {
@@ -60,8 +60,8 @@ export class Model extends Record(defaultModelRecord) {
     );
   }
 
-  static createEmpty(): Model {
-    const model = new Model();
+  static createEmpty(): CanvasModel {
+    const model = new CanvasModel();
     const rootTopic = Topic.create({ key: createKey(), content: 'RootTopic' });
     return model
       .update('topics', topics => topics.set(rootTopic.key, rootTopic))
@@ -72,7 +72,7 @@ export class Model extends Record(defaultModelRecord) {
   }
 
   static fromJSON(object) {
-    let model = new Model();
+    let model = new CanvasModel();
     const { topics = [], config = {}, rootTopicKey } = object;
     let { editorRootTopicKey } = object;
 

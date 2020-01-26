@@ -1,9 +1,9 @@
 import {
   BaseModifierArg,
   BlockType,
+  CanvasModel,
   FocusMode,
   getAllSubTopicKeys,
-  Model,
   ModelModifier,
   OpType
 } from '@blink-mind/core';
@@ -137,8 +137,8 @@ export function OperationPlugin() {
     [OpType.SET_LAYOUT_DIR, ModelModifier.setLayoutDir]
   ]);
 
-  let undoStack = Stack<Model>();
-  let redoStack = Stack<Model>();
+  let undoStack = Stack<CanvasModel>();
+  let redoStack = Stack<CanvasModel>();
 
   let enabled = true;
   let whiteListOperation = new Set<string>();

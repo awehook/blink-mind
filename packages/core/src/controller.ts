@@ -1,7 +1,7 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import { Model } from './models';
+import {CanvasModel, DocModel} from './models';
 import { CorePlugin } from './plugins/core';
 import { ModelChangeCallback, OnChangeFunction } from './types';
 
@@ -9,25 +9,25 @@ const log = debug('core:controller');
 
 export interface IControllerOption {
   plugins?: Array<any>;
-  model?: Model;
+  docModel?: DocModel;
   readOnly?: boolean;
   onChange?: OnChangeFunction;
 }
 
 export interface IControllerRunContext {
   controller: Controller;
-  model?: Model;
+  model?: CanvasModel;
   topicKey?: KeyType;
   getRef?: Function;
 }
 
 export interface IDiagram {
   getDiagramProps(): IDiagramProps;
-  openNewModel(newModel: Model);
+  openNewModel(newModel: DocModel);
 }
 
 export interface IDiagramProps {
-  model: Model;
+  docModel: DocModel;
   controller: Controller;
 }
 
@@ -80,7 +80,7 @@ export class Controller {
   middleware: Map<string, Function[]>;
   private readonly onChange: OnChangeFunction;
   public readOnly: boolean;
-  public currentModel: Model;
+  public currentModel: DocModel;
 
   constructor(options: IControllerOption = {}) {
     const { plugins = [], onChange, readOnly } = options;
@@ -104,7 +104,7 @@ export class Controller {
     return this.run('getValue', { ...arg, propKey });
   }
 
-  change(model: Model, callback?: ModelChangeCallback) {
+  change(model: DocModel, callback?: ModelChangeCallback) {
     this.onChange(model, callback);
     this.currentModel = model;
   }

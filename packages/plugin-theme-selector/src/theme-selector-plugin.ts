@@ -1,4 +1,4 @@
-import { defaultTheme, Model, OpType, ThemeType } from '@blink-mind/core';
+import { CanvasModel, defaultTheme, OpType, ThemeType } from '@blink-mind/core';
 import { themeRandomColorSquare } from './themes';
 import { theme1 } from './themes';
 import { theme2 } from './themes';
@@ -40,7 +40,7 @@ export function ThemeSelectorPlugin() {
     },
 
     createNewModel(props, next) {
-      let model: Model = next();
+      let model: CanvasModel = next();
       model = model.setIn(['config', 'theme'], themeRandomColorSquare);
       return model;
     }

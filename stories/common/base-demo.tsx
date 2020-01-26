@@ -1,4 +1,4 @@
-import { Model } from '@blink-mind/core';
+import { DocModel } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import { generateSimpleModel } from '../utils';
@@ -8,7 +8,7 @@ const log = debug('story:base-demo');
 interface Props {}
 
 interface State {
-  model: Model;
+  docModel: DocModel;
 }
 
 export class BaseDemo extends React.Component<Props, State> {
@@ -16,21 +16,21 @@ export class BaseDemo extends React.Component<Props, State> {
     super(props);
     this.initModel();
   }
-  onChange = (model: Model, callback?: () => void) => {
+  onChange = (docModel: DocModel, callback?: () => void) => {
     this.setState(
       {
-        model
+        docModel
       },
       callback
     );
   };
 
   initModel() {
-    const model = generateSimpleModel();
-    log('initModel:', model);
-    this.state = {
-      model
-    };
+    // const model = generateSimpleModel();
+    // log('initModel:', model);
+    // this.state = {
+    //   model
+    // };
   }
 
   renderDiagram() {

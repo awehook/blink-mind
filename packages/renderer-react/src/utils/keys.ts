@@ -35,7 +35,7 @@ export function dropAreaRefKey(key, dir) {
 }
 
 export const RefKey = {
-  DIAGRAM_ROOT_KEY: 'DIAGRAM-ROOT',
+  CANVAS_ROOT_KEY: 'CANVAS-ROOT',
   DRAG_SCROLL_WIDGET_KEY: 'DragScrollWidget',
   SVG_HIGHLIGHT_KEY: 'svg-highlight',
   FOCUS_HIGHLIGHT_KEY: 'focus-highlight',

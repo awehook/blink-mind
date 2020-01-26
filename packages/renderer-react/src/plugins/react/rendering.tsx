@@ -2,6 +2,7 @@ import { BlockType } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import { SaveRef } from '../../components/common';
+import { Canvas } from '../../components/widgets/canvas';
 import { DiagramRoot } from '../../components/widgets/diagram-root';
 import { EditorRootBreadcrumbs } from '../../components/widgets/editor-root-breadcrumbs';
 import { Modals } from '../../components/widgets/modals';
@@ -27,7 +28,7 @@ export function RenderingPlugin() {
       return diagramProps;
     },
     renderDiagram(props) {
-      const { model } = props;
+      const { docModel } = props;
       return (
         <SaveRef>
           {(saveRef, getRef, deleteRef) => {
@@ -37,26 +38,26 @@ export function RenderingPlugin() {
               getRef,
               deleteRef
             };
-
-            log('renderDiagram', model);
-            return (
-              <Theme theme={model.config.theme}>
-                {React.createElement(DiagramRoot, diagramProps)}
-              </Theme>
-            );
+            log('renderDiagram', docModel);
+            return React.createElement(DiagramRoot, diagramProps);
           }}
         </SaveRef>
       );
     },
+
+    renderCanvas(props) {
+      return React.createElement(Canvas, props);
+    },
+
     renderDrawer,
 
-    getInitialDiagramState(props) {
+    getInitialCanvasState(props) {
       return {
         rightTopPanel: { isOpen: false, selectedTabId: 'topic-style' }
       };
     },
 
-    renderDiagramCustomize(props) {
+    renderCanvasCustomize(props) {
       const { controller, model } = props;
       const zIndex = controller.getValue(
         PropKey.DIAGRAM_CUSTOMIZE_BASE_Z_INDEX

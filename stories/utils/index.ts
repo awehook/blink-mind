@@ -1,7 +1,7 @@
-import { Model } from '@blink-mind/core';
+import { CanvasModel } from '@blink-mind/core';
 
 export function generateSimpleModel() {
-  return Model.create({
+  return CanvasModel.create({
     rootTopicKey: 'root',
     topics: [
       {

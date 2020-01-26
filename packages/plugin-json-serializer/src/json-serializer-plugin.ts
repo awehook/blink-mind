@@ -1,10 +1,10 @@
 import {
   Block,
+  CanvasModel,
   Config,
   ExtData,
   FocusMode,
   IControllerRunContext,
-  Model,
   Topic
 } from '@blink-mind/core';
 import debug from 'debug';
@@ -55,7 +55,7 @@ export function JsonSerializerPlugin() {
         extData,
         formatVersion
       } = obj;
-      let res = new Model();
+      let res = new CanvasModel();
       res = res.merge({
         rootTopicKey,
         editorRootTopicKey:

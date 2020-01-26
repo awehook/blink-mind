@@ -6,3 +6,4 @@ storybook-static/
 lerna-debug.log
 yarn-error.log
 packages/plugins-for-vscode
+.DS_Store

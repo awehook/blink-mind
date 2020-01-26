@@ -1,4 +1,4 @@
-import { Controller, KeyType, Model } from '@blink-mind/core';
+import { CanvasModel, Controller, KeyType } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import plainSerializer from 'slate-plain-serializer';
@@ -19,7 +19,7 @@ const Content = styled.div<ContentProps>`
 
 interface Props {
   controller: Controller;
-  model: Model;
+  model: CanvasModel;
   readOnly: boolean;
   topicKey: KeyType;
   saveRef?: Function;

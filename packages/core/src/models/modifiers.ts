@@ -8,7 +8,7 @@ import {
 } from '../types';
 import { createKey } from '../utils';
 import { Block } from './block';
-import { Model } from './model';
+import { CanvasModel } from './canvas-model';
 import { Topic } from './topic';
 import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
 
@@ -25,7 +25,7 @@ export type ModifierArg =
   | SetLayoutDirArg;
 
 export type BaseModifierArg = {
-  model: Model;
+  model: CanvasModel;
   topicKey?: KeyType;
 };
 
@@ -63,7 +63,7 @@ export type SetLayoutDirArg = BaseModifierArg & {
   layoutDir: DiagramLayoutType;
 };
 
-export type ModifierResult = Model;
+export type ModifierResult = CanvasModel;
 
 function toggleCollapse({ model, topicKey }: BaseModifierArg): ModifierResult {
   let topic = model.getTopic(topicKey);

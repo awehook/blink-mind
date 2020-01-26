@@ -1,10 +1,10 @@
 import {
+  CanvasModel,
   DiagramLayoutType,
   FocusMode,
   getRelationship,
   IControllerRunContext,
   KeyType,
-  Model,
   OpType,
   Topic,
   TopicRelationship
@@ -25,7 +25,7 @@ import {
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;
-  model: Model;
+  model: CanvasModel;
   topicKey: KeyType;
 };
 

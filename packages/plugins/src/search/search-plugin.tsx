@@ -39,7 +39,7 @@ export function SearchPlugin() {
       return res;
     },
 
-    renderDiagramCustomize(props, next) {
+    renderCanvasCustomize(props, next) {
       const res = next();
       const { model } = props;
       if (model.focusMode === FOCUS_MODE_SEARCH) {

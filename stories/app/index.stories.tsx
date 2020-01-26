@@ -81,7 +81,7 @@ class AppDemo extends BaseDemo {
   }
 
   initModel() {
-    this.state = { model: null };
+    this.state = { docModel: null };
   }
 
   diagram;
@@ -92,7 +92,7 @@ class AppDemo extends BaseDemo {
     return (
       <Container>
         <Diagram
-          model={this.state.model}
+          docModel={this.state.docModel}
           onChange={this.onChange}
           plugins={plugins}
           ref={this.diagramRef}

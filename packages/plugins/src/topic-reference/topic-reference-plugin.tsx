@@ -1,8 +1,8 @@
 import {
   BaseModifierArg,
+  CanvasModel,
   getAllSubTopicKeys,
   IControllerRunContext,
-  Model,
   ModelModifier,
   OpType
 } from '@blink-mind/core';
@@ -82,7 +82,7 @@ export function TopicReferencePlugin() {
     },
 
     beforeOpFunction(props, next) {
-      let model: Model = next();
+      let model: CanvasModel = next();
       const { opType, topicKey } = props;
       // 注意是在beforeOpFunction里面操作
       if (
@@ -121,7 +121,7 @@ export function TopicReferencePlugin() {
       return model;
     },
 
-    renderDiagramCustomize(props: IControllerRunContext, next) {
+    renderCanvasCustomize(props: IControllerRunContext, next) {
       const { model, controller } = props;
       const zIndex =
         controller.getValue(PropKey.DIAGRAM_CUSTOMIZE_BASE_Z_INDEX) + 2;

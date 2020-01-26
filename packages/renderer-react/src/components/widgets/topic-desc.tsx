@@ -31,7 +31,7 @@ export function TopicDesc(props) {
   )
     return null;
   const descEditor = controller.run('renderTopicDescEditor', props);
-  const diagramRoot = getRef(RefKey.DIAGRAM_ROOT_KEY);
+  const diagramRoot = getRef(RefKey.CANVAS_ROOT_KEY);
   const style = {
     maxWidth: '800px',
     maxHeight: '600px'

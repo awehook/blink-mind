@@ -1,4 +1,4 @@
-import { Model } from '../models';
+import {CanvasModel, DocModel} from '../models';
 
 export type KeyType = string;
 
@@ -40,7 +40,7 @@ export const FocusMode = {
 export type ModelChangeCallback = () => void;
 
 export type OnChangeFunction = (
-  model: Model,
+  model: DocModel,
   callback?: ModelChangeCallback
 ) => void;
 

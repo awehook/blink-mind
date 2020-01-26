@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Controller, KeyType, Model, TopicStyle } from '@blink-mind/core';
+import { CanvasModel, Controller, KeyType, TopicStyle } from '@blink-mind/core';
 
 export interface BaseProps {
-  model: Model;
+  model: CanvasModel;
   key?: string;
   topicKey?: KeyType;
   readOnly?: boolean;

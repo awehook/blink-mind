@@ -1,8 +1,9 @@
 import {
+  CanvasModel,
   Controller,
+  DocModel,
   IDiagram,
   IDiagramProps,
-  Model,
   OnChangeFunction
 } from '@blink-mind/core';
 // TODO
@@ -17,7 +18,7 @@ import './diagram.css';
 const log = debug('node:Diagram');
 
 interface Props {
-  model: Model | null | undefined;
+  docModel: DocModel | null | undefined;
   onChange?: OnChangeFunction;
   controller?: Controller;
   commands?: any;
@@ -31,7 +32,7 @@ export class Diagram extends React.Component<Props> implements IDiagram {
     return this.controller.run('getDiagramProps');
   }
 
-  public openNewModel(newModel: Model) {
+  public openNewModel(newModel: DocModel) {
     const props = this.getDiagramProps();
     const { controller } = props;
     controller.run('openNewModel', {
@@ -54,13 +55,13 @@ export class Diagram extends React.Component<Props> implements IDiagram {
     const { plugins, controller } = this.props;
     if (controller) this.controller = controller;
     else this.resolveController(plugins, DefaultPlugin);
-    let { model } = this.props;
-    if (!model) {
-      model = this.controller.run('createNewModel');
+    let { docModel } = this.props;
+    if (!docModel) {
+      docModel = this.controller.run('createNewDoc');
     }
     this.diagramProps = {
       ...this.props,
-      model,
+      docModel,
       controller: this.controller
     };
     return this.controller.run('renderDiagram', this.diagramProps);

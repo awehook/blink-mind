@@ -4,7 +4,7 @@ import { BaseProps } from '../../components/common';
 import { RightTopPanelWidget } from '../../components/widgets/right-top-panel';
 import { StyleEditor } from '../../components/widgets/style-editor';
 import { ThemeEditor } from '../../components/widgets/theme-editor';
-import { I18nKey, getI18nText } from '../../utils';
+import { getI18nText, I18nKey } from '../../utils';
 
 export function RightTopPanelPlugin() {
   return {

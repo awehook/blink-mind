@@ -1,4 +1,4 @@
-import { Model, ModelModifier } from '../../src';
+import { CanvasModel, ModelModifier } from '../../src';
 import { getAllSubTopicKeys } from '../../src/models/utils';
 
 const { addChild, addSibling, toggleCollapse, deleteTopic } = ModelModifier;
@@ -7,7 +7,7 @@ describe('Modifier test', () => {
   beforeAll(() => {});
   beforeEach(() => {});
   it('addChild', () => {
-    let model = Model.create();
+    let model = CanvasModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     let childKey = model.focusKey;
@@ -25,7 +25,7 @@ describe('Modifier test', () => {
   });
 
   it('addSibling', () => {
-    let model = Model.create();
+    let model = CanvasModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     const key1 = model.focusKey;
@@ -39,7 +39,7 @@ describe('Modifier test', () => {
   });
 
   it('deleteTopic', () => {
-    let model = Model.create();
+    let model = CanvasModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     model = addChild({ model, topicKey });
@@ -54,7 +54,7 @@ describe('Modifier test', () => {
   });
 
   it('toggleCollapse', () => {
-    let model = Model.create();
+    let model = CanvasModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     const childKey = model.focusKey;
