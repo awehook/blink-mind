@@ -1,10 +1,10 @@
 import { Block } from './block';
 import { Config } from './config';
 
-import Modifiers from './modifiers';
 import { Topic } from './topic';
-export { Block, Config, Topic, Modifiers as ModelModifier };
+export { Block, Config, Topic };
 export * from './utils';
-export * from './modifiers';
+export * from './canvas-model-modifier';
+export * from './doc-model-modifier';
 export * from './canvas-model';
 export * from './doc-model';

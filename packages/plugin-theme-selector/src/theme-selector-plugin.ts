@@ -39,7 +39,7 @@ export function ThemeSelectorPlugin() {
       });
     },
 
-    createNewModel(props, next) {
+    createNewCanvasModel(props, next) {
       let model: CanvasModel = next();
       model = model.setIn(['config', 'theme'], themeRandomColorSquare);
       return model;

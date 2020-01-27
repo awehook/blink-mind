@@ -2,19 +2,27 @@ import { I18nKey } from '../utils';
 
 export function I18nPlugin() {
   const i18nTextMap = new Map([
+    [I18nKey.COPY, 'Copy'],
+    [I18nKey.PASTE, 'Paste'],
+    [I18nKey.DUPLICATE, 'Duplicate'],
+    [I18nKey.DELETE, 'Delete'],
+
     [I18nKey.CONFIRM, 'Confirm'],
     [I18nKey.CANCEL, 'Cancel'],
+    [I18nKey.RENAME, 'Rename'],
     [I18nKey.DEFAULT, 'Default'],
     [I18nKey.SEARCH, 'Search'],
     [I18nKey.LEFT_AND_RIGHT, 'Left And Right'],
     [I18nKey.ONLY_LEFT, 'Only Left'],
     [I18nKey.ONLY_RIGHT, 'Only Right'],
 
+    [I18nKey.ADD_CANVAS, 'Add Canvas'],
+    [I18nKey.CANVAS, 'Canvas'],
+
     [I18nKey.EDIT, 'Edit'],
     [I18nKey.ADD_CHILD, 'Add Child'],
     [I18nKey.ADD_SIBLING, 'Add Sibling'],
     [I18nKey.EDIT_NOTES, 'Edit Notes'],
-    [I18nKey.DELETE, 'Delete'],
     [I18nKey.SET_AS_EDITOR_ROOT, 'Set as Editor Root'],
     [I18nKey.EDIT_TOPOLOGY_DIAGRAM, 'Edit Topology Diagram'],
     [I18nKey.SET_TOPIC_REFERENCES, 'Set Topic References'],
@@ -81,7 +89,7 @@ export function I18nPlugin() {
     [I18nKey.RESET, 'Reset'],
     [I18nKey.RESET_ZOOM, 'Reset Zoom'],
 
-    [I18nKey.NOTE_PLACEHOLDER,'Write topic notes here'],
+    [I18nKey.NOTE_PLACEHOLDER, 'Write topic notes here'],
 
     [I18nKey.TOPOLOGY_DIAGRAM_EDITOR, 'Topology Diagram Editor'],
     [I18nKey.BASIC, 'Basic'],

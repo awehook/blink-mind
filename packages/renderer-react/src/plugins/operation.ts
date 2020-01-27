@@ -1,11 +1,10 @@
 import {
-  BaseModifierArg,
-  BlockType,
-  CanvasModel,
-  FocusMode,
+  DocModel,
+  CanvasModelModifier,
+  toDocModelModifierFunc as _t,
   getAllSubTopicKeys,
-  ModelModifier,
-  OpType
+  OpType,
+  DocModelModifier
 } from '@blink-mind/core';
 import debug from 'debug';
 import { List, Stack } from 'immutable';
@@ -23,122 +22,64 @@ import {
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {
-  const startEditingContent = ({ model, topicKey }: BaseModifierArg) => {
-    return ModelModifier.focusTopic({
-      model,
-      topicKey,
-      focusMode: FocusMode.EDITING_CONTENT
-    });
-  };
-  const startEditingDesc = ({ model, topicKey }: BaseModifierArg) => {
-    const topic = model.getTopic(topicKey);
-    const desc = topic.getBlock(BlockType.DESC);
-    if (desc.block == null || desc.block.data == null) {
-      model = ModelModifier.setBlockData({
-        model,
-        topicKey,
-        blockType: BlockType.DESC,
-        data: ''
-      });
-    }
-    model = ModelModifier.focusTopic({
-      model,
-      topicKey,
-      focusMode: FocusMode.EDITING_DESC
-    });
-    return model;
-  };
+  const {
+    addCanvas,
+    setCurrentCanvas,
+    duplicateCanvas,
+    deleteCanvas,
+    setCanvasTitle,
 
-  function dragAndDrop(props) {
-    const { srcKey, dstKey, dropDir } = props;
-    let { model } = props;
-    const srcTopic = model.getTopic(srcKey);
-    const dstTopic = model.getTopic(dstKey);
-
-    const srcParentKey = srcTopic.parentKey;
-    const srcParentTopic = model.getTopic(srcParentKey);
-    let srcParentSubKeys = srcParentTopic.subKeys;
-    const srcIndex = srcParentSubKeys.indexOf(srcKey);
-
-    srcParentSubKeys = srcParentSubKeys.delete(srcIndex);
-
-    if (dropDir === 'in') {
-      let dstSubKeys = dstTopic.subKeys;
-      dstSubKeys = dstSubKeys.push(srcKey);
-      model = model.withMutations(m => {
-        m.setIn(['topics', srcParentKey, 'subKeys'], srcParentSubKeys)
-          .setIn(['topics', srcKey, 'parentKey'], dstKey)
-          .setIn(['topics', dstKey, 'subKeys'], dstSubKeys)
-          .setIn(['topics', dstKey, 'collapse'], false);
-      });
-    } else {
-      const dstParentKey = dstTopic.parentKey;
-      const dstParentItem = model.getTopic(dstParentKey);
-      let dstParentSubKeys = dstParentItem.subKeys;
-      const dstIndex = dstParentSubKeys.indexOf(dstKey);
-      //src 和 dst 的父亲相同，这种情况要做特殊处理
-      if (srcParentKey === dstParentKey) {
-        let newDstParentSubKeys = List();
-        dstParentSubKeys.forEach(key => {
-          if (key !== srcKey) {
-            if (key === dstKey) {
-              if (dropDir === 'prev') {
-                newDstParentSubKeys = newDstParentSubKeys
-                  .push(srcKey)
-                  .push(key);
-              } else {
-                newDstParentSubKeys = newDstParentSubKeys
-                  .push(key)
-                  .push(srcKey);
-              }
-            } else {
-              newDstParentSubKeys = newDstParentSubKeys.push(key);
-            }
-          }
-        });
-        model = model.withMutations(m => {
-          m.setIn(['topics', dstParentKey, 'subKeys'], newDstParentSubKeys);
-        });
-      } else {
-        if (dropDir === 'prev') {
-          dstParentSubKeys = dstParentSubKeys.insert(dstIndex, srcKey);
-        } else if (dropDir === 'next') {
-          dstParentSubKeys = dstParentSubKeys.insert(dstIndex + 1, srcKey);
-        }
-        model = model.withMutations(m => {
-          m.setIn(['topics', srcParentKey, 'subKeys'], srcParentSubKeys)
-            .setIn(['topics', srcKey, 'parentKey'], dstParentKey)
-            .setIn(['topics', dstParentKey, 'subKeys'], dstParentSubKeys)
-            .setIn(['topics', dstParentKey, 'collapse'], false);
-        });
-      }
-    }
-    return model;
-  }
+    addChild,
+    addSibling,
+    toggleCollapse,
+    collapseAll,
+    expandAll,
+    expandTo,
+    focusTopic,
+    setFocusMode,
+    deleteTopic,
+    setBlockData,
+    deleteBlock,
+    setStyle,
+    clearAllCustomStyle,
+    setTheme,
+    setLayoutDir,
+    setEditorRootTopicKey,
+    setZoomFactor,
+    startEditingContent,
+    startEditingDesc,
+    dragAndDrop
+  } = DocModelModifier;
   const OpMap = new Map([
-    [OpType.TOGGLE_COLLAPSE, ModelModifier.toggleCollapse],
-    [OpType.COLLAPSE_ALL, ModelModifier.collapseAll],
-    [OpType.EXPAND_ALL, ModelModifier.expandAll],
-    [OpType.EXPAND_TO, ModelModifier.expandTo],
-    [OpType.ADD_CHILD, ModelModifier.addChild],
-    [OpType.ADD_SIBLING, ModelModifier.addSibling],
-    [OpType.DELETE_TOPIC, ModelModifier.deleteTopic],
-    [OpType.FOCUS_TOPIC, ModelModifier.focusTopic],
-    [OpType.SET_FOCUS_MODE, ModelModifier.setFocusMode],
-    [OpType.SET_STYLE, ModelModifier.setStyle],
-    [OpType.CLEAR_ALL_CUSTOM_STYLE, ModelModifier.clearAllCustomStyle],
-    [OpType.SET_THEME, ModelModifier.setTheme],
-    [OpType.SET_TOPIC_BLOCK, ModelModifier.setBlockData],
-    [OpType.DELETE_TOPIC_BLOCK, ModelModifier.deleteBlock],
+    [OpType.ADD_CANVAS, addCanvas],
+    [OpType.SET_CURRENT_CANVAS, setCurrentCanvas],
+    [OpType.DELETE_CANVAS, deleteCanvas],
+    [OpType.DUPLICATE_CANVAS,duplicateCanvas],
+    [OpType.SET_CANVAS_TITLE, setCanvasTitle],
+
+    [OpType.TOGGLE_COLLAPSE, toggleCollapse],
+    [OpType.COLLAPSE_ALL, collapseAll],
+    [OpType.EXPAND_ALL, expandAll],
+    [OpType.EXPAND_TO, expandTo],
+    [OpType.ADD_CHILD, addChild],
+    [OpType.ADD_SIBLING, addSibling],
+    [OpType.DELETE_TOPIC, deleteTopic],
+    [OpType.FOCUS_TOPIC, focusTopic],
+    [OpType.SET_FOCUS_MODE, setFocusMode],
+    [OpType.SET_STYLE, setStyle],
+    [OpType.CLEAR_ALL_CUSTOM_STYLE, clearAllCustomStyle],
+    [OpType.SET_THEME, setTheme],
+    [OpType.SET_TOPIC_BLOCK, setBlockData],
+    [OpType.DELETE_TOPIC_BLOCK, deleteBlock],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop],
-    [OpType.SET_EDITOR_ROOT, ModelModifier.setEditorRootTopicKey],
-    [OpType.SET_LAYOUT_DIR, ModelModifier.setLayoutDir]
+    [OpType.SET_EDITOR_ROOT, setEditorRootTopicKey],
+    [OpType.SET_LAYOUT_DIR, setLayoutDir]
   ]);
 
-  let undoStack = Stack<CanvasModel>();
-  let redoStack = Stack<CanvasModel>();
+  let undoStack = Stack<DocModel>();
+  let redoStack = Stack<DocModel>();
 
   let enabled = true;
   let whiteListOperation = new Set<string>();
@@ -174,8 +115,7 @@ export function OperationPlugin() {
     //是否允许undo
     getAllowUndo(ctx) {
       const { model, opType, allowUndo = true } = ctx;
-      if(allowUndo===false)
-        return false;
+      if (allowUndo === false) return false;
       if (opType) {
         switch (opType) {
           // 这几种情况不加入undo 队列
@@ -215,9 +155,8 @@ export function OperationPlugin() {
 
     canUndo(ctx) {
       const { controller } = ctx;
-      const isOperationEnabled = controller.run('isOperationEnabled',ctx);
-      if(!isOperationEnabled)
-        return false;
+      const isOperationEnabled = controller.run('isOperationEnabled', ctx);
+      if (!isOperationEnabled) return false;
       const { undoStack } = controller.run('getUndoRedoStack', ctx);
       const allowUndo = controller.run('getAllowUndo', ctx);
       return undoStack.size > 0 && allowUndo;
@@ -225,56 +164,55 @@ export function OperationPlugin() {
 
     canRedo(ctx) {
       const { controller } = ctx;
-      const isOperationEnabled = controller.run('isOperationEnabled',ctx);
-      if(!isOperationEnabled)
-        return false;
+      const isOperationEnabled = controller.run('isOperationEnabled', ctx);
+      if (!isOperationEnabled) return false;
       const { redoStack } = controller.run('getUndoRedoStack', ctx);
       const allowUndo = controller.run('getAllowUndo', ctx);
       return redoStack.size > 0 && allowUndo;
     },
 
     undo(ctx) {
-      const { controller, model } = ctx;
+      const { controller, docModel } = ctx;
       if (!controller.run('getAllowUndo', ctx)) {
         return;
       }
       const { undoStack, redoStack } = controller.run('getUndoRedoStack', ctx);
-      const newModel = undoStack.peek();
-      if (!newModel) return;
+      const newDocModel = undoStack.peek();
+      if (!newDocModel) return;
       controller.run('setUndoStack', {
         ...ctx,
         undoStack: undoStack.shift()
       });
       controller.run('setRedoStack', {
         ...ctx,
-        redoStack: redoStack.push(model)
+        redoStack: redoStack.push(docModel)
       });
-      log(newModel);
-      controller.change(newModel);
+      log(newDocModel);
+      controller.change(newDocModel);
     },
 
     redo(ctx) {
-      const { controller, model } = ctx;
+      const { controller, docModel } = ctx;
       if (!controller.run('getAllowUndo', ctx)) {
         return;
       }
       const { undoStack, redoStack } = controller.run('getUndoRedoStack', ctx);
-      const newModel = redoStack.peek();
-      if (!newModel) return;
+      const newDocModel = redoStack.peek();
+      if (!newDocModel) return;
       controller.run('setUndoStack', {
         ...ctx,
-        undoStack: undoStack.push(model)
+        undoStack: undoStack.push(docModel)
       });
       controller.run('setRedoStack', {
         ...ctx,
         redoStack: redoStack.shift()
       });
-      controller.change(newModel);
+      controller.change(newDocModel);
     },
 
     //TODO 有空重构这个函数
     operation(ctx) {
-      const { controller, opType, model, opArray, callback } = ctx;
+      const { controller, opType, docModel, model, opArray, callback } = ctx;
       if (opArray != null && !Array.isArray(opArray)) {
         throw new Error('operation: the type of opArray must be array!');
       }
@@ -301,8 +239,8 @@ export function OperationPlugin() {
         }
       }
 
-      log('operation:', opType || opArray.map(op=>op.opType));
-      log('operation:', model);
+      log('operation:', opType || opArray.map(op => op.opType));
+      // log('operation:', docModel);
       log('operation:', ctx);
 
       const opMap = controller.run('getOpMap', ctx);
@@ -311,38 +249,38 @@ export function OperationPlugin() {
         const { undoStack } = controller.run('getUndoRedoStack', ctx);
         controller.run('setUndoStack', {
           ...ctx,
-          undoStack: undoStack.push(model)
+          undoStack: undoStack.push(docModel)
         });
       }
-      let newModel;
+      let newDocModel;
 
       if (opArray != null) {
-        newModel = opArray.reduce((acc, cur) => {
+        newDocModel = opArray.reduce((acc, cur) => {
           const { opType } = cur;
           if (!opMap.has(opType))
             throw new Error(`opType:${opType} not exist!`);
           const opFunc = opMap.get(opType);
-          const opFuncProps = { controller, ...cur, model: acc };
+          const opFuncProps = { controller, ...cur, docModel: acc };
           let res = controller.run('beforeOpFunction', opFuncProps);
-          res = opFunc({ ...opFuncProps, model: res });
+          res = opFunc({ ...opFuncProps, docModel: res });
           res = controller.run('afterOpFunction', {
             ...opFuncProps,
-            model: res
+            docModel: res
           });
           return res;
-        }, model);
+        }, docModel);
       } else {
         if (!opMap.has(opType)) throw new Error(`opType:${opType} not exist!`);
         const opFunc = opMap.get(opType);
-        newModel = controller.run('beforeOpFunction', ctx);
-        newModel = opFunc({ ...ctx, model: newModel });
-        newModel = controller.run('afterOpFunction', {
+        newDocModel = controller.run('beforeOpFunction', ctx);
+        newDocModel = opFunc({ ...ctx, docModel: newDocModel });
+        newDocModel = controller.run('afterOpFunction', {
           ...ctx,
-          model: newModel
+          docModel: newDocModel
         });
       }
-      log('newModel:', newModel);
-      controller.change(newModel, callback ? callback(newModel) : null);
+      log('newDocModel:', newDocModel);
+      controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
     },
 
@@ -370,36 +308,38 @@ export function OperationPlugin() {
 
     // 在单个OpFunction执行之前被调用
     beforeOpFunction(ctx) {
-      const { controller, opType, model, topicKey } = ctx;
+      const { controller, opType, docModel, topicKey } = ctx;
       if (
         opType === OpType.DELETE_TOPIC &&
-        topicKey !== model.editorRootTopicKey
+        topicKey !== docModel.currentCanvasModel.editorRootTopicKey
       ) {
         controller.run('deleteRefKey', ctx);
       }
-      return model;
+      return docModel;
     },
 
     afterOpFunction(ctx) {
-      return ctx.model;
+      return ctx.docModel;
     },
 
-    openNewModel(ctx) {
-      const { model, controller, newModel } = ctx;
-      controller.run('deleteRefKey', {
-        ...ctx,
-        topicKey: model.rootTopicKey
-      });
+    //TODO multi-canvas
+    openNewDocModel(ctx) {
+      const { docModel, controller, newDocModel } = ctx;
+      // controller.run('deleteRefKey', {
+      //   ...ctx,
+      //   topicKey: docModel.rootTopicKey
+      // });
       controller.run('operation', {
         ...ctx,
         opType: OpType.EXPAND_TO,
-        topicKey: newModel.focusKey,
-        model: newModel,
-        callback: model => () => {
+        model: newDocModel.currentCanvasModel,
+        topicKey: newDocModel.currentCanvasModel.focusKey,
+        docModel: newDocModel,
+        callback: docModel => () => {
           controller.run('moveTopicToCenter', {
             ...ctx,
-            model,
-            topicKey: model.focusKey
+            docModel,
+            topicKey: docModel.currentCanvasModel.focusKey
           });
         }
       });

@@ -1,7 +1,7 @@
-import { CanvasModel, ModelModifier } from '../../src';
+import { CanvasModel, CanvasModelModifier } from '../../src';
 import { getAllSubTopicKeys } from '../../src/models/utils';
 
-const { addChild, addSibling, toggleCollapse, deleteTopic } = ModelModifier;
+const { addChild, addSibling, toggleCollapse, deleteTopic } = CanvasModelModifier;
 
 describe('Modifier test', () => {
   beforeAll(() => {});

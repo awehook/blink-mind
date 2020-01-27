@@ -20,7 +20,10 @@ import {
   OP_TYPE_UPDATE_TAG
 } from './utils';
 
-import { IControllerRunContext } from '@blink-mind/core';
+import {
+  IControllerRunContext,
+  toDocModelModifierFunc
+} from '@blink-mind/core';
 import { List } from 'immutable';
 import { TagWidget, TagWidgetProps } from './components/tag-widget';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
@@ -42,11 +45,14 @@ export function TagsPlugin() {
     },
     getOpMap(props, next) {
       const opMap = next();
-      opMap.set(OP_TYPE_ADD_TAG, addNewTag);
-      opMap.set(OP_TYPE_DELETE_TAG, deleteTag);
-      opMap.set(OP_TYPE_UPDATE_TAG, updateTag);
-      opMap.set(OP_TYPE_ADD_TOPIC_TAG, addTopicTag);
-      opMap.set(OP_TYPE_REMOVE_TOPIC_TAG, removeTopicTag);
+      opMap.set(OP_TYPE_ADD_TAG, toDocModelModifierFunc(addNewTag));
+      opMap.set(OP_TYPE_DELETE_TAG, toDocModelModifierFunc(deleteTag));
+      opMap.set(OP_TYPE_UPDATE_TAG, toDocModelModifierFunc(updateTag));
+      opMap.set(OP_TYPE_ADD_TOPIC_TAG, toDocModelModifierFunc(addTopicTag));
+      opMap.set(
+        OP_TYPE_REMOVE_TOPIC_TAG,
+        toDocModelModifierFunc(removeTopicTag)
+      );
       return opMap;
     },
 

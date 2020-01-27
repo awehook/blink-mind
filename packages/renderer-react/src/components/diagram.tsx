@@ -32,10 +32,10 @@ export class Diagram extends React.Component<Props> implements IDiagram {
     return this.controller.run('getDiagramProps');
   }
 
-  public openNewModel(newModel: DocModel) {
+  public openNewDocModel(newModel: DocModel) {
     const props = this.getDiagramProps();
     const { controller } = props;
-    controller.run('openNewModel', {
+    controller.run('openNewDocModel', {
       ...props,
       newModel
     });

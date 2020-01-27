@@ -15,7 +15,7 @@ import {
   iconClassName,
   IconName,
   ToolbarItem,
-  ToolbarItemConfigs
+  ElementItemConfigs
 } from '@blink-mind/renderer-react';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
@@ -50,8 +50,8 @@ function ChangeThemePlugin() {
     );
   }
   return {
-    customizeToolbar(props, next): ToolbarItemConfigs {
-      const res: ToolbarItemConfigs = next();
+    customizeToolbar(props, next): ElementItemConfigs {
+      const res: ElementItemConfigs = next();
       res.push({
         order: 30,
         element: ToolbarItemTheme

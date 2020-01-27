@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Toolbar, ToolbarItemLayout } from '../../components/widgets/toolbar';
+import { ToolbarItemAddCanvas } from '../../components/widgets/toolbar/toolbar-item-add-canvas';
+import { ToolbarItemMore } from '../../components/widgets/toolbar/toolbar-item-more';
 
-import { ToolbarItemConfigs } from '../../types';
+import { ElementItemConfigs } from '../../types';
 
 export function ToolbarPlugin() {
   return {
@@ -11,7 +13,7 @@ export function ToolbarPlugin() {
 
     renderToolbarItems(props) {
       const { controller } = props;
-      const itemConfigs: ToolbarItemConfigs = controller.run(
+      const itemConfigs: ElementItemConfigs = controller.run(
         'customizeToolbar',
         props
       );
@@ -26,11 +28,24 @@ export function ToolbarPlugin() {
       );
     },
 
-    customizeToolbar(props): ToolbarItemConfigs {
+    customizeToolbar(props): ElementItemConfigs {
       return [
+        {
+          order: 0,
+          element: ToolbarItemMore
+        },
         {
           order: 100,
           element: ToolbarItemLayout
+        }
+      ];
+    },
+
+    customizeToolbarItemMore(props): ElementItemConfigs {
+      return [
+        {
+          order: 10,
+          element: ToolbarItemAddCanvas
         }
       ];
     }

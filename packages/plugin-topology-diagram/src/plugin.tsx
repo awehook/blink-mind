@@ -1,4 +1,4 @@
-import { BaseModifierArg, ModelModifier } from '@blink-mind/core';
+import { BaseCanvasModelModifierArg, CanvasModelModifier } from '@blink-mind/core';
 import { getI18nText, I18nKey, Icon } from '@blink-mind/renderer-react';
 import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
@@ -10,18 +10,18 @@ import {
   OP_TYPE_START_EDITING_TOPOLOGY
 } from './utils';
 
-function startEditingTopology({ model, topicKey }: BaseModifierArg) {
+function startEditingTopology({ model, topicKey }: BaseCanvasModelModifierArg) {
   const topic = model.getTopic(topicKey);
   const { block } = topic.getBlock(BLOCK_TYPE_TOPOLOGY);
   if (block == null || block.data == null) {
-    model = ModelModifier.setBlockData({
+    model = CanvasModelModifier.setBlockData({
       model,
       topicKey,
       blockType: BLOCK_TYPE_TOPOLOGY,
       data: ''
     });
   }
-  model = ModelModifier.focusTopic({
+  model = CanvasModelModifier.focusTopic({
     model,
     topicKey,
     focusMode: FOCUS_MODE_EDITING_TOPOLOGY

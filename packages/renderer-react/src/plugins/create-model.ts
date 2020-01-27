@@ -8,7 +8,7 @@ export function CreateModelPlugin() {
     },
 
     // TODO
-    createNewModel(props) {
+    createNewCanvasModel(props) {
       return CanvasModel.createEmpty();
     }
   };

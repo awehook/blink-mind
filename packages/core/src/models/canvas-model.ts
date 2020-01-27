@@ -8,6 +8,7 @@ import { Topic } from './topic';
 export type ExtData = Map<string, any>;
 
 type ModelRecordType = {
+  title: string;
   topics: Map<KeyType, Topic>;
   extData: ExtData; //用于插件做数据扩展
   config: Config;
@@ -20,6 +21,7 @@ type ModelRecordType = {
 };
 
 const defaultModelRecord: ModelRecordType = {
+  title: null,
   topics: Map(),
   extData: Map(),
   config: new Config(),
@@ -96,14 +98,18 @@ export class CanvasModel extends Record(defaultModelRecord) {
   }
 
   toJS() {
-    const obj = {
+    return  {
+      title: this.title,
       rootTopicKey: this.rootTopicKey,
       topics: Object.values(this.topics.toJS()),
       config: this.config,
       extData: this.extData,
       zoomFactor: this.zoomFactor
     };
-    return obj;
+  }
+
+  get title(): string {
+    return this.get('title');
   }
 
   get extData(): Map<string, any> {

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Theme from '../../plugins/react/theme';
-import { RefKey } from '../../utils';
-import { MindDragScrollWidget } from './mind-drag-scroll-widget';
+import Theme from '../../../plugins/react/theme';
+import { RefKey } from '../../../utils';
+import { MindDragScrollWidget } from '../mind-drag-scroll-widget';
 
 const Container = styled.div`
   width: 100%;
-  //height: 100%;
+  height: 100%;
   overflow: auto;
   flex-grow: 1;
   background: ${props => props.theme.background};

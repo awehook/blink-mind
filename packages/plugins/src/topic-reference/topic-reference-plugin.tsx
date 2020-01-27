@@ -1,10 +1,13 @@
 import {
-  BaseModifierArg,
+  BaseCanvasModelModifierArg,
   CanvasModel,
+  CanvasModelModifier,
+  DocModel,
   getAllSubTopicKeys,
   IControllerRunContext,
-  ModelModifier,
-  OpType
+  OpType,
+  setCurrentCanvasModel,
+  toDocModelModifierFunc
 } from '@blink-mind/core';
 import {
   getI18nText,
@@ -31,7 +34,10 @@ import { TopicReferenceCheckbox } from './topic-reference-checkbox';
 
 export function TopicReferencePlugin() {
   let selectedTopicKeys = new Set();
-  function startSetReferenceTopics({ model, topicKey }: BaseModifierArg) {
+  function startSetReferenceTopics({
+    model,
+    topicKey
+  }: BaseCanvasModelModifierArg) {
     const extData: ExtDataReference = model.getExtDataItem(
       EXT_DATA_KEY_TOPIC_REFERENCE,
       ExtDataReference
@@ -39,7 +45,7 @@ export function TopicReferencePlugin() {
 
     selectedTopicKeys = new Set(extData.getReferenceKeys(topicKey));
 
-    model = ModelModifier.focusTopic({
+    model = CanvasModelModifier.focusTopic({
       model,
       topicKey,
       focusMode: FOCUS_MODE_SET_REFERENCE_TOPICS
@@ -76,13 +82,20 @@ export function TopicReferencePlugin() {
 
     getOpMap(props, next) {
       const opMap = next();
-      opMap.set(OP_TYPE_START_SET_REFERENCE_TOPICS, startSetReferenceTopics);
-      opMap.set(OP_TYPE_SET_REFERENCE_TOPICS, setReferenceTopicKeys);
+      opMap.set(
+        OP_TYPE_START_SET_REFERENCE_TOPICS,
+        toDocModelModifierFunc(startSetReferenceTopics)
+      );
+      opMap.set(
+        OP_TYPE_SET_REFERENCE_TOPICS,
+        toDocModelModifierFunc(setReferenceTopicKeys)
+      );
       return opMap;
     },
 
     beforeOpFunction(props, next) {
-      let model: CanvasModel = next();
+      const docModel: DocModel = next();
+      let model = docModel.currentCanvasModel;
       const { opType, topicKey } = props;
       // 注意是在beforeOpFunction里面操作
       if (
@@ -118,7 +131,8 @@ export function TopicReferencePlugin() {
         extData = extData.set('reference', reference);
         model = model.setIn(['extData', EXT_DATA_KEY_TOPIC_REFERENCE], extData);
       }
-      return model;
+
+      return setCurrentCanvasModel(docModel, model);
     },
 
     renderCanvasCustomize(props: IControllerRunContext, next) {

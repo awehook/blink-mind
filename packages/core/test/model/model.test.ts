@@ -1,4 +1,4 @@
-import { CanvasModel, ModelModifier } from '../../src';
+import { CanvasModel, CanvasModelModifier } from '../../src';
 import { BlockType } from '../../src/types';
 
 function createSimpleModel() {

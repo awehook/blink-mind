@@ -23,9 +23,9 @@ interface ToolbarItemProps extends BaseProps {
 export function ToolbarItem(props: ToolbarItemProps) {
   const { controller, children, onClick, ...restProps } = props;
   let { disabled } = props;
-  disabled = disabled || !controller.getValue(PropKey.OPERATION_ENABLED,props);
+  disabled = disabled || !controller.getValue(PropKey.OPERATION_ENABLED, props);
   const handleClick = e => {
-    if (!disabled) onClick(e);
+    if (!disabled && onClick) onClick(e);
   };
   const nProps = {
     controller,

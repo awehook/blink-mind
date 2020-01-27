@@ -2,6 +2,7 @@ import {
   Block,
   CanvasModel,
   Config,
+  DocModel,
   ExtData,
   FocusMode,
   IControllerRunContext,
@@ -14,69 +15,124 @@ const log = debug('plugin:json-serializer');
 
 export function JsonSerializerPlugin() {
   return {
-    serializeModel(props: IControllerRunContext, next) {
+    migrateDocModel(ctx, next) {
+      const { controller, obj, formatVersion } = ctx;
+      switch (formatVersion) {
+        case '0.0':
+          return controller.run('migrateDocModel', {
+            ...ctx,
+            obj: {
+              canvasModels: [obj],
+              currentCanvasIndex: 0,
+              formatVersion: '0.1'
+            },
+            formatVersion: '0.1'
+          });
+        case '0.1':
+          return obj;
+      }
+    },
+
+    serializeDocModel(ctx: IControllerRunContext, next) {
+      const { docModel, controller } = ctx;
+      return {
+        canvasModels: docModel.canvasModels
+          .toArray()
+          .map(model =>
+            controller.run('serializeCanvasModel', { ...ctx, model })
+          ),
+        currentCanvasIndex: docModel.currentCanvasIndex,
+        formatVersion: docModel.formatVersion
+      };
+    },
+
+    deserializeDocModel(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { model, controller } = props;
+      let { obj } = ctx;
+      const { controller } = ctx;
+      let formatVersion = obj.formatVersion || '0.0';
+
+      obj = controller.run('migrateDocModel', { ...ctx, obj, formatVersion });
+
+      formatVersion = obj.formatVersion;
+
+      const canvasModels = obj.canvasModels.map(canvasModel =>
+        controller.run('deserializeCanvasModel', {
+          ...ctx,
+          canvasModel,
+          formatVersion
+        })
+      );
+
+      return new DocModel({
+        canvasModels: List(canvasModels),
+        currentCanvasIndex: obj.currentCanvasIndex,
+        formatVersion
+      });
+    },
+
+    serializeCanvasModel(ctx: IControllerRunContext, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { model, controller } = ctx;
       const obj = {
+        title: model.title,
         rootTopicKey: model.rootTopicKey,
         editorRootTopicKey: model.editorRootTopicKey,
         focusKey: model.focusKey,
         extData: controller.run('serializeExtData', {
-          ...props,
+          ...ctx,
           extData: model.extData
         }),
         topics: model.topics
           .valueSeq()
           .toArray()
-          .map(topic => controller.run('serializeTopic', { ...props, topic })),
+          .map(topic => controller.run('serializeTopic', { ...ctx, topic })),
         config: controller.run('serializeConfig', {
-          ...props,
+          ...ctx,
           config: model.config
-        }),
-        formatVersion: model.formatVersion
+        })
       };
       return obj;
     },
 
-    deserializeModel(props, next) {
+    deserializeCanvasModel(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { obj, controller } = props;
-      if (obj.formatVersion == null) {
-        obj.formatVersion = '0.0';
-      }
+      const { canvasModel, controller, formatVersion } = ctx;
       const {
+        title,
         rootTopicKey,
         editorRootTopicKey,
         focusKey,
         topics,
         config,
-        extData,
-        formatVersion
-      } = obj;
+        extData
+      } = canvasModel;
       let res = new CanvasModel();
       res = res.merge({
+        title,
         rootTopicKey,
         editorRootTopicKey:
           editorRootTopicKey == null ? rootTopicKey : editorRootTopicKey,
         focusKey,
         extData: controller.run('deserializeExtData', {
-          ...props,
+          ...ctx,
           extData,
           formatVersion
         }),
         config: controller.run('deserializeConfig', {
-          ...props,
+          ...ctx,
           config,
           formatVersion
         }),
         topics: controller.run('deserializeTopics', {
-          ...props,
+          ...ctx,
           topics,
           formatVersion
         }),
-        formatVersion: obj.formatVersion
+        formatVersion: canvasModel.formatVersion
       });
       if (res.focusKey == null) {
         res = res.set('focusKey', res.rootTopicKey);
@@ -88,17 +144,14 @@ export function JsonSerializerPlugin() {
       return res;
     },
 
-    serializeExtData(
-      props: IControllerRunContext & { extData: ExtData },
-      next
-    ) {
+    serializeExtData(ctx: IControllerRunContext & { extData: ExtData }, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { extData, controller } = props;
+      const { extData, controller } = ctx;
       const res = {};
       extData.forEach((v, k) => {
         res[k] = controller.run('serializeExtDataItem', {
-          props,
+          ctx,
           extDataKey: k,
           extDataItem: v
         });
@@ -106,16 +159,16 @@ export function JsonSerializerPlugin() {
       return res;
     },
 
-    deserializeExtData(props, next) {
+    deserializeExtData(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { extData, controller } = props;
+      const { extData, controller } = ctx;
       let res = Map();
       for (const extDataKey in extData) {
         res = res.set(
           extDataKey,
           controller.run('deserializeExtDataItem', {
-            ...props,
+            ...ctx,
             extDataKey,
             extDataItem: extData[extDataKey]
           })
@@ -124,41 +177,41 @@ export function JsonSerializerPlugin() {
       return res;
     },
 
-    serializeExtDataItem(props, next) {
+    serializeExtDataItem(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { extDataItem } = props;
+      const { extDataItem } = ctx;
       if (isImmutable(extDataItem)) {
         return extDataItem.toJS();
       }
       return extDataItem;
     },
 
-    deserializeExtDataItem(props, next) {
+    deserializeExtDataItem(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { extDataItem } = props;
+      const { extDataItem } = ctx;
       return extDataItem;
     },
 
-    serializeConfig(props, next) {
+    serializeConfig(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { config } = props;
+      const { config } = ctx;
       return config.toJS();
     },
 
-    deserializeConfig(props, next) {
+    deserializeConfig(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { config } = props;
+      const { config } = ctx;
       return new Config(config);
     },
 
-    serializeTopic(props, next) {
+    serializeTopic(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { topic, controller } = props;
+      const { topic, controller } = ctx;
       return {
         key: topic.key,
         parentKey: topic.parentKey,
@@ -166,15 +219,15 @@ export function JsonSerializerPlugin() {
         collapse: topic.collapse,
         style: topic.style,
         blocks: topic.blocks.map(block =>
-          controller.run('serializeBlock', { ...props, block })
+          controller.run('serializeBlock', { ...ctx, block })
         )
       };
     },
 
-    deserializeTopic(props, next) {
+    deserializeTopic(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { topic, controller } = props;
+      const { topic, controller } = ctx;
       const { key, parentKey, subKeys, blocks, style, collapse } = topic;
       let res = new Topic();
       res = res.merge({
@@ -183,72 +236,72 @@ export function JsonSerializerPlugin() {
         subKeys: List(subKeys),
         style,
         collapse,
-        blocks: controller.run('deserializeBlocks', { ...props, blocks })
+        blocks: controller.run('deserializeBlocks', { ...ctx, blocks })
       });
       return res;
     },
 
-    deserializeTopics(props, next) {
+    deserializeTopics(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { topics, controller } = props;
+      const { topics, controller } = ctx;
       let res = Map();
       res = res.withMutations(r => {
         topics.forEach(topic =>
           r.set(
             topic.key,
-            controller.run('deserializeTopic', { ...props, topic })
+            controller.run('deserializeTopic', { ...ctx, topic })
           )
         );
       });
       return res;
     },
 
-    serializeBlock(props, next) {
+    serializeBlock(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { block, controller } = props;
+      const { block, controller } = ctx;
       const res = {
         type: block.type,
-        data: controller.run('serializeBlockData', { ...props })
+        data: controller.run('serializeBlockData', { ...ctx })
       };
       return res;
     },
 
-    serializeBlockData(props, next) {
+    serializeBlockData(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { block } = props;
+      const { block } = ctx;
       return block.data;
     },
 
-    deserializeBlock(props, next) {
+    deserializeBlock(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { block, controller } = props;
+      const { block, controller } = ctx;
       const { type } = block;
 
       return new Block({
         type,
-        data: controller.run('deserializeBlockData', { ...props, block })
+        data: controller.run('deserializeBlockData', { ...ctx, block })
       });
     },
 
-    deserializeBlockData(props, next) {
+    deserializeBlockData(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { block } = props;
+      const { block } = ctx;
       return block.data;
     },
 
-    deserializeBlocks(props, next) {
+    deserializeBlocks(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { blocks, controller } = props;
+      const { blocks, controller } = ctx;
       let res = List();
       res = res.withMutations(res => {
         blocks.forEach(block =>
-          res.push(controller.run('deserializeBlock', { ...props, block }))
+          res.push(controller.run('deserializeBlock', { ...ctx, block }))
         );
       });
       return res;

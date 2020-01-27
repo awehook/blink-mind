@@ -16,6 +16,7 @@ export interface IControllerOption {
 
 export interface IControllerRunContext {
   controller: Controller;
+  docModel?: DocModel;
   model?: CanvasModel;
   topicKey?: KeyType;
   getRef?: Function;
@@ -23,7 +24,7 @@ export interface IControllerRunContext {
 
 export interface IDiagram {
   getDiagramProps(): IDiagramProps;
-  openNewModel(newModel: DocModel);
+  openNewDocModel(newModel: DocModel);
 }
 
 export interface IDiagramProps {

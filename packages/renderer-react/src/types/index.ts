@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export interface ToolbarItemConfig {
+export interface ElementItemConfig {
   order: number;
   element: React.ElementType;
 }
-export type ToolbarItemConfigs = ToolbarItemConfig[];
+export type ElementItemConfigs = ElementItemConfig[];
 
 export interface HotKeyItem {
   label: string;

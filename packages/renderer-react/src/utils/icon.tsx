@@ -1,5 +1,6 @@
 import * as React from 'react';
 export const IconName = {
+  MORE: 'more',
   SHOW_MENU: 'show-menu',
   CLOSE: 'close',
   COLOR_PICKER: 'color-picker',

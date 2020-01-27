@@ -10,19 +10,19 @@ type DocRecordType = {
 const defaultDocRecord: DocRecordType = {
   canvasModels: List(),
   currentCanvasIndex: -1,
-  formatVersion: null
+  formatVersion: '0.1'
 };
 
 export class DocModel extends Record(defaultDocRecord) {
-  get canvasModels() {
+  get canvasModels(): List<CanvasModel> {
     return this.get('canvasModels');
   }
 
-  get currentCanvasIndex() {
+  get currentCanvasIndex(): number {
     return this.get('currentCanvasIndex');
   }
 
-  get formatVersion() {
+  get formatVersion(): string {
     return this.get('formatVersion');
   }
 
@@ -33,7 +33,7 @@ export class DocModel extends Record(defaultDocRecord) {
     });
   }
 
-  get currentCanvasModel() {
+  get currentCanvasModel(): CanvasModel {
     return this.canvasModels.get(this.currentCanvasIndex);
   }
 }

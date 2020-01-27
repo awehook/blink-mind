@@ -10,8 +10,8 @@ export function ToolbarItemOpenFile(props) {
     const { controller } = props;
     browserOpenFile('.json,.blinkmind,.bm').then(txt => {
       const obj = JSON.parse(txt);
-      const newModel = controller.run('deserializeModel', { controller, obj });
-      controller.run('openNewModel', { ...props, newModel });
+      const newDocModel = controller.run('deserializeDocModel', { controller, obj });
+      controller.run('openNewDocModel', { ...props, newDocModel });
     });
   };
 

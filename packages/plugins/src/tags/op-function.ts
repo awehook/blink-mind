@@ -1,4 +1,4 @@
-import { BaseModifierArg } from '@blink-mind/core';
+import { BaseCanvasModelModifierArg } from '@blink-mind/core';
 import { List } from 'immutable';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
 import { EXT_DATA_KEY_TAGS } from './utils';
@@ -6,7 +6,7 @@ import { EXT_DATA_KEY_TAGS } from './utils';
 export function addNewTag({
   model,
   tag
-}: BaseModifierArg & { tag: TagRecord }) {
+}: BaseCanvasModelModifierArg & { tag: TagRecord }) {
   let extData: ExtDataTags = model.getExtDataItem(
     EXT_DATA_KEY_TAGS,
     ExtDataTags
@@ -23,7 +23,7 @@ export function addNewTag({
 export function deleteTag({
   model,
   tagName
-}: BaseModifierArg & { tagName: string }) {
+}: BaseCanvasModelModifierArg & { tagName: string }) {
   let extData: ExtDataTags = model.getExtDataItem(
     EXT_DATA_KEY_TAGS,
     ExtDataTags
@@ -41,7 +41,7 @@ export function updateTag({
   model,
   oldTagName,
   newTag
-}: BaseModifierArg & { oldTagName: string; newTag: TagRecord }) {
+}: BaseCanvasModelModifierArg & { oldTagName: string; newTag: TagRecord }) {
   let extData: ExtDataTags = model.getExtDataItem(
     EXT_DATA_KEY_TAGS,
     ExtDataTags
@@ -57,7 +57,7 @@ export function addTopicTag({
   model,
   topicKey,
   tagName
-}: BaseModifierArg & {
+}: BaseCanvasModelModifierArg & {
   tagName: string;
 }) {
   let extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
@@ -75,7 +75,7 @@ export function removeTopicTag({
   model,
   topicKey,
   tagName
-}: BaseModifierArg & {
+}: BaseCanvasModelModifierArg & {
   tagName: string;
 }) {
   let extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);

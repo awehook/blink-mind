@@ -1,6 +1,8 @@
 import debug from 'debug';
-import { ThemeType } from '../configs/theme/types';
+import { List } from 'immutable';
+import { ThemeType } from '../configs/theme';
 import {
+  BlockType,
   DiagramLayoutType,
   FocusMode,
   KeyType,
@@ -9,13 +11,14 @@ import {
 import { createKey } from '../utils';
 import { Block } from './block';
 import { CanvasModel } from './canvas-model';
+import { DocModel } from './doc-model';
 import { Topic } from './topic';
 import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
 
 const log = debug('modifier');
 
-export type ModifierArg =
-  | BaseModifierArg
+type ModifierArg =
+  | BaseCanvasModelModifierArg
   | SetTopicArg
   | SetBlockDataArg
   | SetFocusModeArg
@@ -24,48 +27,51 @@ export type ModifierArg =
   | SetThemeArg
   | SetLayoutDirArg;
 
-export type BaseModifierArg = {
+export type BaseCanvasModelModifierArg = {
   model: CanvasModel;
   topicKey?: KeyType;
 };
 
-export type SetTopicArg = BaseModifierArg & {
+type SetTopicArg = BaseCanvasModelModifierArg & {
   topic: Topic;
 };
 
-export type SetBlockDataArg = BaseModifierArg & {
+type SetBlockDataArg = BaseCanvasModelModifierArg & {
   blockType: string;
   data: any;
   focusMode?: string;
 };
 
-export type DeleteBlockArg = BaseModifierArg & {
+type DeleteBlockArg = BaseCanvasModelModifierArg & {
   blockType: string;
 };
 
-export type SetFocusModeArg = BaseModifierArg & {
+type SetFocusModeArg = BaseCanvasModelModifierArg & {
   focusMode: string;
 };
 
-export type SetTopicStyleArg = BaseModifierArg & {
+type SetTopicStyleArg = BaseCanvasModelModifierArg & {
   style: string;
 };
 
-export type SetZoomFactorArg = BaseModifierArg & {
+type SetZoomFactorArg = BaseCanvasModelModifierArg & {
   zoomFactor: number;
 };
 
-export type SetThemeArg = BaseModifierArg & {
+type SetThemeArg = BaseCanvasModelModifierArg & {
   theme: ThemeType;
 };
 
-export type SetLayoutDirArg = BaseModifierArg & {
+type SetLayoutDirArg = BaseCanvasModelModifierArg & {
   layoutDir: DiagramLayoutType;
 };
 
-export type ModifierResult = CanvasModel;
+type ModifierResult = CanvasModel;
 
-function toggleCollapse({ model, topicKey }: BaseModifierArg): ModifierResult {
+function toggleCollapse({
+  model,
+  topicKey
+}: BaseCanvasModelModifierArg): ModifierResult {
   let topic = model.getTopic(topicKey);
   if (topic && topic.subKeys.size !== 0) {
     topic = topic.merge({
@@ -80,7 +86,7 @@ function toggleCollapse({ model, topicKey }: BaseModifierArg): ModifierResult {
   return model;
 }
 
-function collapseAll({ model }: BaseModifierArg): ModifierResult {
+function collapseAll({ model }: BaseCanvasModelModifierArg): ModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -96,7 +102,7 @@ function collapseAll({ model }: BaseModifierArg): ModifierResult {
   return model;
 }
 
-function expandAll({ model }: BaseModifierArg): ModifierResult {
+function expandAll({ model }: BaseCanvasModelModifierArg): ModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -108,7 +114,10 @@ function expandAll({ model }: BaseModifierArg): ModifierResult {
   return model;
 }
 
-function expandTo({ model, topicKey }: BaseModifierArg): ModifierResult {
+function expandTo({
+  model,
+  topicKey
+}: BaseCanvasModelModifierArg): ModifierResult {
   const keys = getKeyPath(model, topicKey).filter(t => t !== topicKey);
   model = model.withMutations(m => {
     keys.forEach(topicKey => {
@@ -142,7 +151,10 @@ function setFocusMode({ model, focusMode }: SetFocusModeArg): ModifierResult {
   return model;
 }
 
-function addChild({ model, topicKey }: BaseModifierArg): ModifierResult {
+function addChild({
+  model,
+  topicKey
+}: BaseCanvasModelModifierArg): ModifierResult {
   log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
   if (topic) {
@@ -162,7 +174,10 @@ function addChild({ model, topicKey }: BaseModifierArg): ModifierResult {
   return model;
 }
 
-function addSibling({ model, topicKey }: BaseModifierArg): ModifierResult {
+function addSibling({
+  model,
+  topicKey
+}: BaseCanvasModelModifierArg): ModifierResult {
   if (topicKey === model.rootTopicKey) return model;
   const topic = model.getTopic(topicKey);
   if (topic) {
@@ -183,7 +198,10 @@ function addSibling({ model, topicKey }: BaseModifierArg): ModifierResult {
   return model;
 }
 
-function deleteTopic({ model, topicKey }: BaseModifierArg): ModifierResult {
+function deleteTopic({
+  model,
+  topicKey
+}: BaseCanvasModelModifierArg): ModifierResult {
   if (topicKey === model.editorRootTopicKey) return model;
   const item = model.getTopic(topicKey);
   if (item) {
@@ -287,7 +305,9 @@ function setStyle({
   return model;
 }
 
-function clearAllCustomStyle({ model }: BaseModifierArg): ModifierResult {
+function clearAllCustomStyle({
+  model
+}: BaseCanvasModelModifierArg): ModifierResult {
   model = model.withMutations(model => {
     model.topics.keySeq().forEach(key => {
       model.setIn(['topics', key, 'style'], null);
@@ -310,7 +330,7 @@ function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): ModifierResult {
 function setEditorRootTopicKey({
   model,
   topicKey
-}: BaseModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): ModifierResult {
   if (model.editorRootTopicKey !== topicKey)
     model = model.set('editorRootTopicKey', topicKey);
   if (model.getTopic(topicKey).collapse)
@@ -327,7 +347,94 @@ function setZoomFactor({
   return model;
 }
 
-export default {
+function startEditingContent({ model, topicKey }: BaseCanvasModelModifierArg) {
+  return focusTopic({
+    model,
+    topicKey,
+    focusMode: FocusMode.EDITING_CONTENT
+  });
+}
+function startEditingDesc({ model, topicKey }: BaseCanvasModelModifierArg) {
+  const topic = model.getTopic(topicKey);
+  const desc = topic.getBlock(BlockType.DESC);
+  if (desc.block == null || desc.block.data == null) {
+    model = CanvasModelModifier.setBlockData({
+      model,
+      topicKey,
+      blockType: BlockType.DESC,
+      data: ''
+    });
+  }
+  model = CanvasModelModifier.focusTopic({
+    model,
+    topicKey,
+    focusMode: FocusMode.EDITING_DESC
+  });
+  return model;
+}
+
+function dragAndDrop({ model, srcKey, dstKey, dropDir }) {
+  const srcTopic = model.getTopic(srcKey);
+  const dstTopic = model.getTopic(dstKey);
+
+  const srcParentKey = srcTopic.parentKey;
+  const srcParentTopic = model.getTopic(srcParentKey);
+  let srcParentSubKeys = srcParentTopic.subKeys;
+  const srcIndex = srcParentSubKeys.indexOf(srcKey);
+
+  srcParentSubKeys = srcParentSubKeys.delete(srcIndex);
+
+  if (dropDir === 'in') {
+    let dstSubKeys = dstTopic.subKeys;
+    dstSubKeys = dstSubKeys.push(srcKey);
+    model = model.withMutations(m => {
+      m.setIn(['topics', srcParentKey, 'subKeys'], srcParentSubKeys)
+        .setIn(['topics', srcKey, 'parentKey'], dstKey)
+        .setIn(['topics', dstKey, 'subKeys'], dstSubKeys)
+        .setIn(['topics', dstKey, 'collapse'], false);
+    });
+  } else {
+    const dstParentKey = dstTopic.parentKey;
+    const dstParentItem = model.getTopic(dstParentKey);
+    let dstParentSubKeys = dstParentItem.subKeys;
+    const dstIndex = dstParentSubKeys.indexOf(dstKey);
+    //src 和 dst 的父亲相同，这种情况要做特殊处理
+    if (srcParentKey === dstParentKey) {
+      let newDstParentSubKeys = List();
+      dstParentSubKeys.forEach(key => {
+        if (key !== srcKey) {
+          if (key === dstKey) {
+            if (dropDir === 'prev') {
+              newDstParentSubKeys = newDstParentSubKeys.push(srcKey).push(key);
+            } else {
+              newDstParentSubKeys = newDstParentSubKeys.push(key).push(srcKey);
+            }
+          } else {
+            newDstParentSubKeys = newDstParentSubKeys.push(key);
+          }
+        }
+      });
+      model = model.withMutations(m => {
+        m.setIn(['topics', dstParentKey, 'subKeys'], newDstParentSubKeys);
+      });
+    } else {
+      if (dropDir === 'prev') {
+        dstParentSubKeys = dstParentSubKeys.insert(dstIndex, srcKey);
+      } else if (dropDir === 'next') {
+        dstParentSubKeys = dstParentSubKeys.insert(dstIndex + 1, srcKey);
+      }
+      model = model.withMutations(m => {
+        m.setIn(['topics', srcParentKey, 'subKeys'], srcParentSubKeys)
+          .setIn(['topics', srcKey, 'parentKey'], dstParentKey)
+          .setIn(['topics', dstParentKey, 'subKeys'], dstParentSubKeys)
+          .setIn(['topics', dstParentKey, 'collapse'], false);
+      });
+    }
+  }
+  return model;
+}
+
+export const CanvasModelModifier = {
   addChild,
   addSibling,
   toggleCollapse,
@@ -344,5 +451,8 @@ export default {
   setTheme,
   setLayoutDir,
   setEditorRootTopicKey,
-  setZoomFactor
+  setZoomFactor,
+  startEditingContent,
+  startEditingDesc,
+  dragAndDrop
 };

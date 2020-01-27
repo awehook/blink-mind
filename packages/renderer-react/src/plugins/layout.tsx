@@ -149,13 +149,14 @@ export function LayoutPlugin() {
       );
     },
 
-    moveTopicToCenter(props: IControllerRunContext & { moveDir?: number }) {
+    moveTopicToCenter(ctx: IControllerRunContext & { moveDir?: number }) {
       const {
         getRef,
         topicKey,
-        model,
+        docModel,
         moveDir = MoveTopicDir.LEFT_CENTER
-      } = props;
+      } = ctx;
+      const model = docModel.currentCanvasModel;
       if (
         model.editorRootTopicKey !== topicKey &&
         getRelationship(model, topicKey, model.editorRootTopicKey) !==
@@ -199,8 +200,8 @@ export function LayoutPlugin() {
           }
         ],
         allowUndo: false,
-        callback: model => () => {
-          controller.run('moveTopicToCenter', { ...props, model, topicKey });
+        callback: docModel => () => {
+          controller.run('moveTopicToCenter', { ...props, docModel, topicKey });
         }
       });
     }

@@ -2,7 +2,7 @@ import {
   iconClassName,
   IconName,
   ToolbarItem,
-  ToolbarItemConfigs
+  ElementItemConfigs
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
 
@@ -40,8 +40,8 @@ export function UndoRedoPlugin() {
   }
 
   return {
-    customizeToolbar(props, next): ToolbarItemConfigs {
-      const res: ToolbarItemConfigs = next();
+    customizeToolbar(props, next): ElementItemConfigs {
+      const res: ElementItemConfigs = next();
       res.push(
         {
           order: 200,
