@@ -7,7 +7,7 @@
   "module": "lib/main.es.js",
   "umd": "dist/main.js",
   "types": "lib/index.d.ts",
-  "version": "0.0.20-beta.11",
+  "version": "0.0.20-beta.12",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -16,12 +16,9 @@
     "clean": "rimraf lib"
   },
   "peerDependencies": {
+    "@blink-mind/core": "*",
     "debug": "*",
-    "immutable": "*",
-    "@blink-mind/core": "*"
-  },
-  "dependencies": {
-
+    "immutable": "*"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }
