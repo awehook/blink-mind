@@ -987,6 +987,14 @@
     classnames "^2.2"
     tslib "~1.9.0"
 
+"@blueprintjs/icons@^3.13.0":
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-3.13.0.tgz#bff93a9ea5ced03afd2b3a65ddf4bb90bda485e4"
+  integrity sha512-fvXGsAJ66SSjeHv3OeXjLEdKdPJ3wVztjhJQCAd51uebhj3FJ16EDDvO7BqBw5FyVkLkU11KAxSoCFZt7TC9GA==
+  dependencies:
+    classnames "^2.2"
+    tslib "~1.9.0"
+
 "@blueprintjs/select@^3.11.1":
   version "3.11.2"
   resolved "https://registry.npm.taobao.org/@blueprintjs/select/download/@blueprintjs/select-3.11.2.tgz#3324db0de44a9f386b957aac1ba3ec774b3eb1e7"
@@ -2135,6 +2143,14 @@
   version "0.7.0"
   resolved "https://registry.npm.taobao.org/@sindresorhus/is/download/@sindresorhus/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha1-mgb08TfuhNffBGDB/bETX/psUP0=
+
+"@slim-ui/react-tabs@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@slim-ui/react-tabs/-/react-tabs-3.1.0.tgz#5f567b0d1ffdcde71e8fa4dccfe6f6eb169d1e28"
+  integrity sha512-QH887AaSo/LZfd0iAyT/uYgAO4qNmN06h8PKmjLTJNaRzwXi9PefthhQBf1wov77v/e38wnYh3huBgNT72W1YA==
+  dependencies:
+    classnames "^2.2.0"
+    prop-types "^15.5.0"
 
 "@storybook/addon-actions@5.2.5":
   version "5.2.5"
@@ -11233,14 +11249,6 @@ react-syntax-highlighter@^8.0.1:
     lowlight "~1.9.1"
     prismjs "^1.8.4"
     refractor "^2.4.1"
-
-react-tabs@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-3.1.0.tgz#ecc50f034c1d6da2606fab9293055bbc861b382e"
-  integrity sha512-9RKc77HCPsjQDVPyZEw37g3JPtg26oSQ9o4mtaVXjJuLedDX5+TQcE+MRNKR+4aO3GMAY4YslCePGG1//MQ3Jg==
-  dependencies:
-    classnames "^2.2.0"
-    prop-types "^15.5.0"
 
 react-textarea-autosize@^7.1.0:
   version "7.1.2"

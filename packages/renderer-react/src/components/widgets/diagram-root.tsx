@@ -1,9 +1,9 @@
 import { OpType } from '@blink-mind/core';
 import { Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
+import { Tab, TabList, TabPanel, Tabs } from '@slim-ui/react-tabs';
+import '@slim-ui/react-tabs/style/react-tabs.css';
 import * as React from 'react';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import styled from 'styled-components';
 import { CanvasTitle } from './canvas';
 import './diagram-root.css';
@@ -14,7 +14,7 @@ const Root = styled.div`
   width: 100%;
   height: 100%;
 `;
-const DiagramContainer = styled.div`
+const TabsContainer = styled.div`
   width: 100%;
   //height: 100%;
   overflow: auto;
@@ -51,24 +51,37 @@ export function DiagramRoot(props) {
   } else {
     const canvasModels = docModel.canvasModels.toArray();
     let i = 0;
+    const tabClassName = 'react-tabs__tab tab';
+    const tabProps = {
+      className: tabClassName,
+      tabIndex: '-1'
+    };
     const tabs = canvasModels.map(model => {
       const index = i++;
       const nProps = { ...props, model, index };
       return (
-        <Tab key={index}>
+        <Tab key={index} {...tabProps}>
           <CanvasTitle {...nProps} />
         </Tab>
       );
     });
     tabs.push(
-      <Tab key={i++}>
+      <Tab key={i++} {...tabProps}>
         <Icon onClick={onClickAddCanvas} icon={IconNames.PLUS} />
       </Tab>
     );
     i = 0;
+
+    // const tabPanelProps = {
+    //   className: 'tab-panel react-tabs__tab-panel'
+    // };
+    const tabPanelProps = {
+      className: 'tab-panel',
+      selectedClassName: 'tab-panel__selected'
+    };
     const tabPanels = canvasModels.map(model => {
       return (
-        <TabPanel key={i++} className="tab-panel">
+        <TabPanel key={i++} {...tabPanelProps}>
           {controller.run('renderCanvas', {
             ...props,
             model
@@ -76,24 +89,26 @@ export function DiagramRoot(props) {
         </TabPanel>
       );
     });
-    tabPanels.push(<TabPanel key={i++} className="tab-panel" />);
+    tabPanels.push(<TabPanel key={i++} {...tabPanelProps} />);
     const tabsProps = {
-      className: 'tabs',
+      className: 'tabs react-tabs react-tabs__tabs',
       selectedIndex: docModel.currentCanvasIndex,
       forceRenderTabPanel: true,
       onSelect
     };
     child = (
-      <Tabs {...tabsProps}>
-        {tabPanels}
-        <TabList>{tabs}</TabList>
-      </Tabs>
+      <TabsContainer>
+        <Tabs {...tabsProps}>
+          {tabPanels}
+          <TabList className="tab-list">{tabs}</TabList>
+        </Tabs>
+      </TabsContainer>
     );
   }
   return (
     <Root>
       {controller.run('renderToolbar', { ...props, model })}
-      <DiagramContainer>{child}</DiagramContainer>
+      {child}
     </Root>
   );
 }

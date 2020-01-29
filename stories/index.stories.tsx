@@ -8,7 +8,7 @@ const debugNameSpaces = [
   // 'node:topic-content-editor',
   // 'node:topic-sub-links',
   // 'node:topic-widget',
-  // 'node:drag-scroll-widget',
+  'node:drag-scroll-widget',
   // 'node:topic-content-widget',
   // 'node:topic-desc-editor',
   // 'node:style-editor',

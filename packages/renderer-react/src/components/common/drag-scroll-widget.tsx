@@ -54,6 +54,9 @@ export class DragScrollWidget extends React.Component<
     entries: ResizeObserverEntry[],
     observer: ResizeObserver
   ) => {
+    // log('contentResizeCallback', entries[0].contentRect, this.oldContentRect);
+    // if (entries[0].contentRect.width === 0 ) return;
+    log('contentResizeCallback');
     if (this.oldContentRect) {
       const widgetStyle = {
         width: this.content.clientWidth + this.viewBox.clientWidth * 2,
@@ -70,8 +73,10 @@ export class DragScrollWidget extends React.Component<
   oldContentRect: any;
   content: HTMLElement;
   contentRef = ref => {
+    log('contentRef');
     if (ref) {
       this.content = ref;
+      this.oldContentRect = this.content.getBoundingClientRect();
       this.contentResizeObserver.observe(this.content);
     }
   };
@@ -108,6 +113,7 @@ export class DragScrollWidget extends React.Component<
   };
 
   setWidgetStyle = () => {
+    log('setWidgetStyle');
     if (this.content && this.viewBox && this.bigView) {
       this.bigView.style.width =
         (this.content.clientWidth + this.viewBox.clientWidth) * 2 + 'px';
@@ -128,7 +134,10 @@ export class DragScrollWidget extends React.Component<
   };
 
   setViewBoxScrollDelta = (deltaLeft: number, deltaTop: number) => {
-    log(`setViewBoxScrollDelta ${deltaLeft} ${deltaTop}`);
+    log(
+      `setViewBoxScrollDelta ${deltaLeft} ${deltaTop} ${this.viewBox
+        .scrollLeft + deltaLeft} ${this.viewBox.scrollTop + deltaTop}`
+    );
     if (this.viewBox) {
       this.viewBox.scrollLeft += deltaLeft;
       this.viewBox.scrollTop += deltaTop;
@@ -196,6 +205,7 @@ export class DragScrollWidget extends React.Component<
   }
 
   render() {
+    log('render');
     const style = {
       ...this.state.widgetStyle
       // zoom:this.props.zoomFactor,
