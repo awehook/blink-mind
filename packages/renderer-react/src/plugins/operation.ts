@@ -322,9 +322,10 @@ export function OperationPlugin() {
       return ctx.docModel;
     },
 
-    //TODO multi-canvas
+
     openNewDocModel(ctx) {
       const { docModel, controller, newDocModel } = ctx;
+      // TODO 后面会采用新的RefKey策略
       // controller.run('deleteRefKey', {
       //   ...ctx,
       //   topicKey: docModel.rootTopicKey

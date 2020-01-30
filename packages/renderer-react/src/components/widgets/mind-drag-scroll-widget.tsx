@@ -71,7 +71,7 @@ class MindDragScrollWidget<
       topicRefKey(model.editorRootTopicKey)
     );
     //TODO
-    const nodeLayer: HTMLElement = getRef('node-layer');
+    const nodeLayer: HTMLElement = getRef(RefKey.NODE_LAYER + model.id);
     const rootTopicRect = rootTopic.getBoundingClientRect();
     const nodeLayerRect = nodeLayer.getBoundingClientRect();
     this.dragScrollWidget.setViewBoxScrollDelta(
@@ -93,7 +93,8 @@ class MindDragScrollWidget<
   }
 
   get dragScrollWidget(): DragScrollWidget {
-    return this.props.getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
+    const { getRef, model } = this.props;
+    return getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id);
   }
 
   componentDidUpdate(): void {
@@ -135,7 +136,7 @@ class MindDragScrollWidget<
           {...this.state}
           enableMouseWheel={false}
           zoomFactor={model.zoomFactor}
-          ref={saveRef(RefKey.DRAG_SCROLL_WIDGET_KEY)}
+          ref={saveRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id)}
         >
           {(
             setViewBoxScroll: (left: number, top: number) => void,
@@ -148,7 +149,7 @@ class MindDragScrollWidget<
               setViewBoxScrollDelta
             };
             return (
-              <NodeLayer ref={saveRef('node-layer')}>
+              <NodeLayer ref={saveRef(RefKey.NODE_LAYER + model.id)}>
                 {controller.run('renderRootWidget', rootWidgetProps)}
               </NodeLayer>
             );

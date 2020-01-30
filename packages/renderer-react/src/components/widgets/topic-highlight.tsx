@@ -34,8 +34,8 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
       return;
     }
     const content = getRef(contentRefKey(focusKey));
-    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
-    const svg = getRef(RefKey.SVG_HIGHLIGHT_KEY);
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id).bigView;
+    const svg = getRef(RefKey.SVG_HIGHLIGHT_KEY + model.id);
     const contentRect = getRelativeRect(content, bigView, zoomFactor);
     const svgRect = getRelativeRect(svg, bigView, zoomFactor);
     const padding = 3;
@@ -59,9 +59,9 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
   }
 
   render() {
-    const { saveRef } = this.props;
+    const { saveRef, model } = this.props;
     return (
-      <FocusHighlightSvg ref={saveRef(RefKey.SVG_HIGHLIGHT_KEY)}>
+      <FocusHighlightSvg ref={saveRef(RefKey.SVG_HIGHLIGHT_KEY + model.id)}>
         {this.state.content}
       </FocusHighlightSvg>
     );

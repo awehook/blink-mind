@@ -8,6 +8,7 @@ import { Topic } from './topic';
 export type ExtData = Map<string, any>;
 
 type ModelRecordType = {
+  id: KeyType;
   title: string;
   topics: Map<KeyType, Topic>;
   extData: ExtData; //用于插件做数据扩展
@@ -21,6 +22,7 @@ type ModelRecordType = {
 };
 
 const defaultModelRecord: ModelRecordType = {
+  id: null,
   title: null,
   topics: Map(),
   extData: Map(),
@@ -66,6 +68,7 @@ export class CanvasModel extends Record(defaultModelRecord) {
     const model = new CanvasModel();
     const rootTopic = Topic.create({ key: createKey(), content: 'RootTopic' });
     return model
+      .set('id',createKey())
       .update('topics', topics => topics.set(rootTopic.key, rootTopic))
       .set('rootTopicKey', rootTopic.key)
       .set('editorRootTopicKey', rootTopic.key)
@@ -99,6 +102,7 @@ export class CanvasModel extends Record(defaultModelRecord) {
 
   toJS() {
     return  {
+      id: this.id,
       title: this.title,
       rootTopicKey: this.rootTopicKey,
       topics: Object.values(this.topics.toJS()),
@@ -106,6 +110,10 @@ export class CanvasModel extends Record(defaultModelRecord) {
       extData: this.extData,
       zoomFactor: this.zoomFactor
     };
+  }
+
+  get id(): KeyType {
+    return this.get('id');
   }
 
   get title(): string {

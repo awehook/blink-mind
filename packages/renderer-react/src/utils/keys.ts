@@ -35,11 +35,13 @@ export function dropAreaRefKey(key, dir) {
 }
 
 export const RefKey = {
-  CANVAS_ROOT_KEY: 'CANVAS-ROOT',
-  DRAG_SCROLL_WIDGET_KEY: 'DragScrollWidget',
-  SVG_HIGHLIGHT_KEY: 'svg-highlight',
-  FOCUS_HIGHLIGHT_KEY: 'focus-highlight',
-  DROP_EFFECT_KEY: 'drop-effect'
+  CANVAS_ROOT_KEY: 'CANVAS-ROOT-',
+  DRAG_SCROLL_WIDGET_KEY: 'DRAG-SCROLL-WIDGET-',
+  SVG_HIGHLIGHT_KEY: 'SVG-HIGHLIGHT-',
+  FOCUS_HIGHLIGHT_KEY: 'FOCUS-HIGHLIGHT-',
+  DROP_EFFECT_KEY: 'DROP-EFFECT-',
+  SVG_DROP_EFFECT_KEY: 'SVG-DROP-EFFECT-',
+  NODE_LAYER: 'NODE-LAYER-'
 };
 export const EventKey = {
   CENTER_ROOT_TOPIC: 'CENTER_ROOT_TOPIC'

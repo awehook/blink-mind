@@ -25,7 +25,7 @@ export function Canvas(props) {
   };
   return (
     <Theme theme={model.config.theme}>
-      <Container ref={saveRef(RefKey.CANVAS_ROOT_KEY)}>
+      <Container ref={saveRef(RefKey.CANVAS_ROOT_KEY+model.id)}>
         {/*{React.createElement(MindDragScrollWidget, nProps)}*/}
         <MindDragScrollWidget {...nProps} />
         {controller.run('renderCanvasCustomize', nProps)}

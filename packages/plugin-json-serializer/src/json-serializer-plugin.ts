@@ -2,6 +2,7 @@ import {
   Block,
   CanvasModel,
   Config,
+  createKey,
   DocModel,
   ExtData,
   FocusMode,
@@ -102,6 +103,7 @@ export function JsonSerializerPlugin() {
       if (nextRes != null) return nextRes;
       const { canvasModel, controller, formatVersion } = ctx;
       const {
+        id,
         title,
         rootTopicKey,
         editorRootTopicKey,
@@ -112,6 +114,7 @@ export function JsonSerializerPlugin() {
       } = canvasModel;
       let res = new CanvasModel();
       res = res.merge({
+        id: id || createKey(),
         title,
         rootTopicKey,
         editorRootTopicKey:

@@ -55,12 +55,12 @@ export function DragAndDropPlugin() {
 
     renderDragAndDropEffect(props) {
       log('renderDragAndDropEffect');
-      const { saveRef } = props;
+      const { saveRef, model } = props;
       return (
         <TopicDropEffect
-          ref={saveRef(RefKey.DROP_EFFECT_KEY)}
+          ref={saveRef(RefKey.DROP_EFFECT_KEY + model.id)}
           {...props}
-        ></TopicDropEffect>
+        />
       );
     },
 

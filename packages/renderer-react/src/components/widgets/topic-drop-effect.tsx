@@ -55,8 +55,8 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
       refKey = dropAreaRefKey(targetKey, targetDir);
     }
     const content = getRef(refKey);
-    const svg = getRef('svg-drop-effect');
-    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+    const svg = getRef(RefKey.SVG_DROP_EFFECT_KEY + model.id);
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id).bigView;
     const contentRect = getRelativeRect(content, bigView, zoomFactor);
     const svgRect = getRelativeRect(svg, bigView, zoomFactor);
     const padding = 3;
@@ -84,9 +84,9 @@ export class TopicDropEffect extends BaseWidget<BaseProps, State> {
   }
 
   render() {
-    const { saveRef } = this.props;
+    const { saveRef, model } = this.props;
     return (
-      <DropEffectSvg ref={saveRef('svg-drop-effect')}>
+      <DropEffectSvg ref={saveRef(RefKey.SVG_DROP_EFFECT_KEY + model.id)}>
         {this.state.content}
       </DropEffectSvg>
     );

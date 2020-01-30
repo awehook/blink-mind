@@ -2,6 +2,7 @@ import debug from 'debug';
 import * as React from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
+import { contentEditorRefKey } from '../../utils';
 const log = debug('node:topic-content2');
 
 const EditingRoot = styled.div`
@@ -40,7 +41,7 @@ export function TopicContent(props) {
       }
     };
     let rect = { width: 50, height: 40 };
-    const editorDiv = getRef(`content-editor-${topicKey}`);
+    const editorDiv = getRef(contentEditorRefKey(topicKey));
     if (editorDiv) rect = editorDiv.getBoundingClientRect();
     const contentResizeCallback = (
       entries: ResizeObserverEntry[],

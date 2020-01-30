@@ -75,8 +75,8 @@ export function LayoutPlugin() {
       const links = getRef(
         linksRefKey(model.editorRootTopicKey)
       ) as RootSubLinks;
-      const highlight = getRef(RefKey.FOCUS_HIGHLIGHT_KEY) as TopicHighlight;
-      const dropEffect = getRef(RefKey.DROP_EFFECT_KEY) as TopicDropEffect;
+      const highlight = getRef(RefKey.FOCUS_HIGHLIGHT_KEY+model.id) as TopicHighlight;
+      const dropEffect = getRef(RefKey.DROP_EFFECT_KEY+model.id) as TopicDropEffect;
       links && links.layout();
       highlight && highlight.layout();
       dropEffect && dropEffect.layout();
@@ -100,21 +100,21 @@ export function LayoutPlugin() {
     },
 
     getRelativeRect(props) {
-      const { element, controller, getRef } = props;
+      const { element, controller, getRef, model } = props;
       const zoomFactor = controller.run('getZoomFactor', props);
-      const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+      const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id).bigView;
       return getRelativeRect(element, bigView, zoomFactor);
     },
 
     getRelativeRectFromViewPort(props) {
-      const { element, controller, getRef } = props;
+      const { element, controller, getRef, model } = props;
       const zoomFactor = controller.run('getZoomFactor', props);
-      const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).viewBox;
+      const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id).viewBox;
       return getRelativeRect(element, viewBox, zoomFactor);
     },
     getRelativeVectorFromViewPort(props) {
-      const { element, getRef } = props;
-      const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).viewBox;
+      const { element, getRef, model } = props;
+      const viewBox = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id).viewBox;
       return getRelativeVector(element, viewBox);
     },
 
@@ -167,7 +167,7 @@ export function LayoutPlugin() {
         );
       }
       const topic = getRef(topicRefKey(topicKey));
-      const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY);
+      const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY+model.id);
       const viewBox = dragScroll.viewBox;
       if (!topic || !viewBox) {
         throw new Error(`moveTopicToCenter error: topic or viewBox is null`);

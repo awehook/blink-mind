@@ -42,7 +42,7 @@ export class RootSubLinks extends BaseWidget<Props, State> {
     const topic = model.getTopic(topicKey);
     const content = getRef(contentRefKey(topicKey));
     const svg = getRef(linksSvgRefKey(topicKey));
-    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY+model.id).bigView;
     const contentRect = getRelativeRect(content, bigView, zoomFactor);
     const svgRect = getRelativeRect(svg, bigView, zoomFactor);
     let p1: Point, p2: Point;

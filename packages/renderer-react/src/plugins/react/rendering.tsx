@@ -180,9 +180,12 @@ export function RenderingPlugin() {
     },
 
     renderFocusItemHighlight(props) {
-      const { saveRef } = props;
+      const { saveRef, model } = props;
       return (
-        <TopicHighlight ref={saveRef(RefKey.FOCUS_HIGHLIGHT_KEY)} {...props} />
+        <TopicHighlight
+          ref={saveRef(RefKey.FOCUS_HIGHLIGHT_KEY + model.id)}
+          {...props}
+        />
       );
     },
 

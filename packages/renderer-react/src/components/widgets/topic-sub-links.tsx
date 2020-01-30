@@ -44,7 +44,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
     const content = getRef(contentRefKey(topicKey));
     const svg = getRef(linksSvgRefKey(topicKey));
     const collapseIcon = getRef(collapseRefKey(topicKey));
-    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY).bigView;
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY+model.id).bigView;
     const svgRect = getRelativeRect(svg, bigView, z);
     const collapseRect = getRelativeRect(collapseIcon, bigView, z);
     const contentRect = getRelativeRect(content, bigView, z);

@@ -14,8 +14,8 @@ export function ToolbarItemAddCanvas(props) {
     });
   };
   const onClick2 = () => {
-    const { getRef } = props;
-    const canvasRoot = getRef(RefKey.CANVAS_ROOT_KEY);
+    const { getRef, model } = props;
+    const canvasRoot = getRef(RefKey.CANVAS_ROOT_KEY + model.id);
     if (canvasRoot.style.display !== 'block') {
       canvasRoot.style.display = 'block';
     } else {
@@ -30,18 +30,10 @@ export function ToolbarItemAddCanvas(props) {
     // console.log(canvasRoot.style.visibility);
   };
   return (
-    <MenuItem text={getI18nText(props, I18nKey.ADD_CANVAS)}
-              onClick={onClick}
+    <MenuItem
+      text={getI18nText(props, I18nKey.ADD_CANVAS)}
+      onClick={onClick}
       // onClick={onClick2}
     />
   );
-}
-
-export function ToolbarItemHide(props) {
-  const { controller, getRef } = props;
-  const onClick = () => {
-    const canvasRoot = getRef(RefKey.CANVAS_ROOT_KEY);
-    console.log(canvasRoot.style.display);
-  };
-  return <MenuItem text={'hide'} onClick={onClick} />;
 }
