@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+export type ValueOf<T> = T[keyof T];
+
 export interface ElementItemConfig {
   order: number;
   element: React.ElementType;
@@ -25,7 +27,8 @@ export const HotKeyName = {
   DELETE_TOPIC: 'DELETE_TOPIC',
   EDIT_CONTENT: 'EDIT_CONTENT',
   EDIT_NOTES: 'EDIT_NOTES',
-  SET_EDITOR_ROOT: 'SET_EDITOR_ROOT'
+  SET_EDITOR_ROOT: 'SET_EDITOR_ROOT',
+  PASTE: 'PASTE',
 };
 
 export const MoveTopicDir = {

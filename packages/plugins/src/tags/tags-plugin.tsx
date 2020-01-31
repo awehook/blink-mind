@@ -56,7 +56,7 @@ export function TagsPlugin() {
       return opMap;
     },
 
-    renderTopicContentOthers(props, next) {
+    renderTopicNodeLastRowOthers(props, next) {
       const { controller } = props;
       const res = next();
       res.push(

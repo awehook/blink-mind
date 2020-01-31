@@ -301,7 +301,7 @@ export class TopologyDiagram extends BaseWidget<BaseProps, IState> {
   }
 
   componentDidUpdate(): void {
-    this.openData();
+    // this.openData();
   }
 
   openData() {

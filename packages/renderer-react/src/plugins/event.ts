@@ -45,19 +45,8 @@ export function EventPlugin() {
       });
     },
 
-    handleActiveModalClose(props) {
-      const { controller } = props;
-      const activeModalProps = controller.run('getActiveModalProps', props);
-      if (activeModalProps == null) return null;
-      if (activeModalProps.name === 'edit-desc') {
-        return function() {
-          controller.run('operation', {
-            ...props,
-            focusMode: FocusMode.NORMAL,
-            opType: OpType.FOCUS_TOPIC
-          });
-        };
-      }
+    handleDialogClose(props) {
+
     },
 
     addEventListener(props) {

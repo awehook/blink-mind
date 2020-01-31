@@ -6,3 +6,4 @@ export * from './styled-setting';
 export * from './setting-item';
 export * from './toolbar-item';
 export * from './rename-dialog';
+export * from './outside-click-handler';

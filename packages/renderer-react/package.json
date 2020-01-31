@@ -27,19 +27,24 @@
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/icons": "^3.13.0",
     "@blueprintjs/select": "^3.11.1",
+    "@slim-ui/react-tabs": "^3.1.0",
     "classnames": "^2.2.6",
     "css-shorthand-expand": "^1.2.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.15",
     "memoize-one": "^5.1.1",
     "react-color": "^2.17.3",
-    "@slim-ui/react-tabs": "^3.1.0",
     "resize-observer-polyfill": "^1.5.1",
     "slate-plain-serializer": "^0.7.11",
     "slate-react": "^0.21.20",
     "styled-components": "^4.4.0",
     "tiny-invariant": "^1.0.6",
-    "tiny-warning": "^1.0.3"
+    "tiny-warning": "^1.0.3",
+    "airbnb-prop-types": "^2.15.0",
+    "consolidated-events": "^1.1.1 || ^2.0.0",
+    "document.contains": "^1.0.1",
+    "object.values": "^1.1.0",
+    "prop-types": "^15.7.2"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

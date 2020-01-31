@@ -93,7 +93,7 @@ export class TopicWidget extends React.Component<Props> {
       ...props,
       topicStyle
     };
-    const topicContent = controller.run('renderTopicContent', propsMore);
+    const topicContent = controller.run('renderTopicNode', propsMore);
 
     return (
       <Node topicDirection={dir}>

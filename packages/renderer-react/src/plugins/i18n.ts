@@ -116,7 +116,10 @@ export function I18nPlugin() {
     [
       I18nKey.DELETE_TOPOLOGY_TIP,
       'Are you confirm to delete this topology diagram?'
-    ]
+    ],
+
+    [I18nKey.HYPERLINK, 'Hyperlink'],
+    [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink']
   ]);
 
   return {

@@ -23,6 +23,11 @@ export const IconName = {
   LAYOUT_RIGHT: 'layout-right',
   UNDO: 'undo',
   REDO: 'redo',
+  MOVE_UP: 'move-up',
+  MOVE_DOWN: 'move-down',
+  COPY: 'copy',
+  RESIZE: 'resize',
+  HYPERLINK: 'hyperlink'
 };
 
 export function iconClassName(name) {

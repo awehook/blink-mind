@@ -1,3 +1,3 @@
-export const cancelEvent = e => {
+export const stopPropagation = e => {
   e.stopPropagation();
 };

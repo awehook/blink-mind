@@ -152,7 +152,7 @@ export function TopicReferencePlugin() {
       return res;
     },
 
-    renderTopicContentOthers(props, next) {
+    renderTopicNodeLastRowOthers(props, next) {
       const { model, topicKey, controller } = props;
       const res = next();
       res.push(

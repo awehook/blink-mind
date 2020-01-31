@@ -1,5 +1,5 @@
 import {
-  cancelEvent,
+  stopPropagation,
   getI18nText,
   I18nKey,
   Icon
@@ -64,13 +64,13 @@ export function TopologyDrawer(props) {
       isOpen
       hasBackdrop
       backdropClassName="backdrop"
-      backdropProps={{ onMouseDown: cancelEvent }}
+      backdropProps={{ onMouseDown: stopPropagation }}
       canOutsideClickClose={false}
       isCloseButtonShown={true}
       onClose={onDiagramClose}
       size="100%"
     >
-      <DiagramWrapper onClick={cancelEvent} onDoubleClick={cancelEvent}>
+      <DiagramWrapper onClick={stopPropagation} onDoubleClick={stopPropagation}>
         <TopologyDiagram {...diagramProps} />
         <TopologyDiagramUtils {...utilProps} />
       </DiagramWrapper>

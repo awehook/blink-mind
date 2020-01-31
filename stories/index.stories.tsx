@@ -8,19 +8,20 @@ const debugNameSpaces = [
   // 'node:topic-content-editor',
   // 'node:topic-sub-links',
   // 'node:topic-widget',
-  'node:drag-scroll-widget',
-  // 'node:topic-content-widget',
+  // 'node:drag-scroll-widget',
+  // 'node:topic-node-widget',
   // 'node:topic-desc-editor',
   // 'node:style-editor',
-  'node:theme-editor',
+  // 'node:theme-editor',
   // 'plugin:StylePlugin',
   // 'plugin:*',
   // 'plugin:event',
-  'plugin:rendering',
-  'plugin:json-serializer',
-  'plugin:operation',
+  // 'plugin:rendering',
+  // 'plugin:json-serializer',
+  // 'plugin:operation',
+  'plugin:insert-image'
   // 'story:*',
-  'modifier'
+  // 'modifier'
 ];
 
 localStorage.debug = debugNameSpaces.join(',');

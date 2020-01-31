@@ -3,6 +3,7 @@ import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
 import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import {
+  InsertImagesPlugin,
   ExportFilePlugin,
   OpenFilePlugin,
   SearchPlugin,
@@ -66,6 +67,7 @@ const plugins = [
   ThemeSelectorPlugin(),
   TopicReferencePlugin(),
   SearchPlugin(),
+  InsertImagesPlugin(),
   OpenFilePlugin(),
   ExportFilePlugin(),
   UndoRedoPlugin(),

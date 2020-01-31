@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { PropKey } from '../../utils';
+import { COLORS, PropKey } from '../../utils';
 import { BaseProps } from './base-widget';
 export const ToolbarItemRoot = styled.div`
   position: relative;
@@ -12,7 +12,7 @@ export const ToolbarItemRoot = styled.div`
   font-size: 24px;
   display: inline-block;
   &:hover {
-    color: ${props => (props.disabled ? 'grey' : 'rgb(44, 184, 146)')};
+    color: ${props => (props.disabled ? 'grey' : COLORS.ITEM_HIGHLIGHT)};
   }
 `;
 interface ToolbarItemProps extends BaseProps {

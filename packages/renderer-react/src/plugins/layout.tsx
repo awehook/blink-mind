@@ -9,10 +9,13 @@ import {
   Topic,
   TopicRelationship
 } from '@blink-mind/core';
-import { RootSubLinks } from '../components/widgets/root-sublinks';
-import { TopicDropEffect } from '../components/widgets/topic-drop-effect';
-import { TopicHighlight } from '../components/widgets/topic-highlight';
-import { TopicWidget } from '../components/widgets/topic-widget';
+import {
+  RootSubLinks,
+  TopicDropEffect,
+  TopicHighlight,
+  TopicWidget
+} from '../components/widgets';
+
 import { MoveTopicDir } from '../types';
 import {
   getRelativeRect,
@@ -75,8 +78,12 @@ export function LayoutPlugin() {
       const links = getRef(
         linksRefKey(model.editorRootTopicKey)
       ) as RootSubLinks;
-      const highlight = getRef(RefKey.FOCUS_HIGHLIGHT_KEY+model.id) as TopicHighlight;
-      const dropEffect = getRef(RefKey.DROP_EFFECT_KEY+model.id) as TopicDropEffect;
+      const highlight = getRef(
+        RefKey.FOCUS_HIGHLIGHT_KEY + model.id
+      ) as TopicHighlight;
+      const dropEffect = getRef(
+        RefKey.DROP_EFFECT_KEY + model.id
+      ) as TopicDropEffect;
       links && links.layout();
       highlight && highlight.layout();
       dropEffect && dropEffect.layout();
@@ -167,7 +174,7 @@ export function LayoutPlugin() {
         );
       }
       const topic = getRef(topicRefKey(topicKey));
-      const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY+model.id);
+      const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id);
       const viewBox = dragScroll.viewBox;
       if (!topic || !viewBox) {
         throw new Error(`moveTopicToCenter error: topic or viewBox is null`);

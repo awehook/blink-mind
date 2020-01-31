@@ -7,7 +7,7 @@ import {
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { TopicDropEffect } from '../../components/widgets/topic-drop-effect';
+import { TopicDropEffect } from '../../components/widgets';
 import { contentRefKey, dropAreaRefKey, RefKey } from '../../utils';
 const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
@@ -65,6 +65,7 @@ export function DragAndDropPlugin() {
     },
 
     handleTopicDragStart(props) {
+      log('handleTopicDragStart');
       const { controller, ev } = props;
       ev.stopPropagation();
       controller.run('operation', {
@@ -85,8 +86,8 @@ export function DragAndDropPlugin() {
       if (dstKey === model.editorRootTopicKey && dropDir !== 'in') return false;
 
       const srcTopic = model.getTopic(srcKey);
-      if (srcTopic.parentKey === dstKey && dropDir === 'in') return false;
-      return true;
+      return !(srcTopic.parentKey === dstKey && dropDir === 'in');
+
     },
 
     handleTopicDragEnter(props) {

@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { Toolbar, ToolbarItemLayout } from '../../components/widgets/toolbar';
-import { ToolbarItemAddCanvas } from '../../components/widgets/toolbar/toolbar-item-add-canvas';
-import { ToolbarItemMore } from '../../components/widgets/toolbar/toolbar-item-more';
+import {
+  Toolbar,
+  ToolbarItemAddCanvas,
+  ToolbarItemLayout,
+  ToolbarItemMore
+} from '../../components/widgets';
 
 import { ElementItemConfigs } from '../../types';
 

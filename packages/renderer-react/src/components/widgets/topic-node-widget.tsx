@@ -6,13 +6,9 @@ import styled from 'styled-components';
 import { collapseRefKey, contentRefKey, PropKey } from '../../utils';
 import { BaseProps, BaseWidget } from '../common';
 
-const log = debug('node:topic-content-widget');
+const log = debug('node:topic-node-widget');
 
-interface TopicContentProps {
-  dragEnter?: boolean;
-}
-
-const TopicContent = styled.div<TopicContentProps>`
+const TopicNodeRow = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -20,8 +16,13 @@ const TopicContent = styled.div<TopicContentProps>`
   position: relative;
 `;
 
-const TopicContentWithDropArea = styled.div`
+const WithDropArea = styled.div`
   position: relative;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 interface Props extends BaseProps {
@@ -33,7 +34,7 @@ interface State {
 }
 
 @ContextMenuTarget
-export class TopicContentWidget extends BaseWidget<Props, State> {
+export class TopicNodeWidget extends BaseWidget<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +42,12 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
     };
   }
 
+  onMouseDown = ev => {
+    ev.stopPropagation();
+  };
+
   onDragStart = ev => {
+    log('onDragStart');
     this.run('handleTopicDragStart', { ...this.props, ev });
   };
 
@@ -62,6 +68,10 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
   onDrop = ev => {
     log('onDrop');
     this.run('handleTopicDrop', { ...this.props, ev, dropDir: 'in' });
+  };
+
+  onPaste = ev => {
+    this.run('handleTopicPaste', { ...this.props, ev });
   };
 
   public renderContextMenu() {
@@ -171,31 +181,40 @@ export class TopicContentWidget extends BaseWidget<Props, State> {
       ...props,
       dropDir: 'next'
     });
-    const dropEventHandlers = {
+    const columnProps = {
+      style: topicStyle,
+      draggable,
+      ref: saveRef(contentRefKey(topicKey)),
+      onDragStart: this.onDragStart,
+      onClick: this.onClick,
+      onMouseDown: this.onMouseDown,
+      onDoubleClick: this.onDoubleClick,
       onDragEnter: this.onDragEnter,
       onDragLeave: this.onDragLeave,
       onDragOver: this.onDragOver,
-      onDrop: this.onDrop
+      onDrop: this.onDrop,
+      onPaste: this.onPaste
     };
     // log(topicKey, 'style', topicStyle);
     return (
-      <TopicContentWithDropArea>
+      <WithDropArea>
         {prevDropArea}
-        <TopicContent
-          style={topicStyle}
-          draggable={draggable}
-          ref={saveRef(contentRefKey(topicKey))}
-          onDragStart={this.onDragStart}
-          onClick={this.onClick}
-          onDoubleClick={this.onDoubleClick}
-          {...dropEventHandlers}
-        >
-          {controller.run('renderTopicBlocks', props)}
-          {controller.run('renderTopicContentOthers', props)}
-        </TopicContent>
+        <Column {...columnProps}>
+          {controller.run('renderTopicNodeRows', props)}
+        </Column>
         {nextDropArea}
         {dir !== TopicDirection.MAIN && collapseIcon}
-      </TopicContentWithDropArea>
+      </WithDropArea>
     );
   }
+}
+
+export function TopicNodeLastRow(props) {
+  const { controller } = props;
+  return (
+    <TopicNodeRow>
+      {controller.run('renderTopicBlocks', props)}
+      {controller.run('renderTopicNodeLastRowOthers', props)}
+    </TopicNodeRow>
+  );
 }

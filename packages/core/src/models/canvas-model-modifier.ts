@@ -66,12 +66,12 @@ type SetLayoutDirArg = BaseCanvasModelModifierArg & {
   layoutDir: DiagramLayoutType;
 };
 
-type ModifierResult = CanvasModel;
+export type CanvasModelModifierResult = CanvasModel;
 
 function toggleCollapse({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   let topic = model.getTopic(topicKey);
   if (topic && topic.subKeys.size !== 0) {
     topic = topic.merge({
@@ -86,7 +86,7 @@ function toggleCollapse({
   return model;
 }
 
-function collapseAll({ model }: BaseCanvasModelModifierArg): ModifierResult {
+function collapseAll({ model }: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -102,7 +102,7 @@ function collapseAll({ model }: BaseCanvasModelModifierArg): ModifierResult {
   return model;
 }
 
-function expandAll({ model }: BaseCanvasModelModifierArg): ModifierResult {
+function expandAll({ model }: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -117,7 +117,7 @@ function expandAll({ model }: BaseCanvasModelModifierArg): ModifierResult {
 function expandTo({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   const keys = getKeyPath(model, topicKey).filter(t => t !== topicKey);
   model = model.withMutations(m => {
     keys.forEach(topicKey => {
@@ -138,14 +138,14 @@ function focusTopic({
   model,
   topicKey,
   focusMode
-}: SetFocusModeArg): ModifierResult {
+}: SetFocusModeArg): CanvasModelModifierResult {
   log('focus topic');
   if (topicKey !== model.focusKey) model = model.set('focusKey', topicKey);
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
 }
 
-function setFocusMode({ model, focusMode }: SetFocusModeArg): ModifierResult {
+function setFocusMode({ model, focusMode }: SetFocusModeArg): CanvasModelModifierResult {
   log('setFocusMode');
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
@@ -154,7 +154,7 @@ function setFocusMode({ model, focusMode }: SetFocusModeArg): ModifierResult {
 function addChild({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
   if (topic) {
@@ -177,7 +177,7 @@ function addChild({
 function addSibling({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   if (topicKey === model.rootTopicKey) return model;
   const topic = model.getTopic(topicKey);
   if (topic) {
@@ -201,7 +201,7 @@ function addSibling({
 function deleteTopic({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   if (topicKey === model.editorRootTopicKey) return model;
   const item = model.getTopic(topicKey);
   if (item) {
@@ -241,7 +241,7 @@ function setBlockData({
   blockType,
   focusMode,
   data
-}: SetBlockDataArg): ModifierResult {
+}: SetBlockDataArg): CanvasModelModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(blockType);
@@ -295,7 +295,7 @@ function setStyle({
   model,
   topicKey,
   style
-}: SetTopicStyleArg): ModifierResult {
+}: SetTopicStyleArg): CanvasModelModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     if (style !== topic.style) {
@@ -307,7 +307,7 @@ function setStyle({
 
 function clearAllCustomStyle({
   model
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   model = model.withMutations(model => {
     model.topics.keySeq().forEach(key => {
       model.setIn(['topics', key, 'style'], null);
@@ -316,12 +316,12 @@ function clearAllCustomStyle({
   return model;
 }
 
-function setTheme({ model, theme }: SetThemeArg): ModifierResult {
+function setTheme({ model, theme }: SetThemeArg): CanvasModelModifierResult {
   model = model.setIn(['config', 'theme'], theme);
   return model;
 }
 
-function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): ModifierResult {
+function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): CanvasModelModifierResult {
   if (model.config.layoutDir === layoutDir) return model;
   model = model.setIn(['config', 'layoutDir'], layoutDir);
   return model;
@@ -330,7 +330,7 @@ function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): ModifierResult {
 function setEditorRootTopicKey({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): ModifierResult {
+}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
   if (model.editorRootTopicKey !== topicKey)
     model = model.set('editorRootTopicKey', topicKey);
   if (model.getTopic(topicKey).collapse)
@@ -341,7 +341,7 @@ function setEditorRootTopicKey({
 function setZoomFactor({
   model,
   zoomFactor
-}: SetZoomFactorArg): ModifierResult {
+}: SetZoomFactorArg): CanvasModelModifierResult {
   if (model.zoomFactor !== zoomFactor)
     model = model.set('zoomFactor', zoomFactor);
   return model;

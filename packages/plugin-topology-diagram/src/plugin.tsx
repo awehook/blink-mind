@@ -1,4 +1,8 @@
-import { BaseCanvasModelModifierArg, CanvasModelModifier } from '@blink-mind/core';
+import {
+  BaseCanvasModelModifierArg,
+  CanvasModelModifier,
+  toDocModelModifierFunc
+} from '@blink-mind/core';
 import { getI18nText, I18nKey, Icon } from '@blink-mind/renderer-react';
 import { MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
@@ -79,7 +83,10 @@ export default function TopologyDiagramPlugin() {
 
     getOpMap(props, next) {
       const opMap = next();
-      opMap.set(OP_TYPE_START_EDITING_TOPOLOGY, startEditingTopology);
+      opMap.set(
+        OP_TYPE_START_EDITING_TOPOLOGY,
+        toDocModelModifierFunc(startEditingTopology)
+      );
       return opMap;
     }
   };

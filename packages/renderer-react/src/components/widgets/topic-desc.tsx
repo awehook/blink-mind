@@ -3,7 +3,7 @@ import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { cancelEvent, iconClassName, IconName, RefKey } from '../../utils';
+import { stopPropagation, iconClassName, IconName, RefKey } from '../../utils';
 import { TopicBlockIcon } from '../common/styled';
 
 const log = debug('node:topic-desc');
@@ -43,7 +43,7 @@ export function TopicDesc(props) {
   }
   const tooltipContent = (
     <TooltipContentWrapper
-      onClick={cancelEvent}
+      onClick={stopPropagation}
       classname={Classes.POPOVER_DISMISS}
       style={style}
     >

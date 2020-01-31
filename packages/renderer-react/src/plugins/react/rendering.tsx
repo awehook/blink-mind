@@ -2,20 +2,23 @@ import { BlockType } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import { SaveRef } from '../../components/common';
-import { Canvas } from '../../components/widgets/canvas';
-import { DiagramRoot } from '../../components/widgets/diagram-root';
-import { EditorRootBreadcrumbs } from '../../components/widgets/editor-root-breadcrumbs';
-import { Modals } from '../../components/widgets/modals';
-import { RootSubLinks } from '../../components/widgets/root-sublinks';
-import { RootWidget } from '../../components/widgets/root-widget';
-import { TopicCollapseIcon } from '../../components/widgets/topic-collapse-icon';
-import { TopicContent } from '../../components/widgets/topic-content';
-import { TopicContentWidget } from '../../components/widgets/topic-content-widget';
-import { TopicDesc } from '../../components/widgets/topic-desc';
-import { TopicHighlight } from '../../components/widgets/topic-highlight';
-import { TopicSubLinks } from '../../components/widgets/topic-sub-links';
-import { TopicWidget } from '../../components/widgets/topic-widget';
-import { ViewPortViewer } from '../../components/widgets/view-port-util';
+import {
+  Canvas,
+  DiagramRoot,
+  DialogWidget,
+  EditorRootBreadcrumbs,
+  RootSubLinks,
+  RootWidget,
+  TopicCollapseIcon,
+  TopicContent,
+  TopicDesc,
+  TopicHighlight,
+  TopicNodeLastRow,
+  TopicNodeWidget,
+  TopicSubLinks,
+  TopicWidget,
+  ViewPortViewer
+} from '../../components/widgets';
 import { linksRefKey, PropKey, RefKey } from '../../utils';
 import { renderDrawer } from './drawer';
 import Theme from './theme';
@@ -70,7 +73,7 @@ export function RenderingPlugin() {
       const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', nProps);
       // const styleEditor = controller.run('renderStyleEditor', nProps);
       const rightTopPanel = controller.run('renderRightTopPanel', nProps);
-      const modals = controller.run('renderModals', {
+      const dialog = controller.run('renderDialog', {
         ...nProps,
         zIndex: zIndex + 1
       });
@@ -79,22 +82,25 @@ export function RenderingPlugin() {
         zIndex: zIndex + 1
       });
       const viewportViewer = controller.run('renderViewPortViewer', nProps);
-      return [breadcrumbs, rightTopPanel, modals, drawer, viewportViewer];
+      return [breadcrumbs, rightTopPanel, dialog, drawer, viewportViewer];
     },
 
     renderEditorRootBreadcrumbs(props) {
       return <EditorRootBreadcrumbs key="EditorRootBreadcrumbs" {...props} />;
     },
 
-    renderModals(props) {
-      return <Modals key="modals" {...props} />;
+    renderDialog(ctx) {
+      const { controller } = ctx;
+      const content = controller.run('getActiveDialogContent', ctx);
+      if (content == null) return null;
+      const props = {
+        ...ctx,
+        content
+      };
+      return <DialogWidget key="dialog" {...props} />;
     },
 
-    renderModal(props) {
-      return null;
-    },
-
-    getActiveModalProps(props) {
+    getActiveDialogContent(props) {
       return null;
     },
 
@@ -110,15 +116,24 @@ export function RenderingPlugin() {
       return <TopicWidget {...props} />;
     },
 
-    renderTopicContent(props) {
-      return <TopicContentWidget {...props} />;
+    renderTopicNode(props) {
+      return <TopicNodeWidget {...props} />;
+    },
+
+    renderTopicNodeRows(props) {
+      const { controller } = props;
+      return [controller.run('renderTopicNodeLastRow', props)];
+    },
+
+    renderTopicNodeLastRow(props) {
+      return <TopicNodeLastRow key="last-row" {...props} />;
     },
 
     renderTopicCollapseIcon(props) {
       return <TopicCollapseIcon {...props} />;
     },
 
-    renderTopicContentOthers(props) {
+    renderTopicNodeLastRowOthers(props) {
       return [];
     },
 

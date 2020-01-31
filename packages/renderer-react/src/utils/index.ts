@@ -66,3 +66,5 @@ export * from './events';
 export * from './file';
 export * from './css';
 export * from './i18n';
+export * from './color';
+export * from './immutable';

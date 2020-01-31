@@ -145,7 +145,7 @@ export class DragScrollWidget extends React.Component<
   };
 
   onMouseDown = e => {
-    // log('Drag Scroll onMouseDown');
+    log('onMouseDown');
     // log(e.nativeEvent.target);
 
     // mouseKey 表示鼠标按下那个键才可以进行拖动，左键或者右键
@@ -170,6 +170,7 @@ export class DragScrollWidget extends React.Component<
   };
 
   onMouseUp = e => {
+    log('onMouseUp');
     const ele = useWindowListener ? window : this.viewBox;
     ele.removeEventListener('mousemove', this.onMouseMove);
     ele.removeEventListener('mouseup', this.onMouseUp);
@@ -205,7 +206,7 @@ export class DragScrollWidget extends React.Component<
   }
 
   render() {
-    log('render');
+    // log('render');
     const style = {
       ...this.state.widgetStyle
       // zoom:this.props.zoomFactor,

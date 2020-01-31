@@ -4,3 +4,4 @@ export * from './open-file';
 export * from './export-file';
 export * from './undo-redo';
 export * from './tags';
+export * from './insert-images';

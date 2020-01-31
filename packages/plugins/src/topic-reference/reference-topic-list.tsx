@@ -1,7 +1,7 @@
 import { FocusMode } from '@blink-mind/core';
 import {
   BaseProps,
-  cancelEvent,
+  stopPropagation,
   getI18nText,
   I18nKey
 } from '@blink-mind/renderer-react';
@@ -116,7 +116,7 @@ export function ReferenceTopicList(props: BaseProps) {
   );
 
   return (
-    <Root onMouseDown={cancelEvent}>
+    <Root onMouseDown={stopPropagation}>
       {referenceGroup}
       {referencedGroup}
       {currentTopic}

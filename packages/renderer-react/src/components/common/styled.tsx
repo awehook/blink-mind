@@ -1,5 +1,6 @@
 import { Checkbox } from '@blueprintjs/core';
 import styled from 'styled-components';
+import { COLORS } from '../../utils';
 
 export const Flex = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ export const IconBg = styled.div`
 export const Btn = styled.div`
   cursor: pointer;
   &:hover {
-    color: #1ea7fd;
+    color: ${COLORS.ITEM_HIGHLIGHT};
   }
 `;
 
@@ -61,8 +62,6 @@ export const PanelTabRoot = styled.div`
   max-height: 470px;
   overflow: auto;
 `;
-
-
 
 export const ToolbarItemPopoverTarget = styled.div`
   position: absolute;

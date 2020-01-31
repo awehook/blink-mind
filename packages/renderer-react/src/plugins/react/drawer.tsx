@@ -2,7 +2,7 @@ import { BlockType, FocusMode, OpType } from '@blink-mind/core';
 import { Drawer } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import {cancelEvent, getI18nText, I18nKey, Icon} from '../../utils';
+import {stopPropagation, getI18nText, I18nKey, Icon} from '../../utils';
 const DescEditorWrapper = styled.div`
   overflow: auto;
   padding: 0px 0px 0px 20px;
@@ -33,7 +33,7 @@ export function renderDrawer(props) {
         icon={Icon('note')}
         isOpen
         hasBackdrop
-        backdropProps={{ onMouseDown: cancelEvent }}
+        backdropProps={{ onMouseDown: stopPropagation }}
         isCloseButtonShown={false}
         onClose={onDescEditorClose}
         size="70%"

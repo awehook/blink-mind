@@ -12,10 +12,11 @@ function op(opType: string, props) {
 
 export function HotKeyPlugin() {
   return {
-    customizeHotKeys(props): HotKeysConfig {
+    customizeHotKeys(ctx): HotKeysConfig {
+      const { controller } = ctx;
       const handleKeyDown = opType => e => {
         // log('HotKeyPlugin', opType);
-        op(opType, props);
+        op(opType, ctx);
       };
       const topicHotKeys = new Map<string, HotKeyItem>([
         [
@@ -72,6 +73,6 @@ export function HotKeyPlugin() {
         topicHotKeys,
         globalHotKeys
       };
-    }
+    },
   };
 }
