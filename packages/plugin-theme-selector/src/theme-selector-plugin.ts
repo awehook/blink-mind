@@ -1,9 +1,12 @@
 import { CanvasModel, defaultTheme, OpType, ThemeType } from '@blink-mind/core';
-import { themeRandomColorSquare } from './themes';
-import { theme1 } from './themes';
-import { theme2 } from './themes';
-import { theme3 } from './themes';
-import { theme4 } from './themes';
+import {
+  theme1,
+  theme2,
+  theme3,
+  theme4,
+  themeRandomColorRound,
+  themeRandomColorSquare
+} from './themes';
 
 export type ThemeMap = Map<string, ThemeType>;
 
@@ -11,6 +14,7 @@ export function ThemeSelectorPlugin() {
   const themeMap = new Map<string, ThemeType>([
     ['default', defaultTheme],
     ['random-color-square', themeRandomColorSquare],
+    ['random-color-round', themeRandomColorRound],
     ['theme1', theme1],
     ['theme2', theme2],
     ['theme3', theme3],

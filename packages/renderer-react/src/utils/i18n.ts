@@ -1,10 +1,15 @@
 // import { I18nKey } from './keys';
 
 export function getI18nText(ctx, key: string | string[]) {
-  if (Array.isArray(key)) {
-    return key.map(k => ctx.controller.run('getI18nText', { ...ctx, key: k }));
+  try {
+    if (Array.isArray(key)) {
+      return key.map(k => ctx.controller.run('getI18nText', { ...ctx, key: k }));
+    }
+    return ctx.controller.run('getI18nText', { ...ctx, key:key.toUpperCase() });
   }
-  return ctx.controller.run('getI18nText', { ...ctx, key:key.toUpperCase() });
+  catch (e) {
+    throw e;
+  }
 }
 
 // export function getCssI18nText(ctx, cssName) {

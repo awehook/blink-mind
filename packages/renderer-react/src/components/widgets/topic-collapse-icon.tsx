@@ -6,7 +6,7 @@ import { collapseRefKey } from '../../utils';
 
 const Icon = styled.div`
   position: absolute;
-  top: calc(50% - 10px);
+  top: calc(50% - 8px);
   ${({ dir }) => {
     if (dir === TopicDirection.RIGHT)
       return css`
@@ -18,17 +18,24 @@ const Icon = styled.div`
       `;
   }};
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   text-align: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
   //@ts-ignore
-  background: ${props => props.background};
+  //background: ${props => props.background};
+  background: #fff;
+  color: #888;
   cursor: pointer;
   padding: 0;
-  font-size: 14px;
-  line-height: 20px;
+  //font-size: 16px !important;
+  line-height: 16px;
   border: 0;
   z-index: 2;
+  
+  &:before {
+    transform: scale(0.8, 0.8);
+  }
 `;
 
 export function TopicCollapseIcon(props) {
@@ -38,7 +45,7 @@ export function TopicCollapseIcon(props) {
     <Icon
       ref={saveRef(collapseRefKey(topicKey))}
       onClick={onClickCollapse}
-      background={topicStyle.background}
+      // background={topicStyle.background}
       dir={dir}
       className={cx({
         icon: true,

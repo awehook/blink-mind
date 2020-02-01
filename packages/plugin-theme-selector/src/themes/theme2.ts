@@ -54,7 +54,7 @@ export const theme2: ThemeType = {
       borderRadius: '5px',
       color: 'rgb(103,103,103)',
       fontSize: '13px',
-      padding: '3px 9px 4px',
+      padding: '0',
       boxShadow: '1px 1px 1px #ccc'
     },
 

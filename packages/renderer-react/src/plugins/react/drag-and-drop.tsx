@@ -13,7 +13,8 @@ const log = debug('plugin:drag-and-drop');
 const DropArea = styled.div`
   height: ${props => `${props.height}px`};
   width: 100%;
-  margin: 5px 0px;
+  margin: 1px 0;
+  padding: 2px 0;
 `;
 
 export function DragAndDropPlugin() {

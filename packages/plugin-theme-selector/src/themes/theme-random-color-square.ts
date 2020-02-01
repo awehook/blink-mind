@@ -1,7 +1,7 @@
 import { ThemeType } from '@blink-mind/core';
 
 export const themeRandomColorSquare: ThemeType = {
-  name: 'default',
+  name: 'random-color-square',
   randomColor: true,
   background: 'rgb(57,60,65)',
   highlightColor: '#50C9CE',
