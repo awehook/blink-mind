@@ -5,6 +5,7 @@ import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import {
   InsertImagesPlugin,
   ExportFilePlugin,
+  ExportTopicPlugin,
   OpenFilePlugin,
   SearchPlugin,
   TagsPlugin,
@@ -74,6 +75,7 @@ const plugins = [
   TagsPlugin(),
   ChangeThemePlugin(),
   TopologyDiagramPlugin(),
+  ExportTopicPlugin(),
   JsonSerializerPlugin()
 ];
 

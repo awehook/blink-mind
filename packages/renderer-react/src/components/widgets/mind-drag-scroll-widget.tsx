@@ -10,12 +10,12 @@ const NodeLayer = styled.div`
   display: flex;
   align-items: center;
   padding: 5px;
+  background: ${props => props.theme.background};
 `;
 
 const DIV = styled.div`
   width: 100%;
   height: 100%;
-  background: ${props => props.theme.background};
 `;
 
 export interface MindDragScrollWidgetProps {

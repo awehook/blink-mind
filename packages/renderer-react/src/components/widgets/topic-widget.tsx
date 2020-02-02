@@ -2,7 +2,7 @@ import { TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { linksRefKey, topicRefKey } from '../../utils';
+import { linksRefKey, topicRefKey, topicWidgetRootRefKey } from '../../utils';
 import { BaseProps } from '../common';
 import { TopicSubLinks } from './topic-sub-links';
 
@@ -96,7 +96,7 @@ export class TopicWidget extends React.Component<Props> {
     const topicContent = controller.run('renderTopicNode', propsMore);
 
     return (
-      <Node topicDirection={dir}>
+      <Node topicDirection={dir} ref={saveRef(topicWidgetRootRefKey(topicKey))}>
         <NodeTopic topicDirection={dir} ref={saveRef(topicRefKey(topicKey))}>
           {topicContent}
         </NodeTopic>

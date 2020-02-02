@@ -17,7 +17,8 @@ import {
   linksRefKey,
   linksSvgRefKey,
   topicRefKey,
-  topicWidgetRefKey
+  topicWidgetRefKey,
+  topicWidgetRootRefKey
 } from '../utils';
 const log = debug('plugin:operation');
 
@@ -54,7 +55,7 @@ export function OperationPlugin() {
     [OpType.ADD_CANVAS, addCanvas],
     [OpType.SET_CURRENT_CANVAS, setCurrentCanvas],
     [OpType.DELETE_CANVAS, deleteCanvas],
-    [OpType.DUPLICATE_CANVAS,duplicateCanvas],
+    [OpType.DUPLICATE_CANVAS, duplicateCanvas],
     [OpType.SET_CANVAS_TITLE, setCanvasTitle],
 
     [OpType.TOGGLE_COLLAPSE, toggleCollapse],
@@ -295,6 +296,7 @@ export function OperationPlugin() {
         deleteRef(contentEditorRefKey(key));
         deleteRef(descEditorRefKey(key));
         deleteRef(topicWidgetRefKey(key));
+        deleteRef(topicWidgetRootRefKey(key));
         deleteRef(topicRefKey(key));
         deleteRef(collapseRefKey(key));
         deleteRef(dropAreaRefKey(key, 'next'));
@@ -321,7 +323,6 @@ export function OperationPlugin() {
     afterOpFunction(ctx) {
       return ctx.docModel;
     },
-
 
     openNewDocModel(ctx) {
       const { docModel, controller, newDocModel } = ctx;
