@@ -1,6 +1,12 @@
 import { KeyType } from '@blink-mind/core';
-import { BaseProps, PropKey } from '@blink-mind/renderer-react';
-import { Alert, Button } from '@blueprintjs/core';
+import {
+  Alert,
+  BaseProps,
+  getI18nText,
+  I18nKey,
+  PropKey
+} from '@blink-mind/renderer-react';
+import { Button } from '@blueprintjs/core';
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -46,15 +52,13 @@ export function ReferenceTopicThumbnail(props: ReferenceTopicThumbnailProps) {
     maxLength: 100
   });
   const deleteAlertProps = {
+    ...props,
     isOpen: deleteConfirm,
-    cancelButtonText: 'cancel',
+    content: getI18nText(props, I18nKey.DELETE_REFERENCE_TIP),
     onConfirm: e => {
       removeHandler(e);
     },
     onCancel: e => {
-      setDeleteConfirm(false);
-    },
-    onClose: e => {
       setDeleteConfirm(false);
     }
   };
@@ -64,10 +68,10 @@ export function ReferenceTopicThumbnail(props: ReferenceTopicThumbnailProps) {
       <ButtonPlace>
         {refType === 'reference' && (
           <>
-            <Button onClick={onClickRemove}>Remove</Button>
-            <Alert {...deleteAlertProps}>
-              <p>Are you confirm to remove this reference?</p>
-            </Alert>
+            <Button onClick={onClickRemove}>
+              {getI18nText(props, I18nKey.REMOVE)}
+            </Button>
+            <Alert {...deleteAlertProps} />
           </>
         )}
       </ButtonPlace>

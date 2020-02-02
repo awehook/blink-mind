@@ -1,10 +1,10 @@
 import {
+  Alert,
   BaseProps,
   getI18nText,
   I18nKey,
   SettingBoxContainer
 } from '@blink-mind/renderer-react';
-import { Alert } from '@blueprintjs/core';
 import * as React from 'react';
 import { useState } from 'react';
 import { ExtDataTags, TagRecord } from '../ext-data-tags';
@@ -33,10 +33,9 @@ export function AllTagsWidget(props: BaseProps) {
     return <TagWidget {...tagProps} />;
   });
   const alertProps = {
+    ...props,
     isOpen: showAlert,
-    canEscapeKeyCancel: true,
-    cancelButtonText: getI18nText(props, I18nKey.CANCEL),
-    confirmButtonText: getI18nText(props, I18nKey.CONFIRM),
+    content: getI18nText(props, I18nKey.DELETE_TAG_TIP),
     onConfirm: e => {
       controller.run('operation', {
         ...props,
@@ -47,17 +46,14 @@ export function AllTagsWidget(props: BaseProps) {
       setShowAlert(false);
     },
 
-    onClose: e => {
+    onCancel: e => {
       setShowAlert(false);
     }
   };
   return (
     <>
       <SettingBoxContainer>{tags}</SettingBoxContainer>
-
-      <Alert {...alertProps}>
-        <p>{getI18nText(props, I18nKey.DELETE_TAG_TIP)}</p>
-      </Alert>
+      <Alert {...alertProps}/>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { ContextMenuTarget } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { collapseRefKey, contentRefKey, PropKey } from '../../utils';
+import {collapseRefKey, contentRefKey, PropKey, topicNodeRefKey} from '../../utils';
 import { BaseProps, BaseWidget } from '../common';
 
 const log = debug('node:topic-node-widget');
@@ -16,7 +16,7 @@ const TopicNodeRow = styled.div`
   position: relative;
 `;
 
-const WithDropArea = styled.div`
+const TopicNodeRoot = styled.div`
   position: relative;
 `;
 
@@ -197,14 +197,14 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
     };
     // log(topicKey, 'style', topicStyle);
     return (
-      <WithDropArea>
+      <TopicNodeRoot ref={saveRef(topicNodeRefKey(topicKey))}>
         {prevDropArea}
         <Column {...columnProps}>
           {controller.run('renderTopicNodeRows', props)}
         </Column>
         {nextDropArea}
         {dir !== TopicDirection.MAIN && collapseIcon}
-      </WithDropArea>
+      </TopicNodeRoot>
     );
   }
 }

@@ -3,7 +3,7 @@ import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
 import { HotKeysConfig } from '../../types';
-import { EventKey, RefKey, topicRefKey } from '../../utils';
+import { EventKey, RefKey, topicNodeRefKey } from '../../utils';
 import { DragScrollWidget } from '../common';
 const NodeLayer = styled.div`
   position: relative;
@@ -68,7 +68,7 @@ class MindDragScrollWidget<
       listener: this.setZoomFactor
     });
     const rootTopic: HTMLElement = getRef(
-      topicRefKey(model.editorRootTopicKey)
+      topicNodeRefKey(model.editorRootTopicKey)
     );
     //TODO
     const nodeLayer: HTMLElement = getRef(RefKey.NODE_LAYER + model.id);

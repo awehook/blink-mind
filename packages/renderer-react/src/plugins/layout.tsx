@@ -22,7 +22,7 @@ import {
   getRelativeVector,
   linksRefKey,
   RefKey,
-  topicRefKey,
+  topicNodeRefKey,
   topicWidgetRefKey
 } from '../utils';
 
@@ -173,7 +173,7 @@ export function LayoutPlugin() {
           `moveTopicToCenter error: topicKey ${topicKey} is not the DESCENDANT of editor root topic`
         );
       }
-      const topic = getRef(topicRefKey(topicKey));
+      const topic = getRef(topicNodeRefKey(topicKey));
       const dragScroll = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id);
       const viewBox = dragScroll.viewBox;
       if (!topic || !viewBox) {

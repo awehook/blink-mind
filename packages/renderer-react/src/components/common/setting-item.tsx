@@ -47,7 +47,10 @@ export function SettingItemColorPicker(props: SettingItemColorPickerProps) {
           <div>
             <SketchPicker
               color={color}
-              onChangeComplete={color => handleColorChange(color.hex)}
+              onChangeComplete={color => {
+                const { r, g, b, a } = color.rgb;
+                handleColorChange(`rgba(${r},${g},${b},${a})`);
+              }}
             />
           </div>
         </Popover>

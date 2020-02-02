@@ -2,7 +2,7 @@ import { DiagramLayoutType, KeyType, TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { topicRefKey } from '../../utils';
+import { topicNodeRefKey } from '../../utils';
 import { BaseProps } from '../common';
 
 const log = debug('RootNode');
@@ -72,7 +72,7 @@ export class RootWidget extends React.Component<Props> {
       topicKey
     });
     const rootTopic = (
-      <Topic ref={saveRef(topicRefKey(topicKey))}>{topicContent}</Topic>
+      <Topic ref={saveRef(topicNodeRefKey(topicKey))}>{topicContent}</Topic>
     );
     const children = controller.run('renderRootWidgetOtherChildren', props);
     switch (config.layoutDir) {

@@ -4,7 +4,7 @@ export const theme4: ThemeType = {
   name: 'theme3',
   randomColor: false,
   background: '#CCFBFE',
-  highlightColor: '#50C9CE',
+  highlightColor: '#D0021B',
   marginH: 50,
   marginV: 20,
 
@@ -13,7 +13,8 @@ export const theme4: ThemeType = {
   },
 
   linkStyle: {
-    lineRadius: 5
+    lineRadius: 5,
+    lineType: 'curve'
   },
 
   rootTopic: {
@@ -39,8 +40,8 @@ export const theme4: ThemeType = {
       borderColor: '#E4C1F9',
       borderRadius: '5px',
       color: 'rgb(103,103,103)',
-      fontSize: '14px',
-      padding: '6px 10px 5px 10px'
+      fontSize: '18px',
+      padding: '5px'
     },
 
     subLinkStyle: {
@@ -56,7 +57,7 @@ export const theme4: ThemeType = {
       borderRadius: '5px',
       color: 'rgb(103,103,103)',
       fontSize: '13px',
-      padding: '3px 9px 4px',
+      padding: '0',
       boxShadow: '1px 1px 1px #ccc'
     },
 

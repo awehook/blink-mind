@@ -1,9 +1,9 @@
 import { isThemeType, OpType, ThemeType, TopicStyle } from '@blink-mind/core';
-import { Alert, Tab, Tabs } from '@blueprintjs/core';
+import { Tab, Tabs } from '@blueprintjs/core';
 import debug from 'debug';
 import { cloneDeep, merge } from 'lodash';
-import * as React from 'react';
 import { useState } from 'react';
+import * as React from 'react';
 import {
   browserDownloadText,
   browserOpenFile,
@@ -11,6 +11,7 @@ import {
   I18nKey
 } from '../../../utils';
 import { handleBooleanChange } from '../../../utils/blueprint';
+import { Alert } from '../../common';
 import {
   BaseProps,
   PanelTabRoot,
@@ -142,16 +143,15 @@ export function ThemeEditor(props: BaseProps) {
     });
   };
   const alertProps = {
+    ...props,
     isOpen: alertThemeError,
+    cancelButtonText: null,
+    content: getI18nText(props, I18nKey.FILE_FORMAT_ERROR),
     onClose: e => {
       setAlertThemeError(false);
     }
   };
-  const alert = (
-    <Alert {...alertProps}>
-      <p>File format error</p>
-    </Alert>
-  );
+  const alert = <Alert {...alertProps} />;
 
   return (
     <PanelTabRoot>

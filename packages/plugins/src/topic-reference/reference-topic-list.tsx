@@ -111,7 +111,7 @@ export function ReferenceTopicList(props: BaseProps) {
 
   const currentTopic = model.focusKey !== topicKey && (
     <Group>
-      <GotoBtn onClick={onClickGotoOriginTopic}>Goto Origin Topic</GotoBtn>
+      <GotoBtn onClick={onClickGotoOriginTopic}>{getI18nText(props,I18nKey.GOTO_ORIGINAL_TOPIC)}</GotoBtn>
     </Group>
   );
 

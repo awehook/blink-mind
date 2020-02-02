@@ -14,7 +14,8 @@ export const defaultTheme: ThemeType = {
   linkStyle: {
     lineRadius: 5,
     lineWidth: '2px',
-    lineColor: '#595959'
+    lineColor: '#595959',
+    lineType: 'curve'
   },
 
   rootTopic: {

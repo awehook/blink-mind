@@ -9,6 +9,7 @@ export function I18nPlugin() {
 
     [I18nKey.CONFIRM, 'Confirm'],
     [I18nKey.CANCEL, 'Cancel'],
+    [I18nKey.REMOVE, 'Remove'],
     [I18nKey.RENAME, 'Rename'],
     [I18nKey.DEFAULT, 'Default'],
     [I18nKey.SEARCH, 'Search'],
@@ -24,7 +25,7 @@ export function I18nPlugin() {
     [I18nKey.ADD_SIBLING, 'Add Sibling'],
     [I18nKey.EDIT_NOTES, 'Edit Notes'],
     [I18nKey.SET_AS_EDITOR_ROOT, 'Set as Editor Root'],
-    [I18nKey.EXPORT,'Export'],
+    [I18nKey.EXPORT, 'Export'],
     [I18nKey.EDIT_TOPOLOGY_DIAGRAM, 'Edit Topology Diagram'],
     [I18nKey.SET_TOPIC_REFERENCES, 'Set Topic References'],
 
@@ -101,6 +102,7 @@ export function I18nPlugin() {
 
     [I18nKey.REFERENCE_TOPICS, 'Reference Topics'],
     [I18nKey.REFERENCED_TOPICS, 'Referenced Topics'],
+    [I18nKey.GOTO_ORIGINAL_TOPIC, 'Goto Original Topic'],
 
     [
       I18nKey.SELECT_REF_TOPICS_TIP,
@@ -118,6 +120,8 @@ export function I18nPlugin() {
       I18nKey.DELETE_TOPOLOGY_TIP,
       'Are you confirm to delete this topology diagram?'
     ],
+    [I18nKey.DELETE_REFERENCE_TIP, 'Are you confirm to remove this reference?'],
+    [I18nKey.FILE_FORMAT_ERROR, 'File Format Error!'],
 
     [I18nKey.HYPERLINK, 'Hyperlink'],
     [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink']

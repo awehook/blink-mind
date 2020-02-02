@@ -22,7 +22,7 @@ export const themeRandomColorRound: ThemeType = {
     contentStyle: {
       fontSize: '34px',
       borderRadius: '35px',
-      padding: '16px 18px 16px 18px'
+      padding: '5px 10px'
     },
     subLinkStyle: {
       lineType: 'curve',
@@ -35,8 +35,8 @@ export const themeRandomColorRound: ThemeType = {
       borderWidth: '1px',
       borderStyle: 'solid',
       borderRadius: '10px',
-      fontSize: '17px',
-      padding: '5px'
+      fontSize: '20px',
+      padding: '0px 5px'
     },
 
     subLinkStyle: {
@@ -48,7 +48,6 @@ export const themeRandomColorRound: ThemeType = {
 
   normalTopic: {
     contentStyle: {
-      border: '1px solid #e8eaec',
       borderRadius: '10px',
       fontSize: '13px',
       padding: '0'

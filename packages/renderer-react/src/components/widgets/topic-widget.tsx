@@ -2,17 +2,21 @@ import { TopicDirection } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { linksRefKey, topicRefKey, topicWidgetRootRefKey } from '../../utils';
+import {
+  linksRefKey,
+  topicNodeRefKey,
+  topicWidgetRootRefKey
+} from '../../utils';
 import { BaseProps } from '../common';
 import { TopicSubLinks } from './topic-sub-links';
 
 const log = debug('node:topic-widget');
 
-type NodeProps = {
+type TopicWidgetRootProps = {
   topicDirection: string;
 };
 
-const Node = styled.div<NodeProps>`
+const TopicWidgetRoot = styled.div<TopicWidgetRootProps>`
   display: flex;
   align-items: center;
   flex-direction: ${props =>
@@ -33,18 +37,6 @@ const NodeChildren = styled.div<NodeChildrenProps>`
       : `0 ${props.marginH}px 0 0`};
 `;
 
-interface NodeTopicProps {
-  topicDirection: string;
-}
-
-const NodeTopic = styled.div<NodeTopicProps>`
-  display: flex;
-  position: relative;
-  align-items: center;
-
-  flex-direction: ${props =>
-    props.topicDirection === TopicDirection.RIGHT ? 'row' : 'row-reverse'};
-`;
 
 interface Props extends BaseProps {
   setViewBoxScroll?: (left: number, top: number) => void;
@@ -93,15 +85,13 @@ export class TopicWidget extends React.Component<Props> {
       ...props,
       topicStyle
     };
-    const topicContent = controller.run('renderTopicNode', propsMore);
+    const topicNode = controller.run('renderTopicNode', propsMore);
 
     return (
-      <Node topicDirection={dir} ref={saveRef(topicWidgetRootRefKey(topicKey))}>
-        <NodeTopic topicDirection={dir} ref={saveRef(topicRefKey(topicKey))}>
-          {topicContent}
-        </NodeTopic>
+      <TopicWidgetRoot topicDirection={dir} ref={saveRef(topicWidgetRootRefKey(topicKey))}>
+        {topicNode}
         {this.renderSubTopics()}
-      </Node>
+      </TopicWidgetRoot>
     );
   }
 }

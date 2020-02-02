@@ -17,8 +17,8 @@ export function topicWidgetRootRefKey(key) {
   return `topic-widget-root-${key}`;
 }
 
-export function topicRefKey(key) {
-  return `topic-${key}`;
+export function topicNodeRefKey(key) {
+  return `topic-node-${key}`;
 }
 
 export function linksRefKey(key) {
@@ -67,6 +67,7 @@ export const I18nKey = {
 
   CONFIRM: 'CONFIRM',
   CANCEL: 'CANCEL',
+  REMOVE: 'REMOVE',
   RENAME: 'RENAME',
   DEFAULT: 'DEFAULT',
   SEARCH: 'SEARCH',
@@ -160,11 +161,14 @@ export const I18nKey = {
 
   REFERENCE_TOPICS: 'REFERENCE_TOPICS',
   REFERENCED_TOPICS: 'REFERENCED_TOPICS',
+  GOTO_ORIGINAL_TOPIC: 'GOTO_ORIGINAL_TOPIC',
 
   SELECT_REF_TOPICS_TIP: 'SELECT_REF_TOPICS_TIP',
   TAG_NAME_OVER_MAX_TIP: 'TAG_NAME_OVER_MAX_TIP',
   DELETE_TAG_TIP: 'DELETE_TAG_TIP',
   DELETE_TOPOLOGY_TIP: 'DELETE_TOPOLOGY_TIP',
+  DELETE_REFERENCE_TIP: 'DELETE_REFERENCE_TIP',
+  FILE_FORMAT_ERROR: 'FILE_FORMAT_ERROR',
 
   HYPERLINK: 'HYPERLINK',
   INSERT_HYPERLINK: 'INSERT_HYPERLINK'

@@ -82,9 +82,9 @@ export class TopologyDiagramUtils extends React.Component<BaseProps, State> {
       this.setState({ deleteConfirm: true });
     };
     const deleteAlertProps = {
+      ...props,
       isOpen: this.state.deleteConfirm,
-      cancelButtonText: getI18nText(props,I18nKey.CANCEL),
-      confirmButtonText: getI18nText(props,I18nKey.CONFIRM),
+      content: getI18nText(props, I18nKey.DELETE_TOPOLOGY_TIP),
       onConfirm: e => {
         controller.run('operation', {
           ...props,
@@ -93,9 +93,6 @@ export class TopologyDiagramUtils extends React.Component<BaseProps, State> {
         });
       },
       onCancel: e => {
-        this.setState({ deleteConfirm: false });
-      },
-      onClose: e => {
         this.setState({ deleteConfirm: false });
       }
     };
@@ -117,9 +114,7 @@ export class TopologyDiagramUtils extends React.Component<BaseProps, State> {
         >
           {Icon(IconName.TRASH)}
         </Item>
-        <Alert {...deleteAlertProps}>
-          <p>{getI18nText(props,I18nKey.DELETE_TOPOLOGY_TIP)}</p>
-        </Alert>
+        <Alert {...deleteAlertProps} />
       </Root>
     );
   }

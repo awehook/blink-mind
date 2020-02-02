@@ -41,12 +41,6 @@ export function ThemeSelectorPlugin() {
         opType: OpType.SET_THEME,
         theme: allThemes.get(themeKey)
       });
-    },
-
-    createNewCanvasModel(props, next) {
-      let model: CanvasModel = next();
-      model = model.setIn(['config', 'theme'], themeRandomColorSquare);
-      return model;
     }
   };
 }

@@ -16,7 +16,7 @@ import {
   dropAreaRefKey,
   linksRefKey,
   linksSvgRefKey,
-  topicRefKey,
+  topicNodeRefKey,
   topicWidgetRefKey,
   topicWidgetRootRefKey
 } from '../utils';
@@ -297,7 +297,7 @@ export function OperationPlugin() {
         deleteRef(descEditorRefKey(key));
         deleteRef(topicWidgetRefKey(key));
         deleteRef(topicWidgetRootRefKey(key));
-        deleteRef(topicRefKey(key));
+        deleteRef(topicNodeRefKey(key));
         deleteRef(collapseRefKey(key));
         deleteRef(dropAreaRefKey(key, 'next'));
         deleteRef(dropAreaRefKey(key, 'prev'));

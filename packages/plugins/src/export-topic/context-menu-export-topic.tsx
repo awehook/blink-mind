@@ -11,11 +11,10 @@ import { MenuItem } from '@blueprintjs/core';
 import { saveAs } from 'file-saver';
 import { toBlob, toSvgDataURL } from 'html-to-image';
 import * as React from 'react';
-import { EXT_KEY_EXPORT_TOPIC } from './utils';
 export function ContextMenuExportTopic(props: BaseProps) {
   const { controller, model, topicKey, getRef } = props;
 
-  const exportTo = (type: 'PNG' | 'JPG' | 'SVG') => () => {
+  const exportTo = (type: 'png' | 'jpg' | 'svg') => () => {
     const options = {
       backgroundColor: model.config.theme.background
     };
@@ -25,13 +24,13 @@ export function ContextMenuExportTopic(props: BaseProps) {
         ? getRef(RefKey.NODE_LAYER + model.id)
         : getRef(topicWidgetRootRefKey(topicKey));
     switch (type) {
-      case 'PNG':
-      case 'JPG':
+      case 'png':
+      case 'jpg':
         toBlob(topicWidgetEle, options).then(blob => {
           saveAs(blob, `${title}.${type}`);
         });
         break;
-      case 'SVG':
+      case 'svg':
         toSvgDataURL(topicWidgetEle, options).then(dataUrl => {
           saveAs(dataUrl, `${title}.svg`);
         });
@@ -41,13 +40,12 @@ export function ContextMenuExportTopic(props: BaseProps) {
 
   return (
     <MenuItem
-      key={EXT_KEY_EXPORT_TOPIC}
       icon={Icon(IconName.EXPORT)}
       text={getI18nText(props, I18nKey.EXPORT)}
     >
-      <MenuItem text="PNG" onClick={exportTo('PNG')} />
-      <MenuItem text="JPG" onClick={exportTo('JPG')} />
-      <MenuItem text="SVG" onClick={exportTo('SVG')} />
+      <MenuItem text="PNG" onClick={exportTo('png')} />
+      <MenuItem text="JPG" onClick={exportTo('jpg')} />
+      <MenuItem text="SVG" onClick={exportTo('svg')} />
     </MenuItem>
   );
 }

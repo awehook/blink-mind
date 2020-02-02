@@ -6,14 +6,15 @@ export const theme1: ThemeType = {
   background: 'rgb(250,245,205)',
   highlightColor: '#50C9CE',
   marginH: 50,
-  marginV: 30,
+  marginV: 5,
 
   contentStyle: {
     lineHeight: '1.5'
   },
 
   linkStyle: {
-    lineRadius: 5
+    lineRadius: 5,
+    lineType: 'curve'
   },
   rootTopic: {
     contentStyle: {
@@ -37,7 +38,7 @@ export const theme1: ThemeType = {
       borderColor: 'rgb(221, 170, 68)',
       borderRadius: '5px',
       fontSize: '17px',
-      padding: '10px 15px 10px 15px'
+      padding: '0px 5px'
     },
     subLinkStyle: {
       lineType: 'curve',
@@ -49,11 +50,13 @@ export const theme1: ThemeType = {
   normalTopic: {
     contentStyle: {
       background: '#fff',
-      border: '1px solid #e8eaec',
+      borderWidth: "1px",
+      borderStyle: 'solid',
+      borderColor: '#e8eaec',
       borderRadius: '20px',
       color: 'rgb(187, 136, 34)',
       fontSize: '13px',
-      padding: '4px 10px'
+      padding: '0'
     },
     subLinkStyle: {
       lineType: 'round',

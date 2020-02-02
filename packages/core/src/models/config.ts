@@ -12,7 +12,7 @@ type ConfigRecordType = {
 const defaultConfigRecord: ConfigRecordType = {
   readOnly: false,
   allowUndo: true,
-  layoutDir: DiagramLayoutType.LEFT_AND_RIGHT,
+  layoutDir: DiagramLayoutType.LEFT_TO_RIGHT,
   theme: defaultTheme
 };
 
