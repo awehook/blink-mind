@@ -17,6 +17,7 @@ import { DefaultPlugin } from '../plugins';
 import './diagram.css';
 const log = debug('node:Diagram');
 
+// controller 可以为空
 interface Props {
   docModel: DocModel | null | undefined;
   onChange?: OnChangeFunction;
@@ -57,7 +58,9 @@ export class Diagram extends React.Component<Props> implements IDiagram {
     else this.resolveController(plugins, DefaultPlugin);
     let { docModel } = this.props;
     if (!docModel) {
-      docModel = this.controller.run('createNewDocModel');
+      docModel = this.controller.run('createNewDocModel', {
+        controller: this.controller
+      });
     }
     this.diagramProps = {
       ...this.props,

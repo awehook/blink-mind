@@ -5,7 +5,8 @@ import {
   getI18nText,
   I18nKey,
   Icon,
-  IconName
+  IconName,
+  ZIndex
 } from '@blink-mind/renderer-react';
 import { Alert, Classes, Position, Tooltip } from '@blueprintjs/core';
 import * as React from 'react';
@@ -13,9 +14,9 @@ import styled from 'styled-components';
 import { Topology } from 'topology-core';
 import { BLOCK_TYPE_TOPOLOGY, REF_KEY_TOPOLOGY_DIAGRAM } from './utils';
 
-const Root = styled.div`
+const Root = styled(ZIndex)`
   position: absolute;
-  background: white;
+  //background: white;
   right: 30px;
   bottom: 20px;
   border-radius: 2px;

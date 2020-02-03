@@ -1,4 +1,5 @@
 import { IControllerRunContext } from '@blink-mind/core';
+import { Classes } from '@blueprintjs/core';
 
 export function ThemePlugin() {
   return {
@@ -21,6 +22,23 @@ export function ThemePlugin() {
           contentStyle: { ...contentStyle, ...normalTopic.contentStyle }
         }
       };
+    },
+
+    setDarkMode(ctx) {
+      const { darkMode } = ctx;
+      if (darkMode) {
+        if (!document.body.classList.contains(Classes.DARK)) {
+          document.body.classList.add(Classes.DARK);
+        }
+      } else {
+        if (document.body.classList.contains(Classes.DARK)) {
+          document.body.classList.remove(Classes.DARK);
+        }
+      }
+    },
+
+    toggleDarkMode(ctx){
+      document.body.classList.toggle(Classes.DARK);
     }
   };
 }

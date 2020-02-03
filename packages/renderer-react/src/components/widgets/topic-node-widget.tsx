@@ -3,7 +3,13 @@ import { ContextMenuTarget } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import {collapseRefKey, contentRefKey, PropKey, topicNodeRefKey} from '../../utils';
+import {
+  collapseRefKey,
+  contentRefKey,
+  PropKey,
+  setColorAlphaPercent,
+  topicNodeRefKey
+} from '../../utils';
 import { BaseProps, BaseWidget } from '../common';
 
 const log = debug('node:topic-node-widget');
@@ -23,6 +29,12 @@ const TopicNodeRoot = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  outline-offset: 2px;
+  outline: ${props =>
+    props.isFocus && `solid 2px ${props.theme.highlightColor}`};
+  &:hover {
+    outline: ${props => !props.isFocus && `solid 2px  ${props.outlineColor}`};
+  }
 `;
 
 interface Props extends BaseProps {
@@ -181,7 +193,13 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
       ...props,
       dropDir: 'next'
     });
+    const outlineColor = setColorAlphaPercent(
+      model.config.theme.highlightColor,
+      0.6
+    );
     const columnProps = {
+      isFocus: topicKey === model.focusKey,
+      outlineColor,
       style: topicStyle,
       draggable,
       ref: saveRef(contentRefKey(topicKey)),

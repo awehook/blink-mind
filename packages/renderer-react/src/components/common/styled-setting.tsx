@@ -1,3 +1,4 @@
+import {Colors} from "@blueprintjs/core";
 import styled from 'styled-components';
 
 export const SettingTitle = styled.div`
@@ -13,8 +14,15 @@ export const SettingItem = styled.span`
 export const SettingBoxContainer = styled.div`
   padding: 10px;
   margin: 0 0 10px 0;
-  border: rgba(16, 22, 26, 0.15) solid 1px;
+  //border: rgba(16, 22, 26, 0.15) solid 1px;
   border-radius: 5px;
+  
+  background: ${Colors.LIGHT_GRAY5};
+  
+  .bp3-dark & {
+    //border-color: ${Colors.LIGHT_GRAY3};
+    background: ${Colors.DARK_GRAY5};
+  }
 `;
 
 export const SettingLabel = styled(SettingItem)``;

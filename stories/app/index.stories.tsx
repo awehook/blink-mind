@@ -19,6 +19,7 @@ import {
   ToolbarItem,
   ElementItemConfigs
 } from '@blink-mind/renderer-react';
+import { Classes } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -82,6 +83,7 @@ const plugins = [
 class AppDemo extends BaseDemo {
   constructor(props) {
     super(props);
+    document.body.classList.add(Classes.DARK);
   }
 
   initModel() {

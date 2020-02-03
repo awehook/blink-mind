@@ -78,14 +78,10 @@ export function LayoutPlugin() {
       const links = getRef(
         linksRefKey(model.editorRootTopicKey)
       ) as RootSubLinks;
-      const highlight = getRef(
-        RefKey.FOCUS_HIGHLIGHT_KEY + model.id
-      ) as TopicHighlight;
       const dropEffect = getRef(
         RefKey.DROP_EFFECT_KEY + model.id
       ) as TopicDropEffect;
       links && links.layout();
-      highlight && highlight.layout();
       dropEffect && dropEffect.layout();
 
       const editorRootTopic = model.getTopic(model.editorRootTopicKey);

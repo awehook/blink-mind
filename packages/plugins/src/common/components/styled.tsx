@@ -1,3 +1,4 @@
+import { COLORS } from '@blink-mind/renderer-react';
 import { Popover } from '@blueprintjs/core';
 import styled from 'styled-components';
 export const TopicTitle = styled.div`
@@ -7,7 +8,12 @@ export const TopicTitle = styled.div`
   font-size: 16px;
   cursor: pointer;
   &:hover {
-    background: #e3e8ec;
+    background: ${COLORS.LIGHT_HIGHLIGHT_BG};
+  }
+  .bp3-dark & {
+    &:hover {
+      background: ${COLORS.DARK_HIGHLIGHT_BG};
+    }
   }
 `;
 

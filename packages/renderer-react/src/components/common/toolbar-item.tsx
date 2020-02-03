@@ -8,7 +8,7 @@ export const ToolbarItemRoot = styled.div`
   width: 40px;
   height: 40px;
   cursor: pointer;
-  color: ${props => (props.disabled ? 'grey' : 'black')};
+  color: ${props => (props.disabled ? 'grey' : null)};
   font-size: 24px;
   display: inline-block;
   &:hover {

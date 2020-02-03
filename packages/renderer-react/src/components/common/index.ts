@@ -3,6 +3,7 @@ export * from './drag-scroll-widget';
 export * from './save-ref';
 export * from './styled';
 export * from './styled-setting';
+export * from './styled-bp';
 export * from './setting-item';
 export * from './toolbar-item';
 export * from './rename-dialog';

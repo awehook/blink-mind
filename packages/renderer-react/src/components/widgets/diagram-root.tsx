@@ -5,6 +5,7 @@ import { Tab, TabList, TabPanel, Tabs } from '@slim-ui/react-tabs';
 import '@slim-ui/react-tabs/style/react-tabs.css';
 import * as React from 'react';
 import styled from 'styled-components';
+import { GlobalStyle } from '../common';
 import { CanvasTitle } from './canvas';
 import './diagram-root.css';
 
@@ -107,6 +108,7 @@ export function DiagramRoot(props) {
   }
   return (
     <Root>
+      <GlobalStyle />
       {controller.run('renderToolbar', { ...props, model })}
       {child}
     </Root>

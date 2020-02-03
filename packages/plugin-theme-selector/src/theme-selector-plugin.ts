@@ -41,6 +41,13 @@ export function ThemeSelectorPlugin() {
         opType: OpType.SET_THEME,
         theme: allThemes.get(themeKey)
       });
+    },
+    createNewCanvasModel(ctx, next) {
+      const { controller, themeKey = 'default' } = ctx;
+      const theme = controller.run('getTheme', { ...ctx, themeKey });
+      let model: CanvasModel = next();
+      model = model.setIn(['config', 'theme'], theme);
+      return model;
     }
   };
 }

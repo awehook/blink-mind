@@ -1,6 +1,8 @@
-import { Checkbox } from '@blueprintjs/core';
+import { Card, Checkbox } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { COLORS } from '../../utils';
+
+
 
 export const Flex = styled.div`
   display: flex;
@@ -54,6 +56,9 @@ export const TopicBlockIcon = styled.span`
 
 export const ZIndex = styled.div`
   z-index: ${props => props.zIndex};
+  .bp3-dark & {
+    background-color: ${COLORS.DARK_CARD_BG};
+  }
 `;
 
 export const PanelTabRoot = styled.div`

@@ -194,16 +194,6 @@ export function RenderingPlugin() {
       return <RootSubLinks ref={saveRef(linksRefKey(topicKey))} {...props} />;
     },
 
-    renderFocusItemHighlight(props) {
-      const { saveRef, model } = props;
-      return (
-        <TopicHighlight
-          ref={saveRef(RefKey.FOCUS_HIGHLIGHT_KEY + model.id)}
-          {...props}
-        />
-      );
-    },
-
     renderRootWidgetOtherChildren(props) {
       const { controller } = props;
       const zoomFactor = controller.run('getZoomFactor', props);
@@ -211,7 +201,6 @@ export function RenderingPlugin() {
       return (
         <>
           {controller.run('renderRootSubLinks', props)}
-          {controller.run('renderFocusItemHighlight', props)}
           {controller.run('renderDragAndDropEffect', props)}
         </>
       );
