@@ -1,8 +1,8 @@
 import {
-  stopPropagation,
   getI18nText,
   I18nKey,
-  Icon
+  Icon,
+  stopPropagation
 } from '@blink-mind/renderer-react';
 import { Drawer } from '@blueprintjs/core';
 import * as React from 'react';

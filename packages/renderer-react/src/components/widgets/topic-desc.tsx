@@ -3,7 +3,7 @@ import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
-import { stopPropagation, iconClassName, IconName, RefKey } from '../../utils';
+import { iconClassName, IconName, RefKey, stopPropagation } from '../../utils';
 import { TopicBlockIcon } from '../common/styled';
 
 const log = debug('node:topic-desc');

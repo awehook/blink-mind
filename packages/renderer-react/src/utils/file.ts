@@ -21,12 +21,15 @@ export function browserOpenFile(accept: string): Promise<any> {
       const file = evt.target.files[0];
       const fr = new FileReader();
 
-      fr.onload = (evt: ProgressEvent<FileReader>) => {
-        const txt = evt.target.result;
+
+      fr.onload = (evt: ProgressEvent) => {
         //@ts-ignore
+        const txt = evt.target.result;
         resolve(txt);
       };
-      fr.onerror = (evt: ProgressEvent<FileReader>) => {
+
+      fr.onerror = (evt: ProgressEvent) => {
+        //@ts-ignore
         reject(evt.target.error);
       };
       fr.readAsText(file);

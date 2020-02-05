@@ -1,9 +1,9 @@
 import { FocusMode } from '@blink-mind/core';
 import {
   BaseProps,
-  stopPropagation,
   getI18nText,
-  I18nKey
+  I18nKey,
+  stopPropagation
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';

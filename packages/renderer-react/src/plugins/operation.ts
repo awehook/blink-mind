@@ -1,10 +1,10 @@
 import {
-  DocModel,
   CanvasModelModifier,
-  toDocModelModifierFunc as _t,
+  DocModel,
+  DocModelModifier,
   getAllSubTopicKeys,
   OpType,
-  DocModelModifier
+  toDocModelModifierFunc as _t
 } from '@blink-mind/core';
 import debug from 'debug';
 import { List, Stack } from 'immutable';

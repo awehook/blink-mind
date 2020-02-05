@@ -1,8 +1,8 @@
 import {
+  ElementItemConfigs,
   iconClassName,
   IconName,
-  ToolbarItem,
-  ElementItemConfigs
+  ToolbarItem
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
 
