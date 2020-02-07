@@ -1,8 +1,8 @@
 import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
-import { ThemeSelectorPlugin } from '@blink-mind/plugin-theme-selector';
 import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import {
+  ThemeSelectorPlugin,
   InsertImagesPlugin,
   ExportFilePlugin,
   ExportTopicPlugin,

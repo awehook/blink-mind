@@ -1,6 +1,8 @@
 import {
   BaseProps,
-  COLORS, getI18nText, I18nKey,
+  COLORS,
+  getI18nText,
+  I18nKey,
   iconClassName,
   IconName,
   OutsideClickHandler,
@@ -34,7 +36,7 @@ const ResizeIcon = styled.div`
   width: 10px;
   height: 10px;
   cursor: nesw-resize;
-  background: fuchsia;
+  background: ${props => props.theme.highlightColor};
 `;
 
 const ResizeImg = styled.img`
@@ -49,7 +51,8 @@ const Img = styled.img`
   display: block;
   outline-offset: 2px;
   resize: both;
-  outline: ${props => props.toolbarVisible && 'solid 1px fuchsia'};
+  outline: ${props =>
+    props.toolbarVisible && `solid 1px ${props.theme.highlightColor}`};
 `;
 
 const EditButtons = styled.div`

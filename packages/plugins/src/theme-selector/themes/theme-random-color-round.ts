@@ -9,7 +9,8 @@ export const themeRandomColorRound: ThemeType = {
   marginV: 20,
 
   contentStyle: {
-    lineHeight: '1.5'
+    lineHeight: '1.5',
+    color: '#262626',
   },
 
   linkStyle: {
