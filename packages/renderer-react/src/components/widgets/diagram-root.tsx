@@ -18,7 +18,7 @@ const Root = styled.div`
 const TabsContainer = styled.div`
   width: 100%;
   //height: 100%;
-  overflow: auto;
+  //overflow: auto;
   flex-grow: 1;
   background: ${props => props.theme.background};
   position: relative;

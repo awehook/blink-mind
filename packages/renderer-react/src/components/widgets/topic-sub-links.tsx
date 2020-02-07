@@ -1,4 +1,4 @@
-import { TopicDirection } from '@blink-mind/core';
+import { TopicDirection, LinkStyle } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
 import {
@@ -44,40 +44,46 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
     const content = getRef(contentRefKey(topicKey));
     const svg = getRef(linksSvgRefKey(topicKey));
     const collapseIcon = getRef(collapseRefKey(topicKey));
-    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY+model.id).bigView;
+    const bigView = getRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id).bigView;
     const svgRect = getRelativeRect(svg, bigView, z);
     const collapseRect = getRelativeRect(collapseIcon, bigView, z);
     const contentRect = getRelativeRect(content, bigView, z);
+    const mLinkStyle: LinkStyle = controller.run('getLinkStyle', props);
     log(topicKey);
     log('svgRect', svgRect);
     log('collapseRect', collapseRect);
     log('contentRect', contentRect);
-    let p1: Point, p2: Point, p3: Point;
+    let p1: Point, p2: Point, p3: Point, p4: Point;
 
+    // p2 折叠icon 右侧10个像素
+    const marginCollapseIcon = 10;
+    let y =
+      (mLinkStyle.hasUnderline ? contentRect.bottom : centerY(contentRect)) -
+      svgRect.top;
     if (dir === TopicDirection.RIGHT) {
       p1 = {
         x: 0,
-        y: centerY(contentRect) - svgRect.top
+        y
       };
       p2 = {
-        x: collapseRect.right - svgRect.left + 10,
-        y: p1.y
+        x: collapseRect.right - svgRect.left + marginCollapseIcon,
+        y
       };
     } else if (dir === TopicDirection.LEFT) {
       p1 = {
         x: svgRect.right - svgRect.left,
-        y: centerY(contentRect) - svgRect.top
+        y
       };
       p2 = {
-        x: collapseRect.left - svgRect.left - 10,
-        y: p1.y
+        x: collapseRect.left - svgRect.left - marginCollapseIcon,
+        y
       };
     }
     const curves = [];
 
     topic.subKeys.forEach(key => {
       let curve;
-      const linkStyle = controller.run('getLinkStyle', {
+      const linkStyle: LinkStyle = controller.run('getLinkStyle', {
         ...props,
         topicKey: key
       });
@@ -86,18 +92,20 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
       if (!subContent) return;
       const rect = getRelativeRect(subContent, bigView, z);
 
-      if (dir === TopicDirection.RIGHT) {
-        p3 = {
-          x: rect.left - svgRect.left,
-          y: centerY(rect) - svgRect.top
-        };
-      }
-      if (dir === TopicDirection.LEFT) {
-        p3 = {
-          x: rect.right - svgRect.left,
-          y: centerY(rect) - svgRect.top
-        };
-      }
+      y = (linkStyle.hasUnderline ? rect.bottom : centerY(rect)) - svgRect.top;
+      const x =
+        (dir === TopicDirection.RIGHT ? rect.left : rect.right) - svgRect.left;
+      p3 = { x, y };
+
+      p4 = linkStyle.hasUnderline
+        ? {
+            x:
+              (dir === TopicDirection.RIGHT ? rect.right : rect.left) -
+              svgRect.left,
+            y: p3.y
+          }
+        : p3;
+
       const { lineType } = linkStyle;
 
       if (lineType === 'curve') {
@@ -110,7 +118,7 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         const hDir = p3.x > p1.x ? 1 : -1;
         const radius = linkStyle.lineRadius;
         // if (p3.y === p1.y) { //这样判断不可靠
-        if (topic.subKeys.size === 1 || Math.abs(p3.y - p1.y) <= 1) {
+        if ((!linkStyle.hasUnderline && topic.subKeys.size === 1) || Math.abs(p3.y - p1.y) <= 1) {
           curve = `M ${p1.x} ${p1.y} L ${p3.x} ${p3.y}`;
         } else {
           // 0 表示逆时针 1 表示顺时针
@@ -122,6 +130,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
       } else if (lineType === 'line') {
         curve = `M ${p1.x} ${p1.y} H ${p2.x} L ${p3.x} ${p3.y}`;
       }
+
+      curve = `${curve} L ${p4.x} ${p4.y}`;
 
       curves.push(
         <path

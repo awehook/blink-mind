@@ -178,21 +178,6 @@ export function RenderingPlugin() {
       return <TopicDesc {...props} />;
     },
 
-    renderSubLinks(props) {
-      const { saveRef, topicKey, model } = props;
-      const topic = model.getTopic(topicKey);
-      if (topic.subKeys.size === 0 || topic.collapse) return null;
-      return <TopicSubLinks ref={saveRef(linksRefKey(topicKey))} {...props} />;
-    },
-
-    renderRootSubLinks(props) {
-      // log('renderRootSubLinks');
-      const { saveRef, topicKey } = props;
-      // 这里逻辑有问题,会导致layout 错误
-      // const topic = model.getTopic(topicKey);
-      // if (topic.subKeys.size === 0) return null;
-      return <RootSubLinks ref={saveRef(linksRefKey(topicKey))} {...props} />;
-    },
 
     renderRootWidgetOtherChildren(props) {
       const { controller } = props;

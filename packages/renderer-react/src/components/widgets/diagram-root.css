@@ -12,6 +12,10 @@
   margin: 0;
 }
 
+.tab-list .react-tabs__tab::after {
+  height: 0;
+}
+
 /*TODO*/
 .tab {
   padding: 0 12px !important;

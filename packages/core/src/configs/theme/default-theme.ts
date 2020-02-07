@@ -40,6 +40,7 @@ export const defaultTheme: ThemeType = {
     },
 
     subLinkStyle: {
+      hasUnderline: true,
       lineType: 'round'
     }
   },
@@ -47,13 +48,14 @@ export const defaultTheme: ThemeType = {
   normalTopic: {
     contentStyle: {
       borderRadius: '5px',
-      background: '#fff',
+      background: '#fff0',
       color: '#383833',
       fontSize: '13px',
       padding: '1px'
     },
 
     subLinkStyle: {
+      hasUnderline: true,
       lineType: 'round'
     }
   }

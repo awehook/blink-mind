@@ -1,5 +1,7 @@
+export type LinkLineType = 'line' | 'curve' | 'round';
 export type LinkStyle = {
   lineType?: string;
+  hasUnderline?: boolean;
   lineWidth?: string;
   lineColor?: string;
   lineRadius?: number;

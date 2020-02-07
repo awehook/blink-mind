@@ -4,6 +4,7 @@ import { DragAndDropPlugin } from './drag-and-drop';
 import { RenderingPlugin } from './rendering';
 import { RightTopPanelPlugin } from './right-top-panel-plugin';
 import { ToolbarPlugin } from './toolbar';
+import { LinkLinePlugin } from './link-line';
 import { UtilsPlugin } from './utils';
 
 export function ReactPlugin(options = {}) {
@@ -14,6 +15,7 @@ export function ReactPlugin(options = {}) {
     RightTopPanelPlugin(),
     ToolbarPlugin(),
     DragAndDropPlugin(),
-    CanvasPlugin()
+    CanvasPlugin(),
+    LinkLinePlugin()
   ];
 }

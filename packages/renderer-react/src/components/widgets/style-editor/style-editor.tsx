@@ -64,7 +64,7 @@ export function StyleEditor(props: BaseProps) {
   );
 
   const linkStyle: LinkStyle = controller.run('getLinkStyle', props);
-  const subLinkStyle: LinkStyle = controller.run('getSubLinkStyle', props);
+  const subLinkStyle: LinkStyle = controller.run('getSubLinksStyle', props);
   const setLinkStyle = linkStyle => {
     controller.run('setLinkStyle', {
       ...props,

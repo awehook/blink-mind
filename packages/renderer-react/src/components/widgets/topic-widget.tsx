@@ -18,7 +18,7 @@ type TopicWidgetRootProps = {
 
 const TopicWidgetRoot = styled.div<TopicWidgetRootProps>`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-direction: ${props =>
     props.topicDirection === TopicDirection.RIGHT ? 'row' : 'row-reverse'};
 `;
@@ -37,15 +37,13 @@ const NodeChildren = styled.div<NodeChildrenProps>`
       : `0 ${props.marginH}px 0 0`};
 `;
 
-
 interface Props extends BaseProps {
   setViewBoxScroll?: (left: number, top: number) => void;
   setViewBoxScrollDelta?: (left: number, top: number) => void;
 }
 
 export class TopicWidget extends React.Component<Props> {
-  renderSubTopics() {
-    const props = this.props;
+  renderSubTopics(props) {
     const { controller, model, topicKey, dir } = props;
     const topics = model.getTopic(topicKey).subKeys.toArray();
     const res = controller.run('createSubTopics', { ...props, topics });
@@ -81,16 +79,21 @@ export class TopicWidget extends React.Component<Props> {
     const { controller, topicKey, dir, saveRef } = props;
     log('render', topicKey);
     const topicStyle = controller.run('getTopicContentStyle', props);
+    const linkStyle = controller.run('getLinkStyle', props);
     const propsMore = {
       ...props,
-      topicStyle
+      topicStyle,
+      linkStyle
     };
     const topicNode = controller.run('renderTopicNode', propsMore);
 
     return (
-      <TopicWidgetRoot topicDirection={dir} ref={saveRef(topicWidgetRootRefKey(topicKey))}>
+      <TopicWidgetRoot
+        topicDirection={dir}
+        ref={saveRef(topicWidgetRootRefKey(topicKey))}
+      >
         {topicNode}
-        {this.renderSubTopics()}
+        {this.renderSubTopics(propsMore)}
       </TopicWidgetRoot>
     );
   }

@@ -6,7 +6,8 @@ import { collapseRefKey } from '../../utils';
 
 const Icon = styled.div`
   position: absolute;
-  top: calc(50% - 8px);
+  top: ${props =>
+    props.hasUnderline ? 'calc(100% - 8px)' : 'calc(50% - 8px)'};
   ${({ dir }) => {
     if (dir === TopicDirection.RIGHT)
       return css`
@@ -39,7 +40,15 @@ const Icon = styled.div`
 `;
 
 export function TopicCollapseIcon(props) {
-  const { model, topicKey, topicStyle, dir, saveRef, onClickCollapse } = props;
+  const {
+    model,
+    topicKey,
+    dir,
+    saveRef,
+    onClickCollapse,
+    linkStyle
+  } = props;
+  const hasUnderline = linkStyle.hasUnderline;
   const topic = model.getTopic(topicKey);
   return topic.subKeys.size > 0 ? (
     <Icon
@@ -47,6 +56,7 @@ export function TopicCollapseIcon(props) {
       onClick={onClickCollapse}
       // background={topicStyle.background}
       dir={dir}
+      hasUnderline={hasUnderline}
       className={cx({
         icon: true,
         iconfont: true,

@@ -23,6 +23,13 @@ const TopicNodeRow = styled.div`
 `;
 
 const TopicNodeRoot = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+`;
+
+const ColumnParent = styled.div`
   position: relative;
 `;
 
@@ -83,6 +90,7 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
   };
 
   onPaste = ev => {
+    log('onPaste');
     this.run('handleTopicPaste', { ...this.props, ev });
   };
 
@@ -217,11 +225,13 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
     return (
       <TopicNodeRoot ref={saveRef(topicNodeRefKey(topicKey))}>
         {prevDropArea}
-        <Column {...columnProps}>
-          {controller.run('renderTopicNodeRows', props)}
-        </Column>
+        <ColumnParent>
+          <Column {...columnProps}>
+            {controller.run('renderTopicNodeRows', props)}
+          </Column>
+          {dir !== TopicDirection.MAIN && collapseIcon}
+        </ColumnParent>
         {nextDropArea}
-        {dir !== TopicDirection.MAIN && collapseIcon}
       </TopicNodeRoot>
     );
   }

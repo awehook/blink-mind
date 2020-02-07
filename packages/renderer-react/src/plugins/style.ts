@@ -19,7 +19,7 @@ export function StylePlugin() {
       return {
         contentStyle: controller.run('getTopicContentStyle', props),
         linkStyle: controller.run('getLinkStyle', props),
-        subLinkStyle: controller.run('getSubLinkStyle', props)
+        subLinkStyle: controller.run('getSubLinksStyle', props)
       };
     },
 
@@ -79,7 +79,7 @@ export function StylePlugin() {
       const topic = model.getTopic(topicKey);
 
       if (topic.parentKey != null) {
-        const parentSubLinkStyle = controller.run('getSubLinkStyle', {
+        const parentSubLinkStyle = controller.run('getSubLinksStyle', {
           ...props,
           topicKey: topic.parentKey
         });
@@ -101,7 +101,7 @@ export function StylePlugin() {
       };
     },
 
-    getSubLinkStyle(props): LinkStyle {
+    getSubLinksStyle(props): LinkStyle {
       const { topicKey, model, controller } = props;
       log('getLinkStyle', topicKey);
       const visualLevel = model.getTopicVisualLevel(topicKey);
