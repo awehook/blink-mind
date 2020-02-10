@@ -3,18 +3,18 @@ import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { getI18nText, I18nKey } from '../../../utils';
 
-export function ToolbarItemAddCanvas(props) {
+export function ToolbarItemAddSheet(props) {
   const { controller } = props;
   const onClick = () => {
-    const model = controller.run('createNewCanvasModel', props);
+    const model = controller.run('createNewSheetModel', props);
     controller.run('operation', {
       ...props,
-      opType: OpType.ADD_CANVAS,
+      opType: OpType.ADD_SHEET,
       model
     });
   };
 
   return (
-    <MenuItem text={getI18nText(props, I18nKey.ADD_CANVAS)} onClick={onClick} />
+    <MenuItem text={getI18nText(props, I18nKey.ADD_SHEET)} onClick={onClick} />
   );
 }

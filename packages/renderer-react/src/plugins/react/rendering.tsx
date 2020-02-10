@@ -3,7 +3,7 @@ import debug from 'debug';
 import * as React from 'react';
 import { SaveRef } from '../../components/common';
 import {
-  Canvas,
+  MindMapSheet,
   DiagramRoot,
   DialogWidget,
   EditorRootBreadcrumbs,
@@ -22,6 +22,7 @@ import {
 import { linksRefKey, PropKey, RefKey } from '../../utils';
 import { renderDrawer } from './drawer';
 import Theme from './theme';
+import { ViewModeMindMap } from '../../../../core/src/types';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {
@@ -48,19 +49,21 @@ export function RenderingPlugin() {
       );
     },
 
-    renderCanvas(props) {
-      return React.createElement(Canvas, props);
+    renderSheet(props) {
+      const { model } = props;
+      if (model.config.viewMode === ViewModeMindMap)
+        return React.createElement(MindMapSheet, props);
     },
 
     renderDrawer,
 
-    getInitialCanvasState(props) {
+    getInitialSheetState(props) {
       return {
         rightTopPanel: { isOpen: false, selectedTabId: 'topic-style' }
       };
     },
 
-    renderCanvasCustomize(props) {
+    renderSheetCustomize(props) {
       const { controller, model } = props;
       const zIndex = controller.getValue(
         PropKey.DIAGRAM_CUSTOMIZE_BASE_Z_INDEX
@@ -177,7 +180,6 @@ export function RenderingPlugin() {
     renderTopicBlockDesc(props) {
       return <TopicDesc {...props} />;
     },
-
 
     renderRootWidgetOtherChildren(props) {
       const { controller } = props;

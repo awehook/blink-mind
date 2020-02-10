@@ -1,25 +1,25 @@
 import { List, Record } from 'immutable';
-import { CanvasModel } from './canvas-model';
+import { SheetModel } from './sheet-model';
 
 type DocRecordType = {
-  canvasModels: List<CanvasModel>;
-  currentCanvasIndex: number;
+  sheetModels: List<SheetModel>;
+  currentSheetIndex: number;
   formatVersion: string;
 };
 
 const defaultDocRecord: DocRecordType = {
-  canvasModels: List(),
-  currentCanvasIndex: -1,
+  sheetModels: List(),
+  currentSheetIndex: -1,
   formatVersion: '0.1'
 };
 
 export class DocModel extends Record(defaultDocRecord) {
-  get canvasModels(): List<CanvasModel> {
-    return this.get('canvasModels');
+  get sheetModels(): List<SheetModel> {
+    return this.get('sheetModels');
   }
 
-  get currentCanvasIndex(): number {
-    return this.get('currentCanvasIndex');
+  get currentSheetIndex(): number {
+    return this.get('currentSheetIndex');
   }
 
   get formatVersion(): string {
@@ -28,12 +28,12 @@ export class DocModel extends Record(defaultDocRecord) {
 
   static createEmpty() {
     return new DocModel({
-      canvasModels: List([CanvasModel.createEmpty()]),
-      currentCanvasIndex: 0
+      sheetModels: List([SheetModel.createEmpty()]),
+      currentSheetIndex: 0
     });
   }
 
-  get currentCanvasModel(): CanvasModel {
-    return this.canvasModels.get(this.currentCanvasIndex);
+  get currentSheetModel(): SheetModel {
+    return this.sheetModels.get(this.currentSheetIndex);
   }
 }

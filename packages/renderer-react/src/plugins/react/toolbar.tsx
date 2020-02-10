@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
   Toolbar,
-  ToolbarItemAddCanvas,
+  ToolbarItemAddSheet,
   ToolbarItemLayout,
   ToolbarItemMore
 } from '../../components/widgets';
-
+import debug from 'debug';
 import { ElementItemConfigs } from '../../types';
+const log = debug('plugin:toolbar');
 
 export function ToolbarPlugin() {
   return {
@@ -22,6 +23,7 @@ export function ToolbarPlugin() {
       );
       //TODO 这里要判断 order不重复
       itemConfigs.sort((a, b) => a.order - b.order);
+      log(itemConfigs);
 
       return itemConfigs.map(item =>
         React.createElement(item.element, {
@@ -48,7 +50,7 @@ export function ToolbarPlugin() {
       return [
         {
           order: 10,
-          element: ToolbarItemAddCanvas
+          element: ToolbarItemAddSheet
         }
       ];
     }

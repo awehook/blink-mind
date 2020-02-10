@@ -1,12 +1,12 @@
 import {
-  BaseCanvasModelModifierArg,
-  CanvasModel,
-  CanvasModelModifier,
+  BaseSheetModelModifierArg,
+  SheetModel,
+  SheetModelModifier,
   DocModel,
   getAllSubTopicKeys,
   IControllerRunContext,
   OpType,
-  setCurrentCanvasModel,
+  setCurrentSheetModel,
   toDocModelModifierFunc
 } from '@blink-mind/core';
 import {
@@ -37,7 +37,7 @@ export function TopicReferencePlugin() {
   function startSetReferenceTopics({
     model,
     topicKey
-  }: BaseCanvasModelModifierArg) {
+  }: BaseSheetModelModifierArg) {
     const extData: ExtDataReference = model.getExtDataItem(
       EXT_DATA_KEY_TOPIC_REFERENCE,
       ExtDataReference
@@ -45,7 +45,7 @@ export function TopicReferencePlugin() {
 
     selectedTopicKeys = new Set(extData.getReferenceKeys(topicKey));
 
-    model = CanvasModelModifier.focusTopic({
+    model = SheetModelModifier.focusTopic({
       model,
       topicKey,
       focusMode: FOCUS_MODE_SET_REFERENCE_TOPICS
@@ -95,7 +95,7 @@ export function TopicReferencePlugin() {
 
     beforeOpFunction(props, next) {
       const docModel: DocModel = next();
-      let model = docModel.currentCanvasModel;
+      let model = docModel.currentSheetModel;
       const { opType, topicKey } = props;
       // 注意是在beforeOpFunction里面操作
       if (
@@ -132,10 +132,10 @@ export function TopicReferencePlugin() {
         model = model.setIn(['extData', EXT_DATA_KEY_TOPIC_REFERENCE], extData);
       }
 
-      return setCurrentCanvasModel(docModel, model);
+      return setCurrentSheetModel(docModel, model);
     },
 
-    renderCanvasCustomize(props: IControllerRunContext, next) {
+    renderSheetCustomize(props: IControllerRunContext, next) {
       const { model, controller } = props;
       const zIndex =
         controller.getValue(PropKey.DIAGRAM_CUSTOMIZE_BASE_Z_INDEX) + 2;

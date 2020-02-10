@@ -1,5 +1,5 @@
 {
-  "canvasModels": [
+  "sheetModels": [
     {
       "title": null,
       "rootTopicKey": "fd3a7f97-7410-453b-93b8-0cbce49ddedc",
@@ -339,6 +339,6 @@
       }
     }
   ],
-  "currentCanvasIndex": 0,
+  "currentSheetIndex": 0,
   "formatVersion": "0.1"
 }

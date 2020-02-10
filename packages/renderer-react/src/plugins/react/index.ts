@@ -1,4 +1,4 @@
-import { CanvasPlugin } from './canvas';
+import { SheetPlugin } from './sheet';
 import { ContextMenuPlugin } from './context-menu';
 import { DragAndDropPlugin } from './drag-and-drop';
 import { RenderingPlugin } from './rendering';
@@ -15,7 +15,7 @@ export function ReactPlugin(options = {}) {
     RightTopPanelPlugin(),
     ToolbarPlugin(),
     DragAndDropPlugin(),
-    CanvasPlugin(),
+    SheetPlugin(),
     LinkLinePlugin()
   ];
 }

@@ -1,4 +1,4 @@
-import {CanvasModel, DocModel} from '../models';
+import {SheetModel, DocModel} from '../models';
 
 export type KeyType = string;
 
@@ -17,6 +17,8 @@ export enum DiagramLayoutType {
   LEFT_AND_RIGHT,
   TOP_TO_BOTTOM
 }
+
+export const ViewModeMindMap = 'MindMap';
 
 export const TopicVisualLevel = {
   ROOT: 0,
@@ -52,11 +54,11 @@ export const TopicRelationship = {
 };
 
 export const OpType = {
-  ADD_CANVAS: 'ADD_CANVAS',
-  SET_CURRENT_CANVAS: 'SET_CURRENT_CANVAS',
-  DELETE_CANVAS: 'DELETE_CANVAS',
-  DUPLICATE_CANVAS: 'DUPLICATE_CANVAS',
-  SET_CANVAS_TITLE: 'SET_CANVAS_TITLE',
+  ADD_SHEET: 'ADD_SHEET',
+  SET_CURRENT_SHEET: 'SET_CURRENT_SHEET',
+  DELETE_SHEET: 'DELETE_SHEET',
+  DUPLICATE_SHEET: 'DUPLICATE_SHEET',
+  SET_SHEET_TITLE: 'SET_SHEET_TITLE',
 
   TOGGLE_COLLAPSE: 'TOGGLE_COLLAPSE',
   COLLAPSE_ALL: 'COLLAPSE_ALL',

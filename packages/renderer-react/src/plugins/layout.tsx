@@ -1,5 +1,5 @@
 import {
-  CanvasModel,
+  SheetModel,
   DiagramLayoutType,
   FocusMode,
   getRelationship,
@@ -28,7 +28,7 @@ import {
 
 export type GetPartTopicsArg = {
   layout: DiagramLayoutType;
-  model: CanvasModel;
+  model: SheetModel;
   topicKey: KeyType;
 };
 
@@ -159,7 +159,7 @@ export function LayoutPlugin() {
         docModel,
         moveDir = MoveTopicDir.LEFT_CENTER
       } = ctx;
-      const model = docModel.currentCanvasModel;
+      const model = docModel.currentSheetModel;
       if (
         model.editorRootTopicKey !== topicKey &&
         getRelationship(model, topicKey, model.editorRootTopicKey) !==

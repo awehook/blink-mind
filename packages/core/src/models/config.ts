@@ -1,8 +1,9 @@
 import { Record } from 'immutable';
 import { defaultTheme, ThemeType } from '../configs/theme';
-import { DiagramLayoutType } from '../types';
+import {DiagramLayoutType, ViewModeMindMap} from '../types';
 
-type ConfigRecordType = {
+export type ConfigRecordType = {
+  viewMode: string;
   readOnly?: boolean;
   allowUndo?: boolean;
   layoutDir?: DiagramLayoutType;
@@ -10,6 +11,7 @@ type ConfigRecordType = {
 };
 
 const defaultConfigRecord: ConfigRecordType = {
+  viewMode: ViewModeMindMap,
   readOnly: false,
   allowUndo: true,
   layoutDir: DiagramLayoutType.LEFT_TO_RIGHT,
@@ -17,6 +19,11 @@ const defaultConfigRecord: ConfigRecordType = {
 };
 
 export class Config extends Record(defaultConfigRecord) {
+
+  get viewMode(): string {
+    return  this.get('viewMode');
+  }
+
   get layoutDir(): DiagramLayoutType {
     return this.get('layoutDir');
   }

@@ -13,10 +13,10 @@ const Container = styled.div`
   background: ${props => props.theme.background};
   position: relative;
 `;
-export function Canvas(props) {
+export function MindMapSheet(props) {
   const { controller, saveRef, model } = props;
   const [diagramState, setDiagramState] = useState(
-    controller.run('getInitialCanvasState', props)
+    controller.run('getInitialSheetState', props)
   );
   const nProps = {
     ...props,
@@ -24,12 +24,10 @@ export function Canvas(props) {
     setDiagramState
   };
   return (
-    <Theme theme={model.config.theme}>
-      <Container ref={saveRef(RefKey.CANVAS_ROOT_KEY+model.id)}>
-        {/*{React.createElement(MindDragScrollWidget, nProps)}*/}
-        <MindDragScrollWidget {...nProps} />
-        {controller.run('renderCanvasCustomize', nProps)}
-      </Container>
-    </Theme>
+    <Container ref={saveRef(RefKey.SHEET_ROOT_KEY + model.id)}>
+      {/*{React.createElement(MindDragScrollWidget, nProps)}*/}
+      <MindDragScrollWidget {...nProps} />
+      {controller.run('renderSheetCustomize', nProps)}
+    </Container>
   );
 }

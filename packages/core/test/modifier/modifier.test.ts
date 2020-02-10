@@ -1,13 +1,13 @@
-import { CanvasModel, CanvasModelModifier } from '../../src';
+import { SheetModel, SheetModelModifier } from '../../src';
 import { getAllSubTopicKeys } from '../../src/models/utils';
 
-const { addChild, addSibling, toggleCollapse, deleteTopic } = CanvasModelModifier;
+const { addChild, addSibling, toggleCollapse, deleteTopic } = SheetModelModifier;
 
 describe('Modifier test', () => {
   beforeAll(() => {});
   beforeEach(() => {});
   it('addChild', () => {
-    let model = CanvasModel.create();
+    let model = SheetModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     let childKey = model.focusKey;
@@ -25,7 +25,7 @@ describe('Modifier test', () => {
   });
 
   it('addSibling', () => {
-    let model = CanvasModel.create();
+    let model = SheetModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     const key1 = model.focusKey;
@@ -39,7 +39,7 @@ describe('Modifier test', () => {
   });
 
   it('deleteTopic', () => {
-    let model = CanvasModel.create();
+    let model = SheetModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     model = addChild({ model, topicKey });
@@ -54,7 +54,7 @@ describe('Modifier test', () => {
   });
 
   it('toggleCollapse', () => {
-    let model = CanvasModel.create();
+    let model = SheetModel.create();
     const topicKey = model.rootTopicKey;
     model = addChild({ model, topicKey });
     const childKey = model.focusKey;

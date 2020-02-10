@@ -10,15 +10,17 @@ import {
 } from '../types';
 import { createKey } from '../utils';
 import { Block } from './block';
-import { CanvasModel } from './canvas-model';
+import { SheetModel } from './sheet-model';
 import { DocModel } from './doc-model';
 import { Topic } from './topic';
 import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
+import {Config} from "./index";
+import {ConfigRecordType} from "./config";
 
 const log = debug('modifier');
 
 type ModifierArg =
-  | BaseCanvasModelModifierArg
+  | BaseSheetModelModifierArg
   | SetTopicArg
   | SetBlockDataArg
   | SetFocusModeArg
@@ -27,51 +29,55 @@ type ModifierArg =
   | SetThemeArg
   | SetLayoutDirArg;
 
-export type BaseCanvasModelModifierArg = {
-  model: CanvasModel;
+export type BaseSheetModelModifierArg = {
+  model: SheetModel;
   topicKey?: KeyType;
 };
 
-type SetTopicArg = BaseCanvasModelModifierArg & {
+type SetTopicArg = BaseSheetModelModifierArg & {
   topic: Topic;
 };
 
-type SetBlockDataArg = BaseCanvasModelModifierArg & {
+type SetBlockDataArg = BaseSheetModelModifierArg & {
   blockType: string;
   data: any;
   focusMode?: string;
 };
 
-type DeleteBlockArg = BaseCanvasModelModifierArg & {
+type DeleteBlockArg = BaseSheetModelModifierArg & {
   blockType: string;
 };
 
-type SetFocusModeArg = BaseCanvasModelModifierArg & {
+type SetFocusModeArg = BaseSheetModelModifierArg & {
   focusMode: string;
 };
 
-type SetTopicStyleArg = BaseCanvasModelModifierArg & {
+type SetTopicStyleArg = BaseSheetModelModifierArg & {
   style: string;
 };
 
-type SetZoomFactorArg = BaseCanvasModelModifierArg & {
+type SetZoomFactorArg = BaseSheetModelModifierArg & {
   zoomFactor: number;
 };
 
-type SetThemeArg = BaseCanvasModelModifierArg & {
+type SetThemeArg = BaseSheetModelModifierArg & {
   theme: ThemeType;
 };
 
-type SetLayoutDirArg = BaseCanvasModelModifierArg & {
+type SetLayoutDirArg = BaseSheetModelModifierArg & {
   layoutDir: DiagramLayoutType;
 };
 
-export type CanvasModelModifierResult = CanvasModel;
+type SetConfigArg = BaseSheetModelModifierArg & {
+  // config: Pick<ConfigRecordType>
+}
+
+export type SheetModelModifierResult = SheetModel;
 
 function toggleCollapse({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   let topic = model.getTopic(topicKey);
   if (topic && topic.subKeys.size !== 0) {
     topic = topic.merge({
@@ -86,7 +92,7 @@ function toggleCollapse({
   return model;
 }
 
-function collapseAll({ model }: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+function collapseAll({ model }: BaseSheetModelModifierArg): SheetModelModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -102,7 +108,7 @@ function collapseAll({ model }: BaseCanvasModelModifierArg): CanvasModelModifier
   return model;
 }
 
-function expandAll({ model }: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+function expandAll({ model }: BaseSheetModelModifierArg): SheetModelModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -117,7 +123,7 @@ function expandAll({ model }: BaseCanvasModelModifierArg): CanvasModelModifierRe
 function expandTo({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   const keys = getKeyPath(model, topicKey).filter(t => t !== topicKey);
   model = model.withMutations(m => {
     keys.forEach(topicKey => {
@@ -138,14 +144,14 @@ function focusTopic({
   model,
   topicKey,
   focusMode
-}: SetFocusModeArg): CanvasModelModifierResult {
+}: SetFocusModeArg): SheetModelModifierResult {
   log('focus topic');
   if (topicKey !== model.focusKey) model = model.set('focusKey', topicKey);
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
 }
 
-function setFocusMode({ model, focusMode }: SetFocusModeArg): CanvasModelModifierResult {
+function setFocusMode({ model, focusMode }: SetFocusModeArg): SheetModelModifierResult {
   log('setFocusMode');
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
@@ -154,7 +160,7 @@ function setFocusMode({ model, focusMode }: SetFocusModeArg): CanvasModelModifie
 function addChild({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
   if (topic) {
@@ -177,7 +183,7 @@ function addChild({
 function addSibling({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   if (topicKey === model.rootTopicKey) return model;
   const topic = model.getTopic(topicKey);
   if (topic) {
@@ -201,7 +207,7 @@ function addSibling({
 function deleteTopic({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   if (topicKey === model.editorRootTopicKey) return model;
   const item = model.getTopic(topicKey);
   if (item) {
@@ -241,7 +247,7 @@ function setBlockData({
   blockType,
   focusMode,
   data
-}: SetBlockDataArg): CanvasModelModifierResult {
+}: SetBlockDataArg): SheetModelModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(blockType);
@@ -295,7 +301,7 @@ function setStyle({
   model,
   topicKey,
   style
-}: SetTopicStyleArg): CanvasModelModifierResult {
+}: SetTopicStyleArg): SheetModelModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     if (style !== topic.style) {
@@ -307,7 +313,7 @@ function setStyle({
 
 function clearAllCustomStyle({
   model
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   model = model.withMutations(model => {
     model.topics.keySeq().forEach(key => {
       model.setIn(['topics', key, 'style'], null);
@@ -316,21 +322,25 @@ function clearAllCustomStyle({
   return model;
 }
 
-function setTheme({ model, theme }: SetThemeArg): CanvasModelModifierResult {
+function setTheme({ model, theme }: SetThemeArg): SheetModelModifierResult {
   model = model.setIn(['config', 'theme'], theme);
   return model;
 }
 
-function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): CanvasModelModifierResult {
+function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): SheetModelModifierResult {
   if (model.config.layoutDir === layoutDir) return model;
   model = model.setIn(['config', 'layoutDir'], layoutDir);
   return model;
 }
 
+function setConfig({model,config}) {
+
+}
+
 function setEditorRootTopicKey({
   model,
   topicKey
-}: BaseCanvasModelModifierArg): CanvasModelModifierResult {
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   if (model.editorRootTopicKey !== topicKey)
     model = model.set('editorRootTopicKey', topicKey);
   if (model.getTopic(topicKey).collapse)
@@ -341,31 +351,31 @@ function setEditorRootTopicKey({
 function setZoomFactor({
   model,
   zoomFactor
-}: SetZoomFactorArg): CanvasModelModifierResult {
+}: SetZoomFactorArg): SheetModelModifierResult {
   if (model.zoomFactor !== zoomFactor)
     model = model.set('zoomFactor', zoomFactor);
   return model;
 }
 
-function startEditingContent({ model, topicKey }: BaseCanvasModelModifierArg) {
+function startEditingContent({ model, topicKey }: BaseSheetModelModifierArg) {
   return focusTopic({
     model,
     topicKey,
     focusMode: FocusMode.EDITING_CONTENT
   });
 }
-function startEditingDesc({ model, topicKey }: BaseCanvasModelModifierArg) {
+function startEditingDesc({ model, topicKey }: BaseSheetModelModifierArg) {
   const topic = model.getTopic(topicKey);
   const desc = topic.getBlock(BlockType.DESC);
   if (desc.block == null || desc.block.data == null) {
-    model = CanvasModelModifier.setBlockData({
+    model = SheetModelModifier.setBlockData({
       model,
       topicKey,
       blockType: BlockType.DESC,
       data: ''
     });
   }
-  model = CanvasModelModifier.focusTopic({
+  model = SheetModelModifier.focusTopic({
     model,
     topicKey,
     focusMode: FocusMode.EDITING_DESC
@@ -434,7 +444,7 @@ function dragAndDrop({ model, srcKey, dstKey, dropDir }) {
   return model;
 }
 
-export const CanvasModelModifier = {
+export const SheetModelModifier = {
   addChild,
   addSibling,
   toggleCollapse,

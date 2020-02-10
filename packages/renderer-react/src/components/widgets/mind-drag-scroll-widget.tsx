@@ -1,4 +1,4 @@
-import { CanvasModel, Controller, FocusMode } from '@blink-mind/core';
+import { SheetModel, Controller, FocusMode } from '@blink-mind/core';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ const DIV = styled.div`
 
 export interface MindDragScrollWidgetProps {
   controller: Controller;
-  model: CanvasModel;
+  model: SheetModel;
   saveRef?: Function;
   getRef?: Function;
 }

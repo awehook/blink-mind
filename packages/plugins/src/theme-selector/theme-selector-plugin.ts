@@ -1,4 +1,4 @@
-import { CanvasModel, defaultTheme, OpType, ThemeType } from '@blink-mind/core';
+import { SheetModel, defaultTheme, OpType, ThemeType } from '@blink-mind/core';
 import {
   theme1,
   theme2,
@@ -42,10 +42,10 @@ export function ThemeSelectorPlugin() {
         theme: allThemes.get(themeKey)
       });
     },
-    createNewCanvasModel(ctx, next) {
+    createNewSheetModel(ctx, next) {
       const { controller, themeKey = 'default' } = ctx;
       const theme = controller.run('getTheme', { ...ctx, themeKey });
-      let model: CanvasModel = next();
+      let model: SheetModel = next();
       model = model.setIn(['config', 'theme'], theme);
       return model;
     }

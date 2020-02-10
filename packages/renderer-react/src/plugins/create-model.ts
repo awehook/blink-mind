@@ -1,4 +1,4 @@
-import { CanvasModel, DocModel } from '@blink-mind/core';
+import { SheetModel, DocModel } from '@blink-mind/core';
 import { List } from 'immutable';
 
 export function CreateModelPlugin() {
@@ -6,14 +6,14 @@ export function CreateModelPlugin() {
     createNewDocModel(ctx) {
       const { controller } = ctx;
       return new DocModel({
-        canvasModels: List([controller.run('createNewCanvasModel', ctx)]),
-        currentCanvasIndex: 0
+        sheetModels: List([controller.run('createNewSheetModel', ctx)]),
+        currentSheetIndex: 0
       });
     },
 
     // TODO
-    createNewCanvasModel(props) {
-      return CanvasModel.createEmpty();
+    createNewSheetModel(props) {
+      return SheetModel.createEmpty();
     }
   };
 }

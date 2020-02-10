@@ -1,123 +1,123 @@
 import debug from 'debug';
 
 import { KeyType } from '../types';
-import { CanvasModel } from './canvas-model';
-import { CanvasModelModifier } from './canvas-model-modifier';
+import { SheetModel } from './sheet-model';
+import { SheetModelModifier } from './sheet-model-modifier';
 import { DocModel } from './doc-model';
 
 const log = debug('modifier');
 
 export type BaseDocModelModifierArg = {
   docModel: DocModel;
-  model?: CanvasModel;
+  model?: SheetModel;
   topicKey?: KeyType;
 };
 
 type DocModelModifierResult = DocModel;
 
-export function setCurrentCanvasModel(
+export function setCurrentSheetModel(
   docModel: DocModel,
-  canvasModel: CanvasModel
+  sheetModel: SheetModel
 ): DocModel {
-  if (docModel.currentCanvasModel !== canvasModel) {
+  if (docModel.currentSheetModel !== sheetModel) {
     docModel = docModel.updateIn(
-      ['canvasModels', docModel.currentCanvasIndex],
-      m => canvasModel
+      ['sheetModels', docModel.currentSheetIndex],
+      m => sheetModel
     );
   }
   return docModel;
 }
 
-export function toDocModelModifierFunc(canvasModelModifierFunc) {
+export function toDocModelModifierFunc(sheetModelModifierFunc) {
   return arg => {
     const { docModel, ...rest } = arg;
-    return setCurrentCanvasModel(
+    return setCurrentSheetModel(
       docModel,
-      canvasModelModifierFunc({ ...rest, model: docModel.currentCanvasModel })
+      sheetModelModifierFunc({ ...rest, model: docModel.currentSheetModel })
     );
   };
 }
 
-function addCanvas({
+function addSheet({
   docModel,
   model
 }: BaseDocModelModifierArg): DocModelModifierResult {
-  docModel = docModel.update('canvasModels', canvasModels =>
-    canvasModels.push(model)
+  docModel = docModel.update('sheetModels', sheetModels =>
+    sheetModels.push(model)
   );
-  docModel = docModel.set('currentCanvasIndex', docModel.canvasModels.size - 1);
+  docModel = docModel.set('currentSheetIndex', docModel.sheetModels.size - 1);
   return docModel;
 }
 
-function setCurrentCanvas({
+function setCurrentSheet({
   docModel,
-  canvasIndex = null,
+  sheetIndex = null,
   model = null
-}: BaseDocModelModifierArg & { canvasIndex?: number }) {
-  if (canvasIndex != null && model != null) {
-    throw new Error('index and canvasModel both not null');
+}: BaseDocModelModifierArg & { sheetIndex?: number }) {
+  if (sheetIndex != null && model != null) {
+    throw new Error('index and sheetModel both not null');
   }
-  if (canvasIndex != null && docModel.currentCanvasIndex !== canvasIndex) {
-    if (canvasIndex >= 0 && canvasIndex < docModel.canvasModels.size) {
-      docModel = docModel.set('currentCanvasIndex', canvasIndex);
+  if (sheetIndex != null && docModel.currentSheetIndex !== sheetIndex) {
+    if (sheetIndex >= 0 && sheetIndex < docModel.sheetModels.size) {
+      docModel = docModel.set('currentSheetIndex', sheetIndex);
     }
   }
   if (model != null) {
-    const idx = docModel.canvasModels.indexOf(model);
+    const idx = docModel.sheetModels.indexOf(model);
     if (idx === -1) {
-      throw new Error('canvasModel is not in docModel');
+      throw new Error('sheetModel is not in docModel');
     }
-    docModel = docModel.set('currentCanvasIndex', idx);
+    docModel = docModel.set('currentSheetIndex', idx);
   }
   return docModel;
 }
 
-function duplicateCanvas({
+function duplicateSheet({
   docModel,
   model,
   title
 }: BaseDocModelModifierArg & { title: string }) {
-  const idx = docModel.canvasModels.indexOf(model);
+  const idx = docModel.sheetModels.indexOf(model);
   if (idx === -1) {
-    throw new Error('canvasModel is not in docModel');
+    throw new Error('sheetModel is not in docModel');
   }
   docModel = docModel
-    .update('canvasModels', canvasModels =>
-      canvasModels.insert(idx + 1, model.set('title', title))
+    .update('sheetModels', sheetModels =>
+      sheetModels.insert(idx + 1, model.set('title', title))
     )
-    .set('currentCanvasIndex', idx + 1);
+    .set('currentSheetIndex', idx + 1);
   return docModel;
 }
 
-function deleteCanvas({ docModel, model }: BaseDocModelModifierArg) {
-  const idx = docModel.canvasModels.indexOf(model);
+function deleteSheet({ docModel, model }: BaseDocModelModifierArg) {
+  const idx = docModel.sheetModels.indexOf(model);
   if (idx === -1) {
-    throw new Error('canvasModel is not in docModel');
+    throw new Error('sheetModel is not in docModel');
   }
   docModel = docModel
-    .update('canvasModels', canvasModels => canvasModels.delete(idx))
-    .set('currentCanvasIndex', 0);
+    .update('sheetModels', sheetModels => sheetModels.delete(idx))
+    .set('currentSheetIndex', 0);
   return docModel;
 }
 
-function setCanvasTitle({ docModel, title }) {
+function setSheetTitle({ docModel, title }) {
   docModel = docModel.updateIn(
-    ['canvasModels', docModel.currentCanvasIndex],
-    canvasModel => canvasModel.set('title', title)
+    ['sheetModels', docModel.currentSheetIndex],
+    sheetModel => sheetModel.set('title', title)
   );
   return docModel;
 }
 
 const DocModelModifier: any = {
-  addCanvas,
-  setCurrentCanvas,
-  duplicateCanvas,
-  deleteCanvas,
-  setCanvasTitle
+  addSheet,
+  setCurrentSheet,
+  duplicateSheet,
+  deleteSheet,
+  setSheetTitle
 };
 
-Object.keys(CanvasModelModifier).forEach(k => {
-  DocModelModifier[k] = toDocModelModifierFunc(CanvasModelModifier[k]);
+Object.keys(SheetModelModifier).forEach(k => {
+  DocModelModifier[k] = toDocModelModifierFunc(SheetModelModifier[k]);
 });
 
 export { DocModelModifier };

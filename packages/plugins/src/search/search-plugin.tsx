@@ -39,7 +39,7 @@ export function SearchPlugin() {
       return res;
     },
 
-    renderCanvasCustomize(props, next) {
+    renderSheetCustomize(props, next) {
       const res = next();
       const { model } = props;
       if (model.focusMode === FOCUS_MODE_SEARCH) {

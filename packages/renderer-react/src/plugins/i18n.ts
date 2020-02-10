@@ -2,6 +2,8 @@ import { I18nKey } from '../utils';
 
 export function I18nPlugin() {
   const i18nTextMap = new Map([
+    [I18nKey.MIND_MAP,'Mind Map'],
+    [I18nKey.OUTLINER,'Outliner'],
     [I18nKey.COPY, 'Copy'],
     [I18nKey.PASTE, 'Paste'],
     [I18nKey.DUPLICATE, 'Duplicate'],
@@ -17,8 +19,8 @@ export function I18nPlugin() {
     [I18nKey.ONLY_LEFT, 'Only Left'],
     [I18nKey.ONLY_RIGHT, 'Only Right'],
 
-    [I18nKey.ADD_CANVAS, 'Add Canvas'],
-    [I18nKey.CANVAS, 'Canvas'],
+    [I18nKey.ADD_SHEET, 'Add Sheet'],
+    [I18nKey.SHEET, 'Sheet'],
 
     [I18nKey.EDIT, 'Edit'],
     [I18nKey.ADD_CHILD, 'Add Child'],

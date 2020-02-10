@@ -1,6 +1,6 @@
 import {
-  BaseCanvasModelModifierArg,
-  CanvasModelModifier,
+  BaseSheetModelModifierArg,
+  SheetModelModifier,
   toDocModelModifierFunc
 } from '@blink-mind/core';
 import { getI18nText, I18nKey, Icon } from '@blink-mind/renderer-react';
@@ -14,18 +14,18 @@ import {
   OP_TYPE_START_EDITING_TOPOLOGY
 } from './utils';
 
-function startEditingTopology({ model, topicKey }: BaseCanvasModelModifierArg) {
+function startEditingTopology({ model, topicKey }: BaseSheetModelModifierArg) {
   const topic = model.getTopic(topicKey);
   const { block } = topic.getBlock(BLOCK_TYPE_TOPOLOGY);
   if (block == null || block.data == null) {
-    model = CanvasModelModifier.setBlockData({
+    model = SheetModelModifier.setBlockData({
       model,
       topicKey,
       blockType: BLOCK_TYPE_TOPOLOGY,
       data: ''
     });
   }
-  model = CanvasModelModifier.focusTopic({
+  model = SheetModelModifier.focusTopic({
     model,
     topicKey,
     focusMode: FOCUS_MODE_EDITING_TOPOLOGY

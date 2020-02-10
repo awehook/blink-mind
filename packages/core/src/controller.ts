@@ -1,7 +1,7 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import {CanvasModel, DocModel} from './models';
+import {SheetModel, DocModel} from './models';
 import { CorePlugin } from './plugins/core';
 import { ModelChangeCallback, OnChangeFunction } from './types';
 
@@ -17,7 +17,7 @@ export interface IControllerOption {
 export interface IControllerRunContext {
   controller: Controller;
   docModel?: DocModel;
-  model?: CanvasModel;
+  model?: SheetModel;
   topicKey?: KeyType;
   getRef?: Function;
 }

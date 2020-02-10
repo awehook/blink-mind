@@ -1,4 +1,4 @@
-import { BaseCanvasModelModifierArg, KeyType } from '@blink-mind/core';
+import { BaseSheetModelModifierArg, KeyType } from '@blink-mind/core';
 import { List } from 'immutable';
 import { ExtDataReference, ReferenceRecord } from './ext-data-reference';
 import { EXT_DATA_KEY_TOPIC_REFERENCE } from './utils';
@@ -8,7 +8,7 @@ export function setReferenceTopicKeys({
   model,
   topicKey,
   referenceKeys
-}: BaseCanvasModelModifierArg & { referenceKeys: KeyType[] }) {
+}: BaseSheetModelModifierArg & { referenceKeys: KeyType[] }) {
   let extData: ExtDataReference = model.getExtDataItem(
     EXT_DATA_KEY_TOPIC_REFERENCE,
     ExtDataReference

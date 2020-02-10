@@ -1,4 +1,4 @@
-import { BaseCanvasModelModifierArg } from '@blink-mind/core';
+import { BaseSheetModelModifierArg } from '@blink-mind/core';
 import { swap } from '@blink-mind/renderer-react';
 import { List } from 'immutable';
 import {
@@ -12,7 +12,7 @@ export function addImage({
   model,
   topicKey,
   image
-}: BaseCanvasModelModifierArg & {
+}: BaseSheetModelModifierArg & {
   image: ImageRecord;
 }) {
   let extData = model.getExtDataItem(EXT_DATA_KEY_IMAGES, ExtDataImages);

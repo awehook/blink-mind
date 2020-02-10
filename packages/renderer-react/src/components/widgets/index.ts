@@ -1,4 +1,4 @@
-export * from './canvas';
+export * from './sheet';
 export * from './right-top-panel';
 export * from './style-editor';
 export * from './theme-editor';

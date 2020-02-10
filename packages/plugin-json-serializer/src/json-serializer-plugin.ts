@@ -1,6 +1,6 @@
 import {
   Block,
-  CanvasModel,
+  SheetModel,
   Config,
   createKey,
   DocModel,
@@ -23,8 +23,8 @@ export function JsonSerializerPlugin() {
           return controller.run('migrateDocModel', {
             ...ctx,
             obj: {
-              canvasModels: [obj],
-              currentCanvasIndex: 0,
+              sheetModels: [obj],
+              currentSheetIndex: 0,
               formatVersion: '0.1'
             },
             formatVersion: '0.1'
@@ -37,12 +37,12 @@ export function JsonSerializerPlugin() {
     serializeDocModel(ctx: IControllerRunContext, next) {
       const { docModel, controller } = ctx;
       return {
-        canvasModels: docModel.canvasModels
+        sheetModels: docModel.sheetModels
           .toArray()
           .map(model =>
-            controller.run('serializeCanvasModel', { ...ctx, model })
+            controller.run('serializeSheetModel', { ...ctx, model })
           ),
-        currentCanvasIndex: docModel.currentCanvasIndex,
+        currentSheetIndex: docModel.currentSheetIndex,
         formatVersion: docModel.formatVersion
       };
     },
@@ -58,22 +58,22 @@ export function JsonSerializerPlugin() {
 
       formatVersion = obj.formatVersion;
 
-      const canvasModels = obj.canvasModels.map(canvasModel =>
-        controller.run('deserializeCanvasModel', {
+      const sheetModels = obj.sheetModels.map(sheetModel =>
+        controller.run('deserializeSheetModel', {
           ...ctx,
-          canvasModel,
+          sheetModel,
           formatVersion
         })
       );
 
       return new DocModel({
-        canvasModels: List(canvasModels),
-        currentCanvasIndex: obj.currentCanvasIndex,
+        sheetModels: List(sheetModels),
+        currentSheetIndex: obj.currentSheetIndex,
         formatVersion
       });
     },
 
-    serializeCanvasModel(ctx: IControllerRunContext, next) {
+    serializeSheetModel(ctx: IControllerRunContext, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
       const { model, controller } = ctx;
@@ -98,10 +98,10 @@ export function JsonSerializerPlugin() {
       return obj;
     },
 
-    deserializeCanvasModel(ctx, next) {
+    deserializeSheetModel(ctx, next) {
       const nextRes = next();
       if (nextRes != null) return nextRes;
-      const { canvasModel, controller, formatVersion } = ctx;
+      const { sheetModel, controller, formatVersion } = ctx;
       const {
         id,
         title,
@@ -111,8 +111,8 @@ export function JsonSerializerPlugin() {
         topics,
         config,
         extData
-      } = canvasModel;
-      let res = new CanvasModel();
+      } = sheetModel;
+      let res = new SheetModel();
       res = res.merge({
         id: id || createKey(),
         title,
@@ -135,7 +135,7 @@ export function JsonSerializerPlugin() {
           topics,
           formatVersion
         }),
-        formatVersion: canvasModel.formatVersion
+        formatVersion: sheetModel.formatVersion
       });
       if (res.focusKey == null) {
         res = res.set('focusKey', res.rootTopicKey);

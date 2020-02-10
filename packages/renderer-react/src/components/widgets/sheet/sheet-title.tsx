@@ -17,7 +17,7 @@ interface State {
 }
 
 @ContextMenuTarget
-export class CanvasTitle extends React.Component<Props, State> {
+export class SheetTitle extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,25 +41,25 @@ export class CanvasTitle extends React.Component<Props, State> {
     const { controller } = props;
     controller.run('operation', {
       ...props,
-      opType: OpType.SET_CANVAS_TITLE,
+      opType: OpType.SET_SHEET_TITLE,
       title
     });
   };
   onClickDelete = () => {
     const props = this.props;
     const { controller } = props;
-    controller.run('operation', { ...props, opType: OpType.DELETE_CANVAS });
+    controller.run('operation', { ...props, opType: OpType.DELETE_SHEET });
   };
 
   onClickDuplicate = () => {
     const props = this.props;
     const { controller } = props;
     const title =
-      controller.run('getCanvasTitle', props) +
+      controller.run('getSheetTitle', props) +
       getI18nText(props, I18nKey.COPY);
     controller.run('operation', {
       ...props,
-      opType: OpType.DUPLICATE_CANVAS,
+      opType: OpType.DUPLICATE_SHEET,
       title
     });
   };
@@ -68,11 +68,11 @@ export class CanvasTitle extends React.Component<Props, State> {
     const props = this.props;
     const { docModel, model, controller } = props;
     if (model == null) return;
-    if (docModel.currentCanvasModel !== model) {
+    if (docModel.currentSheetModel !== model) {
       controller.run('operation', {
         ...props,
-        opType: OpType.SET_CURRENT_CANVAS,
-        canvasModel: model
+        opType: OpType.SET_CURRENT_SHEET,
+        sheetModel: model
       });
     }
     return (
@@ -97,7 +97,7 @@ export class CanvasTitle extends React.Component<Props, State> {
   render() {
     const props = this.props;
     const { model, controller } = props;
-    const title = controller.run('getCanvasTitle', props);
+    const title = controller.run('getSheetTitle', props);
     const renameDlgProps = {
       ...props,
       isOpen: this.state.showRenameDialog,

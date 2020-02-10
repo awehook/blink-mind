@@ -1,5 +1,5 @@
 import {
-  CanvasModel,
+  SheetModel,
   Controller,
   DocModel,
   IDiagram,

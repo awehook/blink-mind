@@ -1,13 +1,11 @@
 import {
-  CanvasModelModifier,
   DocModel,
   DocModelModifier,
   getAllSubTopicKeys,
   OpType,
-  toDocModelModifierFunc as _t
 } from '@blink-mind/core';
 import debug from 'debug';
-import { List, Stack } from 'immutable';
+import { Stack } from 'immutable';
 import {
   collapseRefKey,
   contentEditorRefKey,
@@ -24,11 +22,11 @@ const log = debug('plugin:operation');
 
 export function OperationPlugin() {
   const {
-    addCanvas,
-    setCurrentCanvas,
-    duplicateCanvas,
-    deleteCanvas,
-    setCanvasTitle,
+    addSheet,
+    setCurrentSheet,
+    duplicateSheet,
+    deleteSheet,
+    setSheetTitle,
 
     addChild,
     addSibling,
@@ -52,11 +50,11 @@ export function OperationPlugin() {
     dragAndDrop
   } = DocModelModifier;
   const OpMap = new Map([
-    [OpType.ADD_CANVAS, addCanvas],
-    [OpType.SET_CURRENT_CANVAS, setCurrentCanvas],
-    [OpType.DELETE_CANVAS, deleteCanvas],
-    [OpType.DUPLICATE_CANVAS, duplicateCanvas],
-    [OpType.SET_CANVAS_TITLE, setCanvasTitle],
+    [OpType.ADD_SHEET, addSheet],
+    [OpType.SET_CURRENT_SHEET, setCurrentSheet],
+    [OpType.DELETE_SHEET, deleteSheet],
+    [OpType.DUPLICATE_SHEET, duplicateSheet],
+    [OpType.SET_SHEET_TITLE, setSheetTitle],
 
     [OpType.TOGGLE_COLLAPSE, toggleCollapse],
     [OpType.COLLAPSE_ALL, collapseAll],
@@ -313,7 +311,7 @@ export function OperationPlugin() {
       const { controller, opType, docModel, topicKey } = ctx;
       if (
         opType === OpType.DELETE_TOPIC &&
-        topicKey !== docModel.currentCanvasModel.editorRootTopicKey
+        topicKey !== docModel.currentSheetModel.editorRootTopicKey
       ) {
         controller.run('deleteRefKey', ctx);
       }
@@ -334,14 +332,14 @@ export function OperationPlugin() {
       controller.run('operation', {
         ...ctx,
         opType: OpType.EXPAND_TO,
-        model: newDocModel.currentCanvasModel,
-        topicKey: newDocModel.currentCanvasModel.focusKey,
+        model: newDocModel.currentSheetModel,
+        topicKey: newDocModel.currentSheetModel.focusKey,
         docModel: newDocModel,
         callback: docModel => () => {
           controller.run('moveTopicToCenter', {
             ...ctx,
             docModel,
-            topicKey: docModel.currentCanvasModel.focusKey
+            topicKey: docModel.currentSheetModel.focusKey
           });
         }
       });

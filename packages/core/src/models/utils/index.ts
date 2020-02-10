@@ -1,7 +1,7 @@
 import { KeyPath, KeyType, TopicRelationship } from '../../types';
-import { CanvasModel } from '../canvas-model';
+import { SheetModel } from '../sheet-model';
 
-export function getAllSubTopicKeys(model: CanvasModel, topicKey: KeyType): KeyType[] {
+export function getAllSubTopicKeys(model: SheetModel, topicKey: KeyType): KeyType[] {
   const item = model.getTopic(topicKey);
 
   let res = [];
@@ -17,7 +17,7 @@ export function getAllSubTopicKeys(model: CanvasModel, topicKey: KeyType): KeyTy
 }
 
 export function getKeyPath(
-  model: CanvasModel,
+  model: SheetModel,
   topicKey: KeyType,
   reverse: boolean = false
 ): KeyPath {
@@ -31,7 +31,7 @@ export function getKeyPath(
 }
 
 export function getRelationship(
-  model: CanvasModel,
+  model: SheetModel,
   srcKey: KeyType,
   dstKey: KeyType
 ): string {

@@ -6,8 +6,9 @@ import '@slim-ui/react-tabs/style/react-tabs.css';
 import * as React from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from '../common';
-import { CanvasTitle } from './canvas';
+import { SheetTitle } from './sheet';
 import './diagram-root.css';
+import Theme from '../../plugins/react/theme';
 
 const Root = styled.div`
   display: flex;
@@ -26,49 +27,53 @@ const TabsContainer = styled.div`
 
 export function DiagramRoot(props) {
   const { controller, docModel } = props;
-  const onClickAddCanvas = () => {
+  const onClickAddSheet = () => {
     controller.run('operation', {
       ...props,
-      opType: OpType.ADD_CANVAS,
-      model: controller.run('createNewCanvasModel', props)
+      opType: OpType.ADD_SHEET,
+      model: controller.run('createNewSheetModel', props)
     });
   };
   const onSelect = (index, lastIndex, e) => {
-    if (index !== lastIndex && index !== docModel.canvasModels.size) {
+    if (index !== lastIndex && index !== docModel.sheetModels.size) {
       controller.run('operation', {
         ...props,
-        opType: OpType.SET_CURRENT_CANVAS,
-        model: docModel.canvasModels.get(index)
+        opType: OpType.SET_CURRENT_SHEET,
+        model: docModel.sheetModels.get(index)
       });
     }
   };
-  const model = docModel.currentCanvasModel;
+  const model = docModel.currentSheetModel;
   let child;
-  if (docModel.canvasModels.size === 1) {
-    child = controller.run('renderCanvas', {
-      ...props,
-      model: docModel.canvasModels.get(0)
-    });
+  if (docModel.sheetModels.size === 1) {
+    child = (
+      <Theme theme={model.config.theme}>
+        {controller.run('renderSheet', {
+          ...props,
+          model: docModel.sheetModels.get(0)
+        })}
+      </Theme>
+    );
   } else {
-    const canvasModels = docModel.canvasModels.toArray();
+    const sheetModels = docModel.sheetModels.toArray();
     let i = 0;
     const tabClassName = 'react-tabs__tab tab';
     const tabProps = {
       className: tabClassName,
       tabIndex: '-1'
     };
-    const tabs = canvasModels.map(model => {
+    const tabs = sheetModels.map(model => {
       const index = i++;
       const nProps = { ...props, model, index };
       return (
         <Tab key={index} {...tabProps}>
-          <CanvasTitle {...nProps} />
+          <SheetTitle {...nProps} />
         </Tab>
       );
     });
     tabs.push(
       <Tab key={i++} {...tabProps}>
-        <Icon onClick={onClickAddCanvas} icon={IconNames.PLUS} />
+        <Icon onClick={onClickAddSheet} icon={IconNames.PLUS} />
       </Tab>
     );
     i = 0;
@@ -80,20 +85,22 @@ export function DiagramRoot(props) {
       className: 'tab-panel',
       selectedClassName: 'tab-panel__selected'
     };
-    const tabPanels = canvasModels.map(model => {
+    const tabPanels = sheetModels.map(model => {
       return (
         <TabPanel key={i++} {...tabPanelProps}>
-          {controller.run('renderCanvas', {
-            ...props,
-            model
-          })}
+          <Theme theme={model.config.theme}>
+            {controller.run('renderSheet', {
+              ...props,
+              model
+            })}
+          </Theme>
         </TabPanel>
       );
     });
     tabPanels.push(<TabPanel key={i++} {...tabPanelProps} />);
     const tabsProps = {
       className: 'tabs react-tabs react-tabs__tabs',
-      selectedIndex: docModel.currentCanvasIndex,
+      selectedIndex: docModel.currentSheetIndex,
       forceRenderTabPanel: true,
       onSelect
     };

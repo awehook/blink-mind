@@ -30,24 +30,24 @@ const defaultModelRecord: ModelRecordType = {
   rootTopicKey: null,
   editorRootTopicKey: null,
   focusKey: null,
-  focusMode: null,
+  viewMode: null,
   formatVersion: null,
   zoomFactor: 1
 };
 
-export class CanvasModel extends Record(defaultModelRecord) {
+export class SheetModel extends Record(defaultModelRecord) {
   static isModel(obj) {
-    return obj instanceof CanvasModel;
+    return obj instanceof SheetModel;
   }
-  static create(attrs: any = null): CanvasModel {
-    if (attrs == null) return CanvasModel.createEmpty();
-    let res: CanvasModel;
-    if (CanvasModel.isModel(attrs)) {
+  static create(attrs: any = null): SheetModel {
+    if (attrs == null) return SheetModel.createEmpty();
+    let res: SheetModel;
+    if (SheetModel.isModel(attrs)) {
       res = attrs;
     }
 
     if (isPlainObject(attrs)) {
-      res = CanvasModel.fromJSON(attrs);
+      res = SheetModel.fromJSON(attrs);
     }
     if (res) {
       if (res.focusKey == null) {
@@ -64,8 +64,8 @@ export class CanvasModel extends Record(defaultModelRecord) {
     );
   }
 
-  static createEmpty(): CanvasModel {
-    const model = new CanvasModel();
+  static createEmpty(): SheetModel {
+    const model = new SheetModel();
     const rootTopic = Topic.create({ key: createKey(), content: 'RootTopic' });
     return model
       .set('id',createKey())
@@ -77,7 +77,7 @@ export class CanvasModel extends Record(defaultModelRecord) {
   }
 
   static fromJSON(object) {
-    let model = new CanvasModel();
+    let model = new SheetModel();
     const { topics = [], config = {}, rootTopicKey } = object;
     let { editorRootTopicKey } = object;
 
@@ -148,7 +148,7 @@ export class CanvasModel extends Record(defaultModelRecord) {
     return this.get('focusKey');
   }
 
-  get focusMode(): KeyType {
+  get focusMode(): string {
     return this.get('focusMode');
   }
 

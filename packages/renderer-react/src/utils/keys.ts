@@ -38,7 +38,7 @@ export function dropAreaRefKey(key, dir) {
 }
 
 export const RefKey = {
-  CANVAS_ROOT_KEY: 'CANVAS-ROOT-',
+  SHEET_ROOT_KEY: 'SHEET-ROOT-',
   DRAG_SCROLL_WIDGET_KEY: 'DRAG-SCROLL-WIDGET-',
   SVG_HIGHLIGHT_KEY: 'SVG-HIGHLIGHT-',
   FOCUS_HIGHLIGHT_KEY: 'FOCUS-HIGHLIGHT-',
@@ -60,6 +60,8 @@ export const PropKey = {
 };
 
 export const I18nKey = {
+  MIND_MAP: 'MIND_MAP',
+  OUTLINER: 'OUTLINER',
   COPY: 'COPY',
   PASTE: 'PASTE',
   DUPLICATE: 'DUPLICATE',
@@ -75,8 +77,8 @@ export const I18nKey = {
   ONLY_LEFT: 'ONLY_LEFT',
   ONLY_RIGHT: 'ONLY_RIGHT',
 
-  ADD_CANVAS: 'ADD_CANVAS',
-  CANVAS: 'CANVAS',
+  ADD_SHEET: 'ADD_SHEET',
+  SHEET: 'SHEET',
 
   EDIT: 'EDIT',
   ADD_SIBLING: 'ADD_SIBLING',
