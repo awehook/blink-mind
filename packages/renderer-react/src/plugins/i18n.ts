@@ -15,6 +15,8 @@ export function I18nPlugin() {
     [I18nKey.RENAME, 'Rename'],
     [I18nKey.DEFAULT, 'Default'],
     [I18nKey.SEARCH, 'Search'],
+
+    [I18nKey.LAYOUT, 'Layout'],
     [I18nKey.LEFT_AND_RIGHT, 'Left And Right'],
     [I18nKey.ONLY_LEFT, 'Only Left'],
     [I18nKey.ONLY_RIGHT, 'Only Right'],

@@ -15,7 +15,7 @@ export function UndoRedoPlugin() {
     const canUndo = controller.run('canUndo', props);
     return (
       <ToolbarItem
-        className={iconClassName(IconName.UNDO)}
+        iconName={IconName.UNDO}
         disabled={!canUndo}
         onClick={onClickUndo}
         {...props}
@@ -31,7 +31,7 @@ export function UndoRedoPlugin() {
     const canUndo = controller.run('canRedo', props);
     return (
       <ToolbarItem
-        className={iconClassName(IconName.REDO)}
+        iconName={IconName.REDO}
         disabled={!canUndo}
         onClick={onClickRedo}
         {...props}

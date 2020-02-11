@@ -16,7 +16,7 @@ export const Margin = styled.div`
   margin: ${props => props.margin};
 `;
 
-export const ShowMenuIcon = styled.a`
+export const ShowMenuIcon = styled.div`
   font-size: 20px !important;
 `;
 
@@ -28,7 +28,7 @@ export const IconBg = styled.div`
 export const Btn = styled.div`
   cursor: pointer;
   &:hover {
-    color: ${COLORS.ITEM_HIGHLIGHT};
+    color: ${COLORS.LIGHT.ITEM_BG_ACTIVE};
   }
 `;
 
@@ -40,6 +40,7 @@ export const CloseIcon = styled(Btn)`
   position: absolute;
   right: 5px;
   top: 5px;
+  z-index: 1;
   //padding: 5px;
 `;
 
@@ -57,14 +58,15 @@ export const TopicBlockIcon = styled.span`
 export const ZIndex = styled.div`
   z-index: ${props => props.zIndex};
   .bp3-dark & {
-    background-color: ${COLORS.DARK_CARD_BG};
+    background-color: ${COLORS.DARK.ZINDEX_BG};
   }
+  font-size: 12px;
 `;
 
 export const PanelTabRoot = styled.div`
   min-width: 380px;
   max-width: 482px;
-  max-height: 470px;
+  max-height: 480px;
   overflow: auto;
 `;
 

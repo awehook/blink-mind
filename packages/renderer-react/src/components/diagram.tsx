@@ -14,7 +14,7 @@ import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import * as React from 'react';
 import { DefaultPlugin } from '../plugins';
-import './diagram.css';
+import './diagram.scss';
 const log = debug('node:Diagram');
 
 // controller 可以为空

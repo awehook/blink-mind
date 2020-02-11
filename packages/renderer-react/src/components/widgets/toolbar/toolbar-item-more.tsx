@@ -11,7 +11,7 @@ export function ToolbarItemMore(props) {
   );
   itemConfigs.sort((a, b) => a.order - b.order);
   return (
-    <ToolbarItem className={iconClassName(IconName.MORE)} {...props}>
+    <ToolbarItem iconName={IconName.MORE} {...props}>
       <Popover enforceFocus={false}>
         <ToolbarItemPopoverTarget />
         <Menu>

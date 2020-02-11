@@ -19,7 +19,7 @@ const ViewerRoot = styled(ZIndex)`
   user-select: none;
 `;
 
-const Item_ = styled(Btn)`
+const ItemInner = styled(Btn)`
   margin: 10px;
 `;
 
@@ -36,9 +36,9 @@ const Item = props => {
       position={Position.TOP}
       className={Classes.ICON}
     >
-      <Item_ onClick={props.onClick} tabIndex={-1}>
+      <ItemInner onClick={props.onClick} tabIndex={-1}>
         {props.children}
-      </Item_>
+      </ItemInner>
     </Tooltip>
   );
 };

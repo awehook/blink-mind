@@ -1,0 +1,44 @@
+/*TODO*/
+/*@import url('//at.alicdn.com/t/font_1280682_naxwnc6of0c.css');*/
+
+@import "bp";
+
+html {
+  font-size: 100px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.iconfont {
+  vertical-align: middle;
+}
+
+*:focus {
+  outline: none;
+}
+
+div :focus {
+  outline: none;
+}
+
+.fXedfB {
+  background: transparent !important;
+}
+
+.bm-toolbar-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0 4px;
+  padding: 3px 15px;
+  //width: 36px;
+  height: 22px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 1;
+
+  .bp3-dark & {
+    //color: map_get($dark-colors, 'item-active');
+    background-color: map_get($dark-colors, 'toolbar-item-bg');
+  }
+}

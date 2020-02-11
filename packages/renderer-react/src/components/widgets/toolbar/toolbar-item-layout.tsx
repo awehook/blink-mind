@@ -38,11 +38,14 @@ export function ToolbarItemLayout(props) {
     });
   };
 
+  const nProps = {
+    ...props,
+    iconName:IconName.LAYOUT_LEFT_AND_RIGHT,
+    label: getI18nText(props, I18nKey.LAYOUT)
+  };
+
   return (
-    <ToolbarItem
-      className={iconClassName(IconName.LAYOUT_LEFT_AND_RIGHT)}
-      {...props}
-    >
+    <ToolbarItem {...nProps}>
       <Popover enforceFocus={false}>
         <ToolbarItemPopoverTarget />
         <Menu>

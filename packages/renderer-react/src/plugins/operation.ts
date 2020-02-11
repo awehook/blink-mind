@@ -2,7 +2,7 @@ import {
   DocModel,
   DocModelModifier,
   getAllSubTopicKeys,
-  OpType,
+  OpType
 } from '@blink-mind/core';
 import debug from 'debug';
 import { Stack } from 'immutable';
@@ -42,6 +42,7 @@ export function OperationPlugin() {
     setStyle,
     clearAllCustomStyle,
     setTheme,
+    setConfig,
     setLayoutDir,
     setEditorRootTopicKey,
     setZoomFactor,
@@ -67,6 +68,8 @@ export function OperationPlugin() {
     [OpType.SET_FOCUS_MODE, setFocusMode],
     [OpType.SET_STYLE, setStyle],
     [OpType.CLEAR_ALL_CUSTOM_STYLE, clearAllCustomStyle],
+
+    [OpType.SET_CONFIG, setConfig],
     [OpType.SET_THEME, setTheme],
     [OpType.SET_TOPIC_BLOCK, setBlockData],
     [OpType.DELETE_TOPIC_BLOCK, deleteBlock],

@@ -8,11 +8,11 @@ export const TopicTitle = styled.div`
   font-size: 16px;
   cursor: pointer;
   &:hover {
-    background: ${COLORS.LIGHT_HIGHLIGHT_BG};
+    background: ${COLORS.LIGHT.ITEM_BG_ACTIVE};
   }
   .bp3-dark & {
     &:hover {
-      background: ${COLORS.DARK_HIGHLIGHT_BG};
+      background: ${COLORS.DARK.ITEM_BG_ACTIVE};
     }
   }
 `;

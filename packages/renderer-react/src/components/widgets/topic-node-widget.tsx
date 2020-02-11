@@ -29,11 +29,11 @@ const TopicNodeRoot = styled.div`
   position: relative;
 `;
 
-const ColumnParent = styled.div`
+const Column = styled.div`
   position: relative;
 `;
 
-const Column = styled.div`
+const NodeRows = styled.div`
   display: flex;
   flex-direction: column;
   outline-offset: 2px;
@@ -205,7 +205,7 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
       model.config.theme.highlightColor,
       0.6
     );
-    const columnProps = {
+    const nodeProps = {
       isFocus: topicKey === model.focusKey,
       outlineColor,
       style: topicStyle,
@@ -213,8 +213,8 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
       ref: saveRef(contentRefKey(topicKey)),
       onDragStart: this.onDragStart,
       onClick: this.onClick,
-      onMouseDown: this.onMouseDown,
       onDoubleClick: this.onDoubleClick,
+      onMouseDown: this.onMouseDown,
       onDragEnter: this.onDragEnter,
       onDragLeave: this.onDragLeave,
       onDragOver: this.onDragOver,
@@ -225,12 +225,12 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
     return (
       <TopicNodeRoot ref={saveRef(topicNodeRefKey(topicKey))}>
         {prevDropArea}
-        <ColumnParent>
-          <Column {...columnProps}>
+        <Column>
+          <NodeRows {...nodeProps}>
             {controller.run('renderTopicNodeRows', props)}
-          </Column>
+          </NodeRows>
           {dir !== TopicDirection.MAIN && collapseIcon}
-        </ColumnParent>
+        </Column>
         {nextDropArea}
       </TopicNodeRoot>
     );

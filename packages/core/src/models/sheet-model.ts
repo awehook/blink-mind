@@ -30,7 +30,7 @@ const defaultModelRecord: ModelRecordType = {
   rootTopicKey: null,
   editorRootTopicKey: null,
   focusKey: null,
-  viewMode: null,
+  focusMode: null,
   formatVersion: null,
   zoomFactor: 1
 };

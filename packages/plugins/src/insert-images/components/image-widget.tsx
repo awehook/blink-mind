@@ -1,15 +1,10 @@
 import {
   BaseProps,
   COLORS,
-  getI18nText,
-  I18nKey,
   iconClassName,
   IconName,
   OutsideClickHandler,
-  SettingItemInput,
-  stopPropagation
 } from '@blink-mind/renderer-react';
-import { Popover } from '@blueprintjs/core';
 import { useState } from 'react';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -72,7 +67,7 @@ const EditButton = styled.div`
   background: rgba(125, 188, 255, 0.6);
   &:hover {
     cursor: pointer;
-    color: ${COLORS.ITEM_HIGHLIGHT};
+    color: ${COLORS.LIGHT.ITEM_BG_ACTIVE};
   }
 `;
 

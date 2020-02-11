@@ -1,37 +1,32 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import { COLORS, PropKey } from '../../utils';
+import { PropKey } from '../../utils';
 import { BaseProps } from './base-widget';
-export const ToolbarItemRoot = styled.div`
-  position: relative;
-  padding: 6px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  color: ${props => (props.disabled ? 'grey' : null)};
-  font-size: 24px;
-  display: inline-block;
-  &:hover {
-    color: ${props => (props.disabled ? 'grey' : COLORS.ITEM_HIGHLIGHT)};
-  }
-`;
+import { iconClassName } from '../../utils';
+
 interface ToolbarItemProps extends BaseProps {
   onClick?: (e) => void;
   disabled?: boolean;
   children?: any;
+  iconName: string;
+  label?: string;
 }
 export function ToolbarItem(props: ToolbarItemProps) {
-  const { controller, children, onClick, ...restProps } = props;
+  const { controller, children, onClick, iconName } = props;
   let { disabled } = props;
   disabled = disabled || !controller.getValue(PropKey.OPERATION_ENABLED, props);
   const handleClick = e => {
     if (!disabled && onClick) onClick(e);
   };
   const nProps = {
-    controller,
     disabled,
     onClick: handleClick,
-    ...restProps
+    className: 'bm-toolbar-item'
   };
-  return <ToolbarItemRoot {...nProps}>{children}</ToolbarItemRoot>;
+
+  return (
+    <div {...nProps}>
+      <div className={iconClassName(iconName)} />
+      {children}
+    </div>
+  );
 }

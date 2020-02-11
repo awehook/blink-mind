@@ -37,6 +37,14 @@ const NodeChildren = styled.div<NodeChildrenProps>`
       : `0 ${props.marginH}px 0 0`};
 `;
 
+const SubNodes = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
 interface Props extends BaseProps {
   setViewBoxScroll?: (left: number, top: number) => void;
   setViewBoxScrollDelta?: (left: number, top: number) => void;
@@ -52,7 +60,8 @@ export class TopicWidget extends React.Component<Props> {
     const subLinks = controller.run('renderSubLinks', props);
     return (
       <NodeChildren dir={dir} marginH={model.config.theme.marginH}>
-        {subTopics} {subLinks}
+        <SubNodes>{subTopics}</SubNodes>
+        {subLinks}
       </NodeChildren>
     );
   }

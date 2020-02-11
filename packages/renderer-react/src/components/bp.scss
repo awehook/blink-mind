@@ -1,0 +1,81 @@
+//@use "sass:map";
+
+$pt-font-size: 12px;
+
+$dark-colors: (
+  'zindex-bg': #2F2F2F,
+  'toolbar-bg': #494646,
+  'toolbar-item-bg': #726e6f,
+    'item-bg': #444,
+  'item-bg-active': #58595a,
+  'item': #c6c2c3,
+  'item-active': #fff,
+  //'card-bg': #2f3235,
+    'card-bg': #444,
+  'text': #fff
+);
+
+.bp3-dark {
+  color: map_get($dark-colors, 'text');
+
+  .bp3-dialog {
+    background-color: map_get($dark-colors, 'zindex-bg');
+  }
+
+  .bp3-card,
+  .bp3-tooltip,
+  .bp3-popover
+   {
+    background-color: map_get($dark-colors, 'card-bg');
+
+    .bp3-popover-content {
+      background-color: map_get($dark-colors, 'card-bg');
+      color: map_get($dark-colors, 'text');
+    }
+
+    .bp3-popover-arrow {
+      color: map_get($dark-colors, 'card-bg');
+    }
+
+    .bp3-popover-arrow-fill {
+      fill: map_get($dark-colors, 'card-bg');
+    }
+  }
+
+  .bp3-menu-item {
+    &:active &:hover {
+      background-color: map_get($dark-colors, 'item-bg-active');
+    }
+  }
+
+  .bp3-menu,
+  .bp3-menu-item {
+    background-color: map_get($dark-colors, 'card-bg');
+  }
+
+  .bp3-html-select {
+    select {
+      background-color: map_get($dark-colors, 'item-bg');
+      &:active,
+      &:hover {
+        background-color: map_get($dark-colors, 'item-bg');
+      }
+    }
+  }
+
+  .bp3-button {
+    &:not([class*='bp3-intent-']) {
+      .bp3-icon {
+        color: map_get($dark-colors, 'text');
+      }
+    }
+    background-color: map_get($dark-colors, 'item-bg') !important;
+  }
+
+  .bp3-input,
+  .bp3-tab,
+  .bp3-drawer {
+    //color: map_get($dark-colors, 'item');
+    background-color: map_get($dark-colors, 'item-bg');
+  }
+}

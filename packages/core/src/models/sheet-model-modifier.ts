@@ -11,11 +11,9 @@ import {
 import { createKey } from '../utils';
 import { Block } from './block';
 import { SheetModel } from './sheet-model';
-import { DocModel } from './doc-model';
 import { Topic } from './topic';
 import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
-import {Config} from "./index";
-import {ConfigRecordType} from "./config";
+import { ConfigRecordType } from './config';
 
 const log = debug('modifier');
 
@@ -27,7 +25,8 @@ type ModifierArg =
   | SetTopicStyleArg
   | SetZoomFactorArg
   | SetThemeArg
-  | SetLayoutDirArg;
+  | SetLayoutDirArg
+  | SetConfigArg;
 
 export type BaseSheetModelModifierArg = {
   model: SheetModel;
@@ -69,8 +68,8 @@ type SetLayoutDirArg = BaseSheetModelModifierArg & {
 };
 
 type SetConfigArg = BaseSheetModelModifierArg & {
-  // config: Pick<ConfigRecordType>
-}
+  config: Partial<ConfigRecordType>;
+};
 
 export type SheetModelModifierResult = SheetModel;
 
@@ -92,7 +91,9 @@ function toggleCollapse({
   return model;
 }
 
-function collapseAll({ model }: BaseSheetModelModifierArg): SheetModelModifierResult {
+function collapseAll({
+  model
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -108,7 +109,9 @@ function collapseAll({ model }: BaseSheetModelModifierArg): SheetModelModifierRe
   return model;
 }
 
-function expandAll({ model }: BaseSheetModelModifierArg): SheetModelModifierResult {
+function expandAll({
+  model
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
   const topicKeys = getAllSubTopicKeys(model, model.editorRootTopicKey);
   log(model);
   model = model.withMutations(m => {
@@ -145,13 +148,16 @@ function focusTopic({
   topicKey,
   focusMode
 }: SetFocusModeArg): SheetModelModifierResult {
-  log('focus topic');
+  log('focus topic',focusMode);
   if (topicKey !== model.focusKey) model = model.set('focusKey', topicKey);
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
 }
 
-function setFocusMode({ model, focusMode }: SetFocusModeArg): SheetModelModifierResult {
+function setFocusMode({
+  model,
+  focusMode
+}: SetFocusModeArg): SheetModelModifierResult {
   log('setFocusMode');
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
@@ -327,14 +333,17 @@ function setTheme({ model, theme }: SetThemeArg): SheetModelModifierResult {
   return model;
 }
 
-function setLayoutDir({ model, layoutDir }: SetLayoutDirArg): SheetModelModifierResult {
+function setLayoutDir({
+  model,
+  layoutDir
+}: SetLayoutDirArg): SheetModelModifierResult {
   if (model.config.layoutDir === layoutDir) return model;
   model = model.setIn(['config', 'layoutDir'], layoutDir);
   return model;
 }
 
-function setConfig({model,config}) {
-
+function setConfig({ model, config }: SetConfigArg) {
+  return model.set("config", model.config.merge(config));
 }
 
 function setEditorRootTopicKey({
@@ -458,6 +467,7 @@ export const SheetModelModifier = {
   deleteBlock,
   setStyle,
   clearAllCustomStyle,
+  setConfig,
   setTheme,
   setLayoutDir,
   setEditorRootTopicKey,

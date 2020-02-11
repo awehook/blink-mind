@@ -1,5 +1,6 @@
 import {Colors} from "@blueprintjs/core";
 import styled from 'styled-components';
+import {COLORS} from "../../utils";
 
 export const SettingTitle = styled.div`
   margin-top: 10px;
@@ -17,11 +18,10 @@ export const SettingBoxContainer = styled.div`
   //border: rgba(16, 22, 26, 0.15) solid 1px;
   border-radius: 5px;
   
-  background: ${Colors.LIGHT_GRAY5};
+  background: ${COLORS.LIGHT.CONTAINER_BG};
   
   .bp3-dark & {
-    //border-color: ${Colors.LIGHT_GRAY3};
-    background: ${Colors.DARK_GRAY5};
+    background: ${COLORS.DARK.CONTAINER_BG};
   }
 `;
 
