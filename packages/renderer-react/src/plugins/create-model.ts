@@ -1,4 +1,4 @@
-import { SheetModel, DocModel } from '@blink-mind/core';
+import { DocModel, SheetModel } from '@blink-mind/core';
 import { List } from 'immutable';
 
 export function CreateModelPlugin() {

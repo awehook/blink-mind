@@ -1,10 +1,9 @@
 import {
-  SheetModel,
   Controller,
   DocModel,
   IDiagram,
   IDiagramProps,
-  OnChangeFunction
+  OnChangeFunction,
 } from '@blink-mind/core';
 // TODO
 import '@blink-mind/icons';

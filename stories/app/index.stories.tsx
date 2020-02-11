@@ -2,22 +2,22 @@ import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
 import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import {
-  ThemeSelectorPlugin,
-  InsertImagesPlugin,
   ExportFilePlugin,
   ExportTopicPlugin,
+  InsertImagesPlugin,
   OpenFilePlugin,
   SearchPlugin,
   TagsPlugin,
+  ThemeSelectorPlugin,
   TopicReferencePlugin,
   UndoRedoPlugin
 } from '@blink-mind/plugins';
 import {
   Diagram,
+  ElementItemConfigs,
   iconClassName,
   IconName,
-  ToolbarItem,
-  ElementItemConfigs
+  ToolbarItem
 } from '@blink-mind/renderer-react';
 import { Classes } from '@blueprintjs/core';
 import { storiesOf } from '@storybook/react';

@@ -1,12 +1,12 @@
 import {
   BaseSheetModelModifierArg,
-  SheetModel,
-  SheetModelModifier,
   DocModel,
   getAllSubTopicKeys,
   IControllerRunContext,
   OpType,
   setCurrentSheetModel,
+  SheetModel,
+  SheetModelModifier,
   toDocModelModifierFunc
 } from '@blink-mind/core';
 import {

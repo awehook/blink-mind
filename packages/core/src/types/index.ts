@@ -1,4 +1,4 @@
-import {SheetModel, DocModel} from '../models';
+import {DocModel, SheetModel} from '../models';
 
 export type KeyType = string;
 

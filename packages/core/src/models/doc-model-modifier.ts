@@ -1,9 +1,9 @@
 import debug from 'debug';
 
 import { KeyType } from '../types';
+import { DocModel } from './doc-model';
 import { SheetModel } from './sheet-model';
 import { SheetModelModifier } from './sheet-model-modifier';
-import { DocModel } from './doc-model';
 
 const log = debug('modifier');
 

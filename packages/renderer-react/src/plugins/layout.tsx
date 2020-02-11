@@ -1,18 +1,17 @@
 import {
-  SheetModel,
   DiagramLayoutType,
   FocusMode,
   getRelationship,
   IControllerRunContext,
   KeyType,
   OpType,
+  SheetModel,
   Topic,
   TopicRelationship
 } from '@blink-mind/core';
 import {
   RootSubLinks,
   TopicDropEffect,
-  TopicHighlight,
   TopicWidget
 } from '../components/widgets';
 

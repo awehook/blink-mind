@@ -13,7 +13,6 @@ function op(opType: string, props) {
 export function HotKeyPlugin() {
   return {
     customizeHotKeys(ctx): HotKeysConfig {
-      const { controller } = ctx;
       const handleKeyDown = opType => e => {
         // log('HotKeyPlugin', opType);
         op(opType, ctx);

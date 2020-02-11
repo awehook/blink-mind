@@ -10,10 +10,10 @@ import {
 } from '../types';
 import { createKey } from '../utils';
 import { Block } from './block';
+import { ConfigRecordType } from './config';
 import { SheetModel } from './sheet-model';
 import { Topic } from './topic';
 import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
-import { ConfigRecordType } from './config';
 
 const log = debug('modifier');
 

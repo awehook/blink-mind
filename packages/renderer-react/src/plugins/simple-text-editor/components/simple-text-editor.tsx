@@ -1,4 +1,4 @@
-import { SheetModel, Controller, KeyType } from '@blink-mind/core';
+import { Controller, KeyType, SheetModel } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
 import plainSerializer from 'slate-plain-serializer';

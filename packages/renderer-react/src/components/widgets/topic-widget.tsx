@@ -4,7 +4,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {
   linksRefKey,
-  topicNodeRefKey,
   topicWidgetRootRefKey
 } from '../../utils';
 import { BaseProps } from '../common';

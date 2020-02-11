@@ -1,12 +1,12 @@
 import { BlockType } from '@blink-mind/core';
-import {descEditorRefKey, getI18nText, I18nKey} from '@blink-mind/renderer-react';
-import * as React from 'react';
+import {
+  descEditorRefKey,
+  getI18nText,
+  I18nKey
+} from '@blink-mind/renderer-react';
 import { RichTextEditor } from './rich-text-editor';
 
 export class TopicDescEditor extends RichTextEditor {
-  constructor(props) {
-    super(props);
-  }
   initState() {
     super.initState();
     const { controller, topicKey } = this.props;
@@ -26,7 +26,7 @@ export class TopicDescEditor extends RichTextEditor {
       block,
       readOnly,
       getRefKeyFunc,
-      placeholder: getI18nText(props,I18nKey.NOTE_PLACEHOLDER)
+      placeholder: getI18nText(props, I18nKey.NOTE_PLACEHOLDER)
     };
   }
 

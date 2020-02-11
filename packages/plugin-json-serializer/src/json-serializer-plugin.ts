@@ -1,12 +1,12 @@
 import {
   Block,
-  SheetModel,
   Config,
   createKey,
   DocModel,
   ExtData,
   FocusMode,
   IControllerRunContext,
+  SheetModel,
   Topic
 } from '@blink-mind/core';
 import debug from 'debug';

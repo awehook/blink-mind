@@ -1,6 +1,5 @@
 import { OpType } from '@blink-mind/core';
 import {
-  iconClassName,
   IconName,
   ToolbarItem
 } from '@blink-mind/renderer-react';

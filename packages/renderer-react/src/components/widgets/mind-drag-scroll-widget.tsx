@@ -1,4 +1,4 @@
-import { SheetModel, Controller, FocusMode } from '@blink-mind/core';
+import { Controller, FocusMode, SheetModel } from '@blink-mind/core';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';

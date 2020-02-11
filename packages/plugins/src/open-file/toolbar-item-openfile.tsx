@@ -1,6 +1,5 @@
 import {
   browserOpenFile,
-  iconClassName,
   IconName,
   ToolbarItem
 } from '@blink-mind/renderer-react';
@@ -17,7 +16,7 @@ export function ToolbarItemOpenFile(props) {
 
   return (
     <ToolbarItem
-      className={iconClassName(IconName.OPEN_FILE)}
+      iconName={IconName.OPEN_FILE}
       onClick={onClickOpenFile}
       {...props}
     />

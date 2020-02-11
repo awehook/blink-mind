@@ -1,6 +1,5 @@
 import {
   browserDownloadFile,
-  iconClassName,
   IconName,
   ToolbarItem
 } from '@blink-mind/renderer-react';
@@ -21,7 +20,7 @@ export function ToolbarItemExport(props) {
   return (
     <>
       <ToolbarItem
-        className={iconClassName(IconName.EXPORT)}
+        iconName={IconName.EXPORT}
         onClick={() => setShowDialog(true)}
         {...props}
       />

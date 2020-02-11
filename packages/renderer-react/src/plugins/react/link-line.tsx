@@ -1,6 +1,6 @@
+import * as React from 'react';
 import { RootSubLinks, TopicSubLinks } from '../../components/widgets';
 import { linksRefKey } from '../../utils';
-import * as React from 'react';
 
 export function LinkLinePlugin() {
   return {

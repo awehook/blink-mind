@@ -1,7 +1,7 @@
 import { Menu, Popover } from '@blueprintjs/core';
 import * as React from 'react';
 import { ElementItemConfigs } from '../../../types';
-import { iconClassName, IconName } from '../../../utils';
+import { IconName } from '../../../utils';
 import { ToolbarItem, ToolbarItemPopoverTarget } from '../../common';
 export function ToolbarItemMore(props) {
   const { controller } = props;

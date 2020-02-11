@@ -55,8 +55,7 @@ export class SheetTitle extends React.Component<Props, State> {
     const props = this.props;
     const { controller } = props;
     const title =
-      controller.run('getSheetTitle', props) +
-      getI18nText(props, I18nKey.COPY);
+      controller.run('getSheetTitle', props) + getI18nText(props, I18nKey.COPY);
     controller.run('operation', {
       ...props,
       opType: OpType.DUPLICATE_SHEET,
@@ -96,7 +95,7 @@ export class SheetTitle extends React.Component<Props, State> {
 
   render() {
     const props = this.props;
-    const { model, controller } = props;
+    const { controller } = props;
     const title = controller.run('getSheetTitle', props);
     const renameDlgProps = {
       ...props,

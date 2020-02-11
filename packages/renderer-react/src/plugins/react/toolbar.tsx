@@ -1,3 +1,4 @@
+import debug from 'debug';
 import * as React from 'react';
 import {
   Toolbar,
@@ -5,7 +6,6 @@ import {
   ToolbarItemLayout,
   ToolbarItemMore
 } from '../../components/widgets';
-import debug from 'debug';
 import { ElementItemConfigs } from '../../types';
 const log = debug('plugin:toolbar');
 

@@ -1,6 +1,5 @@
 import {
   ElementItemConfigs,
-  iconClassName,
   IconName,
   ToolbarItem
 } from '@blink-mind/renderer-react';

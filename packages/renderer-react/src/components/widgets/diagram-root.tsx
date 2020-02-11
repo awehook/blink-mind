@@ -5,9 +5,9 @@ import { Tab, TabList, TabPanel, Tabs } from '@slim-ui/react-tabs';
 import '@slim-ui/react-tabs/style/react-tabs.css';
 import * as React from 'react';
 import styled from 'styled-components';
-import { SheetTitle } from './sheet';
-import './diagram-root.css';
 import Theme from '../../plugins/react/theme';
+import './diagram-root.css';
+import { SheetTitle } from './sheet';
 
 const Root = styled.div`
   display: flex;

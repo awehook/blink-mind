@@ -1,28 +1,24 @@
 import { BlockType } from '@blink-mind/core';
 import debug from 'debug';
 import * as React from 'react';
+import { ViewModeMindMap } from '../../../../core/src/types';
 import { SaveRef } from '../../components/common';
 import {
-  MindMapSheet,
   DiagramRoot,
   DialogWidget,
   EditorRootBreadcrumbs,
-  RootSubLinks,
+  MindMapSheet,
   RootWidget,
   TopicCollapseIcon,
   TopicContent,
   TopicDesc,
-  TopicHighlight,
   TopicNodeLastRow,
   TopicNodeWidget,
-  TopicSubLinks,
   TopicWidget,
   ViewPortViewer
 } from '../../components/widgets';
-import { linksRefKey, PropKey, RefKey } from '../../utils';
+import { PropKey } from '../../utils';
 import { renderDrawer } from './drawer';
-import Theme from './theme';
-import { ViewModeMindMap } from '../../../../core/src/types';
 const log = debug('plugin:rendering');
 
 export function RenderingPlugin() {

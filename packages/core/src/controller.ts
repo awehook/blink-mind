@@ -1,7 +1,7 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import {SheetModel, DocModel} from './models';
+import {DocModel, SheetModel} from './models';
 import { CorePlugin } from './plugins/core';
 import { ModelChangeCallback, OnChangeFunction } from './types';
 

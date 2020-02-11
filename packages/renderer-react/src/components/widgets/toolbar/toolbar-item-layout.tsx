@@ -5,7 +5,6 @@ import {
   getI18nText,
   I18nKey,
   Icon,
-  iconClassName,
   IconName
 } from '../../../utils';
 import { ToolbarItem, ToolbarItemPopoverTarget } from '../../common';

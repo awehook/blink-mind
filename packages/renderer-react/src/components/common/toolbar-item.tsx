@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PropKey } from '../../utils';
-import { BaseProps } from './base-widget';
 import { iconClassName } from '../../utils';
+import { BaseProps } from './base-widget';
 
 interface ToolbarItemProps extends BaseProps {
   onClick?: (e) => void;
