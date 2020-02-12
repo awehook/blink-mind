@@ -1,6 +1,7 @@
 import { Tabs } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
+import cx from 'classnames';
 import { iconClassName, IconName } from '../../../utils';
 import {
   BaseProps,
@@ -61,7 +62,7 @@ export function RightTopPanelWidget(props: BaseProps) {
     <PanelRoot zIndex={zIndex}>
       <Title>
         <CloseIcon
-          className={iconClassName(IconName.CLOSE)}
+          className={cx('bp3-button', iconClassName(IconName.CLOSE))}
           onClick={() => {
             setRightTopPanelState({ isOpen: false });
           }}

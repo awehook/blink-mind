@@ -40,6 +40,7 @@ export function ToolbarItemLayout(props) {
   const nProps = {
     ...props,
     iconName:IconName.LAYOUT_LEFT_AND_RIGHT,
+    iconCxName: 'layout',
     label: getI18nText(props, I18nKey.LAYOUT)
   };
 

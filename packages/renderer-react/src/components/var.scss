@@ -1,0 +1,26 @@
+$pt-font-size: 12px;
+
+$dark-colors: (
+  'zindex-bg': #2f2f2f,
+  'toolbar-bg': #494646,
+  'toolbar-item-bg': #726e6f,
+  'item-bg': #444,
+  'item-bg-active': #58595a,
+  'item': #c6c2c3,
+  'item-active': #fff,
+  //'card-bg': #2f3235,
+  'card-bg': #444,
+  'text': #fff,
+  'line': #5f5f5f
+);
+
+$light-colors: (
+  'bg': #fafafa,
+  'zindex-bg': #2f2f2f,
+  'toolbar-bg': #d6d6d6,
+  'toolbar-item-bg': #f5f5f5,
+  'item': #8e8e8e,
+  'item-active': #000,
+  'text': #000,
+  'line': #dcdcdc
+);

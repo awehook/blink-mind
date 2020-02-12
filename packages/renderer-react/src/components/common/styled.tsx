@@ -12,6 +12,10 @@ export const Flex = styled.div`
   justify-content: ${props => props.justifyContent};
 `;
 
+export const InlineBlockSpan = styled.span`
+  display: inline-block;
+`;
+
 export const Margin = styled.div`
   margin: ${props => props.margin};
 `;
@@ -36,7 +40,7 @@ export const StyledCheckbox = styled(Checkbox)`
   margin-bottom: 0px !important;
 `;
 
-export const CloseIcon = styled(Btn)`
+export const CloseIcon = styled.div`
   position: absolute;
   right: 5px;
   top: 5px;
@@ -60,10 +64,10 @@ export const ZIndex = styled.div`
   .bp3-dark & {
     background-color: ${COLORS.DARK.ZINDEX_BG};
   }
-  font-size: 12px;
 `;
 
 export const PanelTabRoot = styled.div`
+  font-size: 12px;
   min-width: 380px;
   max-width: 482px;
   max-height: 480px;

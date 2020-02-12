@@ -13,11 +13,11 @@ import { SketchPicker } from 'react-color';
 import { getI18nText, iconClassName, IconName } from '../../utils';
 import { Flex, Margin } from './styled';
 import { ColorBar, SettingItem, WithBorder } from './styled-setting';
+
 export function SettingGroup(props) {
   return (
-    <div>
+    <div className='bm-setting-group bp3-divider'>
       {props.children}
-      <Divider style={{ margin: '10px 0' }} />
     </div>
   );
 }

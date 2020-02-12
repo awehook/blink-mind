@@ -14,7 +14,7 @@ export const COLORS = {
   },
 
   LIGHT: {
-    TOOLBAR_BG: '#FFF',
+    TOOLBAR_BG: '#D6D6D6',
     ITEM: Colors.GRAY3,
     ITEM_BG: Colors.LIGHT_GRAY1,
     ITEM_ACTIVE: Colors.BLACK,

@@ -4,29 +4,19 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { EventKey, getI18nText, I18nKey, Icon, IconName } from '../../../utils';
-import { BaseWidget, Btn, ZIndex } from '../../common';
+import { BaseWidget, InlineBlockSpan, ZIndex } from '../../common';
 
 const log = debug('node:view-port-viewer');
 
 const ViewerRoot = styled(ZIndex)`
   position: absolute;
+  font-size: 16px;
   background: white;
   right: 30px;
   bottom: 20px;
   border-radius: 2px;
   display: flex;
   flex-direction: row;
-  user-select: none;
-`;
-
-const ItemInner = styled(Btn)`
-  margin: 10px;
-`;
-
-const ZoomFactorSpan = styled.span`
-  display: inline-block;
-  width: 80px;
-  height: 18px;
 `;
 
 const Item = props => {
@@ -36,18 +26,14 @@ const Item = props => {
       position={Position.TOP}
       className={Classes.ICON}
     >
-      <ItemInner onClick={props.onClick} tabIndex={-1}>
+      <div className="bm-btn" onClick={props.onClick} tabIndex={-1}>
         {props.children}
-      </ItemInner>
+      </div>
     </Tooltip>
   );
 };
 
 export class ViewPortViewer extends BaseWidget {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount(): void {
     const props = this.props;
     const { controller } = props;
@@ -173,9 +159,9 @@ export class ViewPortViewer extends BaseWidget {
           onClick={this.onClickResetZoom}
           tooltip={getI18nText(props, I18nKey.RESET)}
         >
-          <ZoomFactorSpan>{`${getI18nText(props, I18nKey.ZOOM)}:${Math.floor(
+          <span className='iconfont'>{`${getI18nText(props, I18nKey.ZOOM)}:${Math.floor(
             zoomFactor * 100
-          )}%`}</ZoomFactorSpan>
+          )}%`}</span>
         </Item>
         <Item
           onClick={this.onClickAddZoom}

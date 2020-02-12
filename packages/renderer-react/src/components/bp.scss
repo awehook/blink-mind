@@ -1,19 +1,10 @@
-//@use "sass:map";
+@import "var";
 
-$pt-font-size: 12px;
-
-$dark-colors: (
-  'zindex-bg': #2F2F2F,
-  'toolbar-bg': #494646,
-  'toolbar-item-bg': #726e6f,
-    'item-bg': #444,
-  'item-bg-active': #58595a,
-  'item': #c6c2c3,
-  'item-active': #fff,
-  //'card-bg': #2f3235,
-    'card-bg': #444,
-  'text': #fff
-);
+.bp3-checkbox {
+  span {
+    outline: none !important;
+  }
+}
 
 .bp3-dark {
   color: map_get($dark-colors, 'text');
@@ -24,8 +15,7 @@ $dark-colors: (
 
   .bp3-card,
   .bp3-tooltip,
-  .bp3-popover
-   {
+  .bp3-popover {
     background-color: map_get($dark-colors, 'card-bg');
 
     .bp3-popover-content {
@@ -77,5 +67,172 @@ $dark-colors: (
   .bp3-drawer {
     //color: map_get($dark-colors, 'item');
     background-color: map_get($dark-colors, 'item-bg');
+  }
+}
+
+.bm-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 !important;
+  height: 60px;
+  background-color: map_get($light-colors, 'toolbar-bg');
+  .bp3-dark & {
+    background-color: map_get($dark-colors, 'toolbar-bg');
+  }
+  box-shadow: rgb(170, 170, 170) 0 0 2px;
+
+  .bm-toolbar-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 4px;
+    padding: 3px 15px;
+    height: 22px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1;
+    background-color: map_get($light-colors, 'toolbar-item-bg');
+    .bp3-dark & {
+      //color: map_get($dark-colors, 'item-active');
+      background-color: map_get($dark-colors, 'toolbar-item-bg');
+    }
+  }
+
+  .bm-toolbar-item-disabled {
+    cursor: default;
+    color: map_get($light-colors, 'item');
+    .bp3-dark & {
+      //color: map_get($dark-colors, 'item-active');
+      color: map_get($dark-colors, 'item');
+    }
+  }
+
+  .bm-toolbar-group {
+    display: flex;
+    margin: 0 4px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: map_get($light-colors, 'toolbar-item-bg');
+    .bp3-dark & {
+      //color: map_get($dark-colors, 'item-active');
+      background-color: map_get($dark-colors, 'toolbar-item-bg');
+    }
+
+    & > div {
+      margin: 0;
+      border-radius: 0;
+      border-right: 1px solid map_get($light-colors, 'line');
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .bp3-dark & {
+        border-right-color: map_get($dark-colors, 'line');
+      }
+    }
+  }
+}
+
+.bm-switch-btn {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bm-switch-btn-selected {
+  background-color: map_get($light-colors, 'toolbar-item-bg');
+  .bp3-dark & {
+    background-color: map_get($dark-colors, 'toolbar-item-bg');
+  }
+}
+
+.bm-sheet-tabs {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid map_get($light-colors, 'line');
+  background-color: map_get($light-colors, 'toolbar-bg');
+
+  .bp3-dark & {
+    border-top: 1px solid map_get($dark-colors, 'line');
+    background-color: map_get($dark-colors, 'toolbar-bg');
+  }
+
+  .tab-list {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    padding: 0;
+    margin: 0;
+
+    .react-tabs__tab {
+      font-size: 14px;
+      padding: 4px 12px ;
+      border-radius: 0;
+      border: none;
+      border-right: 1px solid map_get($light-colors, 'line');
+      color: map_get($light-colors, 'item');
+      .bp3-dark & {
+        color: map_get($dark-colors, 'item');
+        border-right: 1px solid map_get($dark-colors, 'line');
+        &:focus {
+          border-color: map_get($dark-colors, 'line');
+        }
+      }
+      &:focus {
+        box-shadow: none;
+        border-color: map_get($light-colors, 'line');
+      }
+    }
+
+    .react-tabs__tab::after {
+      height: 0;
+    }
+
+    .react-tabs__tab--selected {
+      color: map_get($light-colors, 'item-active');
+      border: none;
+      background-color: map_get($light-colors, 'toolbar-item-bg');
+      .bp3-dark & {
+        color: map_get($dark-colors, 'item-active');
+        background-color: map_get($dark-colors, 'toolbar-item-bg');
+      }
+    }
+  }
+
+  .tab-panel {
+    width: 100%;
+    height: calc(100% - 22px);
+    overflow: auto;
+    flex-grow: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+  }
+
+  .tab-panel__selected {
+    visibility: visible;
+  }
+
+  .tab-panel-root {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
+    position: relative;
+  }
+}
+
+.bm-card {
+  background-color: map_get($light-colors,'card-bg');
+  .bp3-dark & {
+    background-color: map_get($dark-colors,'card-bg');
   }
 }

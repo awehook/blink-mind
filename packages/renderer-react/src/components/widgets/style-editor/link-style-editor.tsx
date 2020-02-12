@@ -1,11 +1,10 @@
 import { LinkStyle } from '@blink-mind/core';
-import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { getI18nText, I18nKey } from '../../../utils';
 import {
   BaseProps,
   borderWidthItems,
-  Margin,
+  SettingRowTitle,
   renderItem,
   renderItemI18n,
   SettingGroup,
@@ -16,10 +15,6 @@ import {
 } from '../../common';
 
 const lineTypes = ['curve', 'round', 'line'];
-
-const renderLineTypeItem = (lineType, { handleClick, modifiers, query }) => {
-  return <MenuItem text={`${lineType}`} key={lineType} onClick={handleClick} />;
-};
 
 export interface LinkStyleEditorProps extends BaseProps {
   showLinkStyle?: boolean;
@@ -68,9 +63,9 @@ export function LinkStyleEditor(props: LinkStyleEditorProps) {
       <SettingTitle>{getI18nText(props, I18nKey.LINK)}</SettingTitle>
       {showLinkStyle && (
         <SettingRow alignItems="center">
-          <Margin margin="0 5px 0 0">
+          <SettingRowTitle>
             {getI18nText(props, I18nKey.LINK_TO_PARENT) + ':'}{' '}
-          </Margin>
+          </SettingRowTitle>
           <SettingItemSelect
             text={`${getI18nText(props, I18nKey.WIDTH)}: ${
               linkStyle ? linkStyle.lineWidth : '0px'
@@ -96,9 +91,9 @@ export function LinkStyleEditor(props: LinkStyleEditorProps) {
       )}
       {showSubLinkStyle && (
         <SettingRow alignItems="center">
-          <Margin margin="0 5px 0 0">
+          <SettingRowTitle>
             {getI18nText(props, I18nKey.SUB_LINKS) + ': '}
-          </Margin>
+          </SettingRowTitle>
           <SettingItemSelect
             text={`${getI18nText(props, I18nKey.WIDTH)}: ${
               subLinkStyle ? subLinkStyle.lineWidth : '0px'

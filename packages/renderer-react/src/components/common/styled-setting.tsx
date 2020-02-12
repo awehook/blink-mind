@@ -34,6 +34,11 @@ export const SettingRow = styled.div`
   margin: 5px 0;
 `;
 
+export const SettingRowTitle = styled.div`
+ margin: 0 5px 0 0;
+ width: 88px;
+`;
+
 export const ColorBar = styled.div`
   height: 3px;
   width: 80%;

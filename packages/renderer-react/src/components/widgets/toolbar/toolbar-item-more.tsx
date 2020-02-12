@@ -3,6 +3,8 @@ import * as React from 'react';
 import { ElementItemConfigs } from '../../../types';
 import { IconName } from '../../../utils';
 import { ToolbarItem, ToolbarItemPopoverTarget } from '../../common';
+
+
 export function ToolbarItemMore(props) {
   const { controller } = props;
   const itemConfigs: ElementItemConfigs = controller.run(
@@ -11,7 +13,7 @@ export function ToolbarItemMore(props) {
   );
   itemConfigs.sort((a, b) => a.order - b.order);
   return (
-    <ToolbarItem iconName={IconName.MORE} {...props}>
+    <ToolbarItem iconName={IconName.MORE} iconCxName='more' {...props}>
       <Popover enforceFocus={false}>
         <ToolbarItemPopoverTarget />
         <Menu>

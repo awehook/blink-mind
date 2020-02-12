@@ -1,11 +1,16 @@
 /*TODO*/
 /*@import url('//at.alicdn.com/t/font_1280682_naxwnc6of0c.css');*/
 
-@import "bp";
+@import 'bp';
 
 html {
   font-size: 100px;
   -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  line-height: 1;
+  user-select: none;
 }
 
 .iconfont {
@@ -25,20 +30,43 @@ div :focus {
 }
 
 .bm-toolbar-item {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin: 0 4px;
-  padding: 3px 15px;
-  //width: 36px;
-  height: 22px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  line-height: 1;
+  .more {
+    color: #e91e63;
+  }
+
+  .theme {
+    color: #2196f3;
+  }
+
+  .layout {
+    color: #009688;
+  }
+
+  .search {
+    color: #ff5722;
+  }
 
   .bp3-dark & {
-    //color: map_get($dark-colors, 'item-active');
-    background-color: map_get($dark-colors, 'toolbar-item-bg');
+    .icon {
+      color: inherit;
+    }
+  }
+}
+
+.bm-btn {
+  cursor: pointer;
+  margin: 10px;
+}
+
+.bm-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.bm-setting-group {
+  padding: 5px 0 10px 0;
+  border-right: none;
+  &:last-child {
+    border-bottom: none;
   }
 }

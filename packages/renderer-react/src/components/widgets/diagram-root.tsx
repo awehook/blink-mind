@@ -6,7 +6,6 @@ import '@slim-ui/react-tabs/style/react-tabs.css';
 import * as React from 'react';
 import styled from 'styled-components';
 import Theme from '../../plugins/react/theme';
-import './diagram-root.css';
 import { SheetTitle } from './sheet';
 
 const Root = styled.div`
@@ -56,7 +55,7 @@ export function DiagramRoot(props) {
   } else {
     const sheetModels = docModel.sheetModels.toArray();
     let i = 0;
-    const tabClassName = 'react-tabs__tab tab';
+    const tabClassName = 'react-tabs__tab';
     const tabProps = {
       className: tabClassName,
       tabIndex: '-1'
@@ -98,7 +97,7 @@ export function DiagramRoot(props) {
     });
     tabPanels.push(<TabPanel key={i++} {...tabPanelProps} />);
     const tabsProps = {
-      className: 'tabs react-tabs react-tabs__tabs',
+      className: 'bm-sheet-tabs react-tabs react-tabs__tabs',
       selectedIndex: docModel.currentSheetIndex,
       forceRenderTabPanel: true,
       onSelect
