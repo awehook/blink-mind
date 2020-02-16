@@ -6,19 +6,32 @@ import {
   NumericInput,
   Popover
 } from '@blueprintjs/core';
-import { Select } from '@blueprintjs/select';
+import { ItemPredicate, Select } from '@blueprintjs/select';
 import { ItemRenderer } from '@blueprintjs/select/src/common/itemRenderer';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
 import { getI18nText, iconClassName, IconName } from '../../utils';
-import { Flex, Margin } from './styled';
+import { Flex } from './styled';
 import { ColorBar, SettingItem, WithBorder } from './styled-setting';
+import styled from 'styled-components';
+const Label = styled.div`
+  margin: 0 5px 0 0;
+`;
 
 export function SettingGroup(props) {
+  return <div className="bm-setting-group bp3-divider">{props.children}</div>;
+}
+
+export function SettingItemFlex(props) {
+  const { layout = 'h', children } = props;
+  const flexProps = {
+    flexDirection: layout === 'h' ? 'row' : 'column',
+    alignItems: 'center'
+  };
   return (
-    <div className='bm-setting-group bp3-divider'>
-      {props.children}
-    </div>
+    <SettingItem>
+      <Flex {...flexProps}>{children}</Flex>
+    </SettingItem>
   );
 }
 
@@ -31,31 +44,25 @@ export interface SettingItemColorPickerProps {
 
 export function SettingItemColorPicker(props: SettingItemColorPickerProps) {
   const { title, layout = 'h', color, handleColorChange } = props;
-  const flexProps = {
-    flexDirection: layout === 'h' ? 'row' : 'column',
-    alignItems: 'center'
-  };
   return (
-    <SettingItem>
-      <Flex {...flexProps}>
-        {title != null && <Margin margin="0 5px 0 0">{title}</Margin>}
-        <Popover>
-          <WithBorder>
-            <div className={iconClassName(IconName.COLOR_PICKER)} />
-            <ColorBar color={color} />
-          </WithBorder>
-          <div>
-            <SketchPicker
-              color={color}
-              onChangeComplete={color => {
-                const { r, g, b, a } = color.rgb;
-                handleColorChange(`rgba(${r},${g},${b},${a})`);
-              }}
-            />
-          </div>
-        </Popover>
-      </Flex>
-    </SettingItem>
+    <SettingItemFlex layout={layout}>
+      {title != null && <Label>{title}</Label>}
+      <Popover>
+        <WithBorder>
+          <div className={iconClassName(IconName.COLOR_PICKER)} />
+          <ColorBar color={color} />
+        </WithBorder>
+        <div>
+          <SketchPicker
+            color={color}
+            onChangeComplete={color => {
+              const { r, g, b, a } = color.rgb;
+              handleColorChange(`rgba(${r},${g},${b},${a})`);
+            }}
+          />
+        </div>
+      </Popover>
+    </SettingItemFlex>
   );
 }
 
@@ -85,17 +92,11 @@ export interface SettingItemNumericInputProps {
 
 export function SettingItemNumericInput(props: SettingItemNumericInputProps) {
   const { layout = 'h', title, ...restProps } = props;
-  const flexProps = {
-    flexDirection: layout === 'h' ? 'row' : 'column',
-    alignItems: 'center'
-  };
   return (
-    <SettingItem>
-      <Flex {...flexProps}>
-        <Margin margin="0 5px 0 0">{title}</Margin>
-        <NumericInput {...restProps} />
-      </Flex>
-    </SettingItem>
+    <SettingItemFlex layout={layout}>
+      <Label>{title}</Label>
+      <NumericInput {...restProps} />
+    </SettingItemFlex>
   );
 }
 
@@ -109,40 +110,37 @@ export interface SettingItemInputProps {
 
 export function SettingItemInput(props) {
   const { layout = 'h', title, ...restProps } = props;
-  const flexProps = {
-    flexDirection: layout === 'h' ? 'row' : 'column',
-    alignItems: 'center'
-  };
   return (
-    <SettingItem>
-      <Flex {...flexProps}>
-        <Margin margin="0 5px 0 0">{title} </Margin>
-        <InputGroup {...restProps} />
-      </Flex>
-    </SettingItem>
+    <SettingItemFlex layout={layout}>
+      <Label>{title} </Label>
+      <InputGroup {...restProps} />
+    </SettingItemFlex>
   );
 }
 
 export function SettingItemSelect<T>(props: {
+  layout?: string;
+  filterable?: boolean;
+  title?: string;
   text: string;
   items: T[];
   itemRenderer: ItemRenderer<T>;
+  itemPredicate?: ItemPredicate<T>;
   onItemSelect: (item: T, event?: React.SyntheticEvent<HTMLElement>) => void;
 }) {
-  const { text, items, itemRenderer, onItemSelect } = props;
+  const { layout = 'h', filterable = false, title, text, ...rest } = props;
   const PxSelect = Select.ofType<T>();
   const pxProps = {
-    items,
-    itemRenderer,
-    onItemSelect,
-    filterable: false
+    filterable,
+    ...rest
   };
   return (
-    <SettingItem>
+    <SettingItemFlex layout={layout}>
+      {title && <Label>{title}</Label>}
       <PxSelect {...pxProps}>
         <Button text={text} />
       </PxSelect>
-    </SettingItem>
+    </SettingItemFlex>
   );
 }
 

@@ -14,7 +14,6 @@ import {
 import { BorderStyleEditor } from './border-style-editor';
 import { ClearAllCustomStyle } from './clear-all-custom-style';
 import { LinkStyleEditor, LinkStyleEditorProps } from './link-style-editor';
-import { TextStyleEditor } from './text-style-editor';
 import { ContentStyleEditorProps } from './types';
 
 const log = debug('node:style-editor');
@@ -96,7 +95,8 @@ export function StyleEditor(props: BaseProps) {
   return (
     <PanelTabRoot>
       <BorderStyleEditor {...contentStyleEditorPros} />
-      <TextStyleEditor {...contentStyleEditorPros} />
+      {controller.run('renderTextStyleEditor',contentStyleEditorPros)}
+      {/*<TextStyleEditor {...contentStyleEditorPros} />*/}
       <SettingGroup>
         <SettingTitle>{getI18nText(props, I18nKey.BACKGROUND)}</SettingTitle>
         <SettingItemColorPicker

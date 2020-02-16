@@ -2,8 +2,8 @@ import { I18nKey } from '../utils';
 
 export function I18nPlugin() {
   const i18nTextMap = new Map([
-    [I18nKey.MIND_MAP,'Mind Map'],
-    [I18nKey.OUTLINER,'Outliner'],
+    [I18nKey.MIND_MAP, 'Mind Map'],
+    [I18nKey.OUTLINER, 'Outliner'],
     [I18nKey.COPY, 'Copy'],
     [I18nKey.PASTE, 'Paste'],
     [I18nKey.DUPLICATE, 'Duplicate'],
@@ -69,6 +69,7 @@ export function I18nPlugin() {
     [I18nKey.BORDER, 'Border'],
     [I18nKey.WIDTH, 'Width'],
     [I18nKey.RADIUS, 'Radius'],
+    [I18nKey.FONT_FAMILY, 'FontFamily'],
     [I18nKey.FONT_SIZE, 'FontSize'],
     [I18nKey.LINE_HEIGHT, 'LineHeight'],
     [I18nKey.PADDING, 'Padding'],

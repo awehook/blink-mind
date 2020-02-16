@@ -11,6 +11,7 @@ export type TopicContentStyle = {
   [key: string]: any;
   background?: string;
   color?: string;
+  fontFamily?: string;
   fontSize?: string;
   lineHeight?: string;
   border?: string;

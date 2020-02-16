@@ -7,13 +7,15 @@ import {
   SettingItemInput,
   SettingItemInputProps,
   SettingItemNumericInput,
+  SettingItemSelect,
   SettingTitle
 } from '../../common';
 
 import { ContentStyleEditorProps } from './types';
+import { MenuItem } from '@blueprintjs/core';
 
 export function TextStyleEditor(props: ContentStyleEditorProps) {
-  const { contentStyle, setContentStyle } = props;
+  const { controller, contentStyle, setContentStyle } = props;
   const handleFontSizeChange = value => {
     // log('handleFontSizeChange:', value);
     setContentStyle({ fontSize: value });
@@ -26,6 +28,28 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
 
   const handleColorChange = color => {
     setContentStyle({ color });
+  };
+
+  const fontFamilyProps = {
+    filterable: true,
+    title: getI18nText(props, I18nKey.FONT_FAMILY) + ':',
+    text: '',
+    items: controller.run('getFontList', props),
+    itemRenderer: item => {
+      const text = <span style={{ fontFamily: item }}>{item.replace(/^"|"$/g,'')}</span>;
+      return <MenuItem key={item} text={text} />;
+    },
+    itemPredicate: (query, item, _index, exactMatch) => {
+      const normalizedTitle = item.toLowerCase();
+      const normalizedQuery = query.toLowerCase();
+
+      if (exactMatch) {
+        return normalizedTitle === normalizedQuery;
+      } else {
+        return normalizedTitle.indexOf(normalizedQuery) >= 0;
+      }
+    },
+    onItemSelect: item => {}
   };
 
   const fontSizeNumInputProps = {
@@ -50,6 +74,7 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
     <SettingGroup>
       <SettingTitle>{getI18nText(props, I18nKey.TEXT_EDITOR)}</SettingTitle>
       <Flex>
+        <SettingItemSelect {...fontFamilyProps} />
         <SettingItemNumericInput {...fontSizeNumInputProps} />
         <SettingItemInput {...lineHeightInputProps} />
         <SettingItemColorPicker

@@ -9,6 +9,7 @@ import {
 import '@blink-mind/icons';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
+import '@blueprintjs/select/lib/css/blueprint-select.css';
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import * as React from 'react';
