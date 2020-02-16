@@ -91,7 +91,7 @@ export class DragScrollWidget extends React.Component<
           'wheel',
           function(e) {
             log('onwheel');
-            (e.ctrlKey || e.altKey) && e.preventDefault();
+            (e.ctrlKey || e.metaKey) && e.preventDefault();
           },
           {
             passive: false

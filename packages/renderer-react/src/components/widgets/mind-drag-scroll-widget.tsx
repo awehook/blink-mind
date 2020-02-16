@@ -115,11 +115,11 @@ class MindDragScrollWidget<
     this.dragScrollWidget.setZoomFactor(zoomFactor);
   };
 
-  onWheel = e => {
-    if (e.altKey || e.ctrlKey) {
-      const { controller } = this.props;
+  onWheel = ev => {
+    const { controller } = this.props;
+    if (controller.run('isMetaKey', { ...this.props, ev })) {
       let zoomFactor = controller.run('getZoomFactor', this.props);
-      zoomFactor = zoomFactor - (e.nativeEvent.deltaY > 0 ? 0.1 : -0.1);
+      zoomFactor = zoomFactor - (ev.nativeEvent.deltaY > 0 ? 0.1 : -0.1);
       if (zoomFactor < 0.5) zoomFactor = 0.5;
       if (zoomFactor > 4) zoomFactor = 4;
       // console.log('zoomFactor=>', zoomFactor);

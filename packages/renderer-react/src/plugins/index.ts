@@ -9,6 +9,7 @@ import { ReactPlugin } from './react';
 import { SimpleTextEditorPlugin } from './simple-text-editor';
 import { StylePlugin } from './style';
 import { ThemePlugin } from './theme';
+import { PlatformPlugin } from './platform';
 
 export function DefaultPlugin() {
   return [
@@ -22,6 +23,7 @@ export function DefaultPlugin() {
     SimpleTextEditorPlugin(),
     CreateModelPlugin(),
     ThemePlugin(),
+    PlatformPlugin(),
     I18nPlugin()
   ];
 }
