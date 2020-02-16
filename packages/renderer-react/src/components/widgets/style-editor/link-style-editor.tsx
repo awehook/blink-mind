@@ -4,13 +4,13 @@ import { getI18nText, I18nKey } from '../../../utils';
 import {
   BaseProps,
   borderWidthItems,
-  SettingRowTitle,
   renderItem,
   renderItemI18n,
   SettingGroup,
   SettingItemColorPicker,
   SettingItemSelect,
   SettingRow,
+  SettingRowTitle,
   SettingTitle
 } from '../../common';
 

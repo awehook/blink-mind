@@ -5,11 +5,11 @@ import { HotKeyPlugin } from './hotkey';
 import { I18nPlugin } from './i18n';
 import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
+import { PlatformPlugin } from './platform';
 import { ReactPlugin } from './react';
 import { SimpleTextEditorPlugin } from './simple-text-editor';
 import { StylePlugin } from './style';
 import { ThemePlugin } from './theme';
-import { PlatformPlugin } from './platform';
 
 export function DefaultPlugin() {
   return [

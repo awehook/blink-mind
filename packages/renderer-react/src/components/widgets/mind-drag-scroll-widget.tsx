@@ -1,4 +1,4 @@
-import { Controller, FocusMode, SheetModel } from '@blink-mind/core';
+import { Controller, DocModel, FocusMode, SheetModel } from '@blink-mind/core';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -21,6 +21,7 @@ const DIV = styled.div`
 export interface MindDragScrollWidgetProps {
   controller: Controller;
   model: SheetModel;
+  docModel: DocModel;
   saveRef?: Function;
   getRef?: Function;
 }
@@ -35,7 +36,8 @@ class MindDragScrollWidget<
 
   renderHotkeys() {
     const props = this.props;
-    const { controller, model } = props;
+    const { controller, model, docModel } = props;
+    if (docModel.currentSheetModel !== model) return <Hotkeys/>;
     const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', props);
     if (hotKeys === null) return null;
     if (

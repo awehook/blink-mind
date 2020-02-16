@@ -1,7 +1,7 @@
 import { Tabs } from '@blueprintjs/core';
+import cx from 'classnames';
 import * as React from 'react';
 import styled from 'styled-components';
-import cx from 'classnames';
 import { iconClassName, IconName } from '../../../utils';
 import {
   BaseProps,

@@ -4,7 +4,7 @@ import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { EventKey, getI18nText, I18nKey, Icon, IconName } from '../../../utils';
-import { BaseWidget, InlineBlockSpan, ZIndex } from '../../common';
+import { BaseWidget, ZIndex } from '../../common';
 
 const log = debug('node:view-port-viewer');
 

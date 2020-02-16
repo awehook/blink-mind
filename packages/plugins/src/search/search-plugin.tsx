@@ -17,7 +17,7 @@ export function SearchPlugin() {
 
       hotKeys.globalHotKeys.set(HOT_KEY_NAME_SEARCH, {
         label: 'search',
-        combo: 'ctrl + f',
+        combo: 'mod + f',
         onKeyDown: () => {
           controller.run('operation', {
             ...props,
