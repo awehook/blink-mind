@@ -3,7 +3,8 @@ import {
   BaseProps,
   getI18nText,
   I18nKey,
-  stopPropagation
+  stopPropagation,
+  COLORS
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -26,12 +27,12 @@ const GroupList = styled.div`
 
 const GroupTitle = styled.div`
   font-size: 20px;
-  color: #106ba3;
+  color: ${COLORS.HIGHLIGHT};
 `;
 
 const GotoBtn = styled.div`
   text-decoration: underline;
-  color: #106ba3;
+  color: ${COLORS.HIGHLIGHT};
   cursor: pointer;
 `;
 
@@ -111,7 +112,9 @@ export function ReferenceTopicList(props: BaseProps) {
 
   const currentTopic = model.focusKey !== topicKey && (
     <Group>
-      <GotoBtn onClick={onClickGotoOriginTopic}>{getI18nText(props,I18nKey.GOTO_ORIGINAL_TOPIC)}</GotoBtn>
+      <GotoBtn onClick={onClickGotoOriginTopic}>
+        {getI18nText(props, I18nKey.GOTO_ORIGINAL_TOPIC)}
+      </GotoBtn>
     </Group>
   );
 

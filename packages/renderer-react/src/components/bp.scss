@@ -74,13 +74,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 !important;
-  height: 60px;
+  height: 40px;
   background-color: map_get($light-colors, 'toolbar-bg');
   .bp3-dark & {
     background-color: map_get($dark-colors, 'toolbar-bg');
   }
-  box-shadow: rgb(170, 170, 170) 0 0 2px;
+  //box-shadow: rgb(170, 170, 170) 0 0 2px;
 
   .bm-toolbar-item {
     display: flex;

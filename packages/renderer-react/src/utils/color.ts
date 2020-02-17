@@ -2,6 +2,7 @@ import { Colors } from '@blueprintjs/core';
 import * as colorString from 'color-string';
 
 export const COLORS = {
+  HIGHLIGHT: '#48aff0',
   DARK: {
     ZINDEX_BG: '#2F2F2F',
     TOOLBAR_BG: '#494646',

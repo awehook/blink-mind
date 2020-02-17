@@ -6,10 +6,6 @@ import { ToolbarItemSearch } from './toolbar-item-search';
 import { FOCUS_MODE_SEARCH, HOT_KEY_NAME_SEARCH } from './utils';
 
 export function SearchPlugin() {
-  let searchWord: string;
-  const setSearchWorld = s => {
-    searchWord = s;
-  };
   return {
     customizeHotKeys(props, next): HotKeysConfig {
       const { controller, model } = props;
@@ -46,7 +42,6 @@ export function SearchPlugin() {
         const searchPanelProps = {
           key: 'search-panel',
           ...props,
-          setSearchWorld
         };
         res.push(<SearchPanel {...searchPanelProps} />);
       }

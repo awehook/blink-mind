@@ -30,7 +30,7 @@ export function TagTopicList(props: TagTopicListProps) {
       <SettingTitle>
         {getI18nText(props, I18nKey.TOPICS_THAT_USE_THIS_TAG)}
       </SettingTitle>
-      <SettingBoxContainer>
+      <SettingBoxContainer style={{ width: '500px' }}>
         <VListContainer>{topicList}</VListContainer>
       </SettingBoxContainer>
     </>

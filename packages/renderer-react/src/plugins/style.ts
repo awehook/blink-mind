@@ -226,7 +226,7 @@ export function StylePlugin() {
       const colors = [
         '#00CC99',
         '#FFEE88',
-        '#A167A5',
+        // '#A167A5',
         '#E5F993',
         '#F5C396',
         '#DB995A',

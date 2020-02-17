@@ -1,10 +1,10 @@
 import {
   ElementItemConfigs,
   IconName,
-  ToolbarItem
+  ToolbarItem,
+  ToolbarGroupItem
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
-import { ToolbarGroupItem } from '../../../renderer-react/src/components/common';
 
 export function ToolbarGroupItemUndoRedo(props) {
   const { controller } = props;

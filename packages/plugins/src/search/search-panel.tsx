@@ -14,6 +14,7 @@ import {
   TopicTitleThumbnailProps
 } from '../common/components/topic-title-thumbnail';
 import './search-panel.css';
+import { SEARCH_QUERY_TEMP_VALUE_KEY } from './utils';
 
 const NavOmniBar = Omnibar.ofType<INavigationSection>();
 
@@ -27,12 +28,12 @@ export interface INavigationSection {
   topicKey: KeyType;
 }
 
-export type SearchPanelProps = BaseProps & {
-  setSearchWord: (s: string) => void;
-};
-export function SearchPanel(props: SearchPanelProps) {
-  const { model, setSearchWord, controller } = props;
-  const INPUT_PROPS: IInputGroupProps = {
+export function SearchPanel(props: BaseProps) {
+  const { model, controller } = props;
+  const query = controller.run('getTempValue', {
+    key: SEARCH_QUERY_TEMP_VALUE_KEY
+  });
+  const inputProps: IInputGroupProps = {
     placeholder: getI18nText(props, I18nKey.SEARCH)
   };
   const onClose = () => {
@@ -57,15 +58,22 @@ export function SearchPanel(props: SearchPanelProps) {
     const { topicKey } = section;
     const thumbnailProps: TopicTitleThumbnailProps = {
       ...props,
-      topicKey
+      topicKey,
+      query: controller.run('getTempValue', {
+        key: SEARCH_QUERY_TEMP_VALUE_KEY
+      })
     };
     return <TopicTitleThumbnail key={topicKey} {...thumbnailProps} />;
   };
 
-  const filterMatches: ItemListPredicate<INavigationSection> = (
+  const itemListPredicate: ItemListPredicate<INavigationSection> = (
     query,
     items
   ) => {
+    controller.run('setTempValue', {
+      key: SEARCH_QUERY_TEMP_VALUE_KEY,
+      value: query
+    });
     return items.filter(item => {
       const topicTitle = controller.getValue(PropKey.TOPIC_TITLE, {
         ...props,
@@ -75,18 +83,17 @@ export function SearchPanel(props: SearchPanelProps) {
     });
   };
 
-  const sections = getAllSections();
-
-  return (
-    <StyledNavOmniBar
-      inputProps={INPUT_PROPS}
-      itemListPredicate={filterMatches}
-      isOpen={true}
-      items={sections}
-      itemRenderer={renderItem}
-      // onItemSelect={handleItemSelect}
-      onClose={onClose}
-      resetOnSelect={true}
-    />
-  );
+  const items = getAllSections();
+  const omniBarProps = {
+    query,
+    inputProps,
+    itemListPredicate,
+    isOpen: true,
+    items: items,
+    itemRenderer: renderItem,
+    // onItemSelect={handleItemSelect}
+    onClose,
+    resetOnSelect: true
+  };
+  return <StyledNavOmniBar {...omniBarProps} />;
 }
