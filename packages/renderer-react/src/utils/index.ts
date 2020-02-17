@@ -68,3 +68,4 @@ export * from './css';
 export * from './i18n';
 export * from './color';
 export * from './immutable';
+export * from './font-detect';

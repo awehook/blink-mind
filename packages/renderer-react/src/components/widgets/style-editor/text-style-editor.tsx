@@ -1,18 +1,25 @@
 import * as React from 'react';
-import { getI18nText, I18nKey } from '../../../utils';
 import {
-  Flex,
+  getI18nText,
+  I18nKey,
+} from '../../../utils';
+import {
   SettingGroup,
   SettingItemColorPicker,
   SettingItemInput,
   SettingItemInputProps,
   SettingItemNumericInput,
-  SettingItemSelect,
+  SettingItemSelect as SettingItemSelectC,
+  SettingRow,
   SettingTitle
 } from '../../common';
 
 import { ContentStyleEditorProps } from './types';
 import { MenuItem } from '@blueprintjs/core';
+
+const SettingItemSelect = props => (
+  <SettingItemSelectC labelWidth={'80px'} {...props} />
+);
 
 export function TextStyleEditor(props: ContentStyleEditorProps) {
   const { controller, contentStyle, setContentStyle } = props;
@@ -29,15 +36,23 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
   const handleColorChange = color => {
     setContentStyle({ color });
   };
-
+  const fontF = contentStyle.fontFamily || getI18nText(props, I18nKey.DEFAULT);
   const fontFamilyProps = {
     filterable: true,
     title: getI18nText(props, I18nKey.FONT_FAMILY) + ':',
-    text: '',
+    text: <span style={{ fontFamily: fontF }}>{fontF}</span>,
     items: controller.run('getFontList', props),
     itemRenderer: item => {
-      const text = <span style={{ fontFamily: item }}>{item.replace(/^"|"$/g,'')}</span>;
-      return <MenuItem key={item} text={text} />;
+      const text = <span style={{ fontFamily: item }}>{item}</span>;
+      return (
+        <MenuItem
+          key={item}
+          text={text}
+          onClick={() => {
+            setContentStyle({ fontFamily: item });
+          }}
+        />
+      );
     },
     itemPredicate: (query, item, _index, exactMatch) => {
       const normalizedTitle = item.toLowerCase();
@@ -49,11 +64,61 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
         return normalizedTitle.indexOf(normalizedQuery) >= 0;
       }
     },
-    onItemSelect: item => {}
+    onItemSelect: item => {
+      setContentStyle({ fontFamily: item });
+    }
+  };
+  const fontStyle = contentStyle.fontStyle || 'Normal';
+  const fontStyleProps = {
+    title: getI18nText(props, I18nKey.FONT_STYLE) + ':',
+    text: fontStyle,
+    items: ['Normal', 'Italic', 'Oblique'],
+    itemRenderer: (v, { handleClick }) => {
+      return <MenuItem key={v} text={v} onClick={handleClick} />;
+    },
+    onItemSelect: item => {
+      setContentStyle({
+        fontStyle: item
+      });
+    }
+  };
+
+  const fontWeight = contentStyle.fontWeight || '400';
+  const fontWeightItemsMap = new Map([
+    ['100', 'Thin'],
+    ['200', 'ExtraLight'],
+    ['300', 'Light'],
+    ['400', 'Normal'],
+    ['500', 'Medium'],
+    ['600', 'DemiBold'],
+    ['700', 'Bold'],
+    ['800', 'UltraBold'],
+    ['900', 'Heavy']
+  ]);
+
+  const fontWeightProps = {
+    title: getI18nText(props, I18nKey.FONT_WEIGHT) + ':',
+    text: fontWeightItemsMap.get(fontWeight),
+    items: Array.from(fontWeightItemsMap.keys()),
+    itemRenderer: (v, { handleClick }) => {
+      return (
+        <MenuItem
+          key={v}
+          text={fontWeightItemsMap.get(v)}
+          onClick={handleClick}
+        />
+      );
+    },
+    onItemSelect: item => {
+      setContentStyle({
+        fontWeight: item
+      });
+    }
   };
 
   const fontSizeNumInputProps = {
     title: `${getI18nText(props, I18nKey.FONT_SIZE)}:`,
+    labelWidth: '80px',
     min: 12,
     max: 100,
     value: parseInt(contentStyle.fontSize),
@@ -65,23 +130,30 @@ export function TextStyleEditor(props: ContentStyleEditorProps) {
   const lineHeightInputProps: SettingItemInputProps = {
     title: `${getI18nText(props, I18nKey.LINE_HEIGHT)}:`,
     style: {
-      width: 50
+      width: '50px'
     },
+    labelWidth: '80px',
     value: contentStyle.lineHeight || '',
     onChange: handleLineHeightChange
   };
   return (
     <SettingGroup>
       <SettingTitle>{getI18nText(props, I18nKey.TEXT_EDITOR)}</SettingTitle>
-      <Flex>
+      <SettingRow>
         <SettingItemSelect {...fontFamilyProps} />
         <SettingItemNumericInput {...fontSizeNumInputProps} />
+      </SettingRow>
+      <SettingRow>
+        <SettingItemSelect {...fontWeightProps} />
+        <SettingItemSelect {...fontStyleProps} />
+      </SettingRow>
+      <SettingRow>
         <SettingItemInput {...lineHeightInputProps} />
         <SettingItemColorPicker
           color={contentStyle.color}
           handleColorChange={handleColorChange}
         />
-      </Flex>
+      </SettingRow>
     </SettingGroup>
   );
 }

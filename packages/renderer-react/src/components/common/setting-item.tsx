@@ -15,7 +15,8 @@ import { Flex } from './styled';
 import { ColorBar, SettingItem, WithBorder } from './styled-setting';
 import styled from 'styled-components';
 const Label = styled.div`
-  margin: 0 5px 0 0;
+  margin: ${props => (props.width == null ? '0 5px 0 0' : null)};
+  width: ${props => props.width};
 `;
 
 export function SettingGroup(props) {
@@ -84,6 +85,7 @@ export function SettingItemButton(props: SettingItemButtonProps) {
 export interface SettingItemNumericInputProps {
   layout?: string;
   title: string;
+  labelWidth?: string;
   value: number;
   min: number;
   max: number;
@@ -91,10 +93,10 @@ export interface SettingItemNumericInputProps {
 }
 
 export function SettingItemNumericInput(props: SettingItemNumericInputProps) {
-  const { layout = 'h', title, ...restProps } = props;
+  const { layout = 'h', labelWidth, title, ...restProps } = props;
   return (
     <SettingItemFlex layout={layout}>
-      <Label>{title}</Label>
+      <Label width={labelWidth}>{title}</Label>
       <NumericInput {...restProps} />
     </SettingItemFlex>
   );
@@ -103,16 +105,17 @@ export function SettingItemNumericInput(props: SettingItemNumericInputProps) {
 export interface SettingItemInputProps {
   layout?: string;
   title: string;
+  labelWidth?: string;
   style?: Object;
   value: string;
   onChange: React.FormEventHandler<HTMLElement>;
 }
 
 export function SettingItemInput(props) {
-  const { layout = 'h', title, ...restProps } = props;
+  const { layout = 'h', labelWidth, title, ...restProps } = props;
   return (
     <SettingItemFlex layout={layout}>
-      <Label>{title} </Label>
+      <Label width={labelWidth}>{title} </Label>
       <InputGroup {...restProps} />
     </SettingItemFlex>
   );
@@ -122,13 +125,21 @@ export function SettingItemSelect<T>(props: {
   layout?: string;
   filterable?: boolean;
   title?: string;
-  text: string;
+  labelWidth?: string;
+  text: string | React.ReactElement;
   items: T[];
   itemRenderer: ItemRenderer<T>;
   itemPredicate?: ItemPredicate<T>;
   onItemSelect: (item: T, event?: React.SyntheticEvent<HTMLElement>) => void;
 }) {
-  const { layout = 'h', filterable = false, title, text, ...rest } = props;
+  const {
+    layout = 'h',
+    filterable = false,
+    title,
+    labelWidth,
+    text,
+    ...rest
+  } = props;
   const PxSelect = Select.ofType<T>();
   const pxProps = {
     filterable,
@@ -136,7 +147,7 @@ export function SettingItemSelect<T>(props: {
   };
   return (
     <SettingItemFlex layout={layout}>
-      {title && <Label>{title}</Label>}
+      {title && <Label width={labelWidth}>{title}</Label>}
       <PxSelect {...pxProps}>
         <Button text={text} />
       </PxSelect>

@@ -5,11 +5,15 @@ import {
   renderItemI18n,
   SettingGroup,
   SettingItemColorPicker,
-  SettingItemSelect,
+  SettingItemSelect as SettingItemSelectC,
   SettingRow,
   SettingTitle
 } from '../../common';
 import { ContentStyleEditorProps } from './types';
+
+const SettingItemSelect = props => (
+  <SettingItemSelectC labelWidth={'45px'} {...props} />
+);
 
 const borderWidthItems = [...Array(7).keys()];
 const borderRadiusItems = [0, 5, 10, 15, 20, 25, 30, 35];
@@ -34,33 +38,36 @@ export function BorderStyleEditor(props: ContentStyleEditorProps) {
   const handleBorderColorChange = color => {
     setContentStyle({ borderColor: color });
   };
-
+  const labelWidth = 50;
   return (
     <SettingGroup>
       <SettingTitle>{getI18nText(props, I18nKey.BORDER)}</SettingTitle>
       <SettingRow>
         <SettingItemSelect
-          text={`${getI18nText(props, I18nKey.WIDTH)}: ${
-            contentStyle.borderWidth ? contentStyle.borderWidth : getI18nText(props,I18nKey.DEFAULT)
-          }`}
+          title={`${getI18nText(props, I18nKey.WIDTH)}:`}
+          text={
+            contentStyle.borderWidth
+              ? contentStyle.borderWidth
+              : getI18nText(props, I18nKey.DEFAULT)
+          }
           items={borderWidthItems}
           itemRenderer={renderItem('px')}
           onItemSelect={handleBorderWidthChange}
         />
         <SettingItemSelect
-          text={`${getI18nText(props, I18nKey.STYLE)}: ${
+          title={`${getI18nText(props, I18nKey.STYLE)}:`}
+          text={
             contentStyle.borderStyle
               ? getI18nText(props, contentStyle.borderStyle)
               : getI18nText(props, I18nKey.NONE)
-          }`}
+          }
           items={borderStyleItems}
           itemRenderer={renderItemI18n(props)}
           onItemSelect={handleBorderStyleChange}
         />
         <SettingItemSelect
-          text={`${getI18nText(props, I18nKey.RADIUS)}: ${
-            contentStyle.borderRadius
-          }`}
+          title={`${getI18nText(props, I18nKey.RADIUS)}:`}
+          text={contentStyle.borderRadius}
           items={borderRadiusItems}
           itemRenderer={renderItem('px')}
           onItemSelect={handleBorderRadiusChange}
