@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Theme from '../../../plugins/react/theme';
 import { RefKey } from '../../../utils';
 import { MindDragScrollWidget } from '../mind-drag-scroll-widget';
 

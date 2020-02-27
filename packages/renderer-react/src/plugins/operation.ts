@@ -114,10 +114,8 @@ export function OperationPlugin() {
       return OpMap;
     },
 
-    //是否允许undo
-    getAllowUndo(ctx) {
-      const { model, opType, allowUndo = true } = ctx;
-      if (allowUndo === false) return false;
+    customizeAllowUndo(ctx) {
+      const { model, opType } = ctx;
       if (opType) {
         switch (opType) {
           // 这几种情况不加入undo 队列
@@ -134,8 +132,17 @@ export function OperationPlugin() {
         case 'EDITING_DESC':
         case 'EDITING_CONTENT':
           return false;
+        default:
+          break;
       }
       return model.config.allowUndo;
+    },
+
+    //是否允许undo
+    getAllowUndo(ctx) {
+      const { controller, allowUndo = true } = ctx;
+      if (allowUndo === false) return false;
+      return controller.run('customizeAllowUndo', ctx);
     },
 
     getUndoRedoStack() {
@@ -214,7 +221,7 @@ export function OperationPlugin() {
 
     //TODO 有空重构这个函数
     operation(ctx) {
-      const { controller, opType, docModel, model, opArray, callback } = ctx;
+      const { controller, opType, docModel, opArray, callback } = ctx;
       if (opArray != null && !Array.isArray(opArray)) {
         throw new Error('operation: the type of opArray must be array!');
       }

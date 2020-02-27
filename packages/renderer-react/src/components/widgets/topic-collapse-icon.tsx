@@ -1,8 +1,7 @@
 import { TopicDirection } from '@blink-mind/core';
-import cx from 'classnames';
-import * as React from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import { collapseRefKey } from '../../utils';
+import { collapseRefKey,iconClassName } from '../../utils';
 
 const Icon = styled.div`
   position: absolute;
@@ -57,11 +56,7 @@ export function TopicCollapseIcon(props) {
       // background={topicStyle.background}
       dir={dir}
       hasUnderline={hasUnderline}
-      className={cx({
-        icon: true,
-        iconfont: true,
-        [`bm-${topic.collapse ? 'plus' : 'minus'}`]: true
-      })}
+      className={iconClassName(topic.collapse ? 'plus' : 'minus')}
     />
   ) : null;
 }

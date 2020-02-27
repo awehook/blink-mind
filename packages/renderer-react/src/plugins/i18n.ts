@@ -133,6 +133,7 @@ export function I18nPlugin() {
     [I18nKey.DELETE_REFERENCE_TIP, 'Are you confirm to remove this reference?'],
     [I18nKey.FILE_FORMAT_ERROR, 'File Format Error!'],
 
+
     [I18nKey.HYPERLINK, 'Hyperlink'],
     [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink']
   ]);

@@ -18,6 +18,7 @@ export function ToolbarGroupItemUndoRedo(props) {
   const canRedo = controller.run('canRedo', props);
   const undoProps = {
     ...props,
+    key: 'undo',
     iconName: IconName.UNDO,
     disabled: !canUndo,
     onClick: onClickUndo
@@ -25,6 +26,7 @@ export function ToolbarGroupItemUndoRedo(props) {
 
   const redoProps = {
     ...props,
+    key: 'redo',
     iconName: IconName.REDO,
     disabled: !canRedo,
     onClick: onClickRedo

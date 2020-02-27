@@ -1,6 +1,6 @@
 import { BlockType } from '@blink-mind/core';
 import debug from 'debug';
-import * as React from 'react';
+import React from 'react';
 import { ViewModeMindMap } from '../../../../core/src/types';
 import { SaveRef } from '../../components/common';
 import {
