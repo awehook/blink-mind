@@ -2,62 +2,72 @@ import { ThemeType } from './types';
 
 export const defaultTheme: ThemeType = {
   name: 'default',
-  randomColor: true,
-  background: 'rgb(57,60,65)',
-  highlightColor: '#50C9CE',
-  marginH: 60,
-  marginV: 20,
-
+  randomColor: false,
+  background: '#f5f5f5',
+  highlightColor: '#43a9ff',
+  borderRadius: 6,
+  marginH: 45,
+  marginV: 10,
   contentStyle: {
     lineHeight: '1.5'
   },
-
   linkStyle: {
-    lineRadius: 5,
-    lineType: 'curve',
-    lineWidth: '3px'
+    lineRadius: 6
   },
-
   rootTopic: {
     contentStyle: {
-      fontSize: '34px',
-      borderRadius: '35px',
-      padding: '16px 18px 16px 18px'
+      background: '#0181ca',
+      color: '#fff',
+      fontSize: '16px',
+      borderRadius: '6px',
+      padding: '16px 16px 16px 16px'
     },
+
     subLinkStyle: {
       lineType: 'curve',
-      lineWidth: '3px',
-      lineColor: 'rgb(113, 203, 45)'
+      lineWidth: '4px',
+      lineColor: '#0181ca'
     }
   },
   primaryTopic: {
     contentStyle: {
+      background: '#ffffff',
       borderWidth: '1px',
       borderStyle: 'solid',
-      borderRadius: '20px',
-      fontSize: '17px',
-      padding: '10px 15px 10px 15px'
+      borderColor: '#c4c4c4',
+      borderRadius: '6px',
+      color: 'rgb(103,103,103)',
+      fontSize: '13px',
+      padding: '6px 10px 5px 10px'
     },
 
     subLinkStyle: {
-      lineType: 'curve',
+      lineType: 'round',
+      lineRadius: 6,
       lineWidth: '3px',
-      lineColor: 'rgb(113, 203, 45)'
+      lineColor: '#2d8ecf'
     }
   },
 
   normalTopic: {
     contentStyle: {
-      border: '1px solid #e8eaec',
-      borderRadius: '20px',
-      fontSize: '17px',
-      padding: '4px 10px'
+      background: '#fff',
+      borderRadius: '5px',
+      color: 'rgb(103,103,103)',
+      fontSize: '13px',
+      padding: '3px 9px 4px',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: '#c4c4c4',
+      boxShadow: 'none', //'1px 1px 1px #ccc',
+      display: 'flex'
     },
 
     subLinkStyle: {
-      lineType: 'curve',
-      lineWidth: '3px',
-      lineColor: 'white'
+      lineType: 'round',
+      lineRadius: 5,
+      lineWidth: '2px',
+      lineColor: '#0181ca'
     }
   }
 };

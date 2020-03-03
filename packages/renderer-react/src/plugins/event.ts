@@ -32,7 +32,7 @@ export function EventPlugin() {
       controller.run('operation', {
         ...props,
         opType: OpType.FOCUS_TOPIC,
-        focusMode: FocusMode.EDITING_CONTENT
+        focusMode: FocusMode.NAVIGATE
       });
     },
 

@@ -15,7 +15,7 @@ export function I18nPlugin() {
     [I18nKey.ADD_SIBLING, 'Add Sibling'],
     [I18nKey.EDIT_NOTES, 'Edit Notes'],
     [I18nKey.DELETE, 'Delete'],
-    [I18nKey.SET_AS_EDITOR_ROOT, 'Set as Editor Root'],
+    [I18nKey.SET_AS_EDITOR_ROOT, 'Set as Root'],
     [I18nKey.EDIT_TOPOLOGY_DIAGRAM, 'Edit Topology Diagram'],
     [I18nKey.SET_TOPIC_REFERENCES, 'Set Topic References'],
 

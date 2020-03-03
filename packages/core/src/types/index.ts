@@ -34,7 +34,8 @@ export const FocusMode = {
   EDITING_CONTENT: 'EDITING_CONTENT',
   EDITING_DESC: 'EDITING_DESC',
   SHOW_POPUP: 'SHOW_POPUP',
-  DRAGGING: 'DRAGGING'
+  DRAGGING: 'DRAGGING',
+  NAVIGATE: 'NAVIGATE'
 };
 
 export type ModelChangeCallback = () => void;

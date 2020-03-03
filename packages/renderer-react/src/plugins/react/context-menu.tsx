@@ -34,13 +34,13 @@ const items: TopicContextMenuItemConfig[] = [
     rootCanUse: true,
     opType: OpType.ADD_CHILD
   },
-  {
+  /*{
     icon: 'notes',
     label: I18nKey.EDIT_NOTES,
     shortcut: 'Alt + D',
     rootCanUse: true,
     opType: OpType.START_EDITING_DESC
-  },
+  },*/
   {
     icon: 'delete-node',
     label: I18nKey.DELETE,

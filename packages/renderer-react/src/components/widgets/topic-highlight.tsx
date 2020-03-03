@@ -38,7 +38,7 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
     const svg = getRef(RefKey.SVG_HIGHLIGHT_KEY);
     const contentRect = getRelativeRect(content, bigView, zoomFactor);
     const svgRect = getRelativeRect(svg, bigView, zoomFactor);
-    const padding = 3;
+    const padding = 2;
     const x = contentRect.left - svgRect.left - padding;
     const y = contentRect.top - svgRect.top - padding;
     const width = contentRect.width + 2 * padding;
@@ -48,11 +48,13 @@ export class TopicHighlight extends BaseWidget<BaseProps, State> {
         <rect
           x={x}
           y={y}
+          rx={6}
+          ry={6}
           width={width}
           height={height}
           fill="none"
           stroke={model.config.theme.highlightColor}
-          strokeWidth={2}
+          strokeWidth={3}
         />
       )
     });
