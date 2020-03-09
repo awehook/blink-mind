@@ -84,12 +84,13 @@ export class TopicWidget extends React.Component<Props> {
 
   render() {
     const props = this.props;
-    const { controller, topicKey, dir, saveRef } = props;
+    const { controller, topic, topicKey, dir, saveRef } = props;
     log('render', topicKey);
     const topicStyle = controller.run('getTopicContentStyle', props);
     const linkStyle = controller.run('getLinkStyle', props);
     const propsMore = {
       ...props,
+      topic,
       topicStyle,
       linkStyle
     };

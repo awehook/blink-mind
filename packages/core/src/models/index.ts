@@ -1,8 +1,7 @@
-import { Block } from './block';
-import { Config } from './config';
-
-import { Topic } from './topic';
-export { Block, Config, Topic };
+export * from './block';
+export * from './config';
+export * from './topic';
+export * from './desc-block-data';
 export * from './utils';
 export * from './sheet-model-modifier';
 export * from './doc-model-modifier';

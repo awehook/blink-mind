@@ -1,12 +1,20 @@
 import * as React from 'react';
 
-import {Controller, DocModel, KeyType, SheetModel, TopicStyle} from '@blink-mind/core';
+import {
+  Controller,
+  DocModel,
+  KeyType,
+  SheetModel,
+  TopicStyle,
+  Topic
+} from '@blink-mind/core';
 
 export interface BaseProps {
   docModel: DocModel;
   model: SheetModel;
   key?: string;
   topicKey?: KeyType;
+  topic?: Topic;
   readOnly?: boolean;
   topicStyle?: TopicStyle;
   controller?: Controller;

@@ -64,6 +64,7 @@ export function LayoutPlugin() {
         const topicProps = {
           ...props,
           topicKey: tKey,
+          topic: model.getTopic(tKey),
           key: tKey,
           ref: saveRef(topicWidgetRefKey(tKey))
         };

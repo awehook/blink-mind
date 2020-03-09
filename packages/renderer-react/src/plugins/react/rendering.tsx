@@ -67,7 +67,8 @@ export function RenderingPlugin() {
       const nProps = {
         ...props,
         zIndex,
-        topicKey: model.focusKey
+        topicKey: model.focusKey,
+        topic: model.getTopic(model.focusKey)
       };
       const breadcrumbs = controller.run('renderEditorRootBreadcrumbs', nProps);
       // const styleEditor = controller.run('renderStyleEditor', nProps);
@@ -137,8 +138,7 @@ export function RenderingPlugin() {
     },
 
     renderTopicBlocks(props) {
-      const { model, topicKey, controller } = props;
-      const topic = model.getTopic(topicKey);
+      const { topic, controller } = props;
       const blocks = topic.blocks;
       const res = [];
       let i = 0;

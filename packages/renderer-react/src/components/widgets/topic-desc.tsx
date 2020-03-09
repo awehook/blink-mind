@@ -31,7 +31,7 @@ export function TopicDesc(props) {
   )
     return null;
   const descEditor = controller.run('renderTopicDescEditor', props);
-  const diagramRoot = getRef(RefKey.SHEET_ROOT_KEY+model.id);
+  const diagramRoot = getRef(RefKey.SHEET_ROOT_KEY + model.id);
   const style = {
     maxWidth: '800px',
     maxHeight: '600px'

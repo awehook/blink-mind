@@ -38,9 +38,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
   };
   layout() {
     const props = this.props;
-    const { model, getRef, topicKey, dir, controller } = props;
+    const { model, topic, getRef, topicKey, dir, controller } = props;
     const z = controller.run('getZoomFactor', props);
-    const topic = model.getTopic(topicKey);
     const content = getRef(contentRefKey(topicKey));
     const svg = getRef(linksSvgRefKey(topicKey));
     const collapseIcon = getRef(collapseRefKey(topicKey));

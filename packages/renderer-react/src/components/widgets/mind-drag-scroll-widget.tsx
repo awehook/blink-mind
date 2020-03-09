@@ -131,7 +131,8 @@ class MindDragScrollWidget<
 
   render() {
     const { saveRef, model, controller } = this.props;
-    const nodeKey = model.editorRootTopicKey;
+    const topicKey = model.editorRootTopicKey;
+    const topic = model.getTopic(topicKey);
     return (
       <DIV onWheel={this.onWheel}>
         <DragScrollWidget
@@ -146,7 +147,8 @@ class MindDragScrollWidget<
           ) => {
             const rootWidgetProps = {
               ...this.props,
-              topicKey: nodeKey,
+              topicKey,
+              topic,
               setViewBoxScroll,
               setViewBoxScrollDelta
             };

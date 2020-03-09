@@ -14,6 +14,7 @@ import { ConfigRecordType } from './config';
 import { SheetModel } from './sheet-model';
 import { Topic } from './topic';
 import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
+import { DescBlockData } from './desc-block-data';
 
 const log = debug('modifier');
 
@@ -148,7 +149,7 @@ function focusTopic({
   topicKey,
   focusMode
 }: SetFocusModeArg): SheetModelModifierResult {
-  log('focus topic',focusMode);
+  log('focus topic', focusMode);
   if (topicKey !== model.focusKey) model = model.set('focusKey', topicKey);
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   return model;
@@ -343,7 +344,7 @@ function setLayoutDir({
 }
 
 function setConfig({ model, config }: SetConfigArg) {
-  return model.set("config", model.config.merge(config));
+  return model.set('config', model.config.merge(config));
 }
 
 function setEditorRootTopicKey({
@@ -381,7 +382,7 @@ function startEditingDesc({ model, topicKey }: BaseSheetModelModifierArg) {
       model,
       topicKey,
       blockType: BlockType.DESC,
-      data: ''
+      data: new DescBlockData({ kind: 'html', data: '' })
     });
   }
   model = SheetModelModifier.focusTopic({

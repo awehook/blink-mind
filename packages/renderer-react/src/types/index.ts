@@ -45,3 +45,7 @@ export interface DragDropState {
   targetKey: KeyType;
   targetDir: 'in' | 'prev' | 'next';
 }
+
+export interface ITopicDescEditor {
+  getContent(): any;
+}

@@ -40,7 +40,7 @@ const Icon = styled.div`
 
 export function TopicCollapseIcon(props) {
   const {
-    model,
+    topic,
     topicKey,
     dir,
     saveRef,
@@ -48,7 +48,6 @@ export function TopicCollapseIcon(props) {
     linkStyle
   } = props;
   const hasUnderline = linkStyle.hasUnderline;
-  const topic = model.getTopic(topicKey);
   return topic.subKeys.size > 0 ? (
     <Icon
       ref={saveRef(collapseRefKey(topicKey))}

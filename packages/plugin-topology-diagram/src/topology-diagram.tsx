@@ -305,8 +305,7 @@ export class TopologyDiagram extends BaseWidget<BaseProps, IState> {
   }
 
   openData() {
-    const { model, topicKey } = this.props;
-    const topic = model.getTopic(topicKey);
+    const { topic } = this.props;
     const { block } = topic.getBlock(BLOCK_TYPE_TOPOLOGY);
     if (block && block.data && block.data !== '') {
       this.setState({
