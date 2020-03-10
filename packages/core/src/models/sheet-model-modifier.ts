@@ -382,7 +382,7 @@ function startEditingDesc({ model, topicKey }: BaseSheetModelModifierArg) {
       model,
       topicKey,
       blockType: BlockType.DESC,
-      data: new DescBlockData({ kind: 'html', data: '' })
+      data: new DescBlockData({ kind: 'html', data: '', collapse: true })
     });
   }
   model = SheetModelModifier.focusTopic({

@@ -7,8 +7,10 @@ import { useRef } from 'react';
 import { ITopicDescEditor } from '../../types';
 const DescEditorWrapper = styled.div`
   overflow: auto;
-  padding: 0px 0px 0px 20px;
-  background: #88888850;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
 `;
 
 export function renderDrawer(props) {

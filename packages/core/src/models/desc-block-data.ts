@@ -3,11 +3,13 @@ import { Record } from 'immutable';
 type DescBlockDataRecordType = {
   kind: string;
   data: any;
+  collapse: boolean;
 };
 
 const defaultDescBlockDataRecord: DescBlockDataRecordType = {
   kind: null,
-  data: null
+  data: null,
+  collapse: true
 };
 
 export class DescBlockData extends Record(defaultDescBlockDataRecord) {
@@ -17,5 +19,9 @@ export class DescBlockData extends Record(defaultDescBlockDataRecord) {
 
   get data() {
     return this.get('data');
+  }
+
+  get collapse() {
+    return this.get('collapse');
   }
 }
