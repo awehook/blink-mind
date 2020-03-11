@@ -1,5 +1,5 @@
 import { LinkStyle, TopicDirection } from '@blink-mind/core';
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   centerPointX,

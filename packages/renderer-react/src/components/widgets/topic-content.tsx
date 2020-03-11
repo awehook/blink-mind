@@ -1,69 +1,37 @@
-import debug from 'debug';
-import * as React from 'react';
-import ResizeObserver from 'resize-observer-polyfill';
+import React from 'react';
 import styled from 'styled-components';
-import { contentEditorRefKey } from '../../utils';
-const log = debug('node:topic-content2');
+import { useClickOutside } from '../../hooks';
+import { FocusMode, OpType } from '../../../../core/src/types';
 
 const EditingRoot = styled.div`
   position: relative;
+  padding: 5px;
 `;
 
-const EditingWrapper = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: auto;
-  z-index: 10;
-  color: black;
-`;
 const cancelEvent = e => {
-  log('cancelEvent');
   e.preventDefault();
   e.stopPropagation();
 };
 export function TopicContent(props) {
-  const { controller, model, topicKey, getRef } = props;
+  const { controller, model, topicKey } = props;
   const readOnly = model.editingContentKey !== topicKey;
+  const ref = useClickOutside(() => {
+    if(!readOnly) {
+      console.log('onClickOutSide');
+      controller.run('operation', {
+        ...props,
+        opType: OpType.SET_FOCUS_MODE,
+        focusMode: FocusMode.NORMAL
+      });
+    }
+  });
   const editor = controller.run('renderTopicContentEditor', {
     ...props,
     readOnly
   });
-  let child;
-  if (readOnly) {
-    child = editor;
-  } else {
-    let wrapper;
-    const wrapperRef = ref => {
-      if (ref) {
-        wrapper = ref;
-        contentResizeObserver.observe(wrapper);
-      }
-    };
-    let rect = { width: 50, height: 40 };
-    const editorDiv = getRef(contentEditorRefKey(topicKey));
-    if (editorDiv) rect = editorDiv.getBoundingClientRect();
-    const contentResizeCallback = (
-      entries: ResizeObserverEntry[],
-      observer: ResizeObserver
-    ) => {
-      const r = entries[0].contentRect;
-      wrapper.style.left = (rect.width - r.width) / 2 + 'px';
-      wrapper.style.top = (rect.height - r.height) / 2 + 'px';
-    };
-    const contentResizeObserver = new ResizeObserver(contentResizeCallback);
-    log(rect);
-    child = (
-      <>
-        <div style={{ width: rect.width, height: rect.height }}></div>
-        {/*<Dialog isOpen>{editor}</Dialog>*/}
-        <EditingWrapper ref={wrapperRef}>{editor}</EditingWrapper>
-      </>
-    );
-  }
   return (
-    <EditingRoot onDragEnter={cancelEvent} onDragOver={cancelEvent}>
-      {child}
+    <EditingRoot ref={ref} onDragEnter={cancelEvent} onDragOver={cancelEvent}>
+      {editor}
     </EditingRoot>
   );
 }

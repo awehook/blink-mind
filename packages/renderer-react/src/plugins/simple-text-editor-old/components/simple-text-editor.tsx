@@ -34,39 +34,43 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
     content: null
   };
 
-  onMouseDown = e => {
+  protected onMouseDown(e) {
     e.stopPropagation();
-  };
+    if (!this.handleClick) {
+      // log('this.handleClick = this._handleClick.bind(this)');
+      this.handleClick = this._handleClick.bind(this);
+    }
+    log('addEventListener', this.props.topicKey);
+    document.removeEventListener('click', this.handleClick);
+    document.addEventListener('click', this.handleClick, {
+      capture: true
+    });
+  }
 
   onMouseMove = e => {
     // log('onMouseMove');
     // e.stopPropagation();
   };
   onChange({ value }) {
-    log('onChange', value);
+    // log('onChange', value);
     this.setState({ content: value });
   }
 
   onKeyDown = e => {};
 
-  componentDidMount() {
-    const { readOnly } = this.props;
-    if (readOnly) return;
-    document.addEventListener('click', this._handleClick);
-  }
-
-  componentWillUnmount() {
-    const { readOnly } = this.props;
-    if (readOnly) return;
-    document.removeEventListener('click', this._handleClick);
-  }
+  handleClick;
 
   _handleClick = event => {
-    const wasOutside = !this.root.contains(event.target);
-    wasOutside && this.onClickOutSide(event);
+    if (this.root) {
+      const wasOutside = !this.root.contains(event.target);
+      wasOutside && this.onClickOutSide(event);
+    }
   };
 
-  onClickOutSide(e) {}
+  onClickOutSide(e) {
+    log('removeEventListener', this.props.topicKey);
+    document.removeEventListener('click', this.handleClick);
+  }
 
   getCustomizeProps() {
     return null;
@@ -109,7 +113,7 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
       placeholder,
       style
     } = this.getCustomizeProps();
-    log(readOnly);
+    // log(readOnly);
     const key = getRefKeyFunc(topicKey);
     const content = readOnly ? this.getContent() : this.state.content;
     const { onMouseDown, onMouseMove, onKeyDown } = this;
@@ -125,7 +129,7 @@ export class SimpleTextEditor extends React.PureComponent<Props, State> {
       key,
       readOnly,
       ref: this.rootRef(saveRef(key)),
-      onMouseDown,
+      onMouseDown: onMouseDown.bind(this),
       onMouseMove,
       onKeyDown
     };

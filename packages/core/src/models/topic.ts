@@ -61,6 +61,10 @@ export class Topic extends Record(defaultTopicRecord) {
     return { index, block: this.blocks.get(index) };
   }
 
+  get contentData() {
+    return this.getBlock(BlockType.CONTENT).block.data;
+  }
+
   static fromJSON(obj) {
     const {
       key,

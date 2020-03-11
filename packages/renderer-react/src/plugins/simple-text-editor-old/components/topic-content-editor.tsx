@@ -1,7 +1,7 @@
 import { BlockType, FocusMode, OpType } from '@blink-mind/core';
-import debug from 'debug';
 import { SimpleTextEditor } from './simple-text-editor';
-const log = debug('node:topic-content-editor');
+import { TempValueKey } from '../../../utils';
+const log = require('debug')('node:topic-content-editor');
 
 function contentEditorRefKey(key) {
   return `content-editor-${key}`;
@@ -33,16 +33,23 @@ export class TopicContentEditor extends SimpleTextEditor {
     }
   };
 
+  onChange({ value }) {
+    super.onChange({ value });
+    const { controller } = this.props;
+    controller.run('setTempValue', { key: TempValueKey.EDITOR_CONTENT, value });
+  }
+
   onClickOutSide(e) {
-    log('onClickOutSide');
+    log('onClickOutSide',this.props.topicKey);
+    super.onClickOutSide(e);
     this.save();
   }
 
   save() {
-    const { model, topicKey } = this.props;
-    const readOnly = model.editingContentKey !== topicKey;
-    if (readOnly) return;
-    const { controller } = this.props;
+    const { controller, model, topicKey } = this.props;
+    //TODO
+    // const readOnly = model.editingContentKey !== topicKey;
+    // if (readOnly) return;
     controller.run('operation', {
       ...this.props,
       opType: OpType.SET_TOPIC_BLOCK,

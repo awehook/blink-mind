@@ -187,6 +187,10 @@ export class SheetModel extends Record(defaultModelRecord) {
     return this.getTopic(this.rootTopicKey);
   }
 
+  get currentFocusTopic() {
+    return this.getTopic(this.focusKey);
+  }
+
   get zoomFactor() {
     return this.get('zoomFactor');
   }

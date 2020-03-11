@@ -7,7 +7,7 @@ import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
 import { PlatformPlugin } from './platform';
 import { ReactPlugin } from './react';
-import { SimpleTextEditorPlugin } from './simple-text-editor';
+import { TopicContentEditorPlugin } from './topic-content-editor';
 import { StylePlugin } from './style';
 import { ThemePlugin } from './theme';
 
@@ -20,10 +20,12 @@ export function DefaultPlugin() {
     EventPlugin(),
     HotKeyPlugin(),
     GetValuePlugin(),
-    SimpleTextEditorPlugin(),
+    TopicContentEditorPlugin(),
     CreateModelPlugin(),
     ThemePlugin(),
     PlatformPlugin(),
     I18nPlugin()
   ];
 }
+
+

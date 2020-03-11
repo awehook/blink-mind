@@ -17,7 +17,6 @@ const log = debug('node:topic-node-widget');
 const TopicNodeRow = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
   //overflow: hidden;
   position: relative;
 `;

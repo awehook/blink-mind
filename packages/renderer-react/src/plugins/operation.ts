@@ -249,6 +249,9 @@ export function OperationPlugin() {
       }
 
       log('operation:', opType || opArray.map(op => op.opType));
+      if (opType === OpType.SET_TOPIC_BLOCK) {
+        log(ctx.blockType, ctx.data);
+      }
       // log('operation:', docModel);
       log('operation:', ctx);
 
@@ -288,7 +291,12 @@ export function OperationPlugin() {
           docModel: newDocModel
         });
       }
-      log('newDocModel:', newDocModel);
+      log(
+        'newDocModel:',
+        newDocModel,
+        newDocModel.currentSheetModel.focusKey,
+        newDocModel.currentSheetModel.currentFocusTopic.contentData
+      );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
     },

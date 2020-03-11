@@ -19,17 +19,14 @@ export function renderDrawer(props) {
   if (model.focusMode === FocusMode.EDITING_DESC) {
     const onDescEditorClose = e => {
       e.stopPropagation();
-      const key = `topic-desc-data-${topicKey}`;
-      const descData = controller.run('deleteTempValue', { key });
+      const descData = model.getTopic(topicKey).getBlock(BlockType.DESC).block
+        .data;
       controller.run('operation', {
         ...props,
         opType: OpType.SET_TOPIC_BLOCK,
         topicKey,
         blockType: BlockType.DESC,
-        data: new DescBlockData({
-          kind: 'html',
-          data: descEditorRef.current.getContent()
-        }),
+        data: descData.set('data', descEditorRef.current.getContent()),
         focusMode: FocusMode.NORMAL
       });
     };

@@ -184,3 +184,7 @@ export const I18nKey = {
   HYPERLINK: 'HYPERLINK',
   INSERT_HYPERLINK: 'INSERT_HYPERLINK'
 };
+
+export const TempValueKey = {
+  EDITOR_CONTENT: 'EDITOR_CONTENT'
+};
