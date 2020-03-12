@@ -172,15 +172,20 @@ function setFocusMode({
 
 function addChild({
   model,
-  topicKey
-}: BaseSheetModelModifierArg): SheetModelModifierResult {
+  topicKey,
+  addAtFront = false
+}: BaseSheetModelModifierArg & {
+  addAtFront: boolean;
+}): SheetModelModifierResult {
   log('addChild:', topicKey);
   let topic = model.getTopic(topicKey);
   if (topic) {
     const child = Topic.create({ key: createKey(), parentKey: topic.key });
     topic = topic
       .set('collapse', false)
-      .update('subKeys', subKeys => subKeys.push(child.key));
+      .update('subKeys', subKeys =>
+        addAtFront ? subKeys.unshift(child.key) : subKeys.push(child.key)
+      );
     model = model.update('topics', topics =>
       topics.set(topicKey, topic).set(child.key, child)
     );
@@ -241,7 +246,7 @@ function deleteTopic({
       if (m.focusKey === topicKey)
         m.set('focusKey', getPrevTopicKey(model, topicKey)).set(
           'focusMode',
-          FocusMode.NORMAL
+          FocusMode.EDITING_CONTENT
         );
     });
   }

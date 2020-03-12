@@ -115,7 +115,8 @@ export function OperationPlugin() {
     },
 
     customizeAllowUndo(ctx) {
-      const { model, opType } = ctx;
+      const { docModel, opType } = ctx;
+      const model = docModel.currentSheetModel;
       if (opType) {
         switch (opType) {
           // 这几种情况不加入undo 队列
@@ -130,7 +131,6 @@ export function OperationPlugin() {
       }
       switch (model.focusMode) {
         case 'EDITING_DESC':
-        case 'EDITING_CONTENT':
           return false;
         default:
           break;
@@ -301,6 +301,7 @@ export function OperationPlugin() {
       );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
+      log(controller.currentModel.currentSheetModel.topics);
     },
 
     deleteRefKey(ctx) {

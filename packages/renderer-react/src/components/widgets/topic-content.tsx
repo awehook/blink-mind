@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useClickOutside } from '../../hooks';
-import { FocusMode, OpType } from '../../../../core/src/types';
+import { FocusMode, OpType } from '@blink-mind/core';
+import { Key } from 'ts-keycode-enum';
 
 const EditingRoot = styled.div`
   position: relative;
@@ -13,10 +14,10 @@ const cancelEvent = e => {
   e.stopPropagation();
 };
 export function TopicContent(props) {
-  const { controller, model, topicKey } = props;
+  const { controller, model, topic, topicKey } = props;
   const readOnly = model.editingContentKey !== topicKey;
   const ref = useClickOutside(() => {
-    if(!readOnly) {
+    if (!readOnly) {
       console.log('onClickOutSide');
       controller.run('operation', {
         ...props,
@@ -25,9 +26,31 @@ export function TopicContent(props) {
       });
     }
   });
+  const handleKeyDown = e => {
+    switch (e.keyCode) {
+      case Key.Enter:
+        if (!e.shiftKey) {
+          controller.run('operation', {
+            ...props,
+            opType: OpType.ADD_SIBLING
+          });
+          return true;
+        }
+        break;
+      case Key.Tab:
+        controller.run('operation', {
+          ...props,
+          opType: OpType.ADD_CHILD
+        });
+        return true;
+    }
+    return false;
+  };
+
   const editor = controller.run('renderTopicContentEditor', {
     ...props,
-    readOnly
+    readOnly,
+    handleKeyDown
   });
   return (
     <EditingRoot ref={ref} onDragEnter={cancelEvent} onDragOver={cancelEvent}>

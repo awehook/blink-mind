@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BlockType, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../components/common';
-import { Editor, EditorState, ContentState } from 'draft-js';
-// import {ContentEditable} from "./content-editable";
 import ContentEditable from './react-contenteditable';
 import cx from 'classnames';
+import { Key } from 'ts-keycode-enum';
 
 export interface Props extends BaseProps {
   className: string;
@@ -12,25 +11,59 @@ export interface Props extends BaseProps {
 }
 
 export function TopicContentEditor(props: Props) {
-  const { controller, topic, readOnly, className, handleKeyDown } = props;
+  const {
+    controller,
+    model,
+    topicKey,
+    topic,
+    readOnly,
+    className,
+    handleKeyDown: _handleKeyDown
+  } = props;
   let content = topic.getBlock(BlockType.CONTENT).block.data;
-  // if (typeof es === 'string') {
-  //   es = EditorState.createWithContent(ContentState.createFromText(es));
-  // }
-  // const [editorState, setEditorState] = useState(es);
+
   const onChange = evt => {
-    controller.run('operation', {
-      ...props,
-      opType: OpType.SET_TOPIC_BLOCK,
-      blockType: BlockType.CONTENT,
-      data: evt.target.value
-    });
+    const data = evt.target.value;
+    if (data !== topic.contentData) {
+      controller.run('operation', {
+        ...props,
+        opType: OpType.SET_TOPIC_BLOCK,
+        blockType: BlockType.CONTENT,
+        data
+      });
+    }
   };
+
+  const handleKeyDown = e => {
+    if (_handleKeyDown(e)) return true;
+    const isEditorRoot = model.editorRootTopicKey === topicKey;
+    switch (e.keyCode) {
+      case Key.Backspace:
+        if (topic.contentData === '') {
+          controller.run('operation', {
+            ...props,
+            opType: OpType.DELETE_TOPIC
+          });
+          return true;
+        }
+        break;
+      case Key.Delete:
+        !isEditorRoot &&
+          controller.run('operation', {
+            ...props,
+            opType: OpType.DELETE_TOPIC
+          });
+        return true;
+    }
+    return false;
+  };
+
   const editProps = {
     className: cx('bm-content-editable', className),
     handleKeyDown,
     html: content,
     disabled: readOnly,
+    focus: model.focusKey === topicKey,
     placeholder: 'new topic',
     // onChange: v => {
     //   setEditorState(v);

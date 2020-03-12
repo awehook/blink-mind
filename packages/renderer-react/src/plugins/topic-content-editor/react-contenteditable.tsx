@@ -1,13 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import deepEqual from 'fast-deep-equal';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+const log = require('debug')('node:content-editable');
 
 function normalizeHtml(str: string): string {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
 
 function replaceCaret(el: HTMLElement) {
-  console.log('replaceCaret', el.innerHTML);
+  log('replaceCaret', el.innerHTML);
   // Place the caret at the end of the element
   const target = document.createTextNode('');
   el.appendChild(target);
@@ -42,8 +43,6 @@ export default class ContentEditable extends React.Component<Props> {
       : this.el
     ).current;
 
-  processSpKey = false;
-
   render() {
     const { tagName, html, innerRef, ...props } = this.props;
 
@@ -68,11 +67,26 @@ export default class ContentEditable extends React.Component<Props> {
       this.props.children
     );
   }
-  onInput = e => {
-    if (this.processSpKey) {
-      this.processSpKey = false;
-      return;
+  emitChange = (originalEvt: React.SyntheticEvent<any>) => {
+    log('emitChange');
+    const el = this.getEl();
+    if (!el) return;
+
+    const html = el.innerHTML;
+    if (this.props.onChange && html !== this.lastHtml) {
+      // Clone event with Object.assign to avoid
+      // "Cannot assign to read only property 'target' of object"
+      const evt = Object.assign({}, originalEvt, {
+        target: {
+          value: html
+        }
+      });
+      this.props.onChange(evt);
     }
+    this.lastHtml = html;
+  };
+  onInput = e => {
+    log('onInput');
     this.emitChange(e);
   };
 
@@ -81,8 +95,8 @@ export default class ContentEditable extends React.Component<Props> {
   };
 
   onKeyDown = e => {
+    // log('onKeyDown', e.target.innerHTML);
     if (this.props.handleKeyDown && this.props.handleKeyDown(e)) {
-      this.processSpKey = true;
       e.preventDefault();
       return false;
     }
@@ -106,6 +120,7 @@ export default class ContentEditable extends React.Component<Props> {
 
     // Handle additional properties
     return (
+      props.focus !== nextProps.focus ||
       props.disabled !== nextProps.disabled ||
       props.tagName !== nextProps.tagName ||
       props.className !== nextProps.className ||
@@ -117,7 +132,6 @@ export default class ContentEditable extends React.Component<Props> {
   componentDidMount(): void {
     const el = this.getEl();
     if (!el) {
-      console.log('!el');
       return;
     }
 
@@ -126,11 +140,11 @@ export default class ContentEditable extends React.Component<Props> {
     if (this.props.html !== el.innerHTML) {
       el.innerHTML = this.lastHtml = this.props.html;
     }
-    replaceCaret(el);
+    this.props.focus && replaceCaret(el);
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate');
+    log('componentDidUpdate');
     const el = this.getEl();
     if (!el) {
       console.log('!el');
@@ -142,27 +156,8 @@ export default class ContentEditable extends React.Component<Props> {
     if (this.props.html !== el.innerHTML) {
       el.innerHTML = this.lastHtml = this.props.html;
     }
-    replaceCaret(el);
+    this.props.focus && replaceCaret(el);
   }
-
-  emitChange = (originalEvt: React.SyntheticEvent<any>) => {
-    console.log('emitChange');
-    const el = this.getEl();
-    if (!el) return;
-
-    const html = el.innerHTML;
-    if (this.props.onChange && html !== this.lastHtml) {
-      // Clone event with Object.assign to avoid
-      // "Cannot assign to read only property 'target' of object"
-      const evt = Object.assign({}, originalEvt, {
-        target: {
-          value: html
-        }
-      });
-      this.props.onChange(evt);
-    }
-    this.lastHtml = html;
-  };
 
   static propTypes = {
     html: PropTypes.string.isRequired,
@@ -187,6 +182,7 @@ type DivProps = Modify<
 export interface Props extends DivProps {
   html: string;
   disabled?: boolean;
+  focus?: boolean;
   tagName?: string;
   className?: string;
   style?: Object;
