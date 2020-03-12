@@ -13,7 +13,12 @@ import { Block } from './block';
 import { ConfigRecordType } from './config';
 import { SheetModel } from './sheet-model';
 import { Topic } from './topic';
-import { getAllSubTopicKeys, getKeyPath, getRelationship } from './utils';
+import {
+  getAllSubTopicKeys,
+  getKeyPath,
+  getPrevTopicKey,
+  getRelationship
+} from './utils';
 import { DescBlockData } from './desc-block-data';
 
 const log = debug('modifier');
@@ -32,6 +37,7 @@ type ModifierArg =
 export type BaseSheetModelModifierArg = {
   model: SheetModel;
   topicKey?: KeyType;
+  topicKeys?: Array<KeyType>;
 };
 
 type SetTopicArg = BaseSheetModelModifierArg & {
@@ -233,7 +239,10 @@ function deleteTopic({
         subKeys.delete(subKeys.indexOf(topicKey))
       );
       if (m.focusKey === topicKey)
-        m.set('focusKey', null).set('focusMode', null);
+        m.set('focusKey', getPrevTopicKey(model, topicKey)).set(
+          'focusMode',
+          FocusMode.NORMAL
+        );
     });
   }
 

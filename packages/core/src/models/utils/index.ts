@@ -1,7 +1,10 @@
 import { KeyPath, KeyType, TopicRelationship } from '../../types';
 import { SheetModel } from '../sheet-model';
 
-export function getAllSubTopicKeys(model: SheetModel, topicKey: KeyType): KeyType[] {
+export function getAllSubTopicKeys(
+  model: SheetModel,
+  topicKey: KeyType
+): KeyType[] {
   const item = model.getTopic(topicKey);
 
   let res = [];
@@ -53,4 +56,29 @@ export function getRelationship(
     }
   }
   return TopicRelationship.NONE;
+}
+
+export function getPrevTopicKey(model: SheetModel, topicKey: KeyType) {
+  const parentTopic = model.getParentTopic(topicKey);
+  if (parentTopic) {
+    const index = parentTopic.subKeys.indexOf(topicKey);
+    if (index === 0) {
+      return parentTopic.key;
+    }
+    return parentTopic.subKeys.get(index - 1);
+  }
+  return null;
+}
+
+export function getNextTopicKey(model: SheetModel, topicKey: KeyType) {}
+
+export function isFisrtChild(model: SheetModel, topicKey: KeyType) {
+  const parentTopic = model.getParentTopic(topicKey);
+  if (parentTopic) {
+    const index = parentTopic.subKeys.indexOf(topicKey);
+    if (index === 0) {
+      return true;
+    }
+  }
+  return false;
 }

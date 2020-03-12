@@ -295,7 +295,9 @@ export function OperationPlugin() {
         'newDocModel:',
         newDocModel,
         newDocModel.currentSheetModel.focusKey,
-        newDocModel.currentSheetModel.currentFocusTopic.contentData
+        //TODO currentFocusTopic可能为空
+        newDocModel.currentSheetModel.currentFocusTopic &&
+          newDocModel.currentSheetModel.currentFocusTopic.contentData
       );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);

@@ -7,12 +7,13 @@ function normalizeHtml(str: string): string {
 }
 
 function replaceCaret(el: HTMLElement) {
+  console.log('replaceCaret', el.innerHTML);
   // Place the caret at the end of the element
   const target = document.createTextNode('');
   el.appendChild(target);
   // do not move caret if element was not focused
   const isTargetFocused = document.activeElement === el;
-  if (target !== null && target.nodeValue !== null && isTargetFocused) {
+  if (target !== null && target.nodeValue !== null) {
     const sel = window.getSelection();
     if (sel !== null) {
       const range = document.createRange();
@@ -68,8 +69,7 @@ export default class ContentEditable extends React.Component<Props> {
     );
   }
   onInput = e => {
-    if(this.processSpKey)
-    {
+    if (this.processSpKey) {
       this.processSpKey = false;
       return;
     }
@@ -114,9 +114,28 @@ export default class ContentEditable extends React.Component<Props> {
     );
   }
 
-  componentDidUpdate() {
+  componentDidMount(): void {
     const el = this.getEl();
-    if (!el) return;
+    if (!el) {
+      console.log('!el');
+      return;
+    }
+
+    // Perhaps React (whose VDOM gets outdated because we often prevent
+    // rerendering) did not update the DOM. So we update it manually now.
+    if (this.props.html !== el.innerHTML) {
+      el.innerHTML = this.lastHtml = this.props.html;
+    }
+    replaceCaret(el);
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+    const el = this.getEl();
+    if (!el) {
+      console.log('!el');
+      return;
+    }
 
     // Perhaps React (whose VDOM gets outdated because we often prevent
     // rerendering) did not update the DOM. So we update it manually now.
