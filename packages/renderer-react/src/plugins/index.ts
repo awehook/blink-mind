@@ -5,6 +5,7 @@ import { HotKeyPlugin } from './hotkey';
 import { I18nPlugin } from './i18n';
 import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
+import { UndoPlugin } from './undo';
 import { PlatformPlugin } from './platform';
 import { ReactPlugin } from './react';
 import { TopicContentEditorPlugin } from './topic-content-editor';
@@ -16,6 +17,7 @@ export function DefaultPlugin() {
     ReactPlugin(),
     LayoutPlugin(),
     OperationPlugin(),
+    UndoPlugin(),
     StylePlugin(),
     EventPlugin(),
     HotKeyPlugin(),
@@ -27,5 +29,3 @@ export function DefaultPlugin() {
     I18nPlugin()
   ];
 }
-
-

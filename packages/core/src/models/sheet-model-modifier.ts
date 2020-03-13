@@ -309,10 +309,9 @@ function deleteTopicBlock({ model, topicKey, blockType }: DeleteTopicBlockArg) {
         blocks.delete(index)
       );
     }
-    model = focusTopic({
+    model = setFocusMode({
       model,
-      topicKey: null,
-      focusMode: null
+      focusMode: FocusMode.NORMAL
     });
   }
   return model;
@@ -400,7 +399,7 @@ function startEditingDesc({ model, topicKey }: BaseSheetModelModifierArg) {
       model,
       topicKey,
       blockType: BlockType.DESC,
-      data: new DescBlockData({ kind: 'html', data: '', collapse: true })
+      data: new DescBlockData({ kind: 'html', data: '', collapse: false })
     });
   }
   model = SheetModelModifier.focusTopic({

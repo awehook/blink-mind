@@ -38,6 +38,25 @@ export function TopicContentEditor(props: Props) {
     if (_handleKeyDown(e)) return true;
     const isEditorRoot = model.editorRootTopicKey === topicKey;
     switch (e.keyCode) {
+      case Key.D:
+        if (e.altKey) {
+          const desc = topic.getBlock(BlockType.DESC).block;
+          if (e.shiftKey) {
+            desc &&
+              controller.run('operation', {
+                ...props,
+                opType: OpType.DELETE_TOPIC_BLOCK,
+                blockType: BlockType.DESC
+              });
+          } else {
+            controller.run('operation', {
+              ...props,
+              opType: OpType.START_EDITING_DESC
+            });
+          }
+          return true;
+        }
+        break;
       case Key.Backspace:
         if (topic.contentData === '') {
           controller.run('operation', {

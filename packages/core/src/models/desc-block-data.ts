@@ -9,7 +9,7 @@ type DescBlockDataRecordType = {
 const defaultDescBlockDataRecord: DescBlockDataRecordType = {
   kind: null,
   data: null,
-  collapse: true
+  collapse: false
 };
 
 export class DescBlockData extends Record(defaultDescBlockDataRecord) {

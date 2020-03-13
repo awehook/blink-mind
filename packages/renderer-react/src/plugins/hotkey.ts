@@ -14,9 +14,10 @@ function op(opType: string, props) {
 export function HotKeyPlugin() {
   return {
     customizeHotKeys(ctx): HotKeysConfig {
-      const handleKeyDown = opType => e => {
+      const { model } = ctx;
+      const handleKeyDown = (opType, opArg?) => e => {
         // log('HotKeyPlugin', opType);
-        op(opType, ctx);
+        op(opType, { ...ctx, ...opArg });
       };
       const topicHotKeys = new Map<string, HotKeyItem>([
         [
@@ -68,6 +69,15 @@ export function HotKeyPlugin() {
           }
         ]
       ]);
+      const topic = model.currentFocusTopic;
+      if (topic.getBlock(BlockType.DESC).block)
+        topicHotKeys.set(HotKeyName.DELETE_NOTES, {
+          label: 'delete notes',
+          combo: 'alt + shift + d',
+          onKeyDown: handleKeyDown(OpType.DELETE_TOPIC_BLOCK, {
+            blockType: BlockType.DESC
+          })
+        });
       const globalHotKeys = new Map();
       return {
         topicHotKeys,

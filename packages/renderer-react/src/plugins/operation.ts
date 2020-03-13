@@ -1,11 +1,9 @@
 import {
-  DocModel,
   DocModelModifier,
   getAllSubTopicKeys,
   OpType
 } from '@blink-mind/core';
 import debug from 'debug';
-import { Stack } from 'immutable';
 import {
   collapseRefKey,
   contentEditorRefKey,
@@ -18,6 +16,7 @@ import {
   topicWidgetRefKey,
   topicWidgetRootRefKey
 } from '../utils';
+import {BlockType, FocusMode} from '../../../core/src/types';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {
@@ -80,8 +79,7 @@ export function OperationPlugin() {
     [OpType.SET_LAYOUT_DIR, setLayoutDir]
   ]);
 
-  let undoStack = Stack<DocModel>();
-  let redoStack = Stack<DocModel>();
+
 
   let enabled = true;
   let whiteListOperation = new Set<string>();
@@ -123,101 +121,19 @@ export function OperationPlugin() {
           case OpType.FOCUS_TOPIC:
           case OpType.SET_FOCUS_MODE:
           case OpType.START_EDITING_CONTENT:
-          case OpType.START_EDITING_DESC:
             return false;
+          case OpType.START_EDITING_DESC:
+            return !model.currentFocusTopic.getBlock(BlockType.DESC).block;
           default:
             break;
         }
       }
-      switch (model.focusMode) {
-        case 'EDITING_DESC':
-          return false;
-        default:
-          break;
-      }
+      if(model.focusMode === FocusMode.EDITING_DESC)
+        return false;
       return model.config.allowUndo;
     },
 
-    //是否允许undo
-    getAllowUndo(ctx) {
-      const { controller, allowUndo = true } = ctx;
-      if (allowUndo === false) return false;
-      return controller.run('customizeAllowUndo', ctx);
-    },
 
-    getUndoRedoStack() {
-      return {
-        undoStack,
-        redoStack
-      };
-    },
-
-    setUndoStack(ctx) {
-      log('setUndoStack', ctx.undoStack);
-      undoStack = ctx.undoStack;
-    },
-
-    setRedoStack(ctx) {
-      log('setRedoStack', ctx.redoStack);
-      redoStack = ctx.redoStack;
-    },
-
-    canUndo(ctx) {
-      const { controller } = ctx;
-      const isOperationEnabled = controller.run('isOperationEnabled', ctx);
-      if (!isOperationEnabled) return false;
-      const { undoStack } = controller.run('getUndoRedoStack', ctx);
-      const allowUndo = controller.run('getAllowUndo', ctx);
-      return undoStack.size > 0 && allowUndo;
-    },
-
-    canRedo(ctx) {
-      const { controller } = ctx;
-      const isOperationEnabled = controller.run('isOperationEnabled', ctx);
-      if (!isOperationEnabled) return false;
-      const { redoStack } = controller.run('getUndoRedoStack', ctx);
-      const allowUndo = controller.run('getAllowUndo', ctx);
-      return redoStack.size > 0 && allowUndo;
-    },
-
-    undo(ctx) {
-      const { controller, docModel } = ctx;
-      if (!controller.run('getAllowUndo', ctx)) {
-        return;
-      }
-      const { undoStack, redoStack } = controller.run('getUndoRedoStack', ctx);
-      const newDocModel = undoStack.peek();
-      if (!newDocModel) return;
-      controller.run('setUndoStack', {
-        ...ctx,
-        undoStack: undoStack.shift()
-      });
-      controller.run('setRedoStack', {
-        ...ctx,
-        redoStack: redoStack.push(docModel)
-      });
-      log(newDocModel);
-      controller.change(newDocModel);
-    },
-
-    redo(ctx) {
-      const { controller, docModel } = ctx;
-      if (!controller.run('getAllowUndo', ctx)) {
-        return;
-      }
-      const { undoStack, redoStack } = controller.run('getUndoRedoStack', ctx);
-      const newDocModel = redoStack.peek();
-      if (!newDocModel) return;
-      controller.run('setUndoStack', {
-        ...ctx,
-        undoStack: undoStack.push(docModel)
-      });
-      controller.run('setRedoStack', {
-        ...ctx,
-        redoStack: redoStack.shift()
-      });
-      controller.change(newDocModel);
-    },
 
     //TODO 有空重构这个函数
     operation(ctx) {
@@ -252,8 +168,7 @@ export function OperationPlugin() {
       if (opType === OpType.SET_TOPIC_BLOCK) {
         log(ctx.blockType, ctx.data);
       }
-      // log('operation:', docModel);
-      log('operation:', ctx);
+      // log('operation:', ctx);
 
       const opMap = controller.run('getOpMap', ctx);
       controller.run('beforeOperation', ctx);
@@ -291,17 +206,17 @@ export function OperationPlugin() {
           docModel: newDocModel
         });
       }
-      log(
-        'newDocModel:',
-        newDocModel,
-        newDocModel.currentSheetModel.focusKey,
-        //TODO currentFocusTopic可能为空
-        newDocModel.currentSheetModel.currentFocusTopic &&
-          newDocModel.currentSheetModel.currentFocusTopic.contentData
-      );
+      // log(
+      //   'newDocModel:',
+      //   newDocModel,
+      //   newDocModel.currentSheetModel.focusKey,
+      //   //TODO currentFocusTopic可能为空
+      //   newDocModel.currentSheetModel.currentFocusTopic &&
+      //     newDocModel.currentSheetModel.currentFocusTopic.contentData
+      // );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
-      log(controller.currentModel.currentSheetModel.topics);
+      // log(controller.currentModel.currentSheetModel.topics);
     },
 
     deleteRefKey(ctx) {
