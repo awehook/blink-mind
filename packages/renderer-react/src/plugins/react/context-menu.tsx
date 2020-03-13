@@ -50,6 +50,7 @@ const items: TopicContextMenuItemConfig[] = [
       return topic.getBlock(BlockType.DESC).block != null;
     },
     label: I18nKey.REMOVE_NOTES,
+    shortcut: 'Alt + Shift + D',
     rootCanUse: true,
     opType: OpType.DELETE_TOPIC_BLOCK,
     opArg: {

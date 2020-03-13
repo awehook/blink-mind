@@ -18,7 +18,7 @@ function startEditingTopology({ model, topicKey }: BaseSheetModelModifierArg) {
   const topic = model.getTopic(topicKey);
   const { block } = topic.getBlock(BLOCK_TYPE_TOPOLOGY);
   if (block == null || block.data == null) {
-    model = SheetModelModifier.setBlockData({
+    model = SheetModelModifier.setTopicBlockData({
       model,
       topicKey,
       blockType: BLOCK_TYPE_TOPOLOGY,

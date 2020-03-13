@@ -26,7 +26,7 @@ const log = debug('modifier');
 type ModifierArg =
   | BaseSheetModelModifierArg
   | SetTopicArg
-  | SetBlockDataArg
+  | setTopicBlockDataArg
   | SetFocusModeArg
   | SetTopicStyleArg
   | SetZoomFactorArg
@@ -44,13 +44,13 @@ type SetTopicArg = BaseSheetModelModifierArg & {
   topic: Topic;
 };
 
-type SetBlockDataArg = BaseSheetModelModifierArg & {
+type setTopicBlockDataArg = BaseSheetModelModifierArg & {
   blockType: string;
   data: any;
   focusMode?: string;
 };
 
-type DeleteBlockArg = BaseSheetModelModifierArg & {
+type DeleteTopicBlockArg = BaseSheetModelModifierArg & {
   blockType: string;
 };
 
@@ -255,20 +255,20 @@ function deleteTopic({
 }
 
 /**
- * setBlockData of one topic
+ * setTopicBlockData of one topic
  * @param model
  * @param topicKey
  * @param blockType
  * @param focusMode
  * @param data
  */
-function setBlockData({
+function setTopicBlockData({
   model,
   topicKey,
   blockType,
   focusMode,
   data
-}: SetBlockDataArg): SheetModelModifierResult {
+}: setTopicBlockDataArg): SheetModelModifierResult {
   const topic = model.getTopic(topicKey);
   if (topic) {
     const { index, block } = topic.getBlock(blockType);
@@ -300,7 +300,7 @@ function setBlockData({
   return model;
 }
 
-function deleteBlock({ model, topicKey, blockType }: DeleteBlockArg) {
+function deleteTopicBlock({ model, topicKey, blockType }: DeleteTopicBlockArg) {
   const topic = model.getTopic(topicKey);
   if (topic) {
     const { index } = topic.getBlock(blockType);
@@ -316,6 +316,10 @@ function deleteBlock({ model, topicKey, blockType }: DeleteBlockArg) {
     });
   }
   return model;
+}
+
+function deleteTopicBlockDesc({ model, topicKey }: BaseSheetModelModifierArg) {
+  return deleteTopicBlock({ model, topicKey, blockType: BlockType.DESC });
 }
 
 function setStyle({
@@ -392,7 +396,7 @@ function startEditingDesc({ model, topicKey }: BaseSheetModelModifierArg) {
   const topic = model.getTopic(topicKey);
   const desc = topic.getBlock(BlockType.DESC);
   if (desc.block == null || desc.block.data == null) {
-    model = SheetModelModifier.setBlockData({
+    model = SheetModelModifier.setTopicBlockData({
       model,
       topicKey,
       blockType: BlockType.DESC,
@@ -478,8 +482,8 @@ export const SheetModelModifier = {
   focusTopic,
   setFocusMode,
   deleteTopic,
-  setBlockData,
-  deleteBlock,
+  setTopicBlockData,
+  deleteTopicBlock,
   setStyle,
   clearAllCustomStyle,
   setConfig,
