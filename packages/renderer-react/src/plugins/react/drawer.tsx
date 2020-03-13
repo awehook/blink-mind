@@ -11,6 +11,7 @@ const DescEditorWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: auto;
+  background-color: white;
 `;
 
 export function renderDrawer(props) {
@@ -47,7 +48,7 @@ export function renderDrawer(props) {
         onClose={onDescEditorClose}
         size="70%"
       >
-        <DescEditorWrapper>{descEditor}</DescEditorWrapper>
+        {descEditor}
       </Drawer>
     );
   }

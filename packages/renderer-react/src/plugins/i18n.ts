@@ -75,7 +75,7 @@ export function I18nPlugin() {
     [I18nKey.NORMAL, 'Normal'],
     [I18nKey.ITALIC, 'Italic'],
     [I18nKey.OBLIQUE, 'Oblique'],
-    [I18nKey.FONT_WEIGHT,'FontWeight'],
+    [I18nKey.FONT_WEIGHT, 'FontWeight'],
     [I18nKey.FONT_SIZE, 'FontSize'],
     [I18nKey.LINE_HEIGHT, 'LineHeight'],
     [I18nKey.PADDING, 'Padding'],
@@ -115,6 +115,9 @@ export function I18nPlugin() {
     [I18nKey.REFERENCED_TOPICS, 'Referenced Topics'],
     [I18nKey.GOTO_ORIGINAL_TOPIC, 'Goto Original Topic'],
 
+    [I18nKey.INDENT, 'Indent'],
+    [I18nKey.OUTDENT, 'Outdent'],
+
     [
       I18nKey.SELECT_REF_TOPICS_TIP,
       'Please select the topics you want to reference. After selection, click the confirm button.'
@@ -133,7 +136,6 @@ export function I18nPlugin() {
     ],
     [I18nKey.DELETE_REFERENCE_TIP, 'Are you confirm to remove this reference?'],
     [I18nKey.FILE_FORMAT_ERROR, 'File Format Error!'],
-
 
     [I18nKey.HYPERLINK, 'Hyperlink'],
     [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink']

@@ -15,7 +15,7 @@ const EditorRootBreadcrumbsRoot = styled(ZIndex)`
   width: 20%;
   padding: 0 5px;
   background: white;
-  left: 30px;
+  left: 20px;
   top: 20px;
   border-radius: 2px;
 `;

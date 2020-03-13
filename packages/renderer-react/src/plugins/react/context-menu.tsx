@@ -3,7 +3,7 @@ import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { TopicContextMenu } from '../../components/widgets';
 import { getI18nText, I18nKey, Icon } from '../../utils';
-import { BlockType } from '../../../../core/src/types';
+import { BlockType, ViewModeMindMap } from '../../../../core/src/types';
 
 export type TopicContextMenuItemConfig = {
   enabledFunc?: ({ model, topic }) => boolean;
@@ -14,6 +14,7 @@ export type TopicContextMenuItemConfig = {
   opArg?: any;
   rootCanUse?: boolean;
   hotKey?: string;
+  viewMode?: Array<string>;
 };
 
 const items: TopicContextMenuItemConfig[] = [
@@ -22,7 +23,8 @@ const items: TopicContextMenuItemConfig[] = [
     label: I18nKey.EDIT,
     shortcut: 'Space',
     rootCanUse: true,
-    opType: OpType.START_EDITING_CONTENT
+    opType: OpType.START_EDITING_CONTENT,
+    viewMode: [ViewModeMindMap]
   },
   {
     icon: 'add-sibling',
@@ -35,7 +37,8 @@ const items: TopicContextMenuItemConfig[] = [
     label: I18nKey.ADD_CHILD,
     shortcut: 'Tab',
     rootCanUse: true,
-    opType: OpType.ADD_CHILD
+    opType: OpType.ADD_CHILD,
+    viewMode: [ViewModeMindMap]
   },
   {
     icon: 'notes',
@@ -66,7 +69,7 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'root',
     label: I18nKey.SET_AS_EDITOR_ROOT,
-    shortcut: 'Alt + Shift + F',
+    shortcut: 'Alt + F',
     opType: OpType.SET_EDITOR_ROOT
   }
 ];
@@ -78,6 +81,7 @@ export function ContextMenuPlugin() {
     },
     customizeTopicContextMenu(ctx) {
       const { topicKey, model, controller, topic } = ctx;
+      const viewMode = model.config.viewMode;
       const isRoot = topicKey === model.editorRootTopicKey;
       function onClickItem(item) {
         return function(e) {
@@ -92,7 +96,9 @@ export function ContextMenuPlugin() {
       return items.map(item => {
         if (item.enabledFunc && !item.enabledFunc({ topic, model }))
           return null;
-        return isRoot && !item.rootCanUse ? null : (
+        if (isRoot && !item.rootCanUse) return null;
+        if (item.viewMode && !item.viewMode.includes(viewMode)) return null;
+        return (
           <MenuItem
             key={item.label}
             icon={Icon(item.icon)}

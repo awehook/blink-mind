@@ -57,6 +57,15 @@ export function TopicContentEditor(props: Props) {
           return true;
         }
         break;
+      case Key.F:
+        if(e.altKey) {
+          controller.run('operation', {
+            ...props,
+            opType: OpType.SET_EDITOR_ROOT,
+          });
+          return true;
+        }
+        break;
       case Key.Backspace:
         if (topic.contentData === '') {
           controller.run('operation', {

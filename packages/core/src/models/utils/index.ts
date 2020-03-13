@@ -72,6 +72,7 @@ export function getPrevTopicKey(model: SheetModel, topicKey: KeyType) {
 
 export function getNextTopicKey(model: SheetModel, topicKey: KeyType) {}
 
+// 判断该topic是否为其父亲的第一个孩子
 export function isFisrtChild(model: SheetModel, topicKey: KeyType) {
   const parentTopic = model.getParentTopic(topicKey);
   if (parentTopic) {
@@ -81,4 +82,92 @@ export function isFisrtChild(model: SheetModel, topicKey: KeyType) {
     }
   }
   return false;
+}
+
+export function isSibling(
+  model: SheetModel,
+  key1: KeyType,
+  key2: KeyType
+): boolean {
+  return model.getParentTopic(key1) === model.getParentTopic(key2);
+}
+
+/**
+ * 根据当前元素的Key,获取depth=depth的祖先的key
+ * @param model
+ * @param key
+ * @param depth
+ */
+export function getAncestorKeyByDepth(
+  model: SheetModel,
+  key: KeyType,
+  depth: number
+) {
+  let curDepth = model.getDepth(key);
+  if (curDepth === depth) return key;
+  if (curDepth < depth) return null;
+  while (curDepth > depth) {
+    key = model.getParentKey(key);
+    curDepth--;
+  }
+  return key;
+}
+
+/**
+ * 找到他们互为sibling的祖先的Key,返回一个数组里面有两个祖先的key
+ * @param model
+ * @param key1
+ * @param key2
+ */
+export function getSiblingAncestorKeys(
+  model: SheetModel,
+  key1: KeyType,
+  key2: KeyType
+): Array<KeyType> {
+  let d1 = model.getDepth(key1);
+  let d2 = model.getDepth(key2);
+  if (d1 === d2) {
+    if (isSibling(model, key1, key2)) return [key1, key2];
+    return getSiblingAncestorKeys(
+      model,
+      model.getParentKey(key1),
+      model.getParentKey(key2)
+    );
+  }
+  return d1 > d2
+    ? getSiblingAncestorKeys(
+        model,
+        getAncestorKeyByDepth(model, key1, d2),
+        key2
+      )
+    : getSiblingAncestorKeys(
+        model,
+        key1,
+        getAncestorKeyByDepth(model, key2, d1)
+      );
+}
+
+/**
+ * 获取从subKey1到subKey2之间的subKeys,前提是 subKey1和subKey2的父亲相同
+ * @param model
+ * @param subKey1
+ * @param subKey2
+ */
+export function getRangeSubKeys(
+  model: SheetModel,
+  subKey1: KeyType,
+  subKey2: KeyType
+): Array<KeyType> {
+  let topic = model.getParentTopic(subKey1);
+  let subKeys = topic.subKeys;
+  let i1 = subKeys.indexOf(subKey1);
+  let i2 = subKeys.indexOf(subKey2);
+  if (i1 < 0 || i2 < 0)
+    throw new Error(
+      `The parent of subKey1 ${subKey1} and subKey2 ${subKey2} is not same`
+    );
+  return (i1 < i2
+    ? subKeys.slice(i1, i2 + 1)
+    : subKeys.slice(i2, i1 + 1)
+  ).toArray();
 }

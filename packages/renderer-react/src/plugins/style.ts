@@ -31,7 +31,7 @@ export function StylePlugin() {
     getTopicContentStyle(props): TopicStyle {
       const { topicKey, model, controller } = props;
       log('getTopicContentStyle:', topicKey, model);
-      const visualLevel = model.getTopicVisualLevel(topicKey);
+      const visualLevel = model.getVisualDepth(topicKey);
       const theme = model.config.theme;
       let themeStyle;
       if (visualLevel === TopicVisualLevel.ROOT) themeStyle = theme.rootTopic;
@@ -69,7 +69,7 @@ export function StylePlugin() {
     getLinkStyle(props): LinkStyle {
       const { topicKey, model, controller } = props;
       log('getLinkStyle', topicKey);
-      const visualLevel = model.getTopicVisualLevel(topicKey);
+      const visualLevel = model.getVisualDepth(topicKey);
       const theme: ThemeType = model.config.theme;
       let linkStyle: LinkStyle = theme.linkStyle;
       let presetStyle;
@@ -109,7 +109,7 @@ export function StylePlugin() {
     getSubLinksStyle(props): LinkStyle {
       const { topicKey, model, controller } = props;
       log('getLinkStyle', topicKey);
-      const visualLevel = model.getTopicVisualLevel(topicKey);
+      const visualLevel = model.getVisualDepth(topicKey);
       const theme = model.config.theme;
       let subLinkStyle = theme.linkStyle;
       let presetStyle;
@@ -213,7 +213,7 @@ export function StylePlugin() {
 
     getTopicThemeStyle(props): TopicStyle {
       const { topicKey, model } = props;
-      const visualLevel = model.getTopicVisualLevel(topicKey);
+      const visualLevel = model.getVisualDepth(topicKey);
       const theme = model.config.theme;
       if (visualLevel === TopicVisualLevel.ROOT) return theme.rootTopic;
       if (visualLevel === TopicVisualLevel.PRIMARY) return theme.primaryTopic;

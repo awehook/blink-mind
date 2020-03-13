@@ -64,7 +64,7 @@ export function HotKeyPlugin() {
           HotKeyName.SET_EDITOR_ROOT,
           {
             label: 'set editor root',
-            combo: 'alt + shift + f',
+            combo: 'alt + f',
             onKeyDown: handleKeyDown(OpType.SET_EDITOR_ROOT)
           }
         ]

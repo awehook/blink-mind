@@ -17,6 +17,7 @@ type ModelRecordType = {
   editorRootTopicKey?: KeyType;
   focusKey?: KeyType;
   focusMode?: string;
+  selectedKeys?: Array<KeyType>;
   zoomFactor: number;
   formatVersion?: string;
 };
@@ -31,8 +32,9 @@ const defaultModelRecord: ModelRecordType = {
   editorRootTopicKey: null,
   focusKey: null,
   focusMode: null,
-  formatVersion: null,
-  zoomFactor: 1
+  zoomFactor: 1,
+  selectedKeys: null,
+  formatVersion: null
 };
 
 export class SheetModel extends Record(defaultModelRecord) {
@@ -68,7 +70,7 @@ export class SheetModel extends Record(defaultModelRecord) {
     const model = new SheetModel();
     const rootTopic = Topic.create({ key: createKey(), content: 'RootTopic' });
     return model
-      .set('id',createKey())
+      .set('id', createKey())
       .update('topics', topics => topics.set(rootTopic.key, rootTopic))
       .set('rootTopicKey', rootTopic.key)
       .set('editorRootTopicKey', rootTopic.key)
@@ -101,7 +103,7 @@ export class SheetModel extends Record(defaultModelRecord) {
   }
 
   toJS() {
-    return  {
+    return {
       id: this.id,
       title: this.title,
       rootTopicKey: this.rootTopicKey,
@@ -160,6 +162,14 @@ export class SheetModel extends Record(defaultModelRecord) {
     return this.focusMode === FocusMode.EDITING_DESC ? this.focusKey : null;
   }
 
+  get selectedKeys(): Array<KeyType> {
+    return this.get('selectedKeys');
+  }
+
+  get focusOrSelectedKeys(): Array<KeyType> {
+    return this.selectedKeys || [this.focusKey];
+  }
+
   getTopic(key: KeyType): Topic {
     return this.topics.get(key);
   }
@@ -173,14 +183,28 @@ export class SheetModel extends Record(defaultModelRecord) {
     return topic.parentKey ? this.getTopic(topic.parentKey) : null;
   }
 
-  getTopicVisualLevel(key: KeyType): number {
+  getParentKey(key: KeyType): KeyType {
+    return this.getTopic(key).parentKey;
+  }
+
+  getVisualDepth(key: KeyType): number {
     let topic = this.getTopic(key);
-    let level = 0;
+    let depth = 0;
     while (topic && topic.key !== this.editorRootTopicKey) {
-      level++;
+      depth++;
       topic = this.getParentTopic(topic.key);
     }
-    return level;
+    return depth;
+  }
+
+  getDepth(key: KeyType) {
+    let topic = this.getTopic(key);
+    let depth = 0;
+    while (topic && topic.key !== this.rootTopicKey) {
+      depth++;
+      topic = this.getParentTopic(topic.key);
+    }
+    return depth;
   }
 
   get rootTopic() {

@@ -31,6 +31,7 @@ import { ExtDataReference, ReferenceRecord } from './ext-data-reference';
 import { setReferenceTopicKeys } from './op-function';
 import { TopicExtReference } from './topic-ext-reference';
 import { TopicReferenceCheckbox } from './topic-reference-checkbox';
+import { ViewModeMindMap } from '../../../core/src/types';
 
 export function TopicReferencePlugin() {
   let selectedTopicKeys = new Set();
@@ -55,7 +56,8 @@ export function TopicReferencePlugin() {
 
   return {
     customizeTopicContextMenu(props, next) {
-      const { controller } = props;
+      const { controller, model } = props;
+      if (model.config.viewMode !== ViewModeMindMap) return next();
       function onClickSetReferenceTopics(e) {
         controller.run('operation', {
           ...props,
