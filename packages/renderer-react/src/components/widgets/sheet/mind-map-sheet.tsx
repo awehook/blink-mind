@@ -1,8 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { RefKey } from '../../../utils';
 import { MindDragScrollWidget } from '../mind-drag-scroll-widget';
+import { BaseProps } from '../../common';
 
 const Container = styled.div`
   width: 100%;
@@ -12,7 +13,7 @@ const Container = styled.div`
   background: ${props => props.theme.background};
   position: relative;
 `;
-export function MindMapSheet(props) {
+export function MindMapSheetFC(props: BaseProps) {
   const { controller, saveRef, model } = props;
   const [diagramState, setDiagramState] = useState(
     controller.run('getInitialSheetState', props)
@@ -30,3 +31,11 @@ export function MindMapSheet(props) {
     </Container>
   );
 }
+
+export const MindMapSheet = React.memo(
+  MindMapSheetFC,
+  (prevProps, nextProps) => {
+    if (nextProps.docModel.currentSheetModel !== nextProps.model) return true;
+    return false;
+  }
+);

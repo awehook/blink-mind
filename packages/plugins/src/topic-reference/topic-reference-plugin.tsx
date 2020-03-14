@@ -82,6 +82,19 @@ export function TopicReferencePlugin() {
       );
     },
 
+    componentAreEqual(ctx, next) {
+      const { prevProps, nextProps } = ctx;
+      const { model: nmodel } = nextProps;
+      const { model } = prevProps;
+      if (
+        nmodel.focusMode !== model.focusMode &&
+        (nmodel.focusMode === FOCUS_MODE_SET_REFERENCE_TOPICS ||
+          model.focusMode === FOCUS_MODE_SET_REFERENCE_TOPICS)
+      )
+        return false;
+      return next();
+    },
+
     getOpMap(props, next) {
       const opMap = next();
       opMap.set(

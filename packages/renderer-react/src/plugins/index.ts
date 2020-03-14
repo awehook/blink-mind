@@ -11,6 +11,7 @@ import { ReactPlugin } from './react';
 import { TopicContentEditorPlugin } from './topic-content-editor';
 import { StylePlugin } from './style';
 import { ThemePlugin } from './theme';
+import { OptmizationPlugin } from './optimization';
 
 export function DefaultPlugin() {
   return [
@@ -26,6 +27,7 @@ export function DefaultPlugin() {
     CreateModelPlugin(),
     ThemePlugin(),
     PlatformPlugin(),
-    I18nPlugin()
+    I18nPlugin(),
+    OptmizationPlugin()
   ];
 }

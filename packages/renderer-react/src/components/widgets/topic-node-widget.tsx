@@ -162,6 +162,19 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
     }
   }
 
+  shouldComponentUpdate(
+    nextProps: Readonly<Props>,
+    nextState: Readonly<State>,
+    nextContext: any
+  ): boolean {
+    const { controller } = this.props;
+    return !controller.run('componentAreEqual', {
+      ...this.props,
+      prevProps: this.props,
+      nextProps
+    });
+  }
+
   onClickCollapse = e => {
     e.stopPropagation();
     const { topicKey, getRef } = this.props;
@@ -183,8 +196,16 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
 
   render() {
     const props = this.props;
-    const { saveRef, topicKey, model, controller, topicStyle, dir } = props;
-    log('render', topicKey, model.focusMode);
+    const {
+      saveRef,
+      getRef,
+      topicKey,
+      model,
+      controller,
+      topicStyle,
+      dir
+    } = props;
+    log('render', topicKey, model.focusMode, getRef(topicNodeRefKey(topicKey)));
     const draggable =
       controller.run('isOperationEnabled', props) &&
       model.editingContentKey !== topicKey;

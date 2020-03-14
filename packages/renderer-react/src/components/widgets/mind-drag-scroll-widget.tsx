@@ -19,7 +19,7 @@ const DIV = styled.div`
 `;
 
 export interface MindDragScrollWidgetProps {
-  controller: Controller;
+  controller?: Controller;
   model: SheetModel;
   docModel: DocModel;
   saveRef?: Function;
@@ -37,7 +37,7 @@ class MindDragScrollWidget<
   renderHotkeys() {
     const props = this.props;
     const { controller, model, docModel } = props;
-    if (docModel.currentSheetModel !== model) return <Hotkeys/>;
+    if (docModel.currentSheetModel !== model) return <Hotkeys />;
     const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', props);
     if (hotKeys === null) return null;
     if (
