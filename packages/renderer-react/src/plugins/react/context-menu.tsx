@@ -4,12 +4,13 @@ import * as React from 'react';
 import { TopicContextMenu } from '../../components/widgets';
 import { getI18nText, I18nKey, Icon } from '../../utils';
 import { BlockType, ViewModeMindMap } from '../../../../core/src/types';
+import { KeyboardHotKeyWidget } from '../../components/widgets/keyborad-hotkey-widget';
 
 export type TopicContextMenuItemConfig = {
   enabledFunc?: ({ model, topic }) => boolean;
   icon?: string;
   label?: string;
-  shortcut?: string;
+  shortcut?: Array<string>;
   opType?: string;
   opArg?: any;
   rootCanUse?: boolean;
@@ -21,7 +22,7 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'edit',
     label: I18nKey.EDIT,
-    shortcut: 'Space',
+    shortcut: ['Space'],
     rootCanUse: true,
     opType: OpType.START_EDITING_CONTENT,
     viewMode: [ViewModeMindMap]
@@ -29,13 +30,13 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'add-sibling',
     label: I18nKey.ADD_SIBLING,
-    shortcut: 'Enter',
+    shortcut: ['Enter'],
     opType: OpType.ADD_SIBLING
   },
   {
     icon: 'add-child',
     label: I18nKey.ADD_CHILD,
-    shortcut: 'Tab',
+    shortcut: ['Tab'],
     rootCanUse: true,
     opType: OpType.ADD_CHILD,
     viewMode: [ViewModeMindMap]
@@ -43,7 +44,7 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'notes',
     label: I18nKey.EDIT_NOTES,
-    shortcut: 'Alt + D',
+    shortcut: ['Alt', 'D'],
     rootCanUse: true,
     opType: OpType.START_EDITING_DESC
   },
@@ -53,7 +54,7 @@ const items: TopicContextMenuItemConfig[] = [
       return topic.getBlock(BlockType.DESC).block != null;
     },
     label: I18nKey.REMOVE_NOTES,
-    shortcut: 'Alt + Shift + D',
+    shortcut: ['Alt', 'Shift', 'D'],
     rootCanUse: true,
     opType: OpType.DELETE_TOPIC_BLOCK,
     opArg: {
@@ -63,13 +64,13 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'delete-node',
     label: I18nKey.DELETE,
-    shortcut: 'Del',
+    shortcut: ['Del'],
     opType: OpType.DELETE_TOPIC
   },
   {
     icon: 'root',
     label: I18nKey.SET_AS_EDITOR_ROOT,
-    shortcut: 'Alt + F',
+    shortcut: ['Alt', 'F'],
     opType: OpType.SET_EDITOR_ROOT
   }
 ];
@@ -103,7 +104,7 @@ export function ContextMenuPlugin() {
             key={item.label}
             icon={Icon(item.icon)}
             text={getI18nText(ctx, item.label)}
-            labelElement={<kbd>{item.shortcut}</kbd>}
+            labelElement={<KeyboardHotKeyWidget hotkeys={item.shortcut} />}
             onClick={onClickItem(item)}
           />
         );
