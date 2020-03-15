@@ -5,7 +5,6 @@ import { createKey } from '../utils';
 import { Config } from './config';
 import { Topic } from './topic';
 
-
 type ModelRecordType = {
   id: KeyType;
   title: string;
@@ -173,6 +172,20 @@ export class SheetModel extends Record(defaultModelRecord) {
 
   getParentKey(key: KeyType): KeyType {
     return this.getTopic(key).parentKey;
+  }
+
+  getPreviousSiblingKey(key: KeyType): KeyType {
+    const p = this.getParentTopic(key);
+    let index = p.subKeys.indexOf(key);
+    if (index === 0) return null;
+    return p.subKeys.get(index - 1);
+  }
+
+  getNextSiblingKey(key: KeyType): KeyType {
+    const p = this.getParentTopic(key);
+    let index = p.subKeys.indexOf(key);
+    if (index === p.subKeys.size - 1) return null;
+    return p.subKeys.get(index + 1);
   }
 
   getVisualDepth(key: KeyType): number {

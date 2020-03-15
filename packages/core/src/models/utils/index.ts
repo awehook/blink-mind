@@ -171,3 +171,33 @@ export function getRangeSubKeys(
     : subKeys.slice(i2, i1 + 1)
   ).toArray();
 }
+
+/**
+ * 获取最底层最下面的后代的Key, 如果该项没有子元素，则返回自己的key
+ * @param model
+ * @param key
+ */
+export function getBottomDescendantKey(
+  model: SheetModel,
+  key: KeyType
+): KeyType {
+  const topic = model.getTopic(key);
+  return topic.subKeys.size === 0
+    ? key
+    : getBottomDescendantKey(model, topic.subKeys.last());
+}
+
+/**
+ * 获取最底层最下面的后代的Key, 需要考虑折叠, 如果该项没有子元素，则返回自己的key
+ * @param model
+ * @param key
+ */
+export function getVisualBottomDescendantKey(
+  model: SheetModel,
+  key: KeyType
+): KeyType {
+  const topic = model.getTopic(key);
+  return topic.subKeys.size === 0 || topic.collapse
+    ? key
+    : getVisualBottomDescendantKey(model, topic.subKeys.last());
+}
