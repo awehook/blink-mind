@@ -1,96 +1,96 @@
-import { BaseSheetModelModifierArg } from '@blink-mind/core';
+import { BaseDocModelModifierArg } from '@blink-mind/core';
 import { List } from 'immutable';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
 import { EXT_DATA_KEY_TAGS } from './utils';
 
 export function addNewTag({
-  model,
+  docModel,
   tag
-}: BaseSheetModelModifierArg & { tag: TagRecord }) {
-  let extData: ExtDataTags = model.getExtDataItem(
+}: BaseDocModelModifierArg & { tag: TagRecord }) {
+  let extData: ExtDataTags = docModel.getExtDataItem(
     EXT_DATA_KEY_TAGS,
     ExtDataTags
   );
 
   if (extData.tags.has(tag.name)) {
-    return model;
+    return docModel;
   }
   extData = extData.update('tags', tags => tags.set(tag.name, tag));
-  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
-  return model;
+  docModel = docModel.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return docModel;
 }
 
 export function deleteTag({
-  model,
+  docModel,
   tagName
-}: BaseSheetModelModifierArg & { tagName: string }) {
-  let extData: ExtDataTags = model.getExtDataItem(
+}: BaseDocModelModifierArg & { tagName: string }) {
+  let extData: ExtDataTags = docModel.getExtDataItem(
     EXT_DATA_KEY_TAGS,
     ExtDataTags
   );
 
   if (!extData.tags.has(tagName)) {
-    return model;
+    return docModel;
   }
   extData = extData.update('tags', tags => tags.delete(tagName));
-  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
-  return model;
+  docModel = docModel.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return docModel;
 }
 
 export function updateTag({
-  model,
+  docModel,
   oldTagName,
   newTag
-}: BaseSheetModelModifierArg & { oldTagName: string; newTag: TagRecord }) {
-  let extData: ExtDataTags = model.getExtDataItem(
+}: BaseDocModelModifierArg & { oldTagName: string; newTag: TagRecord }) {
+  let extData: ExtDataTags = docModel.getExtDataItem(
     EXT_DATA_KEY_TAGS,
     ExtDataTags
   );
   extData = extData.update('tags', tags =>
     tags.delete(oldTagName).set(newTag.name, newTag)
   );
-  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
-  return model;
+  docModel = docModel.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return docModel;
 }
 
 export function addTopicTag({
-  model,
+  docModel,
   topicKey,
   tagName
-}: BaseSheetModelModifierArg & {
+}: BaseDocModelModifierArg & {
   tagName: string;
 }) {
-  let extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+  let extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   extData = extData.updateIn(
     ['tags', tagName, 'topicKeys'],
     (topicKeys: List<KeyType>) =>
       // @ts-ignore
       topicKeys.push(topicKey)
   );
-  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
-  return model;
+  docModel = docModel.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return docModel;
 }
 
 export function removeTopicTag({
-  model,
+  docModel,
   topicKey,
   tagName
-}: BaseSheetModelModifierArg & {
+}: BaseDocModelModifierArg & {
   tagName: string;
 }) {
-  let extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+  let extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   extData = extData.updateIn(
     ['tags', tagName, 'topicKeys'],
     (topicKeys: List<KeyType>) =>
       // @ts-ignore
       topicKeys.delete(topicKeys.indexOf(topicKey))
   );
-  model = model.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
-  return model;
+  docModel = docModel.setIn(['extData', EXT_DATA_KEY_TAGS], extData);
+  return docModel;
 }
 
-export function getTopicTagNames({ model, topicKey }): string[] {
-  const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+export function getTopicTagNames({ docModel, topicKey }): string[] {
+  const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   const res = [];
   extData.tags.forEach(v => {
     if (v.topicKeys.includes(topicKey)) {

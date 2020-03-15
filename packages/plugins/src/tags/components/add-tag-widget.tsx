@@ -22,7 +22,7 @@ export function AddTagWidget(props: BaseProps) {
   const [showAlert, setShowAlert] = useState(false);
   const [alertTitle, setAlertTitle] = useState('');
 
-  const { controller, model } = props;
+  const { controller, docModel } = props;
   const handleTagNameChange = e => {
     setTagName(e.target.value);
   };
@@ -54,7 +54,7 @@ export function AddTagWidget(props: BaseProps) {
 
   const colorItem = <SettingItemColorPicker {...colorProps} />;
 
-  const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+  const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   const disabled = extData.tags.has(tagName) || tagName.trim() === '';
   const getTagStyle = () => {
     const style = {

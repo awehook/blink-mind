@@ -45,14 +45,11 @@ export function TagsPlugin() {
     },
     getOpMap(props, next) {
       const opMap = next();
-      opMap.set(OP_TYPE_ADD_TAG, toDocModelModifierFunc(addNewTag));
-      opMap.set(OP_TYPE_DELETE_TAG, toDocModelModifierFunc(deleteTag));
-      opMap.set(OP_TYPE_UPDATE_TAG, toDocModelModifierFunc(updateTag));
-      opMap.set(OP_TYPE_ADD_TOPIC_TAG, toDocModelModifierFunc(addTopicTag));
-      opMap.set(
-        OP_TYPE_REMOVE_TOPIC_TAG,
-        toDocModelModifierFunc(removeTopicTag)
-      );
+      opMap.set(OP_TYPE_ADD_TAG, addNewTag);
+      opMap.set(OP_TYPE_DELETE_TAG, deleteTag);
+      opMap.set(OP_TYPE_UPDATE_TAG, updateTag);
+      opMap.set(OP_TYPE_ADD_TOPIC_TAG, addTopicTag);
+      opMap.set(OP_TYPE_REMOVE_TOPIC_TAG, removeTopicTag);
       return opMap;
     },
 
@@ -124,8 +121,8 @@ export function TagsPlugin() {
     },
 
     getTopicTags(props: IControllerRunContext): TagRecord[] {
-      const { model, topicKey } = props;
-      const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+      const { docModel, topicKey } = props;
+      const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
       const res = [];
       extData.tags.forEach(v => {
         if (v.topicKeys.includes(topicKey)) {
@@ -135,8 +132,8 @@ export function TagsPlugin() {
       return res;
     },
     getTopicTagsCanBeAdded(props: IControllerRunContext) {
-      const { model, topicKey } = props;
-      const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+      const { docModel, topicKey } = props;
+      const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
       const res = [];
       extData.tags.forEach(v => {
         if (!v.topicKeys.includes(topicKey)) {

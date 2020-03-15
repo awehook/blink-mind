@@ -1,11 +1,11 @@
 import {
-  BaseSheetModelModifierArg,
   DocModel,
   getAllSubTopicKeys,
   IControllerRunContext,
   OpType,
   setCurrentSheetModel,
-  SheetModel,
+  ViewModeMindMap,
+  BaseDocModelModifierArg,
   SheetModelModifier,
   toDocModelModifierFunc
 } from '@blink-mind/core';
@@ -31,15 +31,15 @@ import { ExtDataReference, ReferenceRecord } from './ext-data-reference';
 import { setReferenceTopicKeys } from './op-function';
 import { TopicExtReference } from './topic-ext-reference';
 import { TopicReferenceCheckbox } from './topic-reference-checkbox';
-import { ViewModeMindMap } from '../../../core/src/types';
 
 export function TopicReferencePlugin() {
   let selectedTopicKeys = new Set();
   function startSetReferenceTopics({
+    docModel,
     model,
     topicKey
-  }: BaseSheetModelModifierArg) {
-    const extData: ExtDataReference = model.getExtDataItem(
+  }: BaseDocModelModifierArg) {
+    const extData: ExtDataReference = docModel.getExtDataItem(
       EXT_DATA_KEY_TOPIC_REFERENCE,
       ExtDataReference
     );
@@ -51,7 +51,8 @@ export function TopicReferencePlugin() {
       topicKey,
       focusMode: FOCUS_MODE_SET_REFERENCE_TOPICS
     });
-    return model;
+    docModel = setCurrentSheetModel(docModel, model);
+    return docModel;
   }
 
   return {
@@ -99,18 +100,18 @@ export function TopicReferencePlugin() {
       const opMap = next();
       opMap.set(
         OP_TYPE_START_SET_REFERENCE_TOPICS,
-        toDocModelModifierFunc(startSetReferenceTopics)
+        startSetReferenceTopics
       );
       opMap.set(
         OP_TYPE_SET_REFERENCE_TOPICS,
-        toDocModelModifierFunc(setReferenceTopicKeys)
+        setReferenceTopicKeys
       );
       return opMap;
     },
 
     beforeOpFunction(props, next) {
-      const docModel: DocModel = next();
-      let model = docModel.currentSheetModel;
+      let docModel: DocModel = next();
+      const model = docModel.currentSheetModel;
       const { opType, topicKey } = props;
       // 注意是在beforeOpFunction里面操作
       if (
@@ -120,7 +121,7 @@ export function TopicReferencePlugin() {
         const allDeleteKeys = getAllSubTopicKeys(model, topicKey);
         allDeleteKeys.push(topicKey);
 
-        let extData: ExtDataReference = model.getExtDataItem(
+        let extData: ExtDataReference = docModel.getExtDataItem(
           EXT_DATA_KEY_TOPIC_REFERENCE,
           ExtDataReference
         );
@@ -144,10 +145,10 @@ export function TopicReferencePlugin() {
         });
 
         extData = extData.set('reference', reference);
-        model = model.setIn(['extData', EXT_DATA_KEY_TOPIC_REFERENCE], extData);
+        docModel = docModel.setIn(['extData', EXT_DATA_KEY_TOPIC_REFERENCE], extData);
       }
 
-      return setCurrentSheetModel(docModel, model);
+      return docModel;
     },
 
     renderSheetCustomize(props: IControllerRunContext, next) {

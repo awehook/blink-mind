@@ -1,7 +1,6 @@
-import { OpType } from '@blink-mind/core';
+import { OpType, BlockType } from '@blink-mind/core';
 
 import { HotKeyItem, HotKeyName, HotKeysConfig } from '../types';
-import { BlockType } from '../../../core/src/types';
 
 function op(opType: string, props) {
   const { topicKey, model, controller } = props;

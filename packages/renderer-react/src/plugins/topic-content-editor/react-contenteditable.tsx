@@ -44,7 +44,7 @@ export default class ContentEditable extends React.Component<Props> {
     ).current;
 
   render() {
-    const { tagName, html, innerRef, ...props } = this.props;
+    const { tagName, html, innerRef, handleKeyDown, focus, ...props } = this.props;
 
     return React.createElement(
       tagName || 'div',

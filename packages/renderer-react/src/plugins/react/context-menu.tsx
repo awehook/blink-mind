@@ -1,10 +1,11 @@
-import { OpType } from '@blink-mind/core';
+import { BlockType, ViewModeMindMap, OpType } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
-import { TopicContextMenu } from '../../components/widgets';
+import {
+  TopicContextMenu,
+  KeyboardHotKeyWidget
+} from '../../components/widgets';
 import { getI18nText, I18nKey, Icon } from '../../utils';
-import { BlockType, ViewModeMindMap } from '../../../../core/src/types';
-import { KeyboardHotKeyWidget } from '../../components/widgets/keyborad-hotkey-widget';
 
 export type TopicContextMenuItemConfig = {
   enabledFunc?: ({ model, topic }) => boolean;
@@ -31,7 +32,8 @@ const items: TopicContextMenuItemConfig[] = [
     icon: 'add-sibling',
     label: I18nKey.ADD_SIBLING,
     shortcut: ['Enter'],
-    opType: OpType.ADD_SIBLING
+    opType: OpType.ADD_SIBLING,
+    viewMode: [ViewModeMindMap]
   },
   {
     icon: 'add-child',

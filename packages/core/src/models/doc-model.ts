@@ -1,14 +1,19 @@
-import { List, Record } from 'immutable';
+import { List, Record, Map } from 'immutable';
 import { SheetModel } from './sheet-model';
+
+export type ExtData = Map<string, any>;
 
 type DocRecordType = {
   sheetModels: List<SheetModel>;
+  // 用于插件做扩展
+  extData: ExtData;
   currentSheetIndex: number;
   formatVersion: string;
 };
 
 const defaultDocRecord: DocRecordType = {
   sheetModels: List(),
+  extData: Map(),
   currentSheetIndex: -1,
   formatVersion: '0.1'
 };
@@ -35,5 +40,13 @@ export class DocModel extends Record(defaultDocRecord) {
 
   get currentSheetModel(): SheetModel {
     return this.sheetModels.get(this.currentSheetIndex);
+  }
+
+  get extData(): ExtData {
+    return this.get('extData');
+  }
+
+  getExtDataItem<T>(key: string, c: new () => T): T {
+    return this.extData.get(key) || new c();
   }
 }

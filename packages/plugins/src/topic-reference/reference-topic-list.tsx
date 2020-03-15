@@ -37,8 +37,8 @@ const GotoBtn = styled.div`
 `;
 
 export function ReferenceTopicList(props: BaseProps) {
-  const { topicKey, controller, model } = props;
-  const extData: ExtDataReference = model.extData.get(
+  const { topicKey, controller, model,docModel } = props;
+  const extData: ExtDataReference = docModel.extData.get(
     EXT_DATA_KEY_TOPIC_REFERENCE
   );
 

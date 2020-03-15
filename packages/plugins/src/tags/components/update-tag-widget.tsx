@@ -23,7 +23,7 @@ export interface UpdateTagWidgetProps extends BaseProps {
 }
 
 export function UpdateTagWidget(props: UpdateTagWidgetProps) {
-  const { controller, model, tag } = props;
+  const { controller, docModel, tag } = props;
   const style = JSON.parse(tag.style);
   const [tagName, setTagName] = useState(tag.name);
   const [background, setBackground] = useState(style.backgroundColor);
@@ -60,7 +60,7 @@ export function UpdateTagWidget(props: UpdateTagWidgetProps) {
 
   const colorItem = <SettingItemColorPicker {...colorProps} />;
 
-  const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+  const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   const trimTagName = tagName.trim();
   const disabled =
     (extData.tags.has(trimTagName) && trimTagName !== tag.name) ||

@@ -5,13 +5,11 @@ import { createKey } from '../utils';
 import { Config } from './config';
 import { Topic } from './topic';
 
-export type ExtData = Map<string, any>;
 
 type ModelRecordType = {
   id: KeyType;
   title: string;
   topics: Map<KeyType, Topic>;
-  extData: ExtData; //用于插件做数据扩展
   config: Config;
   rootTopicKey: KeyType;
   editorRootTopicKey?: KeyType;
@@ -26,7 +24,6 @@ const defaultModelRecord: ModelRecordType = {
   id: null,
   title: null,
   topics: Map(),
-  extData: Map(),
   config: new Config(),
   rootTopicKey: null,
   editorRootTopicKey: null,
@@ -109,7 +106,6 @@ export class SheetModel extends Record(defaultModelRecord) {
       rootTopicKey: this.rootTopicKey,
       topics: Object.values(this.topics.toJS()),
       config: this.config,
-      extData: this.extData,
       zoomFactor: this.zoomFactor
     };
   }
@@ -120,10 +116,6 @@ export class SheetModel extends Record(defaultModelRecord) {
 
   get title(): string {
     return this.get('title');
-  }
-
-  get extData(): Map<string, any> {
-    return this.get('extData');
   }
 
   get topics(): Map<KeyType, Topic> {
@@ -172,10 +164,6 @@ export class SheetModel extends Record(defaultModelRecord) {
 
   getTopic(key: KeyType): Topic {
     return this.topics.get(key);
-  }
-
-  getExtDataItem<T>(key: string, c: new () => T): T {
-    return this.extData.get(key) || new c();
   }
 
   getParentTopic(key: KeyType): Topic {

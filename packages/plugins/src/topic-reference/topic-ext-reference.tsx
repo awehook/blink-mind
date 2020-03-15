@@ -10,9 +10,11 @@ import { ReferenceTopicList } from './reference-topic-list';
 import { EXT_DATA_KEY_TOPIC_REFERENCE } from './utils';
 
 export function TopicExtReference(props: BaseProps) {
-  const { model, topicKey } = props;
-  const extData: ExtDataReference =
-    model.extData.get(EXT_DATA_KEY_TOPIC_REFERENCE) || new ExtDataReference();
+  const { docModel, topicKey } = props;
+  const extData: ExtDataReference = docModel.getExtDataItem(
+    EXT_DATA_KEY_TOPIC_REFERENCE,
+    ExtDataReference
+  );
   const refRecord = extData.reference.get(topicKey);
   const referencedKeys = [];
   extData.reference.forEach((v, k) => {

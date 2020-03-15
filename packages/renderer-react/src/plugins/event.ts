@@ -16,7 +16,8 @@ export function EventPlugin() {
       if (model.editingContentKey === topicKey) return;
       if (
         model.focusKey === topicKey &&
-        model.focusMode === FocusMode.EDITING_CONTENT
+        (model.focusMode === FocusMode.EDITING_CONTENT ||
+          model.focusMode === FocusMode.NORMAL)
       )
         return;
       controller.run('operation', {
@@ -45,9 +46,7 @@ export function EventPlugin() {
       });
     },
 
-    handleDialogClose(props) {
-
-    },
+    handleDialogClose(props) {},
 
     addEventListener(props) {
       const { key, listener, once, controller } = props;

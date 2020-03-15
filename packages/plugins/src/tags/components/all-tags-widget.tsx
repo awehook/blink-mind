@@ -14,8 +14,8 @@ import { StyledTagWidget as TagWidget } from './tag-widget';
 let currentTag: TagRecord;
 export function AllTagsWidget(props: BaseProps) {
   const [showAlert, setShowAlert] = useState(false);
-  const { controller, model } = props;
-  const extData = model.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+  const { controller, docModel } = props;
+  const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   if (extData.tags.size === 0) return null;
   const tags = extData.tags.toArray().map(([name, tag]) => {
     const tagProps = {

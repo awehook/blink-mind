@@ -42,6 +42,10 @@ export function JsonSerializerPlugin() {
           .map(model =>
             controller.run('serializeSheetModel', { ...ctx, model })
           ),
+        extData: controller.run('serializeExtData', {
+          ...ctx,
+          extData: docModel.extData
+        }),
         currentSheetIndex: docModel.currentSheetIndex,
         formatVersion: docModel.formatVersion
       };
@@ -69,82 +73,13 @@ export function JsonSerializerPlugin() {
       return new DocModel({
         sheetModels: List(sheetModels),
         currentSheetIndex: obj.currentSheetIndex,
-        formatVersion
-      });
-    },
-
-    serializeSheetModel(ctx: IControllerRunContext, next) {
-      const nextRes = next();
-      if (nextRes != null) return nextRes;
-      const { model, controller } = ctx;
-      const obj = {
-        title: model.title,
-        rootTopicKey: model.rootTopicKey,
-        editorRootTopicKey: model.editorRootTopicKey,
-        focusKey: model.focusKey,
-        extData: controller.run('serializeExtData', {
-          ...ctx,
-          extData: model.extData
-        }),
-        topics: model.topics
-          .valueSeq()
-          .toArray()
-          .map(topic => controller.run('serializeTopic', { ...ctx, topic })),
-        config: controller.run('serializeConfig', {
-          ...ctx,
-          config: model.config
-        })
-      };
-      return obj;
-    },
-
-    deserializeSheetModel(ctx, next) {
-      const nextRes = next();
-      if (nextRes != null) return nextRes;
-      const { sheetModel, controller, formatVersion } = ctx;
-      const {
-        id,
-        title,
-        rootTopicKey,
-        editorRootTopicKey,
-        focusKey,
-        topics,
-        config,
-        extData
-      } = sheetModel;
-      let res = new SheetModel();
-      res = res.merge({
-        id: id || createKey(),
-        title,
-        rootTopicKey,
-        editorRootTopicKey:
-          editorRootTopicKey == null ? rootTopicKey : editorRootTopicKey,
-        focusKey,
         extData: controller.run('deserializeExtData', {
           ...ctx,
-          extData,
+          extData: obj.extData,
           formatVersion
         }),
-        config: controller.run('deserializeConfig', {
-          ...ctx,
-          config,
-          formatVersion
-        }),
-        topics: controller.run('deserializeTopics', {
-          ...ctx,
-          topics,
-          formatVersion
-        }),
-        formatVersion: sheetModel.formatVersion
+        formatVersion
       });
-      if (res.focusKey == null) {
-        res = res.set('focusKey', res.rootTopicKey);
-      }
-      if (res.focusMode == null) {
-        res = res.set('focusMode', FocusMode.NORMAL);
-      }
-      log('deserializeModel', res);
-      return res;
     },
 
     serializeExtData(ctx: IControllerRunContext & { extData: ExtData }, next) {
@@ -195,6 +130,70 @@ export function JsonSerializerPlugin() {
       if (nextRes != null) return nextRes;
       const { extDataItem } = ctx;
       return extDataItem;
+    },
+
+    serializeSheetModel(ctx: IControllerRunContext, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { model, controller } = ctx;
+      const obj = {
+        title: model.title,
+        rootTopicKey: model.rootTopicKey,
+        editorRootTopicKey: model.editorRootTopicKey,
+        focusKey: model.focusKey,
+        topics: model.topics
+          .valueSeq()
+          .toArray()
+          .map(topic => controller.run('serializeTopic', { ...ctx, topic })),
+        config: controller.run('serializeConfig', {
+          ...ctx,
+          config: model.config
+        })
+      };
+      return obj;
+    },
+
+    deserializeSheetModel(ctx, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { sheetModel, controller, formatVersion } = ctx;
+      const {
+        id,
+        title,
+        rootTopicKey,
+        editorRootTopicKey,
+        focusKey,
+        topics,
+        config
+      } = sheetModel;
+      let res = new SheetModel();
+      res = res.merge({
+        id: id || createKey(),
+        title,
+        rootTopicKey,
+        editorRootTopicKey:
+          editorRootTopicKey == null ? rootTopicKey : editorRootTopicKey,
+        focusKey,
+        config: controller.run('deserializeConfig', {
+          ...ctx,
+          config,
+          formatVersion
+        }),
+        topics: controller.run('deserializeTopics', {
+          ...ctx,
+          topics,
+          formatVersion
+        }),
+        formatVersion: sheetModel.formatVersion
+      });
+      if (res.focusKey == null) {
+        res = res.set('focusKey', res.rootTopicKey);
+      }
+      if (res.focusMode == null) {
+        res = res.set('focusMode', FocusMode.NORMAL);
+      }
+      log('deserializeModel', res);
+      return res;
     },
 
     serializeConfig(ctx, next) {

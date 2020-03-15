@@ -1,7 +1,9 @@
 import {
   DocModelModifier,
   getAllSubTopicKeys,
-  OpType
+  OpType,
+  BlockType,
+  FocusMode
 } from '@blink-mind/core';
 import debug from 'debug';
 import {
@@ -16,7 +18,6 @@ import {
   topicWidgetRefKey,
   topicWidgetRootRefKey
 } from '../utils';
-import {BlockType, FocusMode} from '../../../core/src/types';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {
@@ -79,8 +80,6 @@ export function OperationPlugin() {
     [OpType.SET_LAYOUT_DIR, setLayoutDir]
   ]);
 
-
-
   let enabled = true;
   let whiteListOperation = new Set<string>();
 
@@ -128,12 +127,9 @@ export function OperationPlugin() {
             break;
         }
       }
-      if(model.focusMode === FocusMode.EDITING_DESC)
-        return false;
+      if (model.focusMode === FocusMode.EDITING_DESC) return false;
       return model.config.allowUndo;
     },
-
-
 
     //TODO 有空重构这个函数
     operation(ctx) {
