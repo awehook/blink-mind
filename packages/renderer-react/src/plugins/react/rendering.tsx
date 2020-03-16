@@ -9,7 +9,7 @@ import {
   MindMapSheet,
   RootWidget,
   TopicCollapseIcon,
-  TopicContent,
+  TopicBlockContent,
   TopicDesc,
   TopicNodeLastRow,
   TopicNodeWidget,
@@ -169,7 +169,7 @@ export function RenderingPlugin() {
     },
 
     renderTopicBlockContent(props) {
-      return <TopicContent {...props} />;
+      return <TopicBlockContent {...props} />;
     },
 
     renderTopicBlockDesc(props) {

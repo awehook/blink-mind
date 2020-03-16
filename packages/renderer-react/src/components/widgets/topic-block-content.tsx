@@ -13,7 +13,9 @@ const cancelEvent = e => {
   e.preventDefault();
   e.stopPropagation();
 };
-export function TopicContent(props) {
+
+// 包裹一层，处理drag事件
+export function TopicBlockContent(props) {
   const { controller, model, topic, topicKey } = props;
   const readOnly = model.editingContentKey !== topicKey;
   const ref = useClickOutside(() => {

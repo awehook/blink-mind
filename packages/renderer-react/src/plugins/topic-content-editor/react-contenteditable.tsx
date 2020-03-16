@@ -13,7 +13,7 @@ function replaceCaret(el: HTMLElement) {
   const target = document.createTextNode('');
   el.appendChild(target);
   // do not move caret if element was not focused
-  const isTargetFocused = document.activeElement === el;
+  // const isTargetFocused = document.activeElement === el;
   if (target !== null && target.nodeValue !== null) {
     const sel = window.getSelection();
     if (sel !== null) {
@@ -44,7 +44,14 @@ export default class ContentEditable extends React.Component<Props> {
     ).current;
 
   render() {
-    const { tagName, html, innerRef, handleKeyDown, focus, ...props } = this.props;
+    const {
+      tagName,
+      html,
+      innerRef,
+      handleKeyDown,
+      focus,
+      ...props
+    } = this.props;
 
     return React.createElement(
       tagName || 'div',
@@ -100,6 +107,7 @@ export default class ContentEditable extends React.Component<Props> {
       e.preventDefault();
       return false;
     }
+
     this.emitChange(e);
   };
 
@@ -147,7 +155,6 @@ export default class ContentEditable extends React.Component<Props> {
     log('componentDidUpdate');
     const el = this.getEl();
     if (!el) {
-      console.log('!el');
       return;
     }
 

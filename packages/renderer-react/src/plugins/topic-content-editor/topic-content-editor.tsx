@@ -4,6 +4,10 @@ import { BaseProps } from '../../components/common';
 import ContentEditable from './react-contenteditable';
 import cx from 'classnames';
 import { Key } from 'ts-keycode-enum';
+//TODO
+import { OlOpType } from '../../../../../../renderer/plugins/outliner/op';
+
+const log = require('debug')('node:topic-content-editor');
 
 export interface Props extends BaseProps {
   className: string;
@@ -34,9 +38,43 @@ export function TopicContentEditor(props: Props) {
     }
   };
 
+  let innerEditorDiv: HTMLElement;
+  const innerRef = ref => {
+    innerEditorDiv = ref;
+  };
+
   const handleKeyDown = e => {
     if (_handleKeyDown(e)) return true;
     const isEditorRoot = model.editorRootTopicKey === topicKey;
+    if (e.keyCode === Key.UpArrow || e.keyCode === Key.DownArrow) {
+      const selection = window.getSelection();
+      const anchorNode = selection.anchorNode;
+      if (e.keyCode === Key.UpArrow) {
+        if (
+          anchorNode === innerEditorDiv ||
+          anchorNode === innerEditorDiv.firstChild
+          //&& selection.anchorOffset === 0
+        ) {
+          controller.run('operation', {
+            ...props,
+            opType: OlOpType.MOVE_FOCUS,
+            dir: 'U'
+          });
+          return true;
+        }
+      } else if (
+        anchorNode === innerEditorDiv ||
+        anchorNode === innerEditorDiv.lastChild
+        //&& (anchorNode.nodeType !== Node.TEXT_NODE || (anchorNode.nodeType===Node.TEXT_NODE && selection.anchorOffset === ((Text)anchorNode).wholeText.length-1)
+      ) {
+        controller.run('operation', {
+          ...props,
+          opType: OlOpType.MOVE_FOCUS,
+          dir: 'D'
+        });
+        return true;
+      }
+    }
     switch (e.keyCode) {
       case Key.D:
         if (e.altKey) {
@@ -58,19 +96,10 @@ export function TopicContentEditor(props: Props) {
         }
         break;
       case Key.F:
-        if(e.altKey) {
+        if (e.altKey) {
           controller.run('operation', {
             ...props,
-            opType: OpType.SET_EDITOR_ROOT,
-          });
-          return true;
-        }
-        break;
-      case Key.Backspace:
-        if (topic.contentData === '') {
-          controller.run('operation', {
-            ...props,
-            opType: OpType.DELETE_TOPIC
+            opType: OpType.SET_EDITOR_ROOT
           });
           return true;
         }
@@ -82,6 +111,10 @@ export function TopicContentEditor(props: Props) {
             opType: OpType.DELETE_TOPIC
           });
         return true;
+      case Key.UpArrow:
+        break;
+      case Key.DownArrow:
+        break;
     }
     return false;
   };
@@ -93,10 +126,13 @@ export function TopicContentEditor(props: Props) {
     disabled: readOnly,
     focus: model.focusKey === topicKey,
     placeholder: 'new topic',
+    innerRef,
     // onChange: v => {
     //   setEditorState(v);
     // }
     onChange
   };
+
+  log('render', topicKey);
   return <ContentEditable {...editProps} />;
 }

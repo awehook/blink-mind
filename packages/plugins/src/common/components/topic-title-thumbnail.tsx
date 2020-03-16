@@ -1,7 +1,7 @@
 import { BaseProps, PropKey } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import { TopicTitle } from './styled';
-import * as Highlighter from 'react-highlight-words';
+import Highlighter from 'react-highlight-words';
 
 export interface TopicTitleThumbnailProps extends BaseProps {
   titleMaxLength?: number;

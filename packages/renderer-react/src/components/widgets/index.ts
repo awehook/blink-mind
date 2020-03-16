@@ -12,7 +12,7 @@ export * from './mind-drag-scroll-widget';
 export * from './root-sublinks';
 export * from './root-widget';
 export * from './topic-collapse-icon';
-export * from './topic-content';
+export * from './topic-block-content';
 export * from './topic-content-editor-popup';
 export * from './topic-context-menu';
 export * from './topic-desc';
