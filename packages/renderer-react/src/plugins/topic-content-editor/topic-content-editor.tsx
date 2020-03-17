@@ -14,6 +14,8 @@ export interface Props extends BaseProps {
   handleKeyDown: (e) => boolean;
 }
 
+let debounce = false;
+
 export function TopicContentEditor(props: Props) {
   const {
     controller,
@@ -29,12 +31,25 @@ export function TopicContentEditor(props: Props) {
   const onChange = evt => {
     const data = evt.target.value;
     if (data !== topic.contentData) {
-      controller.run('operation', {
-        ...props,
-        opType: OpType.SET_TOPIC_BLOCK,
-        blockType: BlockType.CONTENT,
-        data
-      });
+      if (debounce) {
+        //无法进行undo
+        controller.run('operation', {
+          ...props,
+          opType: OpType.SET_TOPIC_BLOCK_CONTENT,
+          data
+        });
+        setTimeout(() => {
+          debounce = false;
+        }, 2000);
+      } else {
+        controller.run('operation', {
+          ...props,
+          opType: OpType.SET_TOPIC_BLOCK,
+          blockType: BlockType.CONTENT,
+          data
+        });
+        debounce = true;
+      }
     }
   };
 
@@ -131,8 +146,10 @@ export function TopicContentEditor(props: Props) {
     onChange
   };
 
-  log('render', topicKey,
+  log(
+    'render',
+    topicKey
     // innerEditorDivRef.current
-    );
+  );
   return <ContentEditable {...editProps} />;
 }

@@ -301,6 +301,21 @@ function setTopicBlockData({
   return model;
 }
 
+function setTopicBlockContentData({
+  model,
+  topicKey,
+  focusMode,
+  data
+}): SheetModelModifierResult {
+  return setTopicBlockData({
+    model,
+    topicKey,
+    focusMode,
+    data,
+    blockType: BlockType.CONTENT
+  });
+}
+
 function deleteTopicBlock({ model, topicKey, blockType }: DeleteTopicBlockArg) {
   const topic = model.getTopic(topicKey);
   if (topic) {
@@ -484,6 +499,7 @@ export const SheetModelModifier = {
   setFocusMode,
   deleteTopic,
   setTopicBlockData,
+  setTopicBlockContentData,
   deleteTopicBlock,
   setStyle,
   clearAllCustomStyle,

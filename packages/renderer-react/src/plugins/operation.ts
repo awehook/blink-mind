@@ -38,6 +38,7 @@ export function OperationPlugin() {
     setFocusMode,
     deleteTopic,
     setTopicBlockData,
+    setTopicBlockContentData,
     deleteTopicBlock,
     setStyle,
     clearAllCustomStyle,
@@ -72,6 +73,7 @@ export function OperationPlugin() {
     [OpType.SET_CONFIG, setConfig],
     [OpType.SET_THEME, setTheme],
     [OpType.SET_TOPIC_BLOCK, setTopicBlockData],
+    [OpType.SET_TOPIC_BLOCK_CONTENT, setTopicBlockContentData],
     [OpType.DELETE_TOPIC_BLOCK, deleteTopicBlock],
     [OpType.START_EDITING_CONTENT, startEditingContent],
     [OpType.START_EDITING_DESC, startEditingDesc],
@@ -123,6 +125,8 @@ export function OperationPlugin() {
             return false;
           case OpType.START_EDITING_DESC:
             return !model.currentFocusTopic.getBlock(BlockType.DESC).block;
+          case OpType.SET_TOPIC_BLOCK_CONTENT:
+            return false;
           default:
             break;
         }
@@ -133,7 +137,7 @@ export function OperationPlugin() {
 
     //TODO 有空重构这个函数
     operation(ctx) {
-      if(ctx.controller.currentModel) {
+      if (ctx.controller.currentModel) {
         ctx = {
           ...ctx,
           docModel: ctx.controller.currentModel,
@@ -219,7 +223,7 @@ export function OperationPlugin() {
       // );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
-      log(controller.currentModel.currentSheetModel.topics);
+      // log(controller.currentModel.currentSheetModel.topics);
     },
 
     deleteRefKey(ctx) {

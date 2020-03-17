@@ -20,7 +20,7 @@ export function TopicBlockContent(props) {
   const readOnly = model.editingContentKey !== topicKey;
   const ref = useClickOutside(() => {
     if (!readOnly) {
-      console.log('onClickOutSide');
+      // console.log('onClickOutSide');
       controller.run('operation', {
         ...props,
         opType: OpType.SET_FOCUS_MODE,
