@@ -33,6 +33,7 @@ export const theme1: ThemeType = {
   primaryTopic: {
     contentStyle: {
       background: '#e8eaec',
+      color: '#333',
       borderWidth: '2px',
       borderStyle: 'solid',
       borderColor: 'rgb(221, 170, 68)',
@@ -42,7 +43,6 @@ export const theme1: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'curve',
-      hasUnderline: true,
       lineWidth: '2px',
       lineColor: 'rgb(221, 170, 68)'
     }
@@ -61,7 +61,6 @@ export const theme1: ThemeType = {
     },
     subLinkStyle: {
       lineType: 'round',
-      hasUnderline: true,
       lineRadius: 5,
       lineWidth: '1px',
       lineColor: 'rgb(187, 136, 34)'
