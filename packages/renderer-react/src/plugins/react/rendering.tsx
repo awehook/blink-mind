@@ -1,6 +1,6 @@
 import { BlockType, ViewModeMindMap } from '@blink-mind/core';
 import debug from 'debug';
-import React from 'react';
+import React, {useContext} from 'react';
 import { SaveRef } from '../../components/common';
 import {
   DiagramRoot,

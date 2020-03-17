@@ -29,7 +29,7 @@ export function DiagramRoot(props) {
     controller.run('operation', {
       ...props,
       opType: OpType.ADD_SHEET,
-      model: controller.run('createNewSheetModel', props)
+      sheetModel: controller.run('createNewSheetModel', props)
     });
   };
   const onSelect = (index, lastIndex, e) => {
@@ -37,7 +37,7 @@ export function DiagramRoot(props) {
       controller.run('operation', {
         ...props,
         opType: OpType.SET_CURRENT_SHEET,
-        model: docModel.sheetModels.get(index)
+        sheetModel: docModel.sheetModels.get(index)
       });
     }
   };

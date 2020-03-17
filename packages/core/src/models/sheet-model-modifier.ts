@@ -386,6 +386,7 @@ function setZoomFactor({
 }
 
 function startEditingContent({ model, topicKey }: BaseSheetModelModifierArg) {
+  console.log(model.topics);
   return focusTopic({
     model,
     topicKey,

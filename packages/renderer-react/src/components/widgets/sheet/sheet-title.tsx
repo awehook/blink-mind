@@ -47,18 +47,23 @@ export class SheetTitle extends React.Component<Props, State> {
   };
   onClickDelete = () => {
     const props = this.props;
-    const { controller } = props;
-    controller.run('operation', { ...props, opType: OpType.DELETE_SHEET });
+    const { controller, docModel } = props;
+    controller.run('operation', {
+      ...props,
+      opType: OpType.DELETE_SHEET,
+      sheetModel: docModel.currentSheetModel
+    });
   };
 
   onClickDuplicate = () => {
     const props = this.props;
-    const { controller } = props;
+    const { controller, docModel } = props;
     const title =
       controller.run('getSheetTitle', props) + getI18nText(props, I18nKey.COPY);
     controller.run('operation', {
       ...props,
       opType: OpType.DUPLICATE_SHEET,
+      sheetModel: docModel.currentSheetModel,
       title
     });
   };

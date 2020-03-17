@@ -9,6 +9,8 @@ const log = debug('modifier');
 
 export type BaseDocModelModifierArg = {
   docModel: DocModel;
+  //sheetModel是为了增删sheet使用的
+  sheetModel: SheetModel;
   model?: SheetModel;
   topicKey?: KeyType;
 };
@@ -40,10 +42,10 @@ export function toDocModelModifierFunc(sheetModelModifierFunc) {
 
 function addSheet({
   docModel,
-  model
+  sheetModel
 }: BaseDocModelModifierArg): DocModelModifierResult {
   docModel = docModel.update('sheetModels', sheetModels =>
-    sheetModels.push(model)
+    sheetModels.push(sheetModel)
   );
   docModel = docModel.set('currentSheetIndex', docModel.sheetModels.size - 1);
   return docModel;
@@ -52,9 +54,9 @@ function addSheet({
 function setCurrentSheet({
   docModel,
   sheetIndex = null,
-  model = null
+  sheetModel = null
 }: BaseDocModelModifierArg & { sheetIndex?: number }) {
-  if (sheetIndex != null && model != null) {
+  if (sheetIndex != null && sheetModel != null) {
     throw new Error('index and sheetModel both not null');
   }
   if (sheetIndex != null && docModel.currentSheetIndex !== sheetIndex) {
@@ -62,8 +64,8 @@ function setCurrentSheet({
       docModel = docModel.set('currentSheetIndex', sheetIndex);
     }
   }
-  if (model != null) {
-    const idx = docModel.sheetModels.indexOf(model);
+  if (sheetModel != null) {
+    const idx = docModel.sheetModels.indexOf(sheetModel);
     if (idx === -1) {
       throw new Error('sheetModel is not in docModel');
     }
@@ -74,23 +76,23 @@ function setCurrentSheet({
 
 function duplicateSheet({
   docModel,
-  model,
+  sheetModel,
   title
 }: BaseDocModelModifierArg & { title: string }) {
-  const idx = docModel.sheetModels.indexOf(model);
+  const idx = docModel.sheetModels.indexOf(sheetModel);
   if (idx === -1) {
     throw new Error('sheetModel is not in docModel');
   }
   docModel = docModel
     .update('sheetModels', sheetModels =>
-      sheetModels.insert(idx + 1, model.set('title', title))
+      sheetModels.insert(idx + 1, sheetModel.set('title', title))
     )
     .set('currentSheetIndex', idx + 1);
   return docModel;
 }
 
-function deleteSheet({ docModel, model }: BaseDocModelModifierArg) {
-  const idx = docModel.sheetModels.indexOf(model);
+function deleteSheet({ docModel, sheetModel }: BaseDocModelModifierArg) {
+  const idx = docModel.sheetModels.indexOf(sheetModel);
   if (idx === -1) {
     throw new Error('sheetModel is not in docModel');
   }

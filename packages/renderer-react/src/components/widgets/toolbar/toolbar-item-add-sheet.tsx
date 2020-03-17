@@ -6,11 +6,11 @@ import { getI18nText, I18nKey } from '../../../utils';
 export function ToolbarItemAddSheet(props) {
   const { controller } = props;
   const onClick = () => {
-    const model = controller.run('createNewSheetModel', props);
+    const sheetModel = controller.run('createNewSheetModel', props);
     controller.run('operation', {
       ...props,
       opType: OpType.ADD_SHEET,
-      model
+      sheetModel
     });
   };
 

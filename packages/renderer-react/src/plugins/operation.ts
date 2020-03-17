@@ -133,6 +133,13 @@ export function OperationPlugin() {
 
     //TODO 有空重构这个函数
     operation(ctx) {
+      if(ctx.controller.currentModel) {
+        ctx = {
+          ...ctx,
+          docModel: ctx.controller.currentModel,
+          model: ctx.controller.currentModel.currentSheetModel
+        };
+      }
       const { controller, opType, docModel, opArray, callback } = ctx;
       if (opArray != null && !Array.isArray(opArray)) {
         throw new Error('operation: the type of opArray must be array!');
@@ -212,7 +219,7 @@ export function OperationPlugin() {
       // );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
-      // log(controller.currentModel.currentSheetModel.topics);
+      log(controller.currentModel.currentSheetModel.topics);
     },
 
     deleteRefKey(ctx) {

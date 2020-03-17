@@ -47,7 +47,8 @@ export function DragAndDropPlugin() {
       };
       return (
         <DropArea
-          height={model.config.theme.marginV / 2}
+          // height={model.config.theme.marginV / 2}
+          height={8}
           ref={saveRef(dropAreaRefKey(topicKey, dropDir))}
           {...eventHandlers}
         />
