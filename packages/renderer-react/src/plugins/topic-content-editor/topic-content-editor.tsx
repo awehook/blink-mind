@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { BlockType, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../components/common';
 import ContentEditable from './react-contenteditable';
@@ -38,10 +38,7 @@ export function TopicContentEditor(props: Props) {
     }
   };
 
-  let innerEditorDiv: HTMLElement;
-  const innerRef = ref => {
-    innerEditorDiv = ref;
-  };
+  const innerEditorDivRef = useRef<HTMLElement>();
 
   const handleKeyDown = e => {
     if (_handleKeyDown(e)) return true;
@@ -49,6 +46,7 @@ export function TopicContentEditor(props: Props) {
     if (e.keyCode === Key.UpArrow || e.keyCode === Key.DownArrow) {
       const selection = window.getSelection();
       const anchorNode = selection.anchorNode;
+      let innerEditorDiv = innerEditorDivRef.current;
       if (e.keyCode === Key.UpArrow) {
         if (
           anchorNode === innerEditorDiv ||
@@ -126,13 +124,15 @@ export function TopicContentEditor(props: Props) {
     disabled: readOnly,
     focus: model.focusKey === topicKey,
     placeholder: 'new topic',
-    innerRef,
+    innerRef: innerEditorDivRef,
     // onChange: v => {
     //   setEditorState(v);
     // }
     onChange
   };
 
-  log('render', topicKey);
+  log('render', topicKey,
+    // innerEditorDivRef.current
+    );
   return <ContentEditable {...editProps} />;
 }

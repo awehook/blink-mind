@@ -13,7 +13,7 @@ const Container = styled.div`
   background: ${props => props.theme.background};
   position: relative;
 `;
-export function MindMapSheet(props: BaseProps) {
+export function MindMapSheet_(props: BaseProps) {
   const { controller, saveRef, model } = props;
   const [diagramState, setDiagramState] = useState(
     controller.run('getInitialSheetState', props)
@@ -31,3 +31,11 @@ export function MindMapSheet(props: BaseProps) {
     </Container>
   );
 }
+
+export const MindMapSheet = React.memo(
+  MindMapSheet_,
+  (prevProps, nextProps) => {
+    const { controller } = prevProps;
+    return controller.run('sheetAreEqual', { prevProps, nextProps });
+  }
+);

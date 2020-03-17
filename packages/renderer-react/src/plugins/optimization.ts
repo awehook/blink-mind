@@ -10,6 +10,13 @@ export function OptmizationPlugin() {
 
       if (ntopic === topic) return true;
       return false;
+    },
+
+    sheetAreEqual(ctx) {
+      const { nextProps } = ctx;
+      const { model: nmodel, docModel: ndocModel } = nextProps;
+      if (ndocModel.currentSheetModel !== nmodel) return true;
+      return false;
     }
   };
 }

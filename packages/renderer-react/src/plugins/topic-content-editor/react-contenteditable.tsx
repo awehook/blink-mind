@@ -108,7 +108,7 @@ export default class ContentEditable extends React.Component<Props> {
       return false;
     }
 
-    this.emitChange(e);
+    // this.emitChange(e);
   };
 
   shouldComponentUpdate(nextProps: Props): boolean {
@@ -125,9 +125,8 @@ export default class ContentEditable extends React.Component<Props> {
     if (normalizeHtml(nextProps.html) !== normalizeHtml(el.innerHTML)) {
       return true;
     }
-
     // Handle additional properties
-    return (
+    const res =  (
       props.focus !== nextProps.focus ||
       props.disabled !== nextProps.disabled ||
       props.tagName !== nextProps.tagName ||
@@ -135,6 +134,8 @@ export default class ContentEditable extends React.Component<Props> {
       props.innerRef !== nextProps.innerRef ||
       !deepEqual(props.style, nextProps.style)
     );
+    // log('shouldComponentUpdate',res);
+    return res;
   }
 
   componentDidMount(): void {
