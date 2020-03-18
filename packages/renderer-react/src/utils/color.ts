@@ -4,7 +4,7 @@ import * as colorString from 'color-string';
 export const COLORS = {
   HIGHLIGHT: '#48aff0',
   DARK: {
-    ZINDEX_BG: '#2F2F2F',
+    ZINDEX_BG: '#383838',
     TOOLBAR_BG: '#494646',
     ITEM_BG: '#726E6F',
     ITEM_BG_ACTIVE: '#58595A',

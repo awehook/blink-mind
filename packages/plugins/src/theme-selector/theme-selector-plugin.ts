@@ -1,5 +1,6 @@
 import { defaultTheme, OpType, SheetModel, ThemeType } from '@blink-mind/core';
 import {
+  darkTheme1,
   theme1,
   theme2,
   theme3,
@@ -13,6 +14,7 @@ export type ThemeMap = Map<string, ThemeType>;
 export function ThemeSelectorPlugin() {
   const themeMap = new Map<string, ThemeType>([
     ['default', defaultTheme],
+    ['dark-theme1', darkTheme1],
     ['random-color-square', themeRandomColorSquare],
     ['random-color-round', themeRandomColorRound],
     ['theme1', theme1],
