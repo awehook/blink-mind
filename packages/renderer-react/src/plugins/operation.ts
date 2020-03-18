@@ -137,11 +137,11 @@ export function OperationPlugin() {
 
     //TODO 有空重构这个函数
     operation(ctx) {
-      if (ctx.controller.currentModel) {
+      if (ctx.controller.docModel) {
         ctx = {
           ...ctx,
-          docModel: ctx.controller.currentModel,
-          model: ctx.controller.currentModel.currentSheetModel
+          docModel: ctx.controller.docModel,
+          model: ctx.controller.docModel.currentSheetModel
         };
       }
       const { controller, opType, docModel, opArray, callback } = ctx;
@@ -171,7 +171,7 @@ export function OperationPlugin() {
         }
       }
 
-      log('operation:', opType || opArray.map(op => op.opType));
+      log('operation:', opType || opArray.map(op => op.opType), ctx);
       if (opType === OpType.SET_TOPIC_BLOCK) {
         log(ctx.blockType, ctx.data);
       }
@@ -223,7 +223,7 @@ export function OperationPlugin() {
       // );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
-      // log(controller.currentModel.currentSheetModel.topics);
+      log(controller.docModel.currentSheetModel.topics);
     },
 
     deleteRefKey(ctx) {

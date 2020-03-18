@@ -81,7 +81,11 @@ export class Controller {
   middleware: Map<string, Function[]>;
   private readonly onChange: OnChangeFunction;
   public readOnly: boolean;
-  public currentModel: DocModel;
+  public docModel: DocModel;
+
+  get model() {
+    return this.docModel.currentSheetModel;
+  }
 
   constructor(options: IControllerOption = {}) {
     const { plugins = [], onChange, readOnly } = options;
@@ -92,13 +96,13 @@ export class Controller {
     registerPlugin(this, corePlugin);
   }
 
-  run(key: string, ...args: any[]) {
+  run(key: string, arg?) {
     const { middleware } = this;
     const fns = middleware[key] || [];
     warning(fns.length !== 0, `the middleware function ${key} is not found!`);
     const composedFn = memoizeOne(compose)(fns);
     // @ts-ignore
-    return composedFn(...args);
+    return composedFn(arg);
   }
 
   getValue(propKey: string, arg?) {
@@ -107,6 +111,6 @@ export class Controller {
 
   change(model: DocModel, callback?: ModelChangeCallback) {
     this.onChange(model, callback);
-    this.currentModel = model;
+    this.docModel = model;
   }
 }

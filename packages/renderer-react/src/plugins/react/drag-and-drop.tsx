@@ -23,7 +23,7 @@ export function DragAndDropPlugin() {
 
   return {
     renderTopicDropArea(props) {
-      const { topicKey, dropDir, saveRef, controller, model } = props;
+      const { topicKey, dropDir, saveRef, controller } = props;
       const onDragEnter = ev => {
         log('onDragEnter', topicKey, dropDir);
         controller.run('handleTopicDragEnter', { ...props, ev, dropDir });
@@ -78,7 +78,8 @@ export function DragAndDropPlugin() {
     },
 
     canDrop(props) {
-      const { srcKey, dstKey, model, dropDir } = props;
+      const { controller, srcKey, dstKey, dropDir } = props;
+      const model = controller.model;
       if (
         srcKey === model.editorRootTopicKey ||
         srcKey === dstKey ||
@@ -89,7 +90,6 @@ export function DragAndDropPlugin() {
 
       const srcTopic = model.getTopic(srcKey);
       return !(srcTopic.parentKey === dstKey && dropDir === 'in');
-
     },
 
     handleTopicDragEnter(props) {
@@ -97,10 +97,10 @@ export function DragAndDropPlugin() {
         dropDir,
         topicKey,
         controller,
-        model,
         diagramState,
         setDiagramState
       } = props;
+      const model = controller.model;
       log('handleTopicDragEnter:', topicKey, dropDir);
       const canDrop = controller.run('canDrop', {
         ...props,
@@ -138,13 +138,8 @@ export function DragAndDropPlugin() {
 
     handleTopicDrop(props) {
       log('handleTopicDrop');
-      const {
-        controller,
-        topicKey,
-        model,
-        diagramState,
-        setDiagramState
-      } = props;
+      const { controller, topicKey, diagramState, setDiagramState } = props;
+      const model = controller.model;
       props = { ...props, srcKey: model.focusKey, dstKey: topicKey };
 
       setDiagramState({ ...diagramState, dragDrop: null });
