@@ -62,7 +62,7 @@ export class SheetModel extends Record(defaultModelRecord) {
     );
   }
 
-  static createEmpty(): SheetModel {
+  static createEmpty(arg?): SheetModel {
     const model = new SheetModel();
     const rootTopic = Topic.create({ key: createKey(), content: 'RootTopic' });
     return model
@@ -71,7 +71,8 @@ export class SheetModel extends Record(defaultModelRecord) {
       .set('rootTopicKey', rootTopic.key)
       .set('editorRootTopicKey', rootTopic.key)
       .set('focusKey', rootTopic.key)
-      .set('focusMode', FocusMode.NORMAL);
+      .set('focusMode', FocusMode.NORMAL)
+      .merge(arg);
   }
 
   static fromJSON(object) {

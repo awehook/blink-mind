@@ -71,7 +71,7 @@ export function HotKeyPlugin() {
         ]
       ]);
       const topic = model.currentFocusTopic;
-      if (topic.getBlock(BlockType.DESC).block)
+      if (topic && topic.getBlock(BlockType.DESC).block)
         topicHotKeys.set(HotKeyName.DELETE_NOTES, {
           label: 'delete notes',
           combo: 'alt + shift + d',

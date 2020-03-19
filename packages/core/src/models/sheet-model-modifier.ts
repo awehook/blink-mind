@@ -156,6 +156,9 @@ function focusTopic({
   focusMode
 }: SetFocusModeArg): SheetModelModifierResult {
   log('focus topic', focusMode);
+  if (!model.topics.has(topicKey)) {
+    throw new Error(`focus key ${topicKey} is not in model`);
+  }
   if (topicKey !== model.focusKey) model = model.set('focusKey', topicKey);
   if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
   if (model.selectedKeys != null) model = model.set('selectedKeys', null);

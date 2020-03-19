@@ -64,7 +64,7 @@ class MindDragScrollWidget<
   }
 
   componentDidMount(): void {
-    const { getRef, model, controller } = this.props;
+    const { getRef, docModel, model, controller } = this.props;
     controller.run('addZoomFactorChangeEventListener', {
       ...this.props,
       listener: this.setZoomFactor
@@ -87,10 +87,11 @@ class MindDragScrollWidget<
     this.setZoomFactor(controller.run('getZoomFactor', this.props));
     this.layout();
     setTimeout(() => {
-      controller.run('moveTopicToCenter', {
-        ...this.props,
-        topicKey: model.focusKey
-      });
+      docModel.currentSheetModel === model &&
+        controller.run('moveTopicToCenter', {
+          ...this.props,
+          topicKey: model.focusKey
+        });
     });
   }
 

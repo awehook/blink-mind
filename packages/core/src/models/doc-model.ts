@@ -46,6 +46,10 @@ export class DocModel extends Record(defaultDocRecord) {
     return this.get('extData');
   }
 
+  getSheetIndex(sheetModel:SheetModel) {
+    return this.sheetModels.indexOf(sheetModel);
+  }
+
   getExtDataItem<T>(key: string, c: new () => T): T {
     return this.extData.get(key) || new c();
   }

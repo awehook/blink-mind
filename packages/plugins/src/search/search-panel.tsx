@@ -5,7 +5,7 @@ import {
   I18nKey,
   PropKey
 } from '@blink-mind/renderer-react';
-import { IInputGroupProps } from '@blueprintjs/core';
+import {IInputGroupProps, Keys} from '@blueprintjs/core';
 import { ItemListPredicate, ItemRenderer, Omnibar } from '@blueprintjs/select';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -84,6 +84,11 @@ export function SearchPanel(props: BaseProps) {
   };
 
   const items = getAllSections();
+  const onKeyDown = (e)=>{
+    if(e.keyCode === Keys.ENTER) {
+      console.log('enter');
+    }
+  };
   const omniBarProps = {
     query,
     inputProps,
@@ -93,7 +98,8 @@ export function SearchPanel(props: BaseProps) {
     itemRenderer: renderItem,
     // onItemSelect={handleItemSelect}
     onClose,
-    resetOnSelect: true
+    resetOnSelect: true,
+    onKeyDown
   };
   return <StyledNavOmniBar {...omniBarProps} />;
 }

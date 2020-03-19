@@ -1,7 +1,7 @@
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import warning from 'tiny-warning';
-import {DocModel, SheetModel} from './models';
+import { DocModel, SheetModel } from './models';
 import { CorePlugin } from './plugins/core';
 import { ModelChangeCallback, OnChangeFunction } from './types';
 
@@ -97,12 +97,16 @@ export class Controller {
   }
 
   run(key: string, arg?) {
-    const { middleware } = this;
-    const fns = middleware[key] || [];
-    warning(fns.length !== 0, `the middleware function ${key} is not found!`);
-    const composedFn = memoizeOne(compose)(fns);
-    // @ts-ignore
-    return composedFn(arg);
+    try {
+      const { middleware } = this;
+      const fns = middleware[key] || [];
+      warning(fns.length !== 0, `the middleware function ${key} is not found!`);
+      const composedFn = memoizeOne(compose)(fns);
+      // @ts-ignore
+      return composedFn(arg);
+    } catch (e) {
+      this.run('captureError', { error: e });
+    }
   }
 
   getValue(propKey: string, arg?) {

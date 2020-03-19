@@ -116,7 +116,8 @@ export class ViewPortViewer extends BaseWidget {
   };
 
   centerRootTopic = () => {
-    const { model, controller } = this.props;
+    const { controller } = this.props;
+    const model = controller.model;
     controller.run('moveTopicToCenter', {
       ...this.props,
       topicKey: model.editorRootTopicKey
