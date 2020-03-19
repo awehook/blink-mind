@@ -84,6 +84,12 @@ class MindDragScrollWidget<
         rootTopicRect.height
     );
     this.layout();
+    setTimeout(() => {
+      controller.run('moveTopicToCenter', {
+        ...this.props,
+        topicKey: model.focusKey
+      });
+    });
   }
 
   componentWillUnmount(): void {
