@@ -14,9 +14,11 @@ export function HotKeyPlugin() {
   return {
     customizeHotKeys(ctx): HotKeysConfig {
       const { model } = ctx;
-      const handleKeyDown = (opType, opArg?) => e => {
+      const handleHotKeyDown = (opType, opArg?) => e => {
         // log('HotKeyPlugin', opType);
         op(opType, { ...ctx, ...opArg });
+        e.stopImmediatePropagation();
+        e.preventDefault();
       };
       const topicHotKeys = new Map<string, HotKeyItem>([
         [
@@ -24,7 +26,7 @@ export function HotKeyPlugin() {
           {
             label: 'add child',
             combo: 'tab',
-            onKeyDown: handleKeyDown(OpType.ADD_CHILD)
+            onKeyDown: handleHotKeyDown(OpType.ADD_CHILD)
           }
         ],
         [
@@ -32,7 +34,7 @@ export function HotKeyPlugin() {
           {
             label: 'add sibling',
             combo: 'enter',
-            onKeyDown: handleKeyDown(OpType.ADD_SIBLING)
+            onKeyDown: handleHotKeyDown(OpType.ADD_SIBLING)
           }
         ],
         [
@@ -40,7 +42,7 @@ export function HotKeyPlugin() {
           {
             label: 'delete topic',
             combo: 'del',
-            onKeyDown: handleKeyDown(OpType.DELETE_TOPIC)
+            onKeyDown: handleHotKeyDown(OpType.DELETE_TOPIC)
           }
         ],
         [
@@ -48,7 +50,7 @@ export function HotKeyPlugin() {
           {
             label: 'edit content',
             combo: 'space',
-            onKeyDown: handleKeyDown(OpType.START_EDITING_CONTENT)
+            onKeyDown: handleHotKeyDown(OpType.START_EDITING_CONTENT)
           }
         ],
         [
@@ -56,7 +58,7 @@ export function HotKeyPlugin() {
           {
             label: 'edit notes',
             combo: 'alt + d',
-            onKeyDown: handleKeyDown(OpType.START_EDITING_DESC)
+            onKeyDown: handleHotKeyDown(OpType.START_EDITING_DESC)
           }
         ],
         [
@@ -64,7 +66,7 @@ export function HotKeyPlugin() {
           {
             label: 'set editor root',
             combo: 'alt + f',
-            onKeyDown: handleKeyDown(OpType.SET_EDITOR_ROOT)
+            onKeyDown: handleHotKeyDown(OpType.SET_EDITOR_ROOT)
           }
         ]
       ]);
@@ -73,7 +75,7 @@ export function HotKeyPlugin() {
         topicHotKeys.set(HotKeyName.DELETE_NOTES, {
           label: 'delete notes',
           combo: 'alt + shift + d',
-          onKeyDown: handleKeyDown(OpType.DELETE_TOPIC_BLOCK, {
+          onKeyDown: handleHotKeyDown(OpType.DELETE_TOPIC_BLOCK, {
             blockType: BlockType.DESC
           })
         });
