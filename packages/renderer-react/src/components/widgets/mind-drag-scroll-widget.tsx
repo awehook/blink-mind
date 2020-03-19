@@ -83,6 +83,8 @@ class MindDragScrollWidget<
         this.dragScrollWidget.viewBox.getBoundingClientRect().height / 2 +
         rootTopicRect.height
     );
+    //为了解决缩放之后切换到其他显示模式, 再次切换回去会错乱
+    this.setZoomFactor(controller.run('getZoomFactor', this.props));
     this.layout();
     setTimeout(() => {
       controller.run('moveTopicToCenter', {
@@ -144,7 +146,6 @@ class MindDragScrollWidget<
         <DragScrollWidget
           {...this.state}
           enableMouseWheel={false}
-          zoomFactor={model.zoomFactor}
           ref={saveRef(RefKey.DRAG_SCROLL_WIDGET_KEY + model.id)}
         >
           {(

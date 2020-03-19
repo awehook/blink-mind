@@ -46,7 +46,6 @@ export function OperationPlugin() {
     setConfig,
     setLayoutDir,
     setEditorRootTopicKey,
-    setZoomFactor,
     startEditingContent,
     startEditingDesc,
     dragAndDrop

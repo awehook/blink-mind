@@ -24,7 +24,6 @@ interface DragScrollWidgetProps {
   needKeyPressed?: boolean;
   canDragFunc?: () => Boolean;
   enableMouseWheel: boolean;
-  zoomFactor: number;
   children: (
     setViewBoxScroll: (left: number, top: number) => void,
     setViewBoxScrollDelta: (left: number, top: number) => void
