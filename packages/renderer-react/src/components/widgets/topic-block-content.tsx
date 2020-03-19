@@ -34,8 +34,10 @@ export function TopicBlockContent(props) {
         if (!e.shiftKey) {
           controller.run('operation', {
             ...props,
-            opType: OpType.ADD_SIBLING
+            opType: OpType.FOCUS_TOPIC,
+            focusMode: FocusMode.NORMAL
           });
+          e.nativeEvent.stopImmediatePropagation();
           return true;
         }
         break;

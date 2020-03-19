@@ -157,7 +157,7 @@ export function LayoutPlugin() {
         getRef,
         topicKey,
         docModel,
-        moveDir = MoveTopicDir.LEFT_CENTER
+        moveDir = MoveTopicDir.CENTER
       } = ctx;
       const model = docModel.currentSheetModel;
       if (

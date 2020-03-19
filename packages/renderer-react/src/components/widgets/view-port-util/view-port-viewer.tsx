@@ -10,10 +10,9 @@ const log = debug('node:view-port-viewer');
 
 const ViewerRoot = styled(ZIndex)`
   position: absolute;
-  font-size: 16px;
   background: white;
-  right: 30px;
-  bottom: 20px;
+  right: 25px;
+  bottom: 25px;
   border-radius: 2px;
   display: flex;
   flex-direction: row;

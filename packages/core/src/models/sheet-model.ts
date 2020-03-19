@@ -216,6 +216,7 @@ export class SheetModel extends Record(defaultModelRecord) {
     return this.getTopic(this.focusKey);
   }
 
+  // 暂时没有用到
   get zoomFactor() {
     return this.get('zoomFactor');
   }
