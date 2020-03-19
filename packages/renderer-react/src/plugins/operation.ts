@@ -227,22 +227,22 @@ export function OperationPlugin() {
     },
 
     deleteRefKey(ctx) {
-      const { model, topicKey, deleteRef } = ctx;
-      const allSubKeys = getAllSubTopicKeys(model, topicKey);
-      allSubKeys.push(topicKey);
-      for (const key of allSubKeys) {
-        deleteRef(linksRefKey(key));
-        deleteRef(linksSvgRefKey(key));
-        deleteRef(contentRefKey(key));
-        deleteRef(contentEditorRefKey(key));
-        deleteRef(descEditorRefKey(key));
-        deleteRef(topicWidgetRefKey(key));
-        deleteRef(topicWidgetRootRefKey(key));
-        deleteRef(topicNodeRefKey(key));
-        deleteRef(collapseRefKey(key));
-        deleteRef(dropAreaRefKey(key, 'next'));
-        deleteRef(dropAreaRefKey(key, 'prev'));
-      }
+      // const { model, topicKey, deleteRef } = ctx;
+      // const allSubKeys = getAllSubTopicKeys(model, topicKey);
+      // allSubKeys.push(topicKey);
+      // for (const key of allSubKeys) {
+      //   deleteRef(linksRefKey(key));
+      //   deleteRef(linksSvgRefKey(key));
+      //   deleteRef(contentRefKey(key));
+      //   deleteRef(contentEditorRefKey(key));
+      //   deleteRef(descEditorRefKey(key));
+      //   deleteRef(topicWidgetRefKey(key));
+      //   deleteRef(topicWidgetRootRefKey(key));
+      //   deleteRef(topicNodeRefKey(key));
+      //   deleteRef(collapseRefKey(key));
+      //   deleteRef(dropAreaRefKey(key, 'next'));
+      //   deleteRef(dropAreaRefKey(key, 'prev'));
+      // }
     },
 
     // 在整个Operation执行之前被调用
@@ -251,13 +251,7 @@ export function OperationPlugin() {
 
     // 在单个OpFunction执行之前被调用
     beforeOpFunction(ctx) {
-      const { controller, opType, docModel, topicKey } = ctx;
-      if (
-        opType === OpType.DELETE_TOPIC &&
-        topicKey !== docModel.currentSheetModel.editorRootTopicKey
-      ) {
-        controller.run('deleteRefKey', ctx);
-      }
+      const { docModel } = ctx;
       return docModel;
     },
 

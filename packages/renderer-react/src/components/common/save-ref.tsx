@@ -17,7 +17,7 @@ type RefListener = (name: string, ref: HTMLElement) => void;
 //TODO 可能会引起内存泄露,在删除一个topic时
 export class SaveRef extends React.Component<SaveRefProps> {
   getRef = name => {
-    log(this);
+    // log(this);
     return this[name];
   };
 
@@ -26,6 +26,8 @@ export class SaveRef extends React.Component<SaveRefProps> {
       if (node) {
         this[name] = node;
         this.fireListener(name, node);
+      } else {
+        delete this[name];
       }
     };
   };
