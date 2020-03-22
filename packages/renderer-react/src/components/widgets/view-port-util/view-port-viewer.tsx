@@ -5,6 +5,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { EventKey, getI18nText, I18nKey, Icon, IconName } from '../../../utils';
 import { BaseWidget, ZIndex } from '../../common';
+import { ViewModeMindMap } from '../../../../../core/src/types';
 
 const log = debug('node:view-port-viewer');
 
@@ -127,7 +128,7 @@ export class ViewPortViewer extends BaseWidget {
   render() {
     log('render');
     const props = this.props;
-    const { controller, zIndex } = props;
+    const { controller, zIndex, model } = props;
     const zoomFactor = controller.run('getZoomFactor', props);
     return (
       <ViewerRoot zIndex={zIndex}>
@@ -143,12 +144,15 @@ export class ViewPortViewer extends BaseWidget {
         >
           {Icon(IconName.EXPAND_ALL)}
         </Item>
-        <Item
-          onClick={this.centerRootTopic}
-          tooltip={getI18nText(props, I18nKey.CENTER_ROOT_TOPIC)}
-        >
-          {Icon(IconName.CENTER)}
-        </Item>
+        {model.config.viewMode === ViewModeMindMap ? (
+          <Item
+            onClick={this.centerRootTopic}
+            tooltip={getI18nText(props, I18nKey.CENTER_ROOT_TOPIC)}
+          >
+            {Icon(IconName.CENTER)}
+          </Item>
+        ) : null}
+
         <Item
           onClick={this.onClickMinusZoom}
           tooltip={getI18nText(props, I18nKey.ZOOM_IN)}
@@ -159,9 +163,10 @@ export class ViewPortViewer extends BaseWidget {
           onClick={this.onClickResetZoom}
           tooltip={getI18nText(props, I18nKey.RESET)}
         >
-          <span className='iconfont'>{`${getI18nText(props, I18nKey.ZOOM)}:${Math.floor(
-            zoomFactor * 100
-          )}%`}</span>
+          <span className="iconfont">{`${getI18nText(
+            props,
+            I18nKey.ZOOM
+          )}:${Math.floor(zoomFactor * 100)}%`}</span>
         </Item>
         <Item
           onClick={this.onClickAddZoom}

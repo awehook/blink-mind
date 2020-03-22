@@ -171,9 +171,9 @@ export function OperationPlugin() {
       }
 
       log('operation:', opType || opArray.map(op => op.opType), ctx);
-      if (opType === OpType.SET_TOPIC_BLOCK) {
-        log(ctx.blockType, ctx.data);
-      }
+      // if (opType === OpType.SET_TOPIC_BLOCK) {
+      //   log(ctx.blockType, ctx.data);
+      // }
       // log('operation:', ctx);
 
       const opMap = controller.run('getOpMap', ctx);

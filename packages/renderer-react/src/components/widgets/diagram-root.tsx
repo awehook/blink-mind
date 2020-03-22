@@ -42,75 +42,65 @@ export function DiagramRoot(props) {
     }
   };
   const model = docModel.currentSheetModel;
-  let child;
-  if (docModel.sheetModels.size === 1) {
-    child = (
-      <Theme theme={model.config.theme}>
-        {controller.run('renderSheet', {
-          ...props,
-          model: docModel.sheetModels.get(0)
-        })}
-      </Theme>
-    );
-  } else {
-    const sheetModels = docModel.sheetModels.toArray();
-    let i = 0;
-    const tabClassName = 'react-tabs__tab';
-    const tabProps = {
-      className: tabClassName,
-      tabIndex: '-1'
-    };
-    const tabs = sheetModels.map(model => {
-      const index = i++;
-      const nProps = { ...props, model, index };
-      return (
-        <Tab key={index} {...tabProps}>
-          <SheetTitle {...nProps} />
-        </Tab>
-      );
-    });
-    tabs.push(
-      <Tab key={i++} {...tabProps}>
-        <Icon onClick={onClickAddSheet} icon={IconNames.PLUS} />
+
+  const sheetModels = docModel.sheetModels.toArray();
+  let i = 0;
+  const tabClassName = 'react-tabs__tab';
+  const tabProps = {
+    className: tabClassName,
+    tabIndex: '-1'
+  };
+  const tabs = sheetModels.map(model => {
+    const index = i++;
+    const nProps = { ...props, model, index };
+    return (
+      <Tab key={index} {...tabProps}>
+        <SheetTitle {...nProps} />
       </Tab>
     );
-    i = 0;
+  });
+  tabs.push(
+    <Tab key={i++} {...tabProps}>
+      <Icon onClick={onClickAddSheet} icon={IconNames.PLUS} />
+    </Tab>
+  );
+  i = 0;
 
-    // const tabPanelProps = {
-    //   className: 'tab-panel react-tabs__tab-panel'
-    // };
-    const tabPanelProps = {
-      className: 'tab-panel',
-      selectedClassName: 'tab-panel__selected'
-    };
-    const tabPanels = sheetModels.map(model => {
-      return (
-        <TabPanel key={i++} {...tabPanelProps}>
-          <Theme theme={model.config.theme}>
-            {controller.run('renderSheet', {
-              ...props,
-              model
-            })}
-          </Theme>
-        </TabPanel>
-      );
-    });
-    tabPanels.push(<TabPanel key={i++} {...tabPanelProps} />);
-    const tabsProps = {
-      className: 'bm-sheet-tabs react-tabs react-tabs__tabs',
-      selectedIndex: docModel.currentSheetIndex,
-      forceRenderTabPanel: true,
-      onSelect
-    };
-    child = (
-      <TabsContainer>
-        <Tabs {...tabsProps}>
-          {tabPanels}
-          <TabList className="tab-list">{tabs}</TabList>
-        </Tabs>
-      </TabsContainer>
+  // const tabPanelProps = {
+  //   className: 'tab-panel react-tabs__tab-panel'
+  // };
+  const tabPanelProps = {
+    className: 'tab-panel',
+    selectedClassName: 'tab-panel__selected'
+  };
+  const tabPanels = sheetModels.map(model => {
+    return (
+      <TabPanel key={i++} {...tabPanelProps}>
+        <Theme theme={model.config.theme}>
+          {controller.run('renderSheet', {
+            ...props,
+            model
+          })}
+        </Theme>
+      </TabPanel>
     );
-  }
+  });
+  tabPanels.push(<TabPanel key={i++} {...tabPanelProps} />);
+  const tabsProps = {
+    className: 'bm-sheet-tabs react-tabs react-tabs__tabs',
+    selectedIndex: docModel.currentSheetIndex,
+    forceRenderTabPanel: true,
+    onSelect
+  };
+  const child = (
+    <TabsContainer>
+      <Tabs {...tabsProps}>
+        {tabPanels}
+        <TabList className="tab-list">{tabs}</TabList>
+      </Tabs>
+    </TabsContainer>
+  );
+
   return (
     <Root>
       {/*<GlobalStyle />*/}

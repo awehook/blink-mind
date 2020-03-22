@@ -16,13 +16,6 @@ export function TopicDesc(props) {
       opType: OpType.START_EDITING_DESC
     });
   };
-
-  const desc = model.getTopic(topicKey).getBlock(BlockType.DESC);
-  if (
-    !isEditing &&
-    controller.run('isBlockEmpty', { ...props, block: desc.block })
-  )
-    return null;
   return (
     <TopicBlockIcon
       onClick={onClick}
