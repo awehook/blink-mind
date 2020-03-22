@@ -258,6 +258,14 @@ function deleteTopic({
   return model;
 }
 
+function deleteTopics({ model, topicKeys }): SheetModelModifierResult {
+  if (topicKeys == null) topicKeys = model.focusOrSelectedKeys;
+  topicKeys.forEach(topicKey => {
+    model = deleteTopic({ model, topicKey });
+  });
+  return model;
+}
+
 /**
  * setTopicBlockData of one topic
  * @param model
@@ -501,6 +509,7 @@ export const SheetModelModifier = {
   focusTopic,
   setFocusMode,
   deleteTopic,
+  deleteTopics,
   setTopicBlockData,
   setTopicBlockContentData,
   deleteTopicBlock,

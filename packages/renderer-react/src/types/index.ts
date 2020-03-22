@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IHotkeyProps } from "@blueprintjs/core";
+import { IHotkeyProps } from '@blueprintjs/core';
 
 export type ValueOf<T> = T[keyof T];
 
@@ -9,11 +9,11 @@ export interface ElementItemConfig {
 }
 export type ElementItemConfigs = ElementItemConfig[];
 
-
 export type HotKeyMap = Map<string, IHotkeyProps>;
 
 export interface HotKeysConfig {
   topicHotKeys: HotKeyMap;
+  viewModeTopicHotKeys: Map<string, HotKeyMap>;
   globalHotKeys: HotKeyMap;
 }
 
@@ -25,7 +25,7 @@ export const HotKeyName = {
   EDIT_NOTES: 'EDIT_NOTES',
   DELETE_NOTES: 'DELETE_NOTES',
   SET_EDITOR_ROOT: 'SET_EDITOR_ROOT',
-  PASTE: 'PASTE',
+  PASTE: 'PASTE'
 };
 
 export const MoveTopicDir = {

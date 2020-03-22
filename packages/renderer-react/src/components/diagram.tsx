@@ -18,6 +18,7 @@ import { DefaultPlugin } from '../plugins';
 import './diagram.scss';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import { HotKeysConfig } from '../types';
+import { ViewModeMindMap } from '../../../core/src/types';
 const log = debug('node:Diagram');
 
 // controller 可以为空
@@ -53,11 +54,19 @@ class Diagram extends React.Component<Props> implements IDiagram {
     const children = [];
     if (
       model.focusMode === FocusMode.NORMAL ||
-      model.focusMode === FocusMode.SHOW_POPUP
+      model.focusMode === FocusMode.SHOW_POPUP ||
+      model.focusMode === FocusMode.EDITING_CONTENT
     ) {
       hotKeys.topicHotKeys.forEach((v, k) => {
         children.push(<Hotkey key={k} {...v} global />);
       });
+
+      hotKeys.viewModeTopicHotKeys.has(model.config.viewMode) &&
+        hotKeys.viewModeTopicHotKeys
+          .get(model.config.viewMode)
+          .forEach((v, k) => {
+            children.push(<Hotkey key={k} {...v} global />);
+          });
     }
     hotKeys.globalHotKeys.forEach((v, k) => {
       children.push(<Hotkey key={k} {...v} global />);

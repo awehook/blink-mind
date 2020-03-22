@@ -1,7 +1,8 @@
 import { OpType, BlockType } from '@blink-mind/core';
 
 import { HotKeyName, HotKeysConfig } from '../types';
-import { IHotkeyProps } from "@blueprintjs/core";
+import { IHotkeyProps } from '@blueprintjs/core';
+import { ViewModeMindMap } from '../../../core/src/types';
 
 function op(opType: string, props) {
   const { topicKey, controller } = props;
@@ -24,27 +25,55 @@ export function HotKeyPlugin() {
       };
       const topicHotKeys = new Map<string, IHotkeyProps>([
         [
-          HotKeyName.ADD_CHILD,
+          HotKeyName.DELETE_TOPIC,
           {
-            label: 'add child',
-            combo: 'tab',
-            onKeyDown: handleHotKeyDown(OpType.ADD_CHILD)
+            label: 'delete topic',
+            combo: 'del',
+            allowInInput: true,
+            preventDefault: true,
+            stopPropagation: true,
+            onKeyDown: handleHotKeyDown(OpType.DELETE_TOPIC)
           }
         ],
+
+        [
+          HotKeyName.EDIT_NOTES,
+          {
+            label: 'edit notes',
+            combo: 'alt + d',
+            allowInInput: true,
+            onKeyDown: handleHotKeyDown(OpType.START_EDITING_DESC)
+          }
+        ],
+        [
+          HotKeyName.SET_EDITOR_ROOT,
+          {
+            label: 'set editor root',
+            combo: 'alt + f',
+            allowInInput: true,
+            onKeyDown: handleHotKeyDown(OpType.SET_EDITOR_ROOT)
+          }
+        ]
+      ]);
+      const topic = model.currentFocusTopic;
+      if (topic && topic.getBlock(BlockType.DESC).block)
+        topicHotKeys.set(HotKeyName.DELETE_NOTES, {
+          label: 'delete notes',
+          combo: 'alt + shift + d',
+          allowInInput: true,
+          onKeyDown: handleHotKeyDown(OpType.DELETE_TOPIC_BLOCK, {
+            blockType: BlockType.DESC
+          })
+        });
+      const globalHotKeys = new Map<string, IHotkeyProps>();
+      const viewModeTopicHotKeys = new Map();
+      const viewModeMindMapTopicHotKeys = new Map([
         [
           HotKeyName.ADD_SIBLING,
           {
             label: 'add sibling',
             combo: 'enter',
             onKeyDown: handleHotKeyDown(OpType.ADD_SIBLING)
-          }
-        ],
-        [
-          HotKeyName.DELETE_TOPIC,
-          {
-            label: 'delete topic',
-            combo: 'del',
-            onKeyDown: handleHotKeyDown(OpType.DELETE_TOPIC)
           }
         ],
         [
@@ -56,35 +85,19 @@ export function HotKeyPlugin() {
           }
         ],
         [
-          HotKeyName.EDIT_NOTES,
+          HotKeyName.ADD_CHILD,
           {
-            label: 'edit notes',
-            combo: 'alt + d',
-            onKeyDown: handleHotKeyDown(OpType.START_EDITING_DESC)
-          }
-        ],
-        [
-          HotKeyName.SET_EDITOR_ROOT,
-          {
-            label: 'set editor root',
-            combo: 'alt + f',
-            onKeyDown: handleHotKeyDown(OpType.SET_EDITOR_ROOT)
+            label: 'add child',
+            combo: 'tab',
+            onKeyDown: handleHotKeyDown(OpType.ADD_CHILD)
           }
         ]
       ]);
-      const topic = model.currentFocusTopic;
-      if (topic && topic.getBlock(BlockType.DESC).block)
-        topicHotKeys.set(HotKeyName.DELETE_NOTES, {
-          label: 'delete notes',
-          combo: 'alt + shift + d',
-          onKeyDown: handleHotKeyDown(OpType.DELETE_TOPIC_BLOCK, {
-            blockType: BlockType.DESC
-          })
-        });
-      const globalHotKeys = new Map<string,IHotkeyProps>();
+      viewModeTopicHotKeys.set(ViewModeMindMap, viewModeMindMapTopicHotKeys);
       return {
         topicHotKeys,
-        globalHotKeys
+        globalHotKeys,
+        viewModeTopicHotKeys
       };
     }
   };
