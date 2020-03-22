@@ -3,9 +3,9 @@ import { OpType, BlockType } from '@blink-mind/core';
 import { HotKeyItem, HotKeyName, HotKeysConfig } from '../types';
 
 function op(opType: string, props) {
-  const { topicKey, model, controller } = props;
+  const { topicKey, controller } = props;
   if (topicKey === undefined) {
-    props = { ...props, topicKey: model.focusKey };
+    props = { ...props, topicKey: controller.model.focusKey };
   }
   controller.run('operation', { ...props, opType });
 }
@@ -13,7 +13,8 @@ function op(opType: string, props) {
 export function HotKeyPlugin() {
   return {
     customizeHotKeys(ctx): HotKeysConfig {
-      const { model } = ctx;
+      const { controller } = ctx;
+      const model = controller.model;
       const handleHotKeyDown = (opType, opArg?) => e => {
         // log('HotKeyPlugin', opType);
         op(opType, { ...ctx, ...opArg });

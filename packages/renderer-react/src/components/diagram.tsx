@@ -4,6 +4,7 @@ import {
   IDiagram,
   IDiagramProps,
   OnChangeFunction,
+  FocusMode
 } from '@blink-mind/core';
 // TODO
 import '@blink-mind/icons';
@@ -15,6 +16,8 @@ import memoizeOne from 'memoize-one';
 import * as React from 'react';
 import { DefaultPlugin } from '../plugins';
 import './diagram.scss';
+import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
+import { HotKeysConfig } from '../types';
 const log = debug('node:Diagram');
 
 // controller 可以为空
@@ -25,12 +28,41 @@ interface Props {
   commands?: any;
   plugins?: any;
 }
-
-export class Diagram extends React.Component<Props> implements IDiagram {
+@HotkeysTarget
+class Diagram extends React.Component<Props> implements IDiagram {
   controller: Controller;
 
   public getDiagramProps(): IDiagramProps {
     return this.controller.run('getDiagramProps');
+  }
+
+  renderHotkeys() {
+    const props = this.props;
+    const { controller } = props;
+    const model = controller.model;
+    const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', props);
+    if (hotKeys === null) return null;
+    if (
+      !(
+        hotKeys.topicHotKeys instanceof Map &&
+        hotKeys.globalHotKeys instanceof Map
+      )
+    ) {
+      throw new TypeError('topicHotKeys and globalHotKeys must be a Map');
+    }
+    const children = [];
+    if (
+      model.focusMode === FocusMode.NORMAL ||
+      model.focusMode === FocusMode.SHOW_POPUP
+    ) {
+      hotKeys.topicHotKeys.forEach((v, k) => {
+        children.push(<Hotkey key={k} {...v} global />);
+      });
+    }
+    hotKeys.globalHotKeys.forEach((v, k) => {
+      children.push(<Hotkey key={k} {...v} global />);
+    });
+    return <Hotkeys>{children}</Hotkeys>;
   }
 
   public openNewDocModel(newModel: DocModel) {
@@ -70,3 +102,5 @@ export class Diagram extends React.Component<Props> implements IDiagram {
     return this.controller.run('renderDiagram', this.diagramProps);
   }
 }
+
+export { Diagram };

@@ -5,6 +5,8 @@ import { RefKey } from '../../../utils';
 import { MindDragScrollWidget } from '../mind-drag-scroll-widget';
 import { BaseProps } from '../../common';
 
+const log = require('debug')('node:mindmap-sheet');
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -15,6 +17,7 @@ const Container = styled.div`
 `;
 export function MindMapSheet_(props: BaseProps) {
   const { controller, saveRef, model } = props;
+  log('model',model);
   const [diagramState, setDiagramState] = useState(
     controller.run('getInitialSheetState', props)
   );
