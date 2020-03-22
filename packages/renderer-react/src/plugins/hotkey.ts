@@ -1,6 +1,7 @@
 import { OpType, BlockType } from '@blink-mind/core';
 
-import { HotKeyItem, HotKeyName, HotKeysConfig } from '../types';
+import { HotKeyName, HotKeysConfig } from '../types';
+import { IHotkeyProps } from "@blueprintjs/core";
 
 function op(opType: string, props) {
   const { topicKey, controller } = props;
@@ -21,7 +22,7 @@ export function HotKeyPlugin() {
         e.stopImmediatePropagation();
         e.preventDefault();
       };
-      const topicHotKeys = new Map<string, HotKeyItem>([
+      const topicHotKeys = new Map<string, IHotkeyProps>([
         [
           HotKeyName.ADD_CHILD,
           {
@@ -80,7 +81,7 @@ export function HotKeyPlugin() {
             blockType: BlockType.DESC
           })
         });
-      const globalHotKeys = new Map();
+      const globalHotKeys = new Map<string,IHotkeyProps>();
       return {
         topicHotKeys,
         globalHotKeys

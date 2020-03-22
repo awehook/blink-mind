@@ -8,12 +8,14 @@ import { FOCUS_MODE_SEARCH, HOT_KEY_NAME_SEARCH } from './utils';
 export function SearchPlugin() {
   return {
     customizeHotKeys(props, next): HotKeysConfig {
-      const { controller, model } = props;
+      const { controller } = props;
+      const model = controller.model;
       const hotKeys: HotKeysConfig = next();
 
       hotKeys.globalHotKeys.set(HOT_KEY_NAME_SEARCH, {
         label: 'search',
         combo: 'mod + f',
+        allowInInput: true,
         onKeyDown: () => {
           controller.run('operation', {
             ...props,

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IHotkeyProps } from "@blueprintjs/core";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -8,13 +9,8 @@ export interface ElementItemConfig {
 }
 export type ElementItemConfigs = ElementItemConfig[];
 
-export interface HotKeyItem {
-  label: string;
-  combo: string;
-  onKeyDown: (e: KeyboardEvent) => any;
-}
 
-export type HotKeyMap = Map<string, HotKeyItem>;
+export type HotKeyMap = Map<string, IHotkeyProps>;
 
 export interface HotKeysConfig {
   topicHotKeys: HotKeyMap;
