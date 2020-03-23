@@ -20,6 +20,7 @@ import {
   getRelationship
 } from './utils';
 import { DescBlockData } from './desc-block-data';
+import h2p from 'html2plaintext';
 
 const log = debug('modifier');
 
@@ -226,6 +227,15 @@ function addSibling({
   return model;
 }
 
+function topicContentToPlainText({
+  model,
+  topicKey
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
+  const content = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block.data;
+  const data = h2p(content);
+  return setTopicBlockContentData({ model, topicKey, data });
+}
+
 function deleteTopic({
   model,
   topicKey
@@ -315,7 +325,7 @@ function setTopicBlockData({
 function setTopicBlockContentData({
   model,
   topicKey,
-  focusMode,
+  focusMode = null,
   data
 }): SheetModelModifierResult {
   return setTopicBlockData({
@@ -506,6 +516,7 @@ export const SheetModelModifier = {
   expandAll,
   expandTo,
   focusTopic,
+  topicContentToPlainText,
   setFocusMode,
   deleteTopic,
   deleteTopics,

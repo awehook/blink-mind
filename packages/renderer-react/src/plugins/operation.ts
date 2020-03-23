@@ -35,6 +35,7 @@ export function OperationPlugin() {
     expandAll,
     expandTo,
     focusTopic,
+    topicContentToPlainText,
     setFocusMode,
     deleteTopics,
     setTopicBlockData,
@@ -71,6 +72,7 @@ export function OperationPlugin() {
 
     [OpType.SET_CONFIG, setConfig],
     [OpType.SET_THEME, setTheme],
+    [OpType.TOPIC_CONTENT_TO_PLAIN_TEXT, topicContentToPlainText],
     [OpType.SET_TOPIC_BLOCK, setTopicBlockData],
     [OpType.SET_TOPIC_BLOCK_CONTENT, setTopicBlockContentData],
     [OpType.DELETE_TOPIC_BLOCK, deleteTopicBlock],

@@ -29,6 +29,7 @@ export function I18nPlugin() {
     [I18nKey.ADD_SIBLING, 'Add Sibling'],
     [I18nKey.EDIT_NOTES, 'Edit Notes'],
     [I18nKey.REMOVE_NOTES, 'Remove Notes'],
+    [I18nKey.CONVERT_TO_PLAIN_TEXT,'Convert to Plain Text'],
     [I18nKey.SET_AS_EDITOR_ROOT, 'Set as Editor Root'],
     [I18nKey.EXPORT, 'Export'],
     [I18nKey.EDIT_TOPOLOGY_DIAGRAM, 'Edit Topology Diagram'],

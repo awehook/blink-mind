@@ -11,6 +11,7 @@ const HotKeyChar = {
 };
 export function KeyboardHotKeyWidget(props: Props) {
   const { hotkeys } = props;
+  if (hotkeys == null) return null;
   const res = [];
   for (let i = 0; i < hotkeys.length; i++) {
     const hotkey = hotkeys[i];
