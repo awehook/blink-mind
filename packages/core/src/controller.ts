@@ -114,7 +114,8 @@ export class Controller {
   }
 
   change(model: DocModel, callback?: ModelChangeCallback) {
-    this.onChange(model, callback);
+    log('change', model, model.currentSheetModel);
     this.docModel = model;
+    this.onChange(model, callback);
   }
 }

@@ -57,8 +57,9 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
     // p2 折叠icon 右侧10个像素
     const marginCollapseIcon = 10;
     let y =
-      (mLinkStyle.hasUnderline ? contentRect.bottom : centerY(contentRect)) -
-      svgRect.top;
+      (mLinkStyle.hasUnderline
+        ? contentRect.bottom
+        : centerY(contentRect)) - svgRect.top;
     if (dir === TopicDirection.RIGHT) {
       p1 = {
         x: 0,
@@ -100,7 +101,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         ? {
             x:
               (dir === TopicDirection.RIGHT ? rect.right : rect.left) -
-              svgRect.left,
+              svgRect.left +
+              (dir === TopicDirection.RIGHT ? 1 : -1),
             y: p3.y
           }
         : p3;
@@ -117,7 +119,10 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
         const hDir = p3.x > p1.x ? 1 : -1;
         const radius = linkStyle.lineRadius;
         // if (p3.y === p1.y) { //这样判断不可靠
-        if ((!linkStyle.hasUnderline && topic.subKeys.size === 1) || Math.abs(p3.y - p1.y) <= 1) {
+        if (
+          (!linkStyle.hasUnderline && topic.subKeys.size === 1) ||
+          Math.abs(p3.y - p1.y) <= 1
+        ) {
           curve = `M ${p1.x} ${p1.y} L ${p3.x} ${p3.y}`;
         } else {
           // 0 表示逆时针 1 表示顺时针

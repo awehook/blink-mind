@@ -222,7 +222,7 @@ export function OperationPlugin() {
       // );
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
-      log(controller.docModel.currentSheetModel.topics);
+      log(controller.model);
     },
 
     deleteRefKey(ctx) {

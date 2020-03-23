@@ -170,8 +170,9 @@
     margin: 0;
 
     .react-tabs__tab {
-      font-size: 14px;
+      font-size: 16px;
       padding: 4px 12px ;
+      bottom: 0;
       border-radius: 0;
       border: none;
       border-right: 1px solid map_get($light-colors, 'line');

@@ -66,7 +66,6 @@ export class MindDragScrollWidget<
   }
 
   componentWillUnmount(): void {
-    console.log('componentWillUnmount');
     const { controller } = this.props;
     controller.run('removeZoomFactorChangeEventListener', {
       ...this.props,

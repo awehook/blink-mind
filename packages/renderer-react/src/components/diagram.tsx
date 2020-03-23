@@ -41,6 +41,7 @@ class Diagram extends React.Component<Props> implements IDiagram {
     const props = this.props;
     const { controller } = props;
     const model = controller.model;
+    log('renderHotkeys',model);
     const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', props);
     if (hotKeys === null) return null;
     if (

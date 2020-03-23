@@ -67,7 +67,7 @@ export function HotKeyPlugin() {
         });
       const globalHotKeys = new Map<string, IHotkeyProps>();
       const viewModeTopicHotKeys = new Map();
-      const viewModeMindMapTopicHotKeys = new Map([
+      const viewModeMindMapTopicHotKeys = new Map<string, IHotkeyProps>([
         [
           HotKeyName.ADD_SIBLING,
           {
@@ -89,6 +89,9 @@ export function HotKeyPlugin() {
           {
             label: 'add child',
             combo: 'tab',
+            allowInInput: true,
+            preventDefault: true,
+            stopPropagation: true,
             onKeyDown: handleHotKeyDown(OpType.ADD_CHILD)
           }
         ]
