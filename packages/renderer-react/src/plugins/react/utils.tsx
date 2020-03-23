@@ -1,8 +1,8 @@
 import debug from 'debug';
 const log = debug('plugin:utils');
 export function UtilsPlugin() {
-  const tempValueMap = new Map();
-  const eventListenerMap = new Map();
+  const tempValueMap = new Map<string, any>();
+  const eventListenerMap = new Map<string, any>();
   return {
     addTempValueChangeListener(props) {
       const { key, listener } = props;
@@ -15,9 +15,10 @@ export function UtilsPlugin() {
     removeTempValueChangeListener(props) {
       const { key, listener } = props;
       if (eventListenerMap.has(key)) {
-        eventListenerMap[key] = eventListenerMap
+        const res  = eventListenerMap
           .get(key)
           .filter(l => l !== listener);
+        eventListenerMap.set(key,res);
       }
     },
 

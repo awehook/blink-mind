@@ -41,12 +41,6 @@ export function TopicBlockContent(props) {
           return true;
         }
         break;
-      case Key.Tab:
-        controller.run('operation', {
-          ...props,
-          opType: OpType.ADD_CHILD
-        });
-        return true;
     }
     return false;
   };

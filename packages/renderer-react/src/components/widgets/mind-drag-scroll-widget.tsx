@@ -1,8 +1,6 @@
-import { Controller, DocModel, FocusMode, SheetModel } from '@blink-mind/core';
-import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
+import { Controller, DocModel, SheetModel } from '@blink-mind/core';
 import * as React from 'react';
 import styled from 'styled-components';
-import { HotKeysConfig } from '../../types';
 import { EventKey, RefKey, topicNodeRefKey } from '../../utils';
 import { DragScrollWidget } from '../common';
 const NodeLayer = styled.div`
@@ -68,6 +66,7 @@ export class MindDragScrollWidget<
   }
 
   componentWillUnmount(): void {
+    console.log('componentWillUnmount');
     const { controller } = this.props;
     controller.run('removeZoomFactorChangeEventListener', {
       ...this.props,

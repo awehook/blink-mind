@@ -22,7 +22,8 @@ import {
   linksRefKey,
   RefKey,
   topicNodeRefKey,
-  topicWidgetRefKey
+  topicWidgetRefKey,
+  tvZoomFactorKey
 } from '../utils';
 
 export type GetPartTopicsArg = {
@@ -122,38 +123,39 @@ export function LayoutPlugin() {
     },
 
     addZoomFactorChangeEventListener(props) {
-      const { controller } = props;
+      const { controller, model } = props;
       controller.run('addTempValueChangeListener', {
-        key: 'ZoomFactor',
+        key: tvZoomFactorKey(model),
         ...props
       });
     },
 
     removeZoomFactorChangeEventListener(props) {
-      const { controller } = props;
+      const { controller, model } = props;
       controller.run('removeTempValueChangeListener', {
-        key: 'ZoomFactor',
+        key: tvZoomFactorKey(model),
         ...props
       });
     },
 
     setZoomFactor(props) {
-      const { controller, zoomFactor } = props;
+      const { controller, model, zoomFactor } = props;
       return controller.run('setTempValue', {
-        key: 'ZoomFactor',
+        key: tvZoomFactorKey(model),
         value: zoomFactor
       });
     },
 
     getZoomFactor(props) {
-      const { controller } = props;
+      const { controller, model } = props;
       return (
-        controller.run('getTempValue', { key: 'ZoomFactor' }) || _zoomFactor
+        controller.run('getTempValue', { key: tvZoomFactorKey(model) }) ||
+        _zoomFactor
       );
     },
 
     setZoomFactorOnWheel(ctx) {
-      const { controller,ev } = ctx;
+      const { controller, ev } = ctx;
       if (controller.run('isMetaKey', ctx)) {
         let zoomFactor = controller.run('getZoomFactor', ctx);
         zoomFactor = zoomFactor - (ev.nativeEvent.deltaY > 0 ? 0.1 : -0.1);
@@ -165,12 +167,7 @@ export function LayoutPlugin() {
     },
 
     moveTopicToCenter(ctx: IControllerRunContext & { moveDir?: number }) {
-      const {
-        getRef,
-        topicKey,
-        docModel,
-        moveDir = MoveTopicDir.CENTER
-      } = ctx;
+      const { getRef, topicKey, docModel, moveDir = MoveTopicDir.CENTER } = ctx;
       const model = docModel.currentSheetModel;
       if (
         model.editorRootTopicKey !== topicKey &&
