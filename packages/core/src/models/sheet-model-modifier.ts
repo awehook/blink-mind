@@ -20,7 +20,7 @@ import {
   getRelationship
 } from './utils';
 import { DescBlockData } from './desc-block-data';
-import h2p from 'html2plaintext';
+import htmlToText from 'html-to-text';
 
 const log = debug('modifier');
 
@@ -231,8 +231,9 @@ function topicContentToPlainText({
   model,
   topicKey
 }: BaseSheetModelModifierArg): SheetModelModifierResult {
-  const content = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block.data;
-  const data = h2p(content);
+  const content = model.getTopic(topicKey).getBlock(BlockType.CONTENT).block
+    .data;
+  const data = htmlToText.fromString(content, { preserveNewlines: true });
   return setTopicBlockContentData({ model, topicKey, data });
 }
 

@@ -7,6 +7,7 @@ export const TopicTitle = styled.div`
   width: 100%;
   font-size: 16px;
   cursor: pointer;
+  white-space: pre-wrap;
   &:hover {
     background: ${COLORS.LIGHT.ITEM_BG_ACTIVE};
   }
