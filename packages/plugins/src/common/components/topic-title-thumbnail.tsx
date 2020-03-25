@@ -1,12 +1,13 @@
 import { BaseProps, PropKey } from '@blink-mind/renderer-react';
 import * as React from 'react';
-import { TopicTitle } from './styled';
+import cx from 'classnames';
 import Highlighter from 'react-highlight-words';
 
 export interface TopicTitleThumbnailProps extends BaseProps {
   titleMaxLength?: number;
   query?: string;
   usePlainText?: boolean;
+  active?: boolean;
 }
 
 export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
@@ -14,8 +15,10 @@ export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
     controller,
     topicKey,
     query,
+    active,
     usePlainText = true,
-    titleMaxLength = 100
+    titleMaxLength = 100,
+    ...restProps
   } = props;
   const navigateToTopic = e => {
     controller.run('focusTopicAndMoveToCenter', {
@@ -33,14 +36,19 @@ export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
   //   ? topicTitle.substr(0, titleMaxLength) + '...'
   //   : topicTitle;
   const titleProps = {
+    ...restProps,
     key: topicKey,
-    onClick: navigateToTopic
+    active,
+    className: cx('bm-topic-title-thumbnail',{
+      'bm-topic-title-thumbnail-active': active
+    }),
+    // onClick: navigateToTopic
   };
   return (
-    <TopicTitle {...titleProps}>
+    <div {...titleProps}>
       {query
         ? Highlighter({ searchWords: [query], textToHighlight: topicTitle })
         : topicTitle}
-    </TopicTitle>
+    </div>
   );
 }

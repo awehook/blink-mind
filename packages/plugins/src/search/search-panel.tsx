@@ -5,7 +5,7 @@ import {
   I18nKey,
   PropKey
 } from '@blink-mind/renderer-react';
-import {IInputGroupProps, Keys} from '@blueprintjs/core';
+import { IInputGroupProps, Keys } from '@blueprintjs/core';
 import { ItemListPredicate, ItemRenderer, Omnibar } from '@blueprintjs/select';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -54,11 +54,17 @@ export function SearchPanel(props: BaseProps) {
     return res;
   };
 
-  const renderItem: ItemRenderer<INavigationSection> = section => {
+  const renderItem: ItemRenderer<INavigationSection> = (
+    section,
+    { handleClick, modifiers, query }
+  ) => {
+    console.log('modifiers.active', modifiers.active);
     const { topicKey } = section;
     const thumbnailProps: TopicTitleThumbnailProps = {
       ...props,
       topicKey,
+      active: modifiers.active,
+      onClick: handleClick,
       query: controller.run('getTempValue', {
         key: SEARCH_QUERY_TEMP_VALUE_KEY
       })
@@ -84,10 +90,11 @@ export function SearchPanel(props: BaseProps) {
   };
 
   const items = getAllSections();
-  const onKeyDown = (e)=>{
-    if(e.keyCode === Keys.ENTER) {
-      console.log('enter');
-    }
+  const onItemSelect = (section:INavigationSection) =>{
+    controller.run('focusTopicAndMoveToCenter', {
+      ...props,
+      topicKey:section.topicKey
+    });
   };
   const omniBarProps = {
     query,
@@ -96,10 +103,9 @@ export function SearchPanel(props: BaseProps) {
     isOpen: true,
     items: items,
     itemRenderer: renderItem,
-    // onItemSelect={handleItemSelect}
+    onItemSelect,
     onClose,
-    resetOnSelect: true,
-    onKeyDown
+    resetOnSelect: true
   };
   return <StyledNavOmniBar {...omniBarProps} />;
 }

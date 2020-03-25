@@ -1,0 +1,27 @@
+@import "../../renderer-react/src/components/var";
+
+.bm-topic-title-thumbnail {
+  margin: 0 5px;
+  padding: 10px 5px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: pre-wrap;
+
+  &:hover {
+    background: map_get($light-colors,'item-bg-active');
+  }
+  .bp3-dark & {
+    &:hover {
+      background: map_get($dark-colors,'item-bg-active');
+    }
+  }
+}
+
+.bm-topic-title-thumbnail-active {
+  background: map_get($light-colors,'item-bg-active');
+
+  .bp3-dark & {
+    background: map_get($dark-colors,'item-bg-active');
+  }
+}
