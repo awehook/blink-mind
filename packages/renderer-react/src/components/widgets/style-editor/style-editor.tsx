@@ -15,6 +15,7 @@ import { BorderStyleEditor } from './border-style-editor';
 import { ClearAllCustomStyle } from './clear-all-custom-style';
 import { LinkStyleEditor, LinkStyleEditorProps } from './link-style-editor';
 import { ContentStyleEditorProps } from './types';
+import { ViewModeMindMap } from '../../../../../core/src/types';
 
 const log = debug('node:style-editor');
 
@@ -91,11 +92,13 @@ export function StyleEditor(props: BaseProps) {
     contentStyle,
     setContentStyle
   };
-
+  const viewModeMindMap = model.config.viewMode === ViewModeMindMap;
   return (
     <PanelTabRoot>
-      <BorderStyleEditor {...contentStyleEditorPros} />
-      {controller.run('renderTextStyleEditor',contentStyleEditorPros)}
+      {viewModeMindMap ? (
+        <BorderStyleEditor {...contentStyleEditorPros} />
+      ) : null}
+      {controller.run('renderTextStyleEditor', contentStyleEditorPros)}
       {/*<TextStyleEditor {...contentStyleEditorPros} />*/}
       <SettingGroup>
         <SettingTitle>{getI18nText(props, I18nKey.BACKGROUND)}</SettingTitle>
@@ -104,7 +107,7 @@ export function StyleEditor(props: BaseProps) {
           handleColorChange={handleBackgroundColorChange}
         />
       </SettingGroup>
-      <LinkStyleEditor {...linkStyleEditorProps} />
+      {viewModeMindMap ? <LinkStyleEditor {...linkStyleEditorProps} /> : null}
       <SettingGroup>
         <SettingItemButton
           title={getI18nText(props, I18nKey.CLEAR_TOPIC_STYLE)}
