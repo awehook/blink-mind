@@ -44,6 +44,10 @@ export function RenderingPlugin() {
       );
     },
 
+    renderDiagramCustomize(ctx) {
+      return [];
+    },
+
     renderSheet(props) {
       const { model } = props;
       if (model.config.viewMode === ViewModeMindMap)

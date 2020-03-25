@@ -8,12 +8,14 @@ export interface TopicTitleThumbnailProps extends BaseProps {
   query?: string;
   usePlainText?: boolean;
   active?: boolean;
+  sheetId?: string;
 }
 
 export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
   const {
     controller,
     topicKey,
+    sheetId,
     query,
     active,
     usePlainText = true,
@@ -23,7 +25,8 @@ export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
   const navigateToTopic = e => {
     controller.run('focusTopicAndMoveToCenter', {
       ...props,
-      topicKey
+      topicKey,
+      sheetId
     });
   };
   const topicTitle = controller.getValue(PropKey.TOPIC_TITLE, {
@@ -36,13 +39,12 @@ export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
   //   ? topicTitle.substr(0, titleMaxLength) + '...'
   //   : topicTitle;
   const titleProps = {
-    ...restProps,
+    // ...restProps,
     key: topicKey,
-    active,
     className: cx('bm-topic-title-thumbnail',{
       'bm-topic-title-thumbnail-active': active
     }),
-    // onClick: navigateToTopic
+    onClick: navigateToTopic
   };
   return (
     <div {...titleProps}>

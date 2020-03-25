@@ -105,6 +105,7 @@ export function DiagramRoot(props) {
     <Root>
       {/*<GlobalStyle />*/}
       {controller.run('renderToolbar', { ...props, model })}
+      {controller.run('renderDiagramCustomize', props)}
       {child}
     </Root>
   );

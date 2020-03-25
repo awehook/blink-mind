@@ -197,20 +197,29 @@ export function LayoutPlugin() {
     },
 
     focusTopicAndMoveToCenter(props) {
-      const { controller, topicKey } = props;
+      const { controller, topicKey, sheetId } = props;
+      const opArray: Array<any> = [
+        {
+          opType: OpType.FOCUS_TOPIC,
+          topicKey,
+          focusMode: FocusMode.NORMAL
+        },
+        {
+          opType: OpType.EXPAND_TO,
+          topicKey
+        }
+      ];
+      if (sheetId && sheetId !== controller.model.id) {
+        opArray.unshift({ opType: OpType.SET_CURRENT_SHEET, sheetId });
+      }
+      controller.run('operation',{
+        ...props,
+        opType: OpType.SET_FOCUS_MODE,
+        focusMode: FocusMode.NORMAL
+      });
       controller.run('operation', {
         ...props,
-        opArray: [
-          {
-            opType: OpType.FOCUS_TOPIC,
-            topicKey,
-            focusMode: FocusMode.NORMAL
-          },
-          {
-            opType: OpType.EXPAND_TO,
-            topicKey
-          }
-        ],
+        opArray,
         allowUndo: false,
         callback: docModel => () => {
           controller.run('moveTopicToCenter', { ...props, docModel, topicKey });

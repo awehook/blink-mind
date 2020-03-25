@@ -54,8 +54,9 @@ function addSheet({
 function setCurrentSheet({
   docModel,
   sheetIndex = null,
-  sheetModel = null
-}: BaseDocModelModifierArg & { sheetIndex?: number }) {
+  sheetModel = null,
+  sheetId = null
+}: BaseDocModelModifierArg & { sheetIndex?: number; sheetId?: KeyType }) {
   if (sheetIndex != null && sheetModel != null) {
     throw new Error('index and sheetModel both not null');
   }
@@ -63,9 +64,14 @@ function setCurrentSheet({
     if (sheetIndex >= 0 && sheetIndex < docModel.sheetModels.size) {
       docModel = docModel.set('currentSheetIndex', sheetIndex);
     }
-  }
-  if (sheetModel != null) {
+  } else if (sheetModel != null) {
     const idx = docModel.sheetModels.indexOf(sheetModel);
+    if (idx === -1) {
+      throw new Error('sheetModel is not in docModel');
+    }
+    docModel = docModel.set('currentSheetIndex', idx);
+  } else if (sheetId) {
+    const idx = docModel.getSheetIndex(sheetId);
     if (idx === -1) {
       throw new Error('sheetModel is not in docModel');
     }

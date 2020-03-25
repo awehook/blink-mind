@@ -5,11 +5,20 @@ import htmlToText from 'html-to-text';
 
 export function TopicContentEditorPlugin() {
   return {
-    getTopicTitle(props) {
-      const { model, topicKey, maxLength, usePlainText } = props;
+    getTopicTitle(ctx) {
+      const {
+        topicKey,
+        maxLength,
+        usePlainText = true,
+        sheetId,
+        docModel
+      } = ctx;
+      const model = sheetId ? docModel.getSheetModel(sheetId) : ctx.model;
       const topic = model.getTopic(topicKey);
       const block = topic.getBlock(BlockType.CONTENT).block;
-      let text = usePlainText ? htmlToText.fromString(block.data, { preserveNewlines: true }) : block.data;
+      let text = usePlainText
+        ? htmlToText.fromString(block.data, { preserveNewlines: true })
+        : block.data;
       if (maxLength != null) {
         text =
           text.length > maxLength ? text.substr(0, maxLength) + '...' : text;

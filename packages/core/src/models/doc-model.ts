@@ -1,5 +1,6 @@
 import { List, Record, Map } from 'immutable';
 import { SheetModel } from './sheet-model';
+import { KeyType } from '../types';
 
 export type ExtData = Map<string, any>;
 
@@ -46,8 +47,14 @@ export class DocModel extends Record(defaultDocRecord) {
     return this.get('extData');
   }
 
-  getSheetIndex(sheetModel:SheetModel) {
-    return this.sheetModels.indexOf(sheetModel);
+  getSheetModel(sheetId: string): SheetModel {
+    return this.sheetModels.find(s => s.id === sheetId);
+  }
+
+  getSheetIndex(sheetModel: SheetModel | KeyType) {
+    return sheetModel instanceof SheetModel
+      ? this.sheetModels.indexOf(sheetModel)
+      : this.sheetModels.findIndex(s => s.id === sheetModel);
   }
 
   getExtDataItem<T>(key: string, c: new () => T): T {

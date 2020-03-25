@@ -26,10 +26,11 @@ const StyledNavOmniBar = styled(NavOmniBar)`
 
 export interface INavigationSection {
   topicKey: KeyType;
+  sheetId: KeyType;
 }
 
 export function SearchPanel(props: BaseProps) {
-  const { model, controller } = props;
+  const { docModel, controller } = props;
   const query = controller.run('getTempValue', {
     key: SEARCH_QUERY_TEMP_VALUE_KEY
   });
@@ -46,9 +47,12 @@ export function SearchPanel(props: BaseProps) {
 
   const getAllSections = () => {
     const res = [];
-    model.topics.forEach((topic, topicKey) => {
-      res.push({
-        topicKey
+    docModel.sheetModels.forEach(model => {
+      model.topics.forEach((topic, topicKey) => {
+        res.push({
+          topicKey,
+          sheetId: model.id
+        });
       });
     });
     return res;
@@ -58,11 +62,10 @@ export function SearchPanel(props: BaseProps) {
     section,
     { handleClick, modifiers, query }
   ) => {
-    console.log('modifiers.active', modifiers.active);
     const { topicKey } = section;
     const thumbnailProps: TopicTitleThumbnailProps = {
       ...props,
-      topicKey,
+      ...section,
       active: modifiers.active,
       onClick: handleClick,
       query: controller.run('getTempValue', {
@@ -83,17 +86,20 @@ export function SearchPanel(props: BaseProps) {
     return items.filter(item => {
       const topicTitle = controller.getValue(PropKey.TOPIC_TITLE, {
         ...props,
-        topicKey: item.topicKey
+        ...item
       });
+      if (topicTitle.trim() === '') {
+        return false;
+      }
       return topicTitle.toLowerCase().includes(query.toLowerCase());
     });
   };
 
   const items = getAllSections();
-  const onItemSelect = (section:INavigationSection) =>{
+  const onItemSelect = (section: INavigationSection) => {
     controller.run('focusTopicAndMoveToCenter', {
       ...props,
-      topicKey:section.topicKey
+      ...section
     });
   };
   const omniBarProps = {

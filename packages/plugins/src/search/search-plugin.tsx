@@ -37,13 +37,14 @@ export function SearchPlugin() {
       return res;
     },
 
-    renderSheetCustomize(props, next) {
+    renderDiagramCustomize(props, next) {
       const res = next();
-      const { model } = props;
+      const { controller } = props;
+      const model = controller.model;
       if (model.focusMode === FOCUS_MODE_SEARCH) {
         const searchPanelProps = {
           key: 'search-panel',
-          ...props,
+          ...props
         };
         res.push(<SearchPanel {...searchPanelProps} />);
       }
