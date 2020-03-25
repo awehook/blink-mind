@@ -72,6 +72,7 @@ export function TagsPlugin() {
         const tagProps: TagWidgetProps = {
           ...props,
           key: tag.name,
+          clickToUpdate: true,
           onClick: () => e => {
             setDiagramState({
               ...diagramState,

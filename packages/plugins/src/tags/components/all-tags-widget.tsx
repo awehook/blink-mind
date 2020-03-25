@@ -9,7 +9,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { ExtDataTags, TagRecord } from '../ext-data-tags';
 import { EXT_DATA_KEY_TAGS, OP_TYPE_DELETE_TAG } from '../utils';
-import { StyledTagWidget as TagWidget } from './tag-widget';
+import {StyledTagWidget as TagWidget, TagWidgetProps} from './tag-widget';
 
 let currentTag: TagRecord;
 export function AllTagsWidget(props: BaseProps) {
@@ -18,9 +18,10 @@ export function AllTagsWidget(props: BaseProps) {
   const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
   if (extData.tags.size === 0) return null;
   const tags = extData.tags.toArray().map(([name, tag]) => {
-    const tagProps = {
+    const tagProps : TagWidgetProps = {
       ...props,
       key: name,
+      clickToUpdate: true,
       tag,
       onClick: tag => e => {
         currentTag = tag;

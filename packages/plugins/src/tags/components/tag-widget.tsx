@@ -1,5 +1,10 @@
 import { BaseProps } from '@blink-mind/renderer-react';
-import { ContextMenuTarget, Divider, Menu } from '@blueprintjs/core';
+import {
+  ContextMenuTarget,
+  Divider,
+  Menu,
+  ContextMenu
+} from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';
 import { TagRecord } from '../ext-data-tags';
@@ -11,6 +16,7 @@ export interface TagWidgetProps extends BaseProps {
   isTopicTag?: boolean;
   tag: TagRecord;
   large?: boolean;
+  clickToUpdate?: boolean;
   onClick?: (tag: TagRecord) => (e) => void;
   onRemove?: (tag: TagRecord) => (e) => void;
 }
@@ -32,13 +38,29 @@ export class TagWidget extends React.PureComponent<TagWidgetProps> {
 
   onClickUpdateTag = e => {};
 
+  handleClick = e => {
+    const { onClick, tag, clickToUpdate } = this.props;
+    onClick && onClick(tag)(e);
+    if (clickToUpdate) {
+      const contextMenu = (
+        <Menu>
+          <UpdateTagWidget {...this.props} />
+          <Divider />
+          <TagTopicList {...this.props} />
+        </Menu>
+      );
+      ContextMenu.show(contextMenu, { left: e.clientX, top: e.clientY });
+    }
+  };
+
   render() {
-    const { tag, large = true, onRemove, onClick } = this.props;
+    const { tag, large = true, onRemove } = this.props;
 
     const tagProps = {
       key: tag.name,
       style: JSON.parse(tag.style),
-      onClick: onClick ? onClick(tag) : null,
+      // onClick: onClick ? onClick(tag) : null,
+      onClick: this.handleClick,
       onRemove: onRemove ? onRemove(tag) : null,
       interactive: true,
       large
