@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "963485",
+      "name": "Converters",
+      "font_class": "convert",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
       "icon_id": "4767050",
       "name": "indent",
       "font_class": "indent",
