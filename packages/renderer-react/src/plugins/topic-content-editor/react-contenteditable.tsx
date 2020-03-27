@@ -49,6 +49,7 @@ export default class ContentEditable extends React.Component<Props> {
       html,
       innerRef,
       handleKeyDown,
+      handleOnInput,
       focus,
       ...props
     } = this.props;
@@ -94,6 +95,7 @@ export default class ContentEditable extends React.Component<Props> {
   };
   onInput = e => {
     log('onInput');
+    if (this.props.handleOnInput && this.props.handleOnInput(e)) return;
     this.emitChange(e);
   };
 
@@ -126,14 +128,13 @@ export default class ContentEditable extends React.Component<Props> {
       return true;
     }
     // Handle additional properties
-    const res =  (
+    const res =
       props.focus !== nextProps.focus ||
       props.disabled !== nextProps.disabled ||
       props.tagName !== nextProps.tagName ||
       props.className !== nextProps.className ||
       props.innerRef !== nextProps.innerRef ||
-      !deepEqual(props.style, nextProps.style)
-    );
+      !deepEqual(props.style, nextProps.style);
     // log('shouldComponentUpdate',res);
     return res;
   }
@@ -196,4 +197,5 @@ export interface Props extends DivProps {
   style?: Object;
   innerRef?: React.RefObject<HTMLElement> | Function;
   handleKeyDown?: (e) => boolean;
+  handleOnInput?: (e) => boolean;
 }

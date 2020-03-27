@@ -11,6 +11,7 @@ import {
   topicNodeRefKey
 } from '../../utils';
 import { BaseProps, BaseWidget } from '../common';
+import { useRef } from 'react';
 
 const log = debug('node:topic-node-widget');
 
@@ -259,10 +260,22 @@ export class TopicNodeWidget extends BaseWidget<Props, State> {
 
 export function TopicNodeLastRow(props) {
   const { controller } = props;
+  const ref = useRef<HTMLElement>();
+  const addRowClickHandler = handler => {
+    const rowDiv = ref.current;
+    rowDiv.addEventListener('click', handler);
+    return () => {
+      rowDiv.removeEventListener('click', handler);
+    };
+  };
+  const nProps = {
+    ...props,
+    addRowClickHandler
+  };
   return (
-    <TopicNodeRow>
-      {controller.run('renderTopicBlocks', props)}
-      {controller.run('renderTopicNodeLastRowOthers', props)}
+    <TopicNodeRow ref={ref}>
+      {controller.run('renderTopicBlocks', nProps)}
+      {controller.run('renderTopicNodeLastRowOthers', nProps)}
     </TopicNodeRow>
   );
 }

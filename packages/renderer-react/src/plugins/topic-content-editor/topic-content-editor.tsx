@@ -1,10 +1,9 @@
-import React, { useRef } from 'react';
+import React, { MutableRefObject, useRef } from "react";
 import { BlockType, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../components/common';
 import ContentEditable from './react-contenteditable';
 import cx from 'classnames';
 import { Key } from 'ts-keycode-enum';
-import { last } from 'lodash';
 //TODO
 import { OlOpType } from '../../../../../../renderer/plugins/outliner/op';
 
@@ -13,6 +12,8 @@ const log = require('debug')('node:topic-content-editor');
 export interface Props extends BaseProps {
   className: string;
   handleKeyDown: (e) => boolean;
+  handleOnInput?: (e) => boolean;
+  innerEditorDivRef?: MutableRefObject<HTMLElement>;
 }
 
 let debounce = false;
@@ -25,7 +26,8 @@ export function TopicContentEditor(props: Props) {
     topic,
     readOnly,
     className,
-    handleKeyDown: _handleKeyDown
+    handleKeyDown: _handleKeyDown,
+    handleOnInput
   } = props;
   let content = topic.getBlock(BlockType.CONTENT).block.data;
 
@@ -54,11 +56,10 @@ export function TopicContentEditor(props: Props) {
     }
   };
 
-  const innerEditorDivRef = useRef<HTMLElement>();
+  const innerEditorDivRef = props.innerEditorDivRef || useRef<HTMLElement>() ;
 
   const handleKeyDown = e => {
     if (_handleKeyDown(e)) return true;
-    const isEditorRoot = model.editorRootTopicKey === topicKey;
     if (e.keyCode === Key.UpArrow || e.keyCode === Key.DownArrow) {
       const sel = window.getSelection();
       if (sel.isCollapsed) {
@@ -109,6 +110,7 @@ export function TopicContentEditor(props: Props) {
   const editProps = {
     className: cx('bm-content-editable', className),
     handleKeyDown,
+    handleOnInput,
     html: content,
     disabled: readOnly,
     focus: model.focusKey === topicKey,

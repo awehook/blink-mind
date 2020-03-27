@@ -71,3 +71,4 @@ export * from './immutable';
 export * from './constants';
 export * from './temp-value-keys';
 export * from './helper';
+export * from './content-editor-util';
