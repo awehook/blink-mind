@@ -167,8 +167,13 @@ export function LayoutPlugin() {
     },
 
     moveTopicToCenter(ctx: IControllerRunContext & { moveDir?: number }) {
-      const { getRef, topicKey, docModel, moveDir = MoveTopicDir.CENTER } = ctx;
-      const model = docModel.currentSheetModel;
+      const {
+        controller,
+        getRef,
+        moveDir = MoveTopicDir.CENTER
+      } = ctx;
+      const model = controller.model;
+      const topicKey = ctx.topicKey || model.focusKey;
       if (
         model.editorRootTopicKey !== topicKey &&
         getRelationship(model, topicKey, model.editorRootTopicKey) !==
@@ -212,7 +217,7 @@ export function LayoutPlugin() {
       if (sheetId && sheetId !== controller.model.id) {
         opArray.unshift({ opType: OpType.SET_CURRENT_SHEET, sheetId });
       }
-      controller.run('operation',{
+      controller.run('operation', {
         ...props,
         opType: OpType.SET_FOCUS_MODE,
         focusMode: FocusMode.NORMAL

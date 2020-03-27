@@ -37,7 +37,10 @@ export function DiagramRoot(props) {
       controller.run('operation', {
         ...props,
         opType: OpType.SET_CURRENT_SHEET,
-        sheetModel: docModel.sheetModels.get(index)
+        sheetModel: docModel.sheetModels.get(index),
+        callback: docModel => () => {
+          controller.run('moveTopicToCenter', props);
+        }
       });
     }
   };
