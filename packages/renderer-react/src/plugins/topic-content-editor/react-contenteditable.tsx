@@ -50,6 +50,7 @@ export default class ContentEditable extends React.Component<Props> {
       innerRef,
       handleKeyDown,
       handleOnInput,
+      handleOnPaste,
       focus,
       ...props
     } = this.props;
@@ -69,6 +70,7 @@ export default class ContentEditable extends React.Component<Props> {
         onBlur: this.onBlur,
         // onKeyUp: this.props.onKeyUp || this.emitChange,
         onKeyDown: this.onKeyDown,
+        onPaste: handleOnPaste,
         contentEditable: !this.props.disabled,
         dangerouslySetInnerHTML: { __html: html }
       },
@@ -198,4 +200,5 @@ export interface Props extends DivProps {
   innerRef?: React.RefObject<HTMLElement> | Function;
   handleKeyDown?: (e) => boolean;
   handleOnInput?: (e) => boolean;
+  handleOnPaste?: (e) => void;
 }

@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef } from "react";
+import React, { MutableRefObject, useRef } from 'react';
 import { BlockType, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../components/common';
 import ContentEditable from './react-contenteditable';
@@ -56,7 +56,7 @@ export function TopicContentEditor(props: Props) {
     }
   };
 
-  const innerEditorDivRef = props.innerEditorDivRef || useRef<HTMLElement>() ;
+  const innerEditorDivRef = props.innerEditorDivRef || useRef<HTMLElement>();
 
   const handleKeyDown = e => {
     if (_handleKeyDown(e)) return true;
@@ -77,7 +77,7 @@ export function TopicContentEditor(props: Props) {
           sel.removeAllRanges();
           sel.addRange(range);
           // log(sel,sel.toString());
-          if(sel.toString().length === 0) {
+          if (sel.toString().length === 0) {
             controller.run('operation', {
               ...props,
               opType: OlOpType.MOVE_FOCUS,
@@ -107,10 +107,28 @@ export function TopicContentEditor(props: Props) {
     return false;
   };
 
+  const handleOnPaste = e => {
+    console.log('handleOnPaste');
+    e.preventDefault();
+    const pasteType = controller.run('getPasteType', props);
+    if (pasteType === 'PASTE_PLAIN_TEXT') {
+      const text = e.clipboardData.getData('text/plain');
+      setTimeout(() => {
+        document.execCommand('insertText', false, text);
+      });
+    } else if (pasteType === 'PASTE_WITH_STYLE') {
+      const html = e.clipboardData.getData('text/html');
+      setTimeout(() => {
+        document.execCommand('insertHTML', false, html);
+      });
+    }
+  };
+
   const editProps = {
     className: cx('bm-content-editable', className),
     handleKeyDown,
     handleOnInput,
+    handleOnPaste,
     html: content,
     disabled: readOnly,
     focus: model.focusKey === topicKey,

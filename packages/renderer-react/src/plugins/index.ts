@@ -12,6 +12,7 @@ import { TopicContentEditorPlugin } from './topic-content-editor';
 import { StylePlugin } from './style';
 import { ThemePlugin } from './theme';
 import { OptmizationPlugin } from './optimization';
+import { PastePlugin } from "./paste";
 
 export function DefaultPlugin() {
   return [
@@ -28,6 +29,7 @@ export function DefaultPlugin() {
     ThemePlugin(),
     PlatformPlugin(),
     I18nPlugin(),
-    OptmizationPlugin()
+    OptmizationPlugin(),
+    PastePlugin()
   ];
 }
