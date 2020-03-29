@@ -33,8 +33,9 @@ export function TopicContentEditor(props: Props) {
 
   const onChange = evt => {
     const data = evt.target.value;
+    const nativeEvent = evt.nativeEvent;
     if (data !== topic.contentData) {
-      if (debounce) {
+      if (debounce &&  !_isPaste) {
         //无法进行undo
         controller.run('operation', {
           ...props,
@@ -54,6 +55,7 @@ export function TopicContentEditor(props: Props) {
         debounce = true;
       }
     }
+    _isPaste = false;
   };
 
   const innerEditorDivRef = props.innerEditorDivRef || useRef<HTMLElement>();
@@ -106,19 +108,21 @@ export function TopicContentEditor(props: Props) {
     }
     return false;
   };
-
+  let _isPaste = false;
   const handleOnPaste = e => {
-    console.log('handleOnPaste');
     e.preventDefault();
     const pasteType = controller.run('getPasteType', props);
     if (pasteType === 'PASTE_PLAIN_TEXT') {
       const text = e.clipboardData.getData('text/plain');
+      // 无法递归执行document.execCommand
       setTimeout(() => {
+        _isPaste = true;
         document.execCommand('insertText', false, text);
       });
     } else if (pasteType === 'PASTE_WITH_STYLE') {
       const html = e.clipboardData.getData('text/html');
       setTimeout(() => {
+        _isPaste = true;
         document.execCommand('insertHTML', false, html);
       });
     }
