@@ -16,13 +16,13 @@ const DISPLAY = {
   CONTENTS: 'contents'
 };
 
-const propTypes = forbidExtraProps({
-  children: PropTypes.node.isRequired,
-  onOutsideClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
-  useCapture: PropTypes.bool,
-  display: PropTypes.oneOf(objectValues(DISPLAY))
-});
+// const propTypes = forbidExtraProps({
+//   children: PropTypes.node.isRequired,
+//   onOutsideClick: PropTypes.func.isRequired,
+//   disabled: PropTypes.bool,
+//   useCapture: PropTypes.bool,
+//   display: PropTypes.oneOf(objectValues(DISPLAY))
+// });
 
 const defaultProps = {
   disabled: false,
@@ -38,10 +38,10 @@ interface Props {
   disabled: boolean;
   useCapture: boolean;
   display: ValueOf<typeof DISPLAY>;
+  className?: string;
 }
 
 export class OutsideClickHandler extends React.Component<Props> {
-  static propTypes = propTypes;
   static defaultProps = defaultProps;
   constructor(props) {
     super(props);

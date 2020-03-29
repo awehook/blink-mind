@@ -29,7 +29,7 @@ export function I18nPlugin() {
     [I18nKey.ADD_SIBLING, 'Add Sibling'],
     [I18nKey.EDIT_NOTES, 'Edit Notes'],
     [I18nKey.REMOVE_NOTES, 'Remove Notes'],
-    [I18nKey.CONVERT_TO_PLAIN_TEXT,'Convert to Plain Text'],
+    [I18nKey.CONVERT_TO_PLAIN_TEXT, 'Convert to Plain Text'],
     [I18nKey.SET_AS_EDITOR_ROOT, 'Set as Editor Root'],
     [I18nKey.EXPORT, 'Export'],
     [I18nKey.EDIT_TOPOLOGY_DIAGRAM, 'Edit Topology Diagram'],
@@ -139,7 +139,10 @@ export function I18nPlugin() {
     [I18nKey.FILE_FORMAT_ERROR, 'File Format Error!'],
 
     [I18nKey.HYPERLINK, 'Hyperlink'],
-    [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink']
+    [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink'],
+    [I18nKey.SET_TO_ORIGINAL_SIZE, 'Set to original size'],
+    [I18nKey.MOVE_UP,'Move up'],
+    [I18nKey.MOVE_DOWN,'Move down'],
   ]);
 
   return {

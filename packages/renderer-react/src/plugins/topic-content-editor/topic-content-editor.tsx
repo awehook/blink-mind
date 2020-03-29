@@ -33,9 +33,8 @@ export function TopicContentEditor(props: Props) {
 
   const onChange = evt => {
     const data = evt.target.value;
-    const nativeEvent = evt.nativeEvent;
     if (data !== topic.contentData) {
-      if (debounce &&  !_isPaste) {
+      if (debounce && !_isPaste) {
         //无法进行undo
         controller.run('operation', {
           ...props,
@@ -112,9 +111,15 @@ export function TopicContentEditor(props: Props) {
   const handleOnPaste = e => {
     e.preventDefault();
     const pasteType = controller.run('getPasteType', props);
-    if (pasteType === 'PASTE_PLAIN_TEXT') {
+    const bmind = e.clipboardData.getData('text/bmind');
+    if (bmind) {
+    } else if (pasteType === 'PASTE_PLAIN_TEXT') {
       const text = e.clipboardData.getData('text/plain');
+      console.log('text', text);
       // 无法递归执行document.execCommand
+      // _isPaste = true;
+      // //@ts-ignore
+      // innerEditorDivRef.setRangeText(text);
       setTimeout(() => {
         _isPaste = true;
         document.execCommand('insertText', false, text);

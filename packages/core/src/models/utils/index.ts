@@ -201,3 +201,19 @@ export function getVisualBottomDescendantKey(
     ? key
     : getVisualBottomDescendantKey(model, topic.subKeys.last());
 }
+
+/**
+ * 是否都是Sibiling
+ * @param model
+ * @param keys
+ */
+export function isAllSibiling(model: SheetModel, keys: Array<KeyType>) {
+  if (keys && keys.length > 0) {
+    let parentKey = model.getParentKey(keys[0]);
+    for (let key of keys) {
+      if (model.getParentKey(key) !== parentKey) return false;
+    }
+    return true;
+  }
+  return false;
+}

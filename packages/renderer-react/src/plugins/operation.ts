@@ -180,13 +180,7 @@ export function OperationPlugin() {
 
       const opMap = controller.run('getOpMap', ctx);
       controller.run('beforeOperation', ctx);
-      if (controller.run('getAllowUndo', ctx)) {
-        const { undoStack } = controller.run('getUndoRedoStack', ctx);
-        controller.run('setUndoStack', {
-          ...ctx,
-          undoStack: undoStack.push(docModel)
-        });
-      }
+
       let newDocModel;
 
       if (opArray != null) {
@@ -222,6 +216,13 @@ export function OperationPlugin() {
       //   newDocModel.currentSheetModel.currentFocusTopic &&
       //     newDocModel.currentSheetModel.currentFocusTopic.contentData
       // );
+      if (controller.run('getAllowUndo', ctx) && newDocModel !== docModel) {
+        const { undoStack } = controller.run('getUndoRedoStack', ctx);
+        controller.run('setUndoStack', {
+          ...ctx,
+          undoStack: undoStack.push(docModel)
+        });
+      }
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
       log(controller.model);

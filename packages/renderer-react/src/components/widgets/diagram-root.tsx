@@ -44,6 +44,10 @@ export function DiagramRoot(props) {
       });
     }
   };
+  const onCopy = ev => {
+    console.log('onCopy');
+    controller.run('handleCopy', { ...props, ev });
+  };
   const model = docModel.currentSheetModel;
 
   const sheetModels = docModel.sheetModels.toArray();
@@ -105,7 +109,7 @@ export function DiagramRoot(props) {
   );
 
   return (
-    <Root>
+    <Root onCopy={onCopy}>
       {/*<GlobalStyle />*/}
       {controller.run('renderToolbar', { ...props, model })}
       {controller.run('renderDiagramCustomize', props)}

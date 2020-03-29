@@ -220,10 +220,20 @@ export function JsonSerializerPlugin() {
         subKeys: topic.subKeys.toArray(),
         collapse: topic.collapse,
         style: topic.style,
-        blocks: topic.blocks.map(block =>
-          controller.run('serializeBlock', { ...ctx, block })
-        )
+        blocks: controller.run('serializeBlocks', ctx)
       };
+    },
+
+    serializeBlocks(ctx, next) {
+      const nextRes = next();
+      if (nextRes != null) return nextRes;
+      const { topic, controller } = ctx;
+      if (topic == null) {
+        debugger;
+      }
+      return topic.blocks.map(block =>
+        controller.run('serializeBlock', { ...ctx, block })
+      );
     },
 
     deserializeTopic(ctx, next) {

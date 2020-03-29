@@ -6,7 +6,17 @@ const log = debug('plugin:event');
 
 export function EventPlugin() {
   const eventListeners = {};
+  let _isHandlingMouseMove = false;
   return {
+
+    isHandlingMouseMove(ctx) {
+      return _isHandlingMouseMove;
+    },
+
+    setHandlingMouseMove(v) {
+      _isHandlingMouseMove = v;
+    },
+
     handleTopicClick(props) {
       log('handleTopicClick');
       const { controller, model, topicKey } = props;
