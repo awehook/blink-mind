@@ -147,7 +147,11 @@ export class SheetModel extends Record(defaultModelRecord) {
   }
 
   get editingContentKey(): KeyType {
-    return this.focusMode === FocusMode.EDITING_CONTENT ? this.focusKey : null;
+    return [FocusMode.EDITING_CONTENT, FocusMode.SHOW_POPUP].includes(
+      this.focusMode
+    )
+      ? this.focusKey
+      : null;
   }
 
   get editingDescKey(): KeyType {

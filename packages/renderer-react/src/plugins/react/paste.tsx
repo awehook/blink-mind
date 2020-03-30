@@ -1,5 +1,8 @@
-import { isAllSibiling, SheetModel } from '../../../core/src/models';
-import { BlockType } from '../../../core/src/types';
+import { isAllSibiling, SheetModel } from '@blink-mind/core';
+import { MenuItem } from '@blueprintjs/core';
+import { KeyboardHotKeyWidget } from '../../components/widgets';
+import * as React from 'react';
+import { I18nKey, getI18nText, Icon, IconName } from '../../utils';
 
 const log = require('debug')('plugin:paste');
 
@@ -11,6 +14,38 @@ export function PastePlugin() {
     },
     getPasteType(ctx) {
       return pasteType;
+    },
+
+    customizeTopicContextMenu(ctx, next) {
+      function onClickPastePlainText(e) {
+        pasteType = 'PASTE_PLAIN_TEXT';
+        document.execCommand('paste');
+      }
+      function onClickPasteWithStyle(e) {
+        pasteType = 'PASTE_WITH_STYLE';
+        document.execCommand('paste');
+      }
+
+      const res = next();
+      res.push(
+        <MenuItem
+          key="paste-plain-text"
+          icon={Icon(IconName.PASTE_AS_TEXT)}
+          text={getI18nText(ctx, I18nKey.PASTE_AS_PLAIN_TEXT)}
+          labelElement={<KeyboardHotKeyWidget hotkeys={['Meta', 'V']} />}
+          onClick={onClickPastePlainText}
+        />,
+        <MenuItem
+          key="paste-with-style"
+          icon={Icon(IconName.PASTE)}
+          text={getI18nText(ctx, I18nKey.PASTE_WITH_STYLE)}
+          labelElement={
+            <KeyboardHotKeyWidget hotkeys={['Meta', 'Shift', 'V']} />
+          }
+          onClick={onClickPasteWithStyle}
+        />
+      );
+      return res;
     },
 
     selectedKeysToClipboardData(ctx) {

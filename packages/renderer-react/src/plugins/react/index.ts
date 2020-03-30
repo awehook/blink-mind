@@ -6,11 +6,13 @@ import { RightTopPanelPlugin } from './right-top-panel-plugin';
 import { SheetPlugin } from './sheet';
 import { ToolbarPlugin } from './toolbar';
 import { UtilsPlugin } from './utils';
+import { PastePlugin } from './paste';
 
 export function ReactPlugin(options = {}) {
   return [
     RenderingPlugin(),
     UtilsPlugin(),
+    PastePlugin(),
     ContextMenuPlugin(),
     RightTopPanelPlugin(),
     ToolbarPlugin(),

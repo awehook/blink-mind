@@ -70,16 +70,16 @@ const items: TopicContextMenuItemConfig[] = [
     opType: OpType.DELETE_TOPIC
   },
   {
-    icon: 'convert',
-    label: I18nKey.CONVERT_TO_PLAIN_TEXT,
-    opType: OpType.TOPIC_CONTENT_TO_PLAIN_TEXT,
-  },
-  {
     icon: 'root',
     label: I18nKey.SET_AS_EDITOR_ROOT,
     shortcut: ['Alt', 'F'],
     opType: OpType.SET_EDITOR_ROOT
-  }
+  },
+  {
+    icon: 'convert',
+    label: I18nKey.CONVERT_TO_PLAIN_TEXT,
+    opType: OpType.TOPIC_CONTENT_TO_PLAIN_TEXT,
+  },
 ];
 
 export function ContextMenuPlugin() {
