@@ -60,4 +60,11 @@ export class DocModel extends Record(defaultDocRecord) {
   getExtDataItem<T>(key: string, c: new () => T): T {
     return this.extData.get(key) || new c();
   }
+
+  getSheetIdThatContainsTopic(topicKey: KeyType) {
+    const sheet: SheetModel = this.sheetModels.find(s =>
+      s.topics.has(topicKey)
+    );
+    return sheet ? sheet.id : null;
+  }
 }

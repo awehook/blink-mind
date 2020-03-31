@@ -27,10 +27,30 @@ import {
 import { List } from 'immutable';
 import { TagWidget, TagWidgetProps } from './components/tag-widget';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
+import { BaseProps } from '../../../renderer-react/src/components/common';
 
 export function TagsPlugin() {
   const tabId = 'tags-editor';
   return {
+    componentAreEqual(
+      ctx: { prevProps: BaseProps; nextProps: BaseProps },
+      next
+    ) {
+      const { docModel } = ctx.prevProps;
+      const { docModel: nDocModel, topicKey } = ctx.nextProps;
+      const extData : ExtDataTags  = docModel.extData.get(EXT_DATA_KEY_TAGS);
+      const nExtData : ExtDataTags = nDocModel.extData.get(EXT_DATA_KEY_TAGS);
+      if(extData !== nExtData) {
+        // console.log('extData !== nExtData');
+        if(extData && extData.getTopicTags(topicKey).length) {
+          return false;
+        }
+        if(nExtData && nExtData.getTopicTags(topicKey).length) {
+          return false;
+        }
+      }
+      return next();
+    },
     renderRightTopPanelTabs(props, next) {
       const res = next();
       const tProps = {

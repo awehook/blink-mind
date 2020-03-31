@@ -17,10 +17,12 @@ export interface TagTopicListProps extends BaseProps {
   tag: TagRecord;
 }
 export function TagTopicList(props: TagTopicListProps) {
-  const { tag } = props;
+  const { docModel, tag } = props;
   const topicList = tag.topicKeys.map(topicKey => {
+    const sheetId = docModel.getSheetIdThatContainsTopic(topicKey);
     const thumbnailProps: TopicTitleThumbnailProps = {
       ...props,
+      sheetId,
       topicKey
     };
     return <TopicTitleThumbnail key={topicKey} {...thumbnailProps} />;

@@ -3,6 +3,7 @@ import { BlockType, OpType } from '@blink-mind/core';
 import { BaseProps } from '../../components/common';
 import ContentEditable from './react-contenteditable';
 import cx from 'classnames';
+import isUrl from 'is-url';
 import { Key } from 'ts-keycode-enum';
 //TODO
 import { OlOpType } from '../../../../../../renderer/plugins/outliner/op';
@@ -17,6 +18,7 @@ export interface Props extends BaseProps {
 }
 
 let debounce = false;
+let _isPaste = false;
 
 export function TopicContentEditor(props: Props) {
   const {
@@ -107,7 +109,7 @@ export function TopicContentEditor(props: Props) {
     }
     return false;
   };
-  let _isPaste = false;
+
   const handleOnPaste = e => {
     e.preventDefault();
     const pasteType = controller.run('getPasteType', props);
@@ -115,14 +117,17 @@ export function TopicContentEditor(props: Props) {
     if (bmind) {
     } else if (pasteType === 'PASTE_PLAIN_TEXT') {
       const text = e.clipboardData.getData('text/plain');
-      console.log('text', text);
+      // console.log('text', text);
       // 无法递归执行document.execCommand
       // _isPaste = true;
       // //@ts-ignore
       // innerEditorDivRef.setRangeText(text);
       setTimeout(() => {
         _isPaste = true;
-        document.execCommand('insertText', false, text);
+        console.log((isUrl(text)));
+        isUrl(text)
+          ? document.execCommand('insertHtml', false, `<a href=${text}>${text}</a>`)
+          : document.execCommand('insertText', false, text);
       });
     } else if (pasteType === 'PASTE_WITH_STYLE') {
       const html = e.clipboardData.getData('text/html');

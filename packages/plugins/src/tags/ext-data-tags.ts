@@ -37,4 +37,12 @@ export class ExtDataTags extends Record(defaultExtDataTagsRecord) {
   get tags(): Map<string, TagRecord> {
     return this.get('tags');
   }
+
+  getTopicTags(topicKey): Array<TagRecord> {
+    const res = [];
+    this.tags.forEach(v => {
+      v.topicKeys.includes(topicKey) && res.push(v);
+    });
+    return res;
+  }
 }
