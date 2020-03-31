@@ -215,7 +215,11 @@ function addSibling({
   if (topic) {
     const pItem = model.getTopic(topic.parentKey);
     const idx = pItem.subKeys.indexOf(topicKey);
-    const sibling = Topic.create({ key: createKey(), parentKey: pItem.key, content });
+    const sibling = Topic.create({
+      key: createKey(),
+      parentKey: pItem.key,
+      content
+    });
     model = model
       .update('topics', topics => topics.set(sibling.key, sibling))
       .updateIn(['topics', pItem.key, 'subKeys'], subKeys =>
@@ -511,6 +515,38 @@ function dragAndDrop({ model, srcKey, dstKey, dropDir }) {
   }
   return model;
 }
+
+function swapUp({
+  model,
+  topicKeys
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
+  if (topicKeys == null) topicKeys = model.focusOrSelectedKeys;
+  let firstKey = topicKeys[0];
+  let parent = model.getParentTopic(firstKey);
+  let idxArray = [];
+
+  for (let itemKey of topicKeys) {
+    let idx = parent.subKeys.indexOf(itemKey);
+    if (idx === -1) return model;
+    idxArray.push(idx);
+  }
+  idxArray.sort((a, b) => a - b);
+
+  let firstIdx = idxArray[0];
+  if (firstIdx === 0) {
+    return model;
+  } else {
+    let subItemKeys = parent.subKeys.toOrderedSet();
+    let sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
+    let others = subItemKeys.subtract(topicKeys).toArray();
+    //
+    others.splice(firstIdx - 1, 0, ...sortedItemKeys);
+    model = model.setIn(['topics',parent.key,'subKeys'],List(others))
+  }
+  return model;
+}
+
+function swapDown() {}
 
 export const SheetModelModifier = {
   addChild,

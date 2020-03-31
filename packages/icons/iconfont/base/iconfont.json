@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "167452",
+      "name": "paste-as-text",
+      "font_class": "paste-as-text",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "10747024",
+      "name": "paste",
+      "font_class": "paste",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1188317",
+      "name": "size-original-s-o",
+      "font_class": "size-original",
+      "unicode": "e793",
+      "unicode_decimal": 59283
+    },
+    {
       "icon_id": "963485",
       "name": "Converters",
       "font_class": "convert",
