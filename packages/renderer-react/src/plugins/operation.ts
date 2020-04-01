@@ -225,7 +225,7 @@ export function OperationPlugin() {
       }
       controller.change(newDocModel, callback ? callback(newDocModel) : null);
       controller.run('afterOperation', ctx);
-      log(controller.model);
+      // log(controller.model);
     },
 
     deleteRefKey(ctx) {

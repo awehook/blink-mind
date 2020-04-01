@@ -16,37 +16,37 @@ export function PastePlugin() {
       return pasteType;
     },
 
-    customizeTopicContextMenu(ctx, next) {
-      function onClickPastePlainText(e) {
-        pasteType = 'PASTE_PLAIN_TEXT';
-        document.execCommand('paste');
-      }
-      function onClickPasteWithStyle(e) {
-        pasteType = 'PASTE_WITH_STYLE';
-        document.execCommand('paste');
-      }
-
-      const res = next();
-      res.push(
-        <MenuItem
-          key="paste-plain-text"
-          icon={Icon(IconName.PASTE_AS_TEXT)}
-          text={getI18nText(ctx, I18nKey.PASTE_AS_PLAIN_TEXT)}
-          labelElement={<KeyboardHotKeyWidget hotkeys={['Meta', 'V']} />}
-          onClick={onClickPastePlainText}
-        />,
-        <MenuItem
-          key="paste-with-style"
-          icon={Icon(IconName.PASTE)}
-          text={getI18nText(ctx, I18nKey.PASTE_WITH_STYLE)}
-          labelElement={
-            <KeyboardHotKeyWidget hotkeys={['Meta', 'Shift', 'V']} />
-          }
-          onClick={onClickPasteWithStyle}
-        />
-      );
-      return res;
-    },
+    // customizeTopicContextMenu(ctx, next) {
+    //   function onClickPastePlainText(e) {
+    //     pasteType = 'PASTE_PLAIN_TEXT';
+    //     document.execCommand('paste');
+    //   }
+    //   function onClickPasteWithStyle(e) {
+    //     pasteType = 'PASTE_WITH_STYLE';
+    //     document.execCommand('paste');
+    //   }
+    //
+    //   const res = next();
+    //   res.push(
+    //     <MenuItem
+    //       key="paste-plain-text"
+    //       icon={Icon(IconName.PASTE_AS_TEXT)}
+    //       text={getI18nText(ctx, I18nKey.PASTE_AS_PLAIN_TEXT)}
+    //       labelElement={<KeyboardHotKeyWidget hotkeys={['Meta', 'V']} />}
+    //       onClick={onClickPastePlainText}
+    //     />,
+    //     <MenuItem
+    //       key="paste-with-style"
+    //       icon={Icon(IconName.PASTE)}
+    //       text={getI18nText(ctx, I18nKey.PASTE_WITH_STYLE)}
+    //       labelElement={
+    //         <KeyboardHotKeyWidget hotkeys={['Meta', 'Shift', 'V']} />
+    //       }
+    //       onClick={onClickPasteWithStyle}
+    //     />
+    //   );
+    //   return res;
+    // },
 
     selectedKeysToClipboardData(ctx) {
       const { controller } = ctx;

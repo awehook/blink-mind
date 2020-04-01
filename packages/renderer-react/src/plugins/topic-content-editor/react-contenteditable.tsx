@@ -83,7 +83,9 @@ export default class ContentEditable extends React.Component<Props> {
     if (!el) return;
 
     const html = el.innerHTML;
-    if (this.props.onChange && html !== this.lastHtml) {
+    // if (this.props.onChange && html !== this.lastHtml) {
+    // 为了考虑到在一个节点上面快速输入，切换到另一个节点，第一个节点上输入的内容无法撤销这种情况
+    if (this.props.onChange) {
       // Clone event with Object.assign to avoid
       // "Cannot assign to read only property 'target' of object"
       const evt = Object.assign({}, originalEvt, {
