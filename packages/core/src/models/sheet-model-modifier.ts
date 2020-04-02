@@ -154,7 +154,7 @@ function expandTo({
 function focusTopic({
   model,
   topicKey,
-  focusMode
+  focusMode = FocusMode.NORMAL,
 }: SetFocusModeArg): SheetModelModifierResult {
   log('focus topic', focusMode);
   if (!model.topics.has(topicKey)) {

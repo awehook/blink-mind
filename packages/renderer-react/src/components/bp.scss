@@ -9,8 +9,13 @@
 .bp3-dark {
   color: map_get($dark-colors, 'text');
 
+
   .bp3-dialog {
     background-color: map_get($dark-colors, 'zindex-bg');
+    .bp3-dialog-header {
+      background-color: map_get($dark-colors, 'zindex-bg');
+      //box-shadow: none;
+    }
   }
 
   .bp3-card,
