@@ -7,6 +7,7 @@ import { SheetPlugin } from './sheet';
 import { ToolbarPlugin } from './toolbar';
 import { UtilsPlugin } from './utils';
 import { PastePlugin } from './paste';
+import { DialogPlugin } from './dialog';
 
 export function ReactPlugin(options = {}) {
   return [
@@ -18,6 +19,7 @@ export function ReactPlugin(options = {}) {
     ToolbarPlugin(),
     DragAndDropPlugin(),
     SheetPlugin(),
-    LinkLinePlugin()
+    LinkLinePlugin(),
+    DialogPlugin()
   ];
 }

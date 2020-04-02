@@ -3,6 +3,8 @@ import { MenuItem } from '@blueprintjs/core';
 import { KeyboardHotKeyWidget } from '../../components/widgets';
 import * as React from 'react';
 import { I18nKey, getI18nText, Icon, IconName } from '../../utils';
+import { Topic } from '../../../../core/src/models';
+import { createKey } from '../../../../core/src/utils';
 
 const log = require('debug')('plugin:paste');
 
@@ -55,7 +57,7 @@ export function PastePlugin() {
         // 首先要normalize selectedKeys
         if (isAllSibiling(model, model.selectedKeys)) {
           const topics = model.selectedKeys.map(topicKey => {
-            return controller.run('topicToClipboard', {
+            return controller.run('topicToJson', {
               ...ctx,
               model,
               topicKey
@@ -69,20 +71,56 @@ export function PastePlugin() {
       return null;
     },
 
-    topicToClipboard(ctx) {
+    topicToJson(ctx) {
       const { controller, model, topicKey } = ctx;
       const topic = model.getTopic(topicKey);
       const blocks = controller.run('serializeBlocks', { ...ctx, topic });
+      const extData = controller.run('topicExtDataToJson', ctx);
       const { collapse } = topic;
       return {
         collapse,
         blocks,
+        extData,
         subTopics: topic.subKeys
           .toArray()
           .map(subKey =>
-            controller.run('topicToClipboard', { ...ctx, topicKey: subKey })
+            controller.run('topicToJson', { ...ctx, topicKey: subKey })
           )
       };
+    },
+
+    pasteFromJson(ctx) {
+      const { controller, json, docModel } = ctx;
+      const res = [];
+      if (json) {
+        if (Array.isArray(json)) {
+          for (let item of json) {
+            res.push(
+              controller.run('topicsFromJson', {
+                ...ctx,
+                json: item,
+                parentKey: null
+              })
+            );
+          }
+        } else {
+          if (json.subTopics.length > 0) {
+            const subTopics = controller.run('topicsFromJson', {
+              ...ctx,
+              json: json.subTopics,
+              parentKey: json.key
+            });
+          } else {
+            const { key, collapse, blocks, extData } = json;
+            // let topic = Topic.create();
+          }
+        }
+      }
+      return null;
+    },
+
+    topicExtDataToJson(ctx) {
+      return {};
     },
 
     handleCopy(ctx) {

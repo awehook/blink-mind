@@ -95,7 +95,6 @@ export function TagsPlugin() {
           clickToUpdate: true,
           onClick: () => e => {
             setDiagramState({
-              ...diagramState,
               rightTopPanel: {
                 ...diagramState.rightTopPanel,
                 isOpen: true,

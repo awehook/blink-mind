@@ -144,6 +144,9 @@ export function TopicContentEditor(props: Props) {
     const pasteType = controller.run('getPasteType', props);
     const bmind = e.clipboardData.getData('text/bmind');
     if (bmind) {
+      console.log(JSON.parse(bmind));
+
+
     }
     // else if (pasteType === 'PASTE_WITH_STYLE') {
     //   console.log('PASTE_WITH_STYLE');

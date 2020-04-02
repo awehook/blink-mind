@@ -34,7 +34,6 @@ export function RightTopPanelWidget(props: BaseProps) {
 
   const setRightTopPanelState = obj => {
     setDiagramState({
-      ...diagramState,
       rightTopPanel: { ...rightTopPanel, ...obj }
     });
   };

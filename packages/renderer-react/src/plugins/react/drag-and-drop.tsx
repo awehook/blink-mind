@@ -97,7 +97,6 @@ export function DragAndDropPlugin() {
         dropDir,
         topicKey,
         controller,
-        diagramState,
         setDiagramState
       } = props;
       const model = controller.model;
@@ -109,7 +108,6 @@ export function DragAndDropPlugin() {
       });
       if (canDrop) {
         setDiagramState({
-          ...diagramState,
           dragDrop: {
             targetKey: topicKey,
             targetDir: dropDir
@@ -133,7 +131,7 @@ export function DragAndDropPlugin() {
       if (content == relatedTarget || content.contains(relatedTarget)) {
         return;
       }
-      setDiagramState({ ...diagramState, dragDrop: null });
+      setDiagramState({ dragDrop: null });
     },
 
     handleTopicDrop(props) {
@@ -142,7 +140,7 @@ export function DragAndDropPlugin() {
       const model = controller.model;
       props = { ...props, srcKey: model.focusKey, dstKey: topicKey };
 
-      setDiagramState({ ...diagramState, dragDrop: null });
+      setDiagramState({ dragDrop: null });
       if (controller.run('canDrop', props)) {
         controller.run('operation', {
           ...props,

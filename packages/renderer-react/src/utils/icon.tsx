@@ -29,7 +29,8 @@ export const IconName = {
   RESIZE: 'resize',
   HYPERLINK: 'hyperlink',
   PASTE: 'paste',
-  PASTE_AS_TEXT: 'paste-as-text'
+  PASTE_AS_TEXT: 'paste-as-text',
+  IMAGE: 'image'
 };
 
 export function iconClassName(name) {

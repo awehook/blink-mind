@@ -1,10 +1,9 @@
 import { BlockType, ViewModeMindMap } from '@blink-mind/core';
 import debug from 'debug';
-import React, {useContext} from 'react';
+import React from 'react';
 import { SaveRef } from '../../components/common';
 import {
   DiagramRoot,
-  DialogWidget,
   EditorRootBreadcrumbs,
   MindMapSheet,
   RootWidget,
@@ -90,21 +89,6 @@ export function RenderingPlugin() {
 
     renderEditorRootBreadcrumbs(props) {
       return <EditorRootBreadcrumbs key="EditorRootBreadcrumbs" {...props} />;
-    },
-
-    renderDialog(ctx) {
-      const { controller } = ctx;
-      const content = controller.run('getActiveDialogContent', ctx);
-      if (content == null) return null;
-      const props = {
-        ...ctx,
-        content
-      };
-      return <DialogWidget key="dialog" {...props} />;
-    },
-
-    getActiveDialogContent(props) {
-      return null;
     },
 
     renderDoc({ children }) {

@@ -161,7 +161,8 @@ function focusTopic({
     throw new Error(`focus key ${topicKey} is not in model`);
   }
   if (topicKey !== model.focusKey) model = model.set('focusKey', topicKey);
-  if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
+  // if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
+  model = model.set('focusMode', focusMode);
   if (model.selectedKeys != null) model = model.set('selectedKeys', null);
   return model;
 }
@@ -171,7 +172,9 @@ function setFocusMode({
   focusMode
 }: SetFocusModeArg): SheetModelModifierResult {
   log('setFocusMode');
-  if (focusMode !== model.focusMode) model = model.set('focusMode', focusMode);
+  // SHOW_POPUP一定要重新设置, 因为可能dialogType 改变了
+  if (focusMode !== model.focusMode || focusMode === FocusMode.SHOW_POPUP)
+    model = model.set('focusMode', focusMode);
   return model;
 }
 
@@ -541,7 +544,7 @@ function swapUp({
     let others = subItemKeys.subtract(topicKeys).toArray();
     //
     others.splice(firstIdx - 1, 0, ...sortedItemKeys);
-    model = model.setIn(['topics',parent.key,'subKeys'],List(others))
+    model = model.setIn(['topics', parent.key, 'subKeys'], List(others));
   }
   return model;
 }

@@ -17,10 +17,13 @@ const Container = styled.div`
 `;
 export function MindMapSheet_(props: BaseProps) {
   const { controller, saveRef, model } = props;
-  log('model',model);
-  const [diagramState, setDiagramState] = useState(
+  log('model', model);
+  const [diagramState, setDiagramState_] = useState(
     controller.run('getInitialSheetState', props)
   );
+  const setDiagramState = arg => {
+    setDiagramState_({ ...diagramState, ...arg });
+  };
   const nProps = {
     ...props,
     diagramState,

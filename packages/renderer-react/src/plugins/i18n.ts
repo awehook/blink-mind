@@ -15,6 +15,7 @@ export function I18nPlugin() {
     [I18nKey.RENAME, 'Rename'],
     [I18nKey.DEFAULT, 'Default'],
     [I18nKey.SEARCH, 'Search'],
+    [I18nKey.BROWSE, 'Browse'],
 
     [I18nKey.LAYOUT, 'Layout'],
     [I18nKey.LEFT_AND_RIGHT, 'Left And Right'],
@@ -34,6 +35,7 @@ export function I18nPlugin() {
     [I18nKey.EXPORT, 'Export'],
     [I18nKey.EDIT_TOPOLOGY_DIAGRAM, 'Edit Topology Diagram'],
     [I18nKey.SET_TOPIC_REFERENCES, 'Set Topic References'],
+    [I18nKey.INSERT_IMAGE, 'Insert image'],
 
     [I18nKey.TOPIC_STYLE, 'TopicStyle'],
     [I18nKey.STYLE, 'Style'],
