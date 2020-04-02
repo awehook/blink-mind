@@ -8,7 +8,7 @@ export function PlatformPlugin() {
       return _isOSX;
     },
 
-    isMetaKey(ctx) {
+    isCommandOrControl(ctx) {
       const { controller, ev } = ctx;
       const isOSX = controller.run('isOSX', ctx);
       return (isOSX && ev.metaKey) || (!isOSX && ev.ctrlKey);

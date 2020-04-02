@@ -156,7 +156,7 @@ export function LayoutPlugin() {
 
     setZoomFactorOnWheel(ctx) {
       const { controller, ev } = ctx;
-      if (controller.run('isMetaKey', ctx)) {
+      if (controller.run('isCommandOrControl', ctx)) {
         let zoomFactor = controller.run('getZoomFactor', ctx);
         zoomFactor = zoomFactor - (ev.nativeEvent.deltaY > 0 ? 0.1 : -0.1);
         if (zoomFactor < 0.5) zoomFactor = 0.5;

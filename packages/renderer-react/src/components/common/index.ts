@@ -9,3 +9,4 @@ export * from './toolbar-item';
 export * from './rename-dialog';
 export * from './outside-click-handler';
 export * from './alert';
+export * from './keyborad-hotkey-widget';

@@ -22,4 +22,4 @@ export * from './topic-node-widget';
 export * from './topic-popup-menu-item';
 export * from './topic-sub-links';
 export * from './topic-widget';
-export * from './keyborad-hotkey-widget';
+export * from '../common/keyborad-hotkey-widget';

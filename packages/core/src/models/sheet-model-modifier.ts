@@ -10,7 +10,7 @@ import {
 } from '../types';
 import { createKey } from '../utils';
 import { Block } from './block';
-import { ConfigRecordType } from './config';
+import { Config, ConfigRecordType } from './config';
 import { SheetModel } from './sheet-model';
 import { Topic } from './topic';
 import {
@@ -154,7 +154,7 @@ function expandTo({
 function focusTopic({
   model,
   topicKey,
-  focusMode = FocusMode.NORMAL,
+  focusMode = FocusMode.NORMAL
 }: SetFocusModeArg): SheetModelModifierResult {
   log('focus topic', focusMode);
   if (!model.topics.has(topicKey)) {
@@ -551,9 +551,86 @@ function swapUp({
 
 function swapDown() {}
 
+function addMultiSibling({
+  model,
+  topicKey,
+  contentArray,
+  topicArray
+}: BaseSheetModelModifierArg & {
+  contentArray?: string[];
+  topicArray?: Array<Topic>;
+}) {
+  const topic = model.getTopic(topicKey);
+  const parentKey = topic.parentKey;
+  const parentTopic = model.getTopic(parentKey);
+  const idx = parentTopic.subKeys.indexOf(topicKey);
+  if (contentArray) {
+    const siblings = contentArray.map(content =>
+      Topic.create({
+        key: createKey(),
+        parentKey,
+        content
+      })
+    );
+    const siblingsKeys = siblings.map(s => s.key);
+    model = model.withMutations(model => {
+      siblings.forEach(sibling => {
+        model.update('topics', topics => topics.set(sibling.key, sibling));
+      });
+      model.updateIn(['topics', parentKey, 'subKeys'], subKeys =>
+        subKeys.splice(idx + 1, 0, ...siblingsKeys)
+      );
+    });
+    model = focusTopic({
+      model,
+      topicKey: siblingsKeys[siblingsKeys.length - 1],
+      focusMode: FocusMode.EDITING_CONTENT
+    });
+  } else if (topicArray) {
+  }
+  return model;
+}
+
+function addMultiChild({
+  model,
+  topicKey,
+  addAtFront = false,
+  contentArray,
+  topicArray
+}: BaseSheetModelModifierArg & {
+  addAtFront?: boolean;
+  contentArray?: string[];
+  topicArray?: Array<Topic>;
+}) {
+  if (contentArray) {
+    const items = contentArray.map(content =>
+      Topic.create({
+        key: createKey(),
+        topicKey,
+        content
+      })
+    );
+    const siblingsKeys = items.map(s => s.key);
+    model = model.withMutations(model => {
+      items.forEach(sibling => {
+        model.update('topics', topics => topics.set(sibling.key, sibling));
+      });
+      model.updateIn(['topics', topicKey, 'subKeys'], subKeys =>
+        addAtFront
+          ? subKeys.unshift(...siblingsKeys)
+          : subKeys.push(...siblingsKeys)
+      );
+    });
+  } else if (topicArray) {
+  }
+  return model;
+}
+
 export const SheetModelModifier = {
   addChild,
   addSibling,
+  addMultiChild,
+  addMultiSibling,
   toggleCollapse,
   collapseAll,
   expandAll,

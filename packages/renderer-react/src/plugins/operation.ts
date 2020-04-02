@@ -30,6 +30,8 @@ export function OperationPlugin() {
 
     addChild,
     addSibling,
+    addMultiChild,
+    addMultiSibling,
     toggleCollapse,
     collapseAll,
     expandAll,
@@ -64,6 +66,8 @@ export function OperationPlugin() {
     [OpType.EXPAND_TO, expandTo],
     [OpType.ADD_CHILD, addChild],
     [OpType.ADD_SIBLING, addSibling],
+    [OpType.ADD_MULTI_CHILD, addMultiChild],
+    [OpType.ADD_MULTI_CHILD, addMultiSibling],
     [OpType.DELETE_TOPIC, deleteTopics],
     [OpType.FOCUS_TOPIC, focusTopic],
     [OpType.SET_FOCUS_MODE, setFocusMode],
