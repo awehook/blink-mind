@@ -100,13 +100,15 @@ export function StyleEditor(props: BaseProps) {
       ) : null}
       {controller.run('renderTextStyleEditor', contentStyleEditorPros)}
       {/*<TextStyleEditor {...contentStyleEditorPros} />*/}
-      <SettingGroup>
-        <SettingTitle>{getI18nText(props, I18nKey.BACKGROUND)}</SettingTitle>
-        <SettingItemColorPicker
-          color={contentStyle.background}
-          handleColorChange={handleBackgroundColorChange}
-        />
-      </SettingGroup>
+      {viewModeMindMap ? (
+        <SettingGroup>
+          <SettingTitle>{getI18nText(props, I18nKey.BACKGROUND)}</SettingTitle>
+          <SettingItemColorPicker
+            color={contentStyle.background}
+            handleColorChange={handleBackgroundColorChange}
+          />
+        </SettingGroup>
+      ) : null}
       {viewModeMindMap ? <LinkStyleEditor {...linkStyleEditorProps} /> : null}
       <SettingGroup>
         <SettingItemButton
