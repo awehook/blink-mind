@@ -51,7 +51,9 @@ export function OperationPlugin() {
     setEditorRootTopicKey,
     startEditingContent,
     startEditingDesc,
-    dragAndDrop
+    dragAndDrop,
+    swapUp,
+    swapDown
   } = DocModelModifier;
   const OpMap = new Map([
     [OpType.ADD_SHEET, addSheet],
@@ -84,7 +86,9 @@ export function OperationPlugin() {
     [OpType.START_EDITING_DESC, startEditingDesc],
     [OpType.DRAG_AND_DROP, dragAndDrop],
     [OpType.SET_EDITOR_ROOT, setEditorRootTopicKey],
-    [OpType.SET_LAYOUT_DIR, setLayoutDir]
+    [OpType.SET_LAYOUT_DIR, setLayoutDir],
+    [OpType.SWAP_UP, swapUp],
+    [OpType.SWAP_DOWN, swapDown]
   ]);
 
   let enabled = true;

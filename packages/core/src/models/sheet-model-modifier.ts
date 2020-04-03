@@ -530,26 +530,56 @@ function swapUp({
 
   for (let itemKey of topicKeys) {
     let idx = parent.subKeys.indexOf(itemKey);
+    // 如果topicKeys不是sibling 关系
     if (idx === -1) return model;
     idxArray.push(idx);
   }
+  // 对序号进行排序
   idxArray.sort((a, b) => a - b);
 
   let firstIdx = idxArray[0];
   if (firstIdx === 0) {
     return model;
   } else {
-    let subItemKeys = parent.subKeys.toOrderedSet();
     let sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
-    let others = subItemKeys.subtract(topicKeys).toArray();
-    //
-    others.splice(firstIdx - 1, 0, ...sortedItemKeys);
-    model = model.setIn(['topics', parent.key, 'subKeys'], List(others));
+    model = model.updateIn(['topics', parent.key, 'subKeys'], subKeys =>
+      subKeys
+        .splice(idxArray[0], idxArray.length)
+        .splice(idxArray[0] - 1, 0, ...sortedItemKeys)
+    );
   }
   return model;
 }
 
-function swapDown() {}
+function swapDown({
+  model,
+  topicKeys
+}: BaseSheetModelModifierArg): SheetModelModifierResult {
+  if (topicKeys == null) topicKeys = model.focusOrSelectedKeys;
+  let firstKey = topicKeys[0];
+  let parent = model.getParentTopic(firstKey);
+  let idxArray = [];
+
+  for (let itemKey of topicKeys) {
+    let idx = parent.subKeys.indexOf(itemKey);
+    if (idx === -1) return model;
+    idxArray.push(idx);
+  }
+  idxArray.sort((a, b) => a - b);
+
+  let lastIdx = idxArray[idxArray.length - 1];
+  if (lastIdx === parent.subKeys.size - 1) {
+    return model;
+  } else {
+    let sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
+    model = model.updateIn(['topics', parent.key, 'subKeys'], subKeys =>
+      subKeys
+        .splice(idxArray[0], idxArray.length)
+        .splice(idxArray[0] + 1, 0, ...sortedItemKeys)
+    );
+  }
+  return model;
+}
 
 function addMultiSibling({
   model,
@@ -606,20 +636,23 @@ function addMultiChild({
     const items = contentArray.map(content =>
       Topic.create({
         key: createKey(),
-        topicKey,
+        parentKey: topicKey,
         content
       })
     );
-    const siblingsKeys = items.map(s => s.key);
+    const childKeys = items.map(s => s.key);
     model = model.withMutations(model => {
       items.forEach(sibling => {
         model.update('topics', topics => topics.set(sibling.key, sibling));
       });
       model.updateIn(['topics', topicKey, 'subKeys'], subKeys =>
-        addAtFront
-          ? subKeys.unshift(...siblingsKeys)
-          : subKeys.push(...siblingsKeys)
+        addAtFront ? subKeys.unshift(...childKeys) : subKeys.push(...childKeys)
       );
+    });
+    model = focusTopic({
+      model,
+      topicKey: childKeys[childKeys.length - 1],
+      focusMode: FocusMode.EDITING_CONTENT
     });
   } else if (topicArray) {
   }
@@ -652,5 +685,7 @@ export const SheetModelModifier = {
   setZoomFactor,
   startEditingContent,
   startEditingDesc,
-  dragAndDrop
+  dragAndDrop,
+  swapUp,
+  swapDown
 };

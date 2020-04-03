@@ -91,46 +91,48 @@ export function TopicContentEditor(props: Props) {
 
   const handleKeyDown = e => {
     if (_handleKeyDown(e)) return true;
-    if (e.keyCode === Key.UpArrow || e.keyCode === Key.DownArrow) {
-      const sel = window.getSelection();
-      if (sel.isCollapsed) {
-        const anchorNode = sel.anchorNode;
-        const anchorOffSet = sel.anchorOffset;
-        // const focusNode = sel.focusNode;
-        // const focusOffset = sel.focusOffset;
-        // log(anchorNode, sel.anchorOffset);
-        const innerEditorDiv = innerEditorDivRef.current;
-        if (e.keyCode === Key.UpArrow) {
-          let oldRange = sel.getRangeAt(0);
-          let range = new Range();
-          range.setStartBefore(innerEditorDiv.firstChild);
-          range.setEnd(anchorNode, anchorOffSet);
-          sel.removeAllRanges();
-          sel.addRange(range);
-          // log(sel,sel.toString());
-          if (sel.toString().length === 0) {
-            controller.run('operation', {
-              ...props,
-              opType: OlOpType.MOVE_FOCUS,
-              dir: 'U'
-            });
-            return true;
-          }
-          sel.removeAllRanges();
-          sel.addRange(oldRange);
-        } else {
-          let range = new Range();
-          range.setStart(anchorNode, anchorOffSet);
-          range.setEndAfter(innerEditorDiv.lastChild);
-          sel.removeAllRanges();
-          sel.addRange(range);
-          if (sel.toString().length === 0) {
-            controller.run('operation', {
-              ...props,
-              opType: OlOpType.MOVE_FOCUS,
-              dir: 'D'
-            });
-            return true;
+    if (!controller.run('isCommandOrControl', { ...props, ev: e })) {
+      if (e.keyCode === Key.UpArrow || e.keyCode === Key.DownArrow) {
+        const sel = window.getSelection();
+        if (sel.isCollapsed) {
+          const anchorNode = sel.anchorNode;
+          const anchorOffSet = sel.anchorOffset;
+          // const focusNode = sel.focusNode;
+          // const focusOffset = sel.focusOffset;
+          // log(anchorNode, sel.anchorOffset);
+          const innerEditorDiv = innerEditorDivRef.current;
+          if (e.keyCode === Key.UpArrow) {
+            let oldRange = sel.getRangeAt(0);
+            let range = new Range();
+            range.setStartBefore(innerEditorDiv.firstChild);
+            range.setEnd(anchorNode, anchorOffSet);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            // log(sel,sel.toString());
+            if (sel.toString().length === 0) {
+              controller.run('operation', {
+                ...props,
+                opType: OlOpType.MOVE_FOCUS,
+                dir: 'U'
+              });
+              return true;
+            }
+            sel.removeAllRanges();
+            sel.addRange(oldRange);
+          } else {
+            let range = new Range();
+            range.setStart(anchorNode, anchorOffSet);
+            range.setEndAfter(innerEditorDiv.lastChild);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            if (sel.toString().length === 0) {
+              controller.run('operation', {
+                ...props,
+                opType: OlOpType.MOVE_FOCUS,
+                dir: 'D'
+              });
+              return true;
+            }
           }
         }
       }
@@ -145,8 +147,6 @@ export function TopicContentEditor(props: Props) {
     const bmind = e.clipboardData.getData('text/bmind');
     if (bmind) {
       console.log(JSON.parse(bmind));
-
-
     }
     // else if (pasteType === 'PASTE_WITH_STYLE') {
     //   console.log('PASTE_WITH_STYLE');

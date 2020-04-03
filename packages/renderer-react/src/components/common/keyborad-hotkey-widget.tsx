@@ -5,7 +5,7 @@ interface Props {
   hotkeys: string[];
 }
 const HotKeyChar = {
-  Meta: isOSX ? '⌘' : 'Ctrl',
+  Mod: isOSX ? '⌘' : 'Ctrl',
   Shift: isOSX ? '⇧' : 'Shift',
   Alt: isOSX ? '⌥' : 'Alt'
 };

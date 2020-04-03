@@ -25,6 +25,28 @@ export function HotKeyPlugin() {
       };
       const topicHotKeys = new Map<string, IHotkeyProps>([
         [
+          HotKeyName.SWAP_UP,
+          {
+            label: 'swap up',
+            combo: 'mod + up',
+            allowInInput: true,
+            preventDefault: true,
+            stopPropagation: true,
+            onKeyDown: handleHotKeyDown(OpType.SWAP_UP)
+          }
+        ],
+        [
+          HotKeyName.SWAP_DOWN,
+          {
+            label: 'swap down',
+            combo: 'mod + down',
+            allowInInput: true,
+            preventDefault: true,
+            stopPropagation: true,
+            onKeyDown: handleHotKeyDown(OpType.SWAP_DOWN)
+          }
+        ],
+        [
           HotKeyName.DELETE_TOPIC,
           {
             label: 'delete topic',

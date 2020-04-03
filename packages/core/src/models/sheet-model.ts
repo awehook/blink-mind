@@ -225,4 +225,8 @@ export class SheetModel extends Record(defaultModelRecord) {
   get zoomFactor() {
     return this.get('zoomFactor');
   }
+
+  isEditorRootKey(topicKey:KeyType) {
+    return topicKey === this.editorRootTopicKey;
+  }
 }

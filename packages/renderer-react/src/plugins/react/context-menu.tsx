@@ -44,6 +44,20 @@ const items: TopicContextMenuItemConfig[] = [
     viewMode: [ViewModeMindMap]
   },
   {
+    icon: 'move-up',
+    label: I18nKey.MOVE_UP,
+    shortcut: ['Mod','Up'],
+    rootCanUse: false,
+    opType: OpType.SWAP_UP,
+  },
+  {
+    icon: 'move-down',
+    label: I18nKey.MOVE_DOWN,
+    shortcut: ['Mod','Down'],
+    rootCanUse: false,
+    opType: OpType.SWAP_DOWN
+  },
+  {
     icon: 'notes',
     label: I18nKey.EDIT_NOTES,
     shortcut: ['Alt', 'D'],
