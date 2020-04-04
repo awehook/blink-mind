@@ -45,7 +45,6 @@ export function DiagramRoot(props) {
     }
   };
   const onCopy = ev => {
-    console.log('onCopy');
     controller.run('handleCopy', { ...props, ev });
   };
   const model = docModel.currentSheetModel;

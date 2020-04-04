@@ -10,10 +10,10 @@ import { ItemPredicate, Select } from '@blueprintjs/select';
 import { ItemRenderer } from '@blueprintjs/select/src/common/itemRenderer';
 import * as React from 'react';
 import { SketchPicker } from 'react-color';
+import styled from 'styled-components';
 import { getI18nText, iconClassName, IconName } from '../../utils';
 import { Flex } from './styled';
 import { ColorBar, SettingItem, WithBorder } from './styled-setting';
-import styled from 'styled-components';
 const Label = styled.div`
   margin: ${props => (props.width == null ? '0 5px 0 0' : null)};
   width: ${props => props.width};

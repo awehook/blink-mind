@@ -167,11 +167,7 @@ export function LayoutPlugin() {
     },
 
     moveTopicToCenter(ctx: IControllerRunContext & { moveDir?: number }) {
-      const {
-        controller,
-        getRef,
-        moveDir = MoveTopicDir.CENTER
-      } = ctx;
+      const { controller, getRef, moveDir = MoveTopicDir.CENTER } = ctx;
       const model = controller.model;
       const topicKey = ctx.topicKey || model.focusKey;
       if (

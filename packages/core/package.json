@@ -23,7 +23,8 @@
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
     "is-plain-object": "^3.0.0",
-    "memoize-one": "^5.1.1"
+    "memoize-one": "^5.1.1",
+    "html-to-text": "^5.1.1"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

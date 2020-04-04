@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  getI18nText,
-  I18nKey,
-} from '../../../utils';
+import { getI18nText, I18nKey } from '../../../utils';
 import {
   SettingGroup,
   SettingItemColorPicker,
@@ -14,8 +11,8 @@ import {
   SettingTitle
 } from '../../common';
 
-import { ContentStyleEditorProps } from './types';
 import { MenuItem } from '@blueprintjs/core';
+import { ContentStyleEditorProps } from './types';
 
 const SettingItemSelect = props => (
   <SettingItemSelectC labelWidth={'80px'} {...props} />

@@ -1,13 +1,13 @@
 import {
+  BaseDocModelModifierArg,
   DocModel,
   getAllSubTopicKeys,
   IControllerRunContext,
   OpType,
   setCurrentSheetModel,
-  ViewModeMindMap,
-  BaseDocModelModifierArg,
   SheetModelModifier,
-  toDocModelModifierFunc
+  toDocModelModifierFunc,
+  ViewModeMindMap
 } from '@blink-mind/core';
 import {
   getI18nText,
@@ -98,14 +98,8 @@ export function TopicReferencePlugin() {
 
     getOpMap(props, next) {
       const opMap = next();
-      opMap.set(
-        OP_TYPE_START_SET_REFERENCE_TOPICS,
-        startSetReferenceTopics
-      );
-      opMap.set(
-        OP_TYPE_SET_REFERENCE_TOPICS,
-        setReferenceTopicKeys
-      );
+      opMap.set(OP_TYPE_START_SET_REFERENCE_TOPICS, startSetReferenceTopics);
+      opMap.set(OP_TYPE_SET_REFERENCE_TOPICS, setReferenceTopicKeys);
       return opMap;
     },
 
@@ -145,7 +139,10 @@ export function TopicReferencePlugin() {
         });
 
         extData = extData.set('reference', reference);
-        docModel = docModel.setIn(['extData', EXT_DATA_KEY_TOPIC_REFERENCE], extData);
+        docModel = docModel.setIn(
+          ['extData', EXT_DATA_KEY_TOPIC_REFERENCE],
+          extData
+        );
       }
 
       return docModel;

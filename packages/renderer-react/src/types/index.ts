@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { IHotkeyProps } from '@blueprintjs/core';
+import * as React from 'react';
 
 export type ValueOf<T> = T[keyof T];
 

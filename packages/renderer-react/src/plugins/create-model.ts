@@ -6,10 +6,12 @@ export function CreateModelPlugin() {
   return {
     createNewDocModel(ctx) {
       const { controller } = ctx;
-      return new DocModel({
+      const docModel = new DocModel({
         sheetModels: List([controller.run('createNewSheetModel', ctx)]),
         currentSheetIndex: 0
       });
+      controller.docModel = docModel;
+      return docModel;
     },
 
     // TODO

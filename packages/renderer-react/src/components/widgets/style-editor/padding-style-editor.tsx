@@ -37,25 +37,25 @@ export function PaddingStyleEditor(props: ContentStyleEditorProps) {
   };
   const topProps = {
     ...commonProps,
-    title: getI18nText(props,I18nKey.TOP),
+    title: getI18nText(props, I18nKey.TOP),
     value: top,
     onValueChange: setPadding('top')
   };
   const rightProps = {
     ...commonProps,
-    title: getI18nText(props,I18nKey.RIGHT),
+    title: getI18nText(props, I18nKey.RIGHT),
     value: right,
     onValueChange: setPadding('right')
   };
   const bottomProps = {
     ...commonProps,
-    title: getI18nText(props,I18nKey.BOTTOM),
+    title: getI18nText(props, I18nKey.BOTTOM),
     value: bottom,
     onValueChange: setPadding('bottom')
   };
   const leftProps = {
     ...commonProps,
-    title: getI18nText(props,I18nKey.LEFT),
+    title: getI18nText(props, I18nKey.LEFT),
     value: left,
     onValueChange: setPadding('left')
   };

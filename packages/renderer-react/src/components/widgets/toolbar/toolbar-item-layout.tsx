@@ -1,12 +1,7 @@
 import { DiagramLayoutType, OpType } from '@blink-mind/core';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import * as React from 'react';
-import {
-  getI18nText,
-  I18nKey,
-  Icon,
-  IconName
-} from '../../../utils';
+import { getI18nText, I18nKey, Icon, IconName } from '../../../utils';
 import { ToolbarItem, ToolbarItemPopoverTarget } from '../../common';
 
 export function ToolbarItemLayout(props) {
@@ -39,7 +34,7 @@ export function ToolbarItemLayout(props) {
 
   const nProps = {
     ...props,
-    iconName:IconName.LAYOUT_LEFT_AND_RIGHT,
+    iconName: IconName.LAYOUT_LEFT_AND_RIGHT,
     iconCxName: 'layout',
     label: getI18nText(props, I18nKey.LAYOUT)
   };

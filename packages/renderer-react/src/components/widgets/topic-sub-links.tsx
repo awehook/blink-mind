@@ -57,9 +57,8 @@ export class TopicSubLinks extends BaseWidget<Props, State> {
     // p2 折叠icon 右侧10个像素
     const marginCollapseIcon = 10;
     let y =
-      (mLinkStyle.hasUnderline
-        ? contentRect.bottom
-        : centerY(contentRect)) - svgRect.top;
+      (mLinkStyle.hasUnderline ? contentRect.bottom : centerY(contentRect)) -
+      svgRect.top;
     if (dir === TopicDirection.RIGHT) {
       p1 = {
         x: 0,

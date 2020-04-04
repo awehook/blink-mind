@@ -80,7 +80,7 @@ export class ExtDataImages extends Record(defaultExtDataImagesRecord) {
 
 export type TopicImageData = {
   key: KeyType;
-  imageRecord: ImageRecord,
+  imageRecord: ImageRecord;
   width: number;
   height: number;
-}
+};

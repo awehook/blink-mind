@@ -93,12 +93,7 @@ export function DragAndDropPlugin() {
     },
 
     handleTopicDragEnter(props) {
-      const {
-        dropDir,
-        topicKey,
-        controller,
-        setDiagramState
-      } = props;
+      const { dropDir, topicKey, controller, setDiagramState } = props;
       const model = controller.model;
       log('handleTopicDragEnter:', topicKey, dropDir);
       const canDrop = controller.run('canDrop', {

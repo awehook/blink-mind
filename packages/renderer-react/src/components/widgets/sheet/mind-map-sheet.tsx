@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { RefKey } from '../../../utils';
-import { MindDragScrollWidget } from '../mind-drag-scroll-widget';
 import { BaseProps } from '../../common';
+import { MindDragScrollWidget } from '../mind-drag-scroll-widget';
 
 const log = require('debug')('node:mindmap-sheet');
 

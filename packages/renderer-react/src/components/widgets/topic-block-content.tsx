@@ -1,8 +1,8 @@
+import { FocusMode, OpType } from '@blink-mind/core';
 import React from 'react';
 import styled from 'styled-components';
-import { useClickOutside } from '../../hooks';
-import { FocusMode, OpType } from '@blink-mind/core';
 import { Key } from 'ts-keycode-enum';
+import { useClickOutside } from '../../hooks';
 
 const EditingRoot = styled.div`
   position: relative;

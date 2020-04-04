@@ -1,10 +1,9 @@
 import { isAllSibiling, SheetModel } from '@blink-mind/core';
+import { createKey, Topic } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
-import { KeyboardHotKeyWidget } from '../../components/widgets';
 import * as React from 'react';
-import { I18nKey, getI18nText, Icon, IconName } from '../../utils';
-import { Topic } from '../../../../core/src/models';
-import { createKey } from '../../../../core/src/utils';
+import { KeyboardHotKeyWidget } from '../../components';
+import { getI18nText, I18nKey, Icon, IconName } from '../../utils';
 
 const log = require('debug')('plugin:paste');
 
@@ -94,7 +93,7 @@ export function PastePlugin() {
       const res = [];
       if (json) {
         if (Array.isArray(json)) {
-          for (let item of json) {
+          for (const item of json) {
             res.push(
               controller.run('topicsFromJson', {
                 ...ctx,

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Checkbox } from '@blueprintjs/core';
 import {
   SettingItemButton,
   SettingItemInput,
   SettingItemInputProps,
   SettingRow
 } from '@blink-mind/renderer-react';
+import { Checkbox } from '@blueprintjs/core';
+import React, { useState } from 'react';
 
 const _debugNameSpaces = [
   'bmd:*',
@@ -19,7 +19,9 @@ if (!localStorage.allDebugNS)
 
 export function DebugNamespaceWidget(props) {
   const [debugStr, setDebugStr] = useState(localStorage.debug || '');
-  const [allDebugNS,setAllDebugNS] = useState(localStorage.allDebugNS.split(',').sort());
+  const [allDebugNS, setAllDebugNS] = useState(
+    localStorage.allDebugNS.split(',').sort()
+  );
   const [nsName, setNsName] = useState('');
 
   const setDebugNS = nsArray => {};

@@ -2,6 +2,7 @@ import { FocusMode, OpType, TopicDirection } from '@blink-mind/core';
 import { ContextMenuTarget } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import {
   collapseRefKey,
@@ -11,7 +12,6 @@ import {
   topicNodeRefKey
 } from '../../utils';
 import { BaseProps, BaseWidget } from '../common';
-import { useRef } from 'react';
 
 const log = debug('node:topic-node-widget');
 

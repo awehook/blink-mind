@@ -1,7 +1,7 @@
 import { BlockType } from '@blink-mind/core';
+import htmlToText from 'html-to-text';
 import React from 'react';
 import { TopicContentEditor } from './topic-content-editor';
-import htmlToText from 'html-to-text';
 
 export function TopicContentEditorPlugin() {
   return {

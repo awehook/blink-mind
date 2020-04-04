@@ -1,4 +1,5 @@
 import debug from 'debug';
+import htmlToText from 'html-to-text';
 import { List } from 'immutable';
 import { ThemeType } from '../configs/theme';
 import {
@@ -11,6 +12,7 @@ import {
 import { createKey } from '../utils';
 import { Block } from './block';
 import { Config, ConfigRecordType } from './config';
+import { DescBlockData } from './desc-block-data';
 import { SheetModel } from './sheet-model';
 import { Topic } from './topic';
 import {
@@ -19,8 +21,6 @@ import {
   getPrevTopicKey,
   getRelationship
 } from './utils';
-import { DescBlockData } from './desc-block-data';
-import htmlToText from 'html-to-text';
 
 const log = debug('modifier');
 
@@ -524,12 +524,12 @@ function swapUp({
   topicKeys
 }: BaseSheetModelModifierArg): SheetModelModifierResult {
   if (topicKeys == null) topicKeys = model.focusOrSelectedKeys;
-  let firstKey = topicKeys[0];
-  let parent = model.getParentTopic(firstKey);
-  let idxArray = [];
+  const firstKey = topicKeys[0];
+  const parent = model.getParentTopic(firstKey);
+  const idxArray = [];
 
-  for (let itemKey of topicKeys) {
-    let idx = parent.subKeys.indexOf(itemKey);
+  for (const itemKey of topicKeys) {
+    const idx = parent.subKeys.indexOf(itemKey);
     // 如果topicKeys不是sibling 关系
     if (idx === -1) return model;
     idxArray.push(idx);
@@ -537,11 +537,11 @@ function swapUp({
   // 对序号进行排序
   idxArray.sort((a, b) => a - b);
 
-  let firstIdx = idxArray[0];
+  const firstIdx = idxArray[0];
   if (firstIdx === 0) {
     return model;
   } else {
-    let sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
+    const sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
     model = model.updateIn(['topics', parent.key, 'subKeys'], subKeys =>
       subKeys
         .splice(idxArray[0], idxArray.length)
@@ -556,22 +556,22 @@ function swapDown({
   topicKeys
 }: BaseSheetModelModifierArg): SheetModelModifierResult {
   if (topicKeys == null) topicKeys = model.focusOrSelectedKeys;
-  let firstKey = topicKeys[0];
-  let parent = model.getParentTopic(firstKey);
-  let idxArray = [];
+  const firstKey = topicKeys[0];
+  const parent = model.getParentTopic(firstKey);
+  const idxArray = [];
 
-  for (let itemKey of topicKeys) {
-    let idx = parent.subKeys.indexOf(itemKey);
+  for (const itemKey of topicKeys) {
+    const idx = parent.subKeys.indexOf(itemKey);
     if (idx === -1) return model;
     idxArray.push(idx);
   }
   idxArray.sort((a, b) => a - b);
 
-  let lastIdx = idxArray[idxArray.length - 1];
+  const lastIdx = idxArray[idxArray.length - 1];
   if (lastIdx === parent.subKeys.size - 1) {
     return model;
   } else {
-    let sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
+    const sortedItemKeys = idxArray.map(idx => parent.subKeys.get(idx));
     model = model.updateIn(['topics', parent.key, 'subKeys'], subKeys =>
       subKeys
         .splice(idxArray[0], idxArray.length)

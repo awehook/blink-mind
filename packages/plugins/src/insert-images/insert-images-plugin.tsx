@@ -1,3 +1,10 @@
+import {
+  getI18nText,
+  I18nKey,
+  Icon,
+  IconName
+} from '@blink-mind/renderer-react';
+import { MenuItem } from '@blueprintjs/core';
 import debug from 'debug';
 import { List } from 'immutable';
 import React from 'react';
@@ -24,8 +31,6 @@ import {
   OP_TYPE_SET_TOPIC_IMAGE,
   serializeImage
 } from './utils';
-import { MenuItem } from '@blueprintjs/core';
-import { getI18nText, I18nKey, Icon, IconName } from "@blink-mind/renderer-react";
 
 const log = debug('plugin:insert-image');
 
@@ -178,7 +183,7 @@ export function InsertImagesPlugin() {
 
     getTotalTopicImageCount(ctx) {
       const { model } = ctx;
-      let extData = model.getExtDataItem(EXT_DATA_KEY_IMAGES, ExtDataImages);
+      const extData = model.getExtDataItem(EXT_DATA_KEY_IMAGES, ExtDataImages);
       return extData.images.size;
     }
   };

@@ -31,7 +31,10 @@
   "dependencies": {
     "blueimp-md5": "^2.12.0",
     "file-saver": "^2.0.2",
-    "react-highlight-words": "^0.16.0"
+    "react-highlight-words": "^0.16.0",
+    "is-url": "^1.2.4",
+    "html-to-text": "^5.1.1",
+    "html-to-image": "^0.1.1"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

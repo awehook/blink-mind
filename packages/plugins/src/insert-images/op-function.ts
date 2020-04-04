@@ -1,4 +1,7 @@
-import {BaseDocModelModifierArg, BaseSheetModelModifierArg} from '@blink-mind/core';
+import {
+  BaseDocModelModifierArg,
+  BaseSheetModelModifierArg
+} from '@blink-mind/core';
 import { swap } from '@blink-mind/renderer-react';
 import { List } from 'immutable';
 import {

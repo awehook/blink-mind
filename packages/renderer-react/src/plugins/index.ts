@@ -5,14 +5,13 @@ import { HotKeyPlugin } from './hotkey';
 import { I18nPlugin } from './i18n';
 import { LayoutPlugin } from './layout';
 import { OperationPlugin } from './operation';
-import { UndoPlugin } from './undo';
+import { OptmizationPlugin } from './optimization';
 import { PlatformPlugin } from './platform';
 import { ReactPlugin } from './react';
-import { TopicContentEditorPlugin } from './topic-content-editor';
 import { StylePlugin } from './style';
 import { ThemePlugin } from './theme';
-import { OptmizationPlugin } from './optimization';
-
+import { TopicContentEditorPlugin } from './topic-content-editor';
+import { UndoPlugin } from './undo';
 
 export function DefaultPlugin() {
   return [

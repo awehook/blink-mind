@@ -37,7 +37,7 @@ export function ThemePlugin() {
       }
     },
 
-    toggleDarkMode(ctx){
+    toggleDarkMode(ctx) {
       document.body.classList.toggle(Classes.DARK);
     }
   };

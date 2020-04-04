@@ -1,5 +1,4 @@
 import { JsonSerializerPlugin } from '@blink-mind/plugin-json-serializer';
-import RichTextEditorPlugin from '@blink-mind/plugin-rich-text-editor';
 import TopologyDiagramPlugin from '@blink-mind/plugin-topology-diagram';
 import {
   ExportFilePlugin,
@@ -7,9 +6,10 @@ import {
   InsertImagesPlugin,
   OpenFilePlugin,
   SearchPlugin,
+  SimpleCaptureErrorPlugin,
   TagsPlugin,
   ThemeSelectorPlugin,
-  TopicReferencePlugin,
+  // TopicReferencePlugin,
   UndoRedoPlugin
 } from '@blink-mind/plugins';
 import {
@@ -65,9 +65,9 @@ function ChangeThemePlugin() {
 }
 
 const plugins = [
-  RichTextEditorPlugin(),
+  SimpleCaptureErrorPlugin(),
   ThemeSelectorPlugin(),
-  TopicReferencePlugin(),
+  // TopicReferencePlugin(),
   SearchPlugin(),
   InsertImagesPlugin(),
   OpenFilePlugin(),
@@ -75,7 +75,7 @@ const plugins = [
   UndoRedoPlugin(),
   TagsPlugin(),
   ChangeThemePlugin(),
-  TopologyDiagramPlugin(),
+  // TopologyDiagramPlugin(),
   ExportTopicPlugin(),
   JsonSerializerPlugin()
 ];

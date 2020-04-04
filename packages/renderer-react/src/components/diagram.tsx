@@ -1,24 +1,24 @@
 import {
   Controller,
   DocModel,
+  FocusMode,
   IDiagram,
   IDiagramProps,
-  OnChangeFunction,
-  FocusMode
+  OnChangeFunction
 } from '@blink-mind/core';
 // TODO
 import '@blink-mind/icons';
 
+import { ViewModeMindMap } from '@blink-mind/core';
+import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/select/lib/css/blueprint-select.css';
 import debug from 'debug';
 import memoizeOne from 'memoize-one';
 import * as React from 'react';
 import { DefaultPlugin } from '../plugins';
-import './diagram.scss';
-import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import { HotKeysConfig } from '../types';
-import { ViewModeMindMap } from '../../../core/src/types';
+import './diagram.scss';
 const log = debug('node:Diagram');
 
 // controller 可以为空
@@ -39,10 +39,13 @@ class Diagram extends React.Component<Props> implements IDiagram {
 
   renderHotkeys() {
     const props = this.props;
-    const { controller } = props;
+    const controller = props.controller || this.controller;
     const model = controller.model;
-    log('renderHotkeys',model);
-    const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', props);
+    log('renderHotkeys', model);
+    const hotKeys: HotKeysConfig = controller.run('customizeHotKeys', {
+      ...props,
+      controller
+    });
     if (hotKeys === null) return null;
     if (
       !(

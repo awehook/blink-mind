@@ -1,6 +1,6 @@
 import { BaseProps, PropKey } from '@blink-mind/renderer-react';
-import * as React from 'react';
 import cx from 'classnames';
+import * as React from 'react';
 import Highlighter from 'react-highlight-words';
 
 export interface TopicTitleThumbnailProps extends BaseProps {
@@ -41,7 +41,7 @@ export function TopicTitleThumbnail(props: TopicTitleThumbnailProps) {
   const titleProps = {
     // ...restProps,
     key: topicKey,
-    className: cx('bm-topic-title-thumbnail',{
+    className: cx('bm-topic-title-thumbnail', {
       'bm-topic-title-thumbnail-active': active
     }),
     onClick: navigateToTopic

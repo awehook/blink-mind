@@ -1,5 +1,5 @@
-import { isOSX } from '../../utils';
 import React from 'react';
+import { isOSX } from '../../utils';
 
 interface Props {
   hotkeys: string[];

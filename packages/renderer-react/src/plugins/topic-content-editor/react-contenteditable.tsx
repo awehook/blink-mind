@@ -1,6 +1,6 @@
-import React from 'react';
 import deepEqual from 'fast-deep-equal';
 import PropTypes from 'prop-types';
+import React from 'react';
 const log = require('debug')('node:content-editable');
 
 function normalizeHtml(str: string): string {

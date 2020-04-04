@@ -1,4 +1,4 @@
-@import "var";
+@import 'var';
 
 .bp3-checkbox {
   span {
@@ -8,7 +8,6 @@
 
 .bp3-dark {
   color: map_get($dark-colors, 'text');
-
 
   .bp3-dialog {
     background-color: map_get($dark-colors, 'zindex-bg');
@@ -177,7 +176,7 @@
     .react-tabs__tab {
       height: 24px;
       font-size: 16px;
-      padding: 4px 12px ;
+      padding: 4px 12px;
       bottom: 0;
       border-radius: 0;
       border: none;
@@ -237,8 +236,8 @@
 }
 
 .bm-card {
-  background-color: map_get($light-colors,'card-bg');
+  background-color: map_get($light-colors, 'card-bg');
   .bp3-dark & {
-    background-color: map_get($dark-colors,'card-bg');
+    background-color: map_get($dark-colors, 'card-bg');
   }
 }

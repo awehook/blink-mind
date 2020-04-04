@@ -11,11 +11,11 @@ import {
   SettingTitle
 } from '../../common';
 
+import { ViewModeMindMap } from '@blink-mind/core';
 import { BorderStyleEditor } from './border-style-editor';
 import { ClearAllCustomStyle } from './clear-all-custom-style';
 import { LinkStyleEditor, LinkStyleEditorProps } from './link-style-editor';
 import { ContentStyleEditorProps } from './types';
-import { ViewModeMindMap } from '../../../../../core/src/types';
 
 const log = debug('node:style-editor');
 

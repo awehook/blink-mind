@@ -140,11 +140,19 @@ export function I18nPlugin() {
     [I18nKey.DELETE_REFERENCE_TIP, 'Are you confirm to remove this reference?'],
     [I18nKey.FILE_FORMAT_ERROR, 'File Format Error!'],
 
+    [I18nKey.CHOOSE_FILE, 'Choose file'],
+    [I18nKey.SELECT_IMAGE_TIP1, 'Please choose png/jpg/gif format image'],
+    [
+      I18nKey.SELECT_IMAGE_TIP2,
+      'If you take a screenshot using some screenshot software (such as QQ, wechat, snipaste), you can paste the image directly in the editing state.'
+    ],
+    [I18nKey.SELECT_IMAGE_ERR_TIP, 'Only support png/jpg/gif format'],
+
     [I18nKey.HYPERLINK, 'Hyperlink'],
     [I18nKey.INSERT_HYPERLINK, 'Insert Hyperlink'],
     [I18nKey.SET_TO_ORIGINAL_SIZE, 'Set to original size'],
-    [I18nKey.MOVE_UP,'Move up'],
-    [I18nKey.MOVE_DOWN,'Move down'],
+    [I18nKey.MOVE_UP, 'Move up'],
+    [I18nKey.MOVE_DOWN, 'Move down']
   ]);
 
   return {

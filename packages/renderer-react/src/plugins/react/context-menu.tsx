@@ -1,9 +1,9 @@
-import { BlockType, ViewModeMindMap, OpType } from '@blink-mind/core';
+import { BlockType, OpType, ViewModeMindMap } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import {
-  TopicContextMenu,
-  KeyboardHotKeyWidget
+  KeyboardHotKeyWidget,
+  TopicContextMenu
 } from '../../components/widgets';
 import { getI18nText, I18nKey, Icon } from '../../utils';
 
@@ -46,14 +46,14 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'move-up',
     label: I18nKey.MOVE_UP,
-    shortcut: ['Mod','Up'],
+    shortcut: ['Mod', 'Up'],
     rootCanUse: false,
-    opType: OpType.SWAP_UP,
+    opType: OpType.SWAP_UP
   },
   {
     icon: 'move-down',
     label: I18nKey.MOVE_DOWN,
-    shortcut: ['Mod','Down'],
+    shortcut: ['Mod', 'Down'],
     rootCanUse: false,
     opType: OpType.SWAP_DOWN
   },
@@ -92,8 +92,8 @@ const items: TopicContextMenuItemConfig[] = [
   {
     icon: 'convert',
     label: I18nKey.CONVERT_TO_PLAIN_TEXT,
-    opType: OpType.TOPIC_CONTENT_TO_PLAIN_TEXT,
-  },
+    opType: OpType.TOPIC_CONTENT_TO_PLAIN_TEXT
+  }
 ];
 
 export function ContextMenuPlugin() {

@@ -51,7 +51,7 @@ export const theme1: ThemeType = {
   normalTopic: {
     contentStyle: {
       background: '#fff',
-      borderWidth: "1px",
+      borderWidth: '1px',
       borderStyle: 'solid',
       borderColor: '#e8eaec',
       borderRadius: '20px',

@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, { useRef } from 'react';
 export interface ContentEditableProps {
   content: string;
   onChange: (s: string) => void;
@@ -8,12 +8,12 @@ export function ContentEditable(props) {
   const { content, onChange } = props;
 
   const ref = useRef();
-  let lastHtml = content;
+  const lastHtml = content;
   const divProps = {
     ref,
     contentEditable: true,
-    onInput: (e)=>{
-      if(e.target.innerHTML !== lastHtml) {
+    onInput: e => {
+      if (e.target.innerHTML !== lastHtml) {
         onChange(e.target.innerHTML);
       }
     }

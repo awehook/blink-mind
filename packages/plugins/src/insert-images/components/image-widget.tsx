@@ -1,3 +1,4 @@
+import { FocusMode, OpType } from '@blink-mind/core';
 import {
   BaseProps,
   COLORS,
@@ -16,7 +17,6 @@ import {
   OP_TYPE_MOVE_TOPIC_IMAGE,
   OP_TYPE_SET_TOPIC_IMAGE
 } from '../utils';
-import { FocusMode, OpType } from '@blink-mind/core';
 
 const Root = styled.div`
   position: relative;

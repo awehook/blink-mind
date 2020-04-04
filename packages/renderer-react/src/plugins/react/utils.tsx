@@ -15,10 +15,8 @@ export function UtilsPlugin() {
     removeTempValueChangeListener(props) {
       const { key, listener } = props;
       if (eventListenerMap.has(key)) {
-        const res  = eventListenerMap
-          .get(key)
-          .filter(l => l !== listener);
-        eventListenerMap.set(key,res);
+        const res = eventListenerMap.get(key).filter(l => l !== listener);
+        eventListenerMap.set(key, res);
       }
     },
 

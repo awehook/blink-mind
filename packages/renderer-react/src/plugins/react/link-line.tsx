@@ -18,7 +18,7 @@ export function LinkLinePlugin() {
       // const topic = model.getTopic(topicKey);
       // if (topic.subKeys.size === 0) return null;
       return <RootSubLinks ref={saveRef(linksRefKey(topicKey))} {...props} />;
-    },
+    }
 
     // renderLinkPath(props) {
     //   const {linkStyle,contentRect,svgRect,dir,subContentRect} = props;

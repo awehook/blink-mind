@@ -6,8 +6,8 @@ import {
   StyleEditor,
   ThemeEditor
 } from '../../components/widgets';
+import { TextStyleEditor } from '../../components/widgets/style-editor/text-style-editor';
 import { getI18nText, I18nKey } from '../../utils';
-import {TextStyleEditor} from "../../components/widgets/style-editor/text-style-editor";
 
 export function RightTopPanelPlugin() {
   return {
@@ -38,7 +38,7 @@ export function RightTopPanelPlugin() {
     },
 
     renderTextStyleEditor(ctx) {
-      return <TextStyleEditor {...ctx}/>
+      return <TextStyleEditor {...ctx} />;
     },
 
     renderThemeEditor(props) {

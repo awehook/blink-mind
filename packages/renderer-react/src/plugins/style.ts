@@ -14,7 +14,6 @@ export function StylePlugin() {
   const colorMap = new Map();
   let colorIndex = 0;
   return {
-
     getFontList(props): string[] {
       return [];
     },

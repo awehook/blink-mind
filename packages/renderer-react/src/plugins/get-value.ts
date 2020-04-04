@@ -11,7 +11,7 @@ export function GetValuePlugin() {
         case PropKey.TOPIC_CONTEXT_MENU_ENABLED:
           return controller.run('isOperationEnabled', props);
         case PropKey.OPERATION_ENABLED:
-          return  controller.run('isOperationEnabled',props);
+          return controller.run('isOperationEnabled', props);
         case PropKey.TOPIC_TITLE:
           return controller.run('getTopicTitle', props);
         case PropKey.DRAG_DROP_STATE:

@@ -9,12 +9,12 @@ $dark-colors: (
   'item': #c6c2c3,
   'item-active': #fff,
   //'card-bg': #2f3235,
-  'card-bg': #444,
+    'card-bg': #444,
   'text': #eee,
   //'text': rgb(194,193,187),
-  'text-gray':#999,
+    'text-gray': #999,
   'line': #5f5f5f,
-  'selected-bg': #323944,
+  'selected-bg': #323944
 );
 
 $light-colors: (
@@ -25,8 +25,8 @@ $light-colors: (
   'item': #8e8e8e,
   'item-active': #000,
   //'text': #000,
-  'text': #182026,
-  'text-gray':#555,
+    'text': #182026,
+  'text-gray': #555,
   'line': #dcdcdc,
   'selected-bg': #d1eaff
 );

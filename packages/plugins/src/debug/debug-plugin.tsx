@@ -1,5 +1,5 @@
-import React from 'react';
 import { Tab } from '@blueprintjs/core';
+import React from 'react';
 import { DebugPanel } from './debug-panel';
 
 export function DebugPlugin() {

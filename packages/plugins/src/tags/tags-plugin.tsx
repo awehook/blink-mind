@@ -20,14 +20,11 @@ import {
   OP_TYPE_UPDATE_TAG
 } from './utils';
 
-import {
-  IControllerRunContext,
-  toDocModelModifierFunc
-} from '@blink-mind/core';
+import { IControllerRunContext } from '@blink-mind/core';
+import { BaseProps } from '@blink-mind/renderer-react';
 import { List } from 'immutable';
 import { TagWidget, TagWidgetProps } from './components/tag-widget';
 import { ExtDataTags, TagRecord } from './ext-data-tags';
-import { BaseProps } from '../../../renderer-react/src/components/common';
 
 export function TagsPlugin() {
   const tabId = 'tags-editor';
@@ -38,14 +35,14 @@ export function TagsPlugin() {
     ) {
       const { docModel } = ctx.prevProps;
       const { docModel: nDocModel, topicKey } = ctx.nextProps;
-      const extData : ExtDataTags  = docModel.extData.get(EXT_DATA_KEY_TAGS);
-      const nExtData : ExtDataTags = nDocModel.extData.get(EXT_DATA_KEY_TAGS);
-      if(extData !== nExtData) {
+      const extData: ExtDataTags = docModel.extData.get(EXT_DATA_KEY_TAGS);
+      const nExtData: ExtDataTags = nDocModel.extData.get(EXT_DATA_KEY_TAGS);
+      if (extData !== nExtData) {
         // console.log('extData !== nExtData');
-        if(extData && extData.getTopicTags(topicKey).length) {
+        if (extData && extData.getTopicTags(topicKey).length) {
           return false;
         }
-        if(nExtData && nExtData.getTopicTags(topicKey).length) {
+        if (nExtData && nExtData.getTopicTags(topicKey).length) {
           return false;
         }
       }

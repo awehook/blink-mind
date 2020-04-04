@@ -1,6 +1,6 @@
-import { List, Record, Map } from 'immutable';
-import { SheetModel } from './sheet-model';
+import { List, Map, Record } from 'immutable';
 import { KeyType } from '../types';
+import { SheetModel } from './sheet-model';
 
 export type ExtData = Map<string, any>;
 

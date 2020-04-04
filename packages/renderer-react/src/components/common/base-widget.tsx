@@ -5,8 +5,8 @@ import {
   DocModel,
   KeyType,
   SheetModel,
-  TopicStyle,
-  Topic
+  Topic,
+  TopicStyle
 } from '@blink-mind/core';
 
 export interface BaseProps {

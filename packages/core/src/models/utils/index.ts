@@ -124,8 +124,8 @@ export function getSiblingAncestorKeys(
   key1: KeyType,
   key2: KeyType
 ): Array<KeyType> {
-  let d1 = model.getDepth(key1);
-  let d2 = model.getDepth(key2);
+  const d1 = model.getDepth(key1);
+  const d2 = model.getDepth(key2);
   if (d1 === d2) {
     if (isSibling(model, key1, key2)) return [key1, key2];
     return getSiblingAncestorKeys(
@@ -158,10 +158,10 @@ export function getRangeSubKeys(
   subKey1: KeyType,
   subKey2: KeyType
 ): Array<KeyType> {
-  let topic = model.getParentTopic(subKey1);
-  let subKeys = topic.subKeys;
-  let i1 = subKeys.indexOf(subKey1);
-  let i2 = subKeys.indexOf(subKey2);
+  const topic = model.getParentTopic(subKey1);
+  const subKeys = topic.subKeys;
+  const i1 = subKeys.indexOf(subKey1);
+  const i2 = subKeys.indexOf(subKey2);
   if (i1 < 0 || i2 < 0)
     throw new Error(
       `The parent of subKey1 ${subKey1} and subKey2 ${subKey2} is not same`
@@ -184,7 +184,8 @@ export function getBottomDescendantKey(
   const topic = model.getTopic(key);
   return topic.subKeys.size === 0
     ? key
-    : getBottomDescendantKey(model, topic.subKeys.last());
+    : //@ts-ignore
+      getBottomDescendantKey(model, topic.subKeys.last());
 }
 
 /**
@@ -199,7 +200,8 @@ export function getVisualBottomDescendantKey(
   const topic = model.getTopic(key);
   return topic.subKeys.size === 0 || topic.collapse
     ? key
-    : getVisualBottomDescendantKey(model, topic.subKeys.last());
+    : //@ts-ignore
+      getVisualBottomDescendantKey(model, topic.subKeys.last());
 }
 
 /**
@@ -209,8 +211,8 @@ export function getVisualBottomDescendantKey(
  */
 export function isAllSibiling(model: SheetModel, keys: Array<KeyType>) {
   if (keys && keys.length > 0) {
-    let parentKey = model.getParentKey(keys[0]);
-    for (let key of keys) {
+    const parentKey = model.getParentKey(keys[0]);
+    for (const key of keys) {
       if (model.getParentKey(key) !== parentKey) return false;
     }
     return true;

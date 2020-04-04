@@ -21,7 +21,6 @@ export function browserOpenFile(accept: string): Promise<any> {
       const file = evt.target.files[0];
       const fr = new FileReader();
 
-
       fr.onload = (evt: ProgressEvent) => {
         //@ts-ignore
         const txt = evt.target.result;

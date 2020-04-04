@@ -1,10 +1,10 @@
 import { FocusMode } from '@blink-mind/core';
 import {
   BaseProps,
+  COLORS,
   getI18nText,
   I18nKey,
-  stopPropagation,
-  COLORS
+  stopPropagation
 } from '@blink-mind/renderer-react';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -37,7 +37,7 @@ const GotoBtn = styled.div`
 `;
 
 export function ReferenceTopicList(props: BaseProps) {
-  const { topicKey, controller, model,docModel } = props;
+  const { topicKey, controller, model, docModel } = props;
   const extData: ExtDataReference = docModel.extData.get(
     EXT_DATA_KEY_TOPIC_REFERENCE
   );

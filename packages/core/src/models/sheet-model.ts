@@ -181,14 +181,14 @@ export class SheetModel extends Record(defaultModelRecord) {
 
   getPreviousSiblingKey(key: KeyType): KeyType {
     const p = this.getParentTopic(key);
-    let index = p.subKeys.indexOf(key);
+    const index = p.subKeys.indexOf(key);
     if (index === 0) return null;
     return p.subKeys.get(index - 1);
   }
 
   getNextSiblingKey(key: KeyType): KeyType {
     const p = this.getParentTopic(key);
-    let index = p.subKeys.indexOf(key);
+    const index = p.subKeys.indexOf(key);
     if (index === p.subKeys.size - 1) return null;
     return p.subKeys.get(index + 1);
   }
@@ -226,7 +226,7 @@ export class SheetModel extends Record(defaultModelRecord) {
     return this.get('zoomFactor');
   }
 
-  isEditorRootKey(topicKey:KeyType) {
+  isEditorRootKey(topicKey: KeyType) {
     return topicKey === this.editorRootTopicKey;
   }
 }

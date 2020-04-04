@@ -1,9 +1,9 @@
 import { BaseProps } from '@blink-mind/renderer-react';
 import {
+  ContextMenu,
   ContextMenuTarget,
   Divider,
-  Menu,
-  ContextMenu
+  Menu
 } from '@blueprintjs/core';
 import * as React from 'react';
 import styled from 'styled-components';

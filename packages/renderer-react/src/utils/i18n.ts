@@ -3,11 +3,15 @@
 export function getI18nText(ctx, key: string | string[]) {
   try {
     if (Array.isArray(key)) {
-      return key.map(k => ctx.controller.run('getI18nText', { ...ctx, key: k }));
+      return key.map(k =>
+        ctx.controller.run('getI18nText', { ...ctx, key: k })
+      );
     }
-    return ctx.controller.run('getI18nText', { ...ctx, key:key.toUpperCase() });
-  }
-  catch (e) {
+    return ctx.controller.run('getI18nText', {
+      ...ctx,
+      key: key.toUpperCase()
+    });
+  } catch (e) {
     throw e;
   }
 }

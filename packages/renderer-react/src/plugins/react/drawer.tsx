@@ -1,10 +1,10 @@
-import { BlockType, FocusMode, OpType, DescBlockData } from '@blink-mind/core';
+import { BlockType, DescBlockData, FocusMode, OpType } from '@blink-mind/core';
 import { Drawer } from '@blueprintjs/core';
 import * as React from 'react';
-import styled from 'styled-components';
-import { getI18nText, I18nKey, Icon, stopPropagation } from '../../utils';
 import { useRef } from 'react';
+import styled from 'styled-components';
 import { ITopicDescEditor } from '../../types';
+import { getI18nText, I18nKey, Icon, stopPropagation } from '../../utils';
 const DescEditorWrapper = styled.div`
   overflow: auto;
   padding: 10px;

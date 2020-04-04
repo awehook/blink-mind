@@ -1,3 +1,4 @@
+import { ViewModeMindMap } from '@blink-mind/core';
 import {
   BaseProps,
   getI18nText,
@@ -11,7 +12,6 @@ import { MenuItem } from '@blueprintjs/core';
 import { saveAs } from 'file-saver';
 import { toBlob, toSvgDataURL } from 'html-to-image';
 import * as React from 'react';
-import { ViewModeMindMap } from '@blink-mind/core';
 
 export function ContextMenuExportTopic(props: BaseProps) {
   const { controller, model, topicKey, getRef } = props;

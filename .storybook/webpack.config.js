@@ -18,11 +18,12 @@ module.exports = {
       // add your custom rules.
       {
         test: /\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader',
-        ],
+        loaders: ['style-loader', 'css-loader'],
         include: path.resolve(__dirname, '../')
+      },
+      {
+        test: /\.(scss|sass)$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         enforce: 'pre',
@@ -55,8 +56,8 @@ module.exports = {
         enforce: 'pre'
       },
       {
-        test:/\.(ttf|eot|woff|woff2|svg)$/,
-        use:['file-loader']
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        use: ['file-loader']
       }
     ]
   },

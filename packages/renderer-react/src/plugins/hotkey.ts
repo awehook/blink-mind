@@ -1,8 +1,8 @@
-import { OpType, BlockType } from '@blink-mind/core';
+import { BlockType, OpType } from '@blink-mind/core';
 
-import { HotKeyName, HotKeysConfig } from '../types';
+import { ViewModeMindMap } from '@blink-mind/core';
 import { IHotkeyProps } from '@blueprintjs/core';
-import { ViewModeMindMap } from '../../../core/src/types';
+import { HotKeyName, HotKeysConfig } from '../types';
 
 function op(opType: string, props) {
   const { topicKey, controller } = props;

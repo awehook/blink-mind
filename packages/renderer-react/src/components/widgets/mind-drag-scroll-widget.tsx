@@ -31,8 +31,6 @@ export class MindDragScrollWidget<
     super(props);
   }
 
-
-
   componentDidMount(): void {
     const { getRef, docModel, model, controller } = this.props;
     controller.run('addZoomFactorChangeEventListener', {

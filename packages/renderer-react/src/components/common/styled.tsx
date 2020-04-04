@@ -2,8 +2,6 @@ import { Card, Checkbox } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { COLORS } from '../../utils';
 
-
-
 export const Flex = styled.div`
   display: flex;
   flex-direction: ${props =>

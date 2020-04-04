@@ -1,9 +1,9 @@
 import {
-  DocModelModifier,
-  getAllSubTopicKeys,
-  OpType,
   BlockType,
-  FocusMode
+  DocModelModifier,
+  FocusMode,
+  getAllSubTopicKeys,
+  OpType
 } from '@blink-mind/core';
 import debug from 'debug';
 import {

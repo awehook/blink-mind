@@ -1,5 +1,5 @@
-import { Stack } from 'immutable';
 import { DocModel } from '@blink-mind/core';
+import { Stack } from 'immutable';
 
 const log = require('debug')('plugin:undo');
 

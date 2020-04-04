@@ -1,5 +1,5 @@
-import { DialogWidget } from '../../components/widgets';
 import React from 'react';
+import { DialogWidget } from '../../components/widgets';
 
 export function DialogPlugin() {
   return {

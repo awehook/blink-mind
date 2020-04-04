@@ -1,11 +1,11 @@
 import { OpType } from '@blink-mind/core';
+import { ViewModeMindMap } from '@blink-mind/core';
 import { Classes, Position, Tooltip } from '@blueprintjs/core';
 import debug from 'debug';
 import * as React from 'react';
 import styled from 'styled-components';
 import { EventKey, getI18nText, I18nKey, Icon, IconName } from '../../../utils';
 import { BaseWidget, ZIndex } from '../../common';
-import { ViewModeMindMap } from '../../../../../core/src/types';
 
 const log = debug('node:view-port-viewer');
 

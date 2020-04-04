@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Button, FileInput } from '@blueprintjs/core';
 import { BaseProps, getI18nText, I18nKey } from '@blink-mind/renderer-react';
+import { Button, FileInput } from '@blueprintjs/core';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { OP_TYPE_ADD_IMAGE, serializeImage } from '../utils';
 import { ImageRecord } from '../ext-data-images';
+import { OP_TYPE_ADD_IMAGE, serializeImage } from '../utils';
 const md5 = require('blueimp-md5');
 
 const Root = styled.div``;

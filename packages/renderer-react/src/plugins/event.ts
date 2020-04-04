@@ -8,7 +8,6 @@ export function EventPlugin() {
   const eventListeners = {};
   let _isHandlingMouseMove = false;
   return {
-
     isHandlingMouseMove(ctx) {
       return _isHandlingMouseMove;
     },

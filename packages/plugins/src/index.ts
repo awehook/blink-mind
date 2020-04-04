@@ -8,4 +8,5 @@ export * from './theme-selector';
 export * from './insert-images';
 export * from './debug';
 export * from './export-topic';
+export * from './simple-capture-error';
 import './plugins.scss';

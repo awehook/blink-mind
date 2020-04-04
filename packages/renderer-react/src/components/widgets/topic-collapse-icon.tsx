@@ -1,7 +1,7 @@
 import { TopicDirection } from '@blink-mind/core';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { collapseRefKey,iconClassName } from '../../utils';
+import { collapseRefKey, iconClassName } from '../../utils';
 
 const Icon = styled.div`
   position: absolute;
@@ -39,14 +39,7 @@ const Icon = styled.div`
 `;
 
 export function TopicCollapseIcon(props) {
-  const {
-    topic,
-    topicKey,
-    dir,
-    saveRef,
-    onClickCollapse,
-    linkStyle
-  } = props;
+  const { topic, topicKey, dir, saveRef, onClickCollapse, linkStyle } = props;
   const hasUnderline = linkStyle.hasUnderline;
   return topic.subKeys.size > 0 ? (
     <Icon

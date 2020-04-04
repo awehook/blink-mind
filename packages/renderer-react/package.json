@@ -45,7 +45,10 @@
     "slate-react": "^0.21.20",
     "styled-components": "^4.4.0",
     "tiny-invariant": "^1.0.6",
-    "tiny-warning": "^1.0.3"
+    "tiny-warning": "^1.0.3",
+    "ts-keycode-enum": "^1.0.6",
+    "html-to-text": "^5.1.1",
+    "fast-deep-equal": "^2.0.1"
   },
   "gitHead": "0a975dead37d717608e7661df1291ea38b441c0e"
 }

@@ -22,12 +22,6 @@
       "@blink-mind/plugin-json-serializer": [
         "packages/plugin-json-serializer/src"
       ],
-      "@blink-mind/plugin-simple-text-editor": [
-        "packages/plugin-simple-text-editor/src"
-      ],
-      "@blink-mind/plugin-rich-text-editor": [
-        "packages/plugin-rich-text-editor/src"
-      ],
       "@blink-mind/plugin-topology-diagram": [
         "packages/plugin-topology-diagram/src"
       ],
@@ -39,7 +33,6 @@
     { "path": "./packages/renderer-react" },
     { "path": "./packages/plugin-json-serializer" },
     { "path": "./packages/plugins" },
-    { "path": "./packages/plugin-rich-text-editor" },
     { "path": "./packages/plugin-topology-diagram" }
   ],
   "include": ["packages/*/src", "stories/"],

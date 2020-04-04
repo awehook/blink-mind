@@ -67,6 +67,7 @@ export function SearchPanel(props: BaseProps) {
       ...props,
       ...section,
       active: modifiers.active,
+      //@ts-ignore
       onClick: handleClick,
       query: controller.run('getTempValue', {
         key: SEARCH_QUERY_TEMP_VALUE_KEY
