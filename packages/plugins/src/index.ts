@@ -5,4 +5,7 @@ export * from './export-file';
 export * from './undo-redo';
 export * from './tags';
 export * from './theme-selector';
+export * from './insert-images';
+export * from './debug';
+export * from './export-topic';
 import './plugins.scss';
