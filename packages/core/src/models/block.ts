@@ -14,11 +14,11 @@ const defaultBlockRecord: BlockRecordType = {
 };
 
 export class Block extends Record(defaultBlockRecord) {
-  get data() {
+  get data(): any {
     return this.get('data');
   }
 
-  get type() {
+  get type(): string {
     return this.get('type');
   }
 

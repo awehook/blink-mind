@@ -6,10 +6,7 @@ import {
   IDiagramProps,
   OnChangeFunction
 } from '@blink-mind/core';
-// TODO
 import '@blink-mind/icons';
-
-import { ViewModeMindMap } from '@blink-mind/core';
 import { Hotkey, Hotkeys, HotkeysTarget } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/select/lib/css/blueprint-select.css';

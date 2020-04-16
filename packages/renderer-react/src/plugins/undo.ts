@@ -1,4 +1,4 @@
-import { DocModel } from '@blink-mind/core';
+import { DocModel, OpType, BlockType, FocusMode } from '@blink-mind/core';
 import { Stack } from 'immutable';
 
 const log = require('debug')('plugin:undo');
@@ -12,6 +12,28 @@ export function UndoPlugin() {
       const { controller, allowUndo = true } = ctx;
       if (allowUndo === false) return false;
       return controller.run('customizeAllowUndo', ctx);
+    },
+
+    customizeAllowUndo(ctx) {
+      const { docModel, opType } = ctx;
+      const model = docModel.currentSheetModel;
+      if (opType) {
+        switch (opType) {
+          // 这几种情况不加入undo 队列
+          case OpType.FOCUS_TOPIC:
+          case OpType.SET_FOCUS_MODE:
+          case OpType.START_EDITING_CONTENT:
+            return false;
+          case OpType.START_EDITING_DESC:
+            return !model.currentFocusTopic.getBlock(BlockType.DESC).block;
+          case OpType.SET_TOPIC_BLOCK_CONTENT:
+            return false;
+          default:
+            break;
+        }
+      }
+      if (model.focusMode === FocusMode.EDITING_DESC) return false;
+      return model.config.allowUndo;
     },
 
     getUndoRedoStack() {

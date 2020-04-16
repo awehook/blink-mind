@@ -1,23 +1,8 @@
 import {
-  BlockType,
   DocModelModifier,
-  FocusMode,
-  getAllSubTopicKeys,
   OpType
 } from '@blink-mind/core';
 import debug from 'debug';
-import {
-  collapseRefKey,
-  contentEditorRefKey,
-  contentRefKey,
-  descEditorRefKey,
-  dropAreaRefKey,
-  linksRefKey,
-  linksSvgRefKey,
-  topicNodeRefKey,
-  topicWidgetRefKey,
-  topicWidgetRootRefKey
-} from '../utils';
 const log = debug('plugin:operation');
 
 export function OperationPlugin() {
@@ -122,28 +107,6 @@ export function OperationPlugin() {
       return OpMap;
     },
 
-    customizeAllowUndo(ctx) {
-      const { docModel, opType } = ctx;
-      const model = docModel.currentSheetModel;
-      if (opType) {
-        switch (opType) {
-          // 这几种情况不加入undo 队列
-          case OpType.FOCUS_TOPIC:
-          case OpType.SET_FOCUS_MODE:
-          case OpType.START_EDITING_CONTENT:
-            return false;
-          case OpType.START_EDITING_DESC:
-            return !model.currentFocusTopic.getBlock(BlockType.DESC).block;
-          case OpType.SET_TOPIC_BLOCK_CONTENT:
-            return false;
-          default:
-            break;
-        }
-      }
-      if (model.focusMode === FocusMode.EDITING_DESC) return false;
-      return model.config.allowUndo;
-    },
-
     //TODO 有空重构这个函数
     operation(ctx) {
       if (ctx.controller.docModel) {
@@ -181,10 +144,6 @@ export function OperationPlugin() {
       }
 
       log('operation:', opType || opArray.map(op => op.opType), ctx);
-      // if (opType === OpType.SET_TOPIC_BLOCK) {
-      //   log(ctx.blockType, ctx.data);
-      // }
-      // log('operation:', ctx);
 
       const opMap = controller.run('getOpMap', ctx);
       controller.run('beforeOperation', ctx);
@@ -236,24 +195,7 @@ export function OperationPlugin() {
       // log(controller.model);
     },
 
-    deleteRefKey(ctx) {
-      // const { model, topicKey, deleteRef } = ctx;
-      // const allSubKeys = getAllSubTopicKeys(model, topicKey);
-      // allSubKeys.push(topicKey);
-      // for (const key of allSubKeys) {
-      //   deleteRef(linksRefKey(key));
-      //   deleteRef(linksSvgRefKey(key));
-      //   deleteRef(contentRefKey(key));
-      //   deleteRef(contentEditorRefKey(key));
-      //   deleteRef(descEditorRefKey(key));
-      //   deleteRef(topicWidgetRefKey(key));
-      //   deleteRef(topicWidgetRootRefKey(key));
-      //   deleteRef(topicNodeRefKey(key));
-      //   deleteRef(collapseRefKey(key));
-      //   deleteRef(dropAreaRefKey(key, 'next'));
-      //   deleteRef(dropAreaRefKey(key, 'prev'));
-      // }
-    },
+    deleteRefKey(ctx) {},
 
     // 在整个Operation执行之前被调用
     beforeOperation(props) {},
@@ -270,12 +212,7 @@ export function OperationPlugin() {
     },
 
     openNewDocModel(ctx) {
-      const { docModel, controller, newDocModel } = ctx;
-      // TODO 后面会采用新的RefKey策略
-      // controller.run('deleteRefKey', {
-      //   ...ctx,
-      //   topicKey: docModel.rootTopicKey
-      // });
+      const { controller, newDocModel } = ctx;
       controller.run('operation', {
         ...ctx,
         opType: OpType.EXPAND_TO,
