@@ -148,8 +148,70 @@ export function InsertImagesPlugin() {
     },
 
     topicExtDataToJson(ctx, next) {
+      const { docModel, topicKey } = ctx;
       const res = next();
+      const extData = docModel.getExtDataItem(
+        EXT_DATA_KEY_IMAGES,
+        ExtDataImages
+      );
+      if (extData.topics.has(topicKey)) {
+        res[EXT_DATA_KEY_IMAGES] = extData.topics
+          .get(topicKey)
+          .toArray()
+          .map(r => {
+            const image: ImageRecord = extData.images.get(r.key);
+            return {
+              key: r.key,
+              url: image.url,
+              originalWidth: image.width,
+              originalHeight: image.height,
+              width: r.width,
+              height: r.height
+            };
+          });
+      }
       return res;
+    },
+
+    processTopicExtData(ctx, next) {
+      let extData = next();
+      let { topic } = ctx;
+      if (topic.extData[EXT_DATA_KEY_IMAGES]) {
+        if (!extData.has(EXT_DATA_KEY_IMAGES)) {
+          let extDataImages = new ExtDataImages();
+          extData = extData.set(EXT_DATA_KEY_IMAGES, extDataImages);
+        }
+        let list = List();
+        for (let image of topic.extData[EXT_DATA_KEY_IMAGES]) {
+          extData = extData.updateIn(
+            [EXT_DATA_KEY_IMAGES, 'images'],
+            images => {
+              return images.has(image.key)
+                ? images
+                : images.set(
+                    image.key,
+                    new ImageRecord({
+                      key: image.key,
+                      url: image.url,
+                      width: image.originWidth,
+                      height: image.originHeight
+                    })
+                  );
+            }
+          );
+          list = list.push(
+            new TopicImageRecord({
+              key: image.key,
+              width: image.width,
+              height: image.height
+            })
+          );
+        }
+        extData = extData.updateIn([EXT_DATA_KEY_IMAGES, 'topics'], topics =>
+          topics.set(topic.key, list)
+        );
+      }
+      return extData;
     },
 
     customizeAllowUndo(ctx, next) {
@@ -182,8 +244,11 @@ export function InsertImagesPlugin() {
     },
 
     getTotalTopicImageCount(ctx) {
-      const { model } = ctx;
-      const extData = model.getExtDataItem(EXT_DATA_KEY_IMAGES, ExtDataImages);
+      const { docModel } = ctx;
+      const extData = docModel.getExtDataItem(
+        EXT_DATA_KEY_IMAGES,
+        ExtDataImages
+      );
       return extData.images.size;
     }
   };

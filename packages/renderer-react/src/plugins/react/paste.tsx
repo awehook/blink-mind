@@ -1,5 +1,5 @@
 import { isAllSibiling, SheetModel } from '@blink-mind/core';
-import { createKey, Topic } from '@blink-mind/core';
+import { createKey, Topic, OpType } from '@blink-mind/core';
 import { MenuItem } from '@blueprintjs/core';
 import * as React from 'react';
 import { KeyboardHotKeyWidget } from '../../components';
@@ -9,6 +9,19 @@ const log = require('debug')('plugin:paste');
 
 export function PastePlugin() {
   let pasteType;
+
+  const processTopicJson = (topicJson, parentKey) => {
+    const res = [];
+    topicJson.parentKey = parentKey;
+    topicJson.key = createKey();
+    topicJson.subTopics.forEach(t => {
+      res.push(...processTopicJson(t, topicJson.key));
+    });
+    topicJson.subKeys = topicJson.subTopics.map(s => s.key);
+    res.push(topicJson);
+    return res;
+  };
+
   return {
     setPasteType(ctx) {
       pasteType = ctx.pasteType;
@@ -62,7 +75,8 @@ export function PastePlugin() {
               topicKey
             });
           });
-          const json = JSON.stringify(topics, null, 2);
+          const obj = { topics };
+          const json = JSON.stringify(obj, null, 2);
           log('selectedKeysToClipboardData', json);
           return json;
         }
@@ -89,33 +103,48 @@ export function PastePlugin() {
     },
 
     pasteFromJson(ctx) {
-      const { controller, json, docModel } = ctx;
+      const { controller, json, docModel, topicKey } = ctx;
+      let extData = docModel.extData;
       const res = [];
       if (json) {
-        if (Array.isArray(json)) {
-          for (const item of json) {
-            res.push(
-              controller.run('topicsFromJson', {
-                ...ctx,
-                json: item,
-                parentKey: null
-              })
-            );
-          }
-        } else {
-          if (json.subTopics.length > 0) {
-            const subTopics = controller.run('topicsFromJson', {
+        // 这一步生成随机的key, 并且将树状结构变成平铺结构
+        const flattenTopics = [];
+        json.topics.forEach(topic => {
+          flattenTopics.push(...processTopicJson(topic, topicKey));
+        });
+
+        for (const item of flattenTopics) {
+          res.push(
+            controller.run('topicFromJson', {
               ...ctx,
-              json: json.subTopics,
-              parentKey: json.key
-            });
-          } else {
-            const { key, collapse, blocks, extData } = json;
-            // let topic = Topic.create();
-          }
+              json: item
+            })
+          );
+
+          extData = controller.run('processTopicExtData', {
+            ...ctx,
+            extData,
+            topic: item
+          });
         }
+        controller.run('operation', {
+          ...ctx,
+          opType: OpType.ADD_MULTI_CHILD_WITH_EXTDATA,
+          topicArray: res,
+          extData
+        });
       }
       return null;
+    },
+
+    processTopicExtData(ctx) {
+      let { extData } = ctx;
+      return extData;
+    },
+
+    topicFromJson(ctx) {
+      const { controller, json } = ctx;
+      return controller.run('deserializeTopic', { ...ctx, topic: json });
     },
 
     topicExtDataToJson(ctx) {

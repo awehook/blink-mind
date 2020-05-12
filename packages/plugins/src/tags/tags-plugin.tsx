@@ -70,6 +70,52 @@ export function TagsPlugin() {
       return opMap;
     },
 
+    topicExtDataToJson(ctx, next) {
+      const { docModel, topicKey } = ctx;
+      const res = next();
+      const extData = docModel.getExtDataItem(EXT_DATA_KEY_TAGS, ExtDataTags);
+      const tags = [];
+      extData.tags.forEach((v, k) => {
+        if (v.topicKeys.includes(topicKey)) {
+          tags.push({
+            name: v.name,
+            style: v.style
+          });
+        }
+      });
+      res[EXT_DATA_KEY_TAGS] = tags;
+      return res;
+    },
+
+    processTopicExtData(ctx, next) {
+      let extData = next();
+      let { topic } = ctx;
+      if (topic.extData[EXT_DATA_KEY_TAGS]) {
+        if (!extData.has(EXT_DATA_KEY_TAGS)) {
+          let extDataTags = new ExtDataTags();
+          extData = extData.set(EXT_DATA_KEY_TAGS, extDataTags);
+        }
+        let list = List();
+        for (let tag of topic.extData[EXT_DATA_KEY_TAGS]) {
+          extData = extData.updateIn([EXT_DATA_KEY_TAGS, 'tags'], tags => {
+            return tags.has(tag.name)
+              ? tags.updateIn([tag.name, 'topicKeys'], topicKeys =>
+                  topicKeys.push(topic.key)
+                )
+              : tags.set(
+                  tag.name,
+                  new TagRecord({
+                    name: tag.name,
+                    style: tag.style,
+                    topicKeys: List([topic.key])
+                  })
+                );
+          });
+        }
+      }
+      return extData;
+    },
+
     renderTopicNodeLastRowOthers(props, next) {
       const { controller } = props;
       const res = next();

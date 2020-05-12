@@ -1,7 +1,4 @@
-import {
-  DocModelModifier,
-  OpType
-} from '@blink-mind/core';
+import { DocModelModifier, OpType } from '@blink-mind/core';
 import debug from 'debug';
 const log = debug('plugin:operation');
 
@@ -15,7 +12,9 @@ export function OperationPlugin() {
 
     addChild,
     addSibling,
+    addMultiTopics,
     addMultiChild,
+    addMultiChildWithExtData,
     addMultiSibling,
     toggleCollapse,
     collapseAll,
@@ -53,8 +52,10 @@ export function OperationPlugin() {
     [OpType.EXPAND_TO, expandTo],
     [OpType.ADD_CHILD, addChild],
     [OpType.ADD_SIBLING, addSibling],
+    [OpType.ADD_MULTI_TOPICS, addMultiTopics],
     [OpType.ADD_MULTI_CHILD, addMultiChild],
-    [OpType.ADD_MULTI_CHILD, addMultiSibling],
+    [OpType.ADD_MULTI_CHILD_WITH_EXTDATA, addMultiChildWithExtData],
+    [OpType.ADD_MULTI_SIBLING, addMultiSibling],
     [OpType.DELETE_TOPIC, deleteTopics],
     [OpType.FOCUS_TOPIC, focusTopic],
     [OpType.SET_FOCUS_MODE, setFocusMode],

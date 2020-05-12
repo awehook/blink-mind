@@ -116,12 +116,35 @@ function setSheetTitle({ docModel, title }) {
   return docModel;
 }
 
+function addMultiChildWithExtData({
+  docModel,
+  topicKey,
+  addAtFront = false,
+  contentArray,
+  topicArray,
+  extData
+}) {
+  docModel = setCurrentSheetModel(
+    docModel,
+    SheetModelModifier.addMultiChild({
+      model: docModel.currentSheetModel,
+      topicKey,
+      addAtFront,
+      contentArray,
+      topicArray
+    })
+  );
+  if (extData) docModel = docModel.set('extData', extData);
+  return docModel;
+}
+
 const DocModelModifier: any = {
   addSheet,
   setCurrentSheet,
   duplicateSheet,
   deleteSheet,
-  setSheetTitle
+  setSheetTitle,
+  addMultiChildWithExtData
 };
 
 Object.keys(SheetModelModifier).forEach(k => {

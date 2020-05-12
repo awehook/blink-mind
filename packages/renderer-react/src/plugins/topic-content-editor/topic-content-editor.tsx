@@ -96,7 +96,9 @@ export function TopicContentEditor(props: Props) {
     const pasteType = controller.run('getPasteType', props);
     const bmind = e.clipboardData.getData('text/bmind');
     if (bmind) {
-      log(JSON.parse(bmind));
+      const json = JSON.parse(bmind);
+      log(json);
+      controller.run('pasteFromJson', { ...props, json });
     }
     // else if (pasteType === 'PASTE_WITH_STYLE') {
     //   console.log('PASTE_WITH_STYLE');

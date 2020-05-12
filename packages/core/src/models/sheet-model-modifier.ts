@@ -633,35 +633,47 @@ function addMultiChild({
   topicArray?: Array<Topic>;
 }) {
   if (contentArray) {
-    const items = contentArray.map(content =>
+    topicArray = contentArray.map(content =>
       Topic.create({
         key: createKey(),
         parentKey: topicKey,
         content
       })
     );
-    const childKeys = items.map(s => s.key);
-    model = model.withMutations(model => {
-      items.forEach(sibling => {
-        model.update('topics', topics => topics.set(sibling.key, sibling));
-      });
-      model.updateIn(['topics', topicKey, 'subKeys'], subKeys =>
-        addAtFront ? subKeys.unshift(...childKeys) : subKeys.push(...childKeys)
-      );
-    });
-    model = focusTopic({
-      model,
-      topicKey: childKeys[childKeys.length - 1],
-      focusMode: FocusMode.EDITING_CONTENT
-    });
-  } else if (topicArray) {
   }
+
+  const childKeys = topicArray
+    .filter(s => s.parentKey === topicKey)
+    .map(s => s.key);
+  model = model.withMutations(model => {
+    topicArray.forEach(topic => {
+      model.update('topics', topics_ => topics_.set(topic.key, topic));
+    });
+    model.updateIn(['topics', topicKey, 'subKeys'], subKeys =>
+      addAtFront ? subKeys.unshift(...childKeys) : subKeys.push(...childKeys)
+    );
+  });
+  model = focusTopic({
+    model,
+    topicKey: childKeys[childKeys.length - 1],
+    focusMode: FocusMode.EDITING_CONTENT
+  });
+  return model;
+}
+
+function addMultiTopics({ model, topics }) {
+  model = model.withMutations(model => {
+    topics.forEach(topic => {
+      model.update('topics', topics_ => topics_.set(topic.key, topic));
+    });
+  });
   return model;
 }
 
 export const SheetModelModifier = {
   addChild,
   addSibling,
+  addMultiTopics,
   addMultiChild,
   addMultiSibling,
   toggleCollapse,
