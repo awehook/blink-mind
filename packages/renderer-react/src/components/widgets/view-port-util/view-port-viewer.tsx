@@ -155,7 +155,7 @@ export class ViewPortViewer extends BaseWidget {
 
         <Item
           onClick={this.onClickMinusZoom}
-          tooltip={getI18nText(props, I18nKey.ZOOM_IN)}
+          tooltip={getI18nText(props, I18nKey.ZOOM_OUT)}
         >
           {Icon(IconName.MINUS)}
         </Item>
@@ -170,7 +170,7 @@ export class ViewPortViewer extends BaseWidget {
         </Item>
         <Item
           onClick={this.onClickAddZoom}
-          tooltip={getI18nText(props, I18nKey.ZOOM_OUT)}
+          tooltip={getI18nText(props, I18nKey.ZOOM_IN)}
         >
           {Icon(IconName.PLUS)}
         </Item>
