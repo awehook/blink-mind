@@ -90,10 +90,12 @@ export class SheetTitle extends React.Component<Props, State> {
           onClick={this.onClickDuplicate}
           text={getI18nText(props, I18nKey.DUPLICATE)}
         />
-        <MenuItem
-          onClick={this.onClickDelete}
-          text={getI18nText(props, I18nKey.DELETE)}
-        />
+        {docModel.sheetModels.size > 1 && (
+          <MenuItem
+            onClick={this.onClickDelete}
+            text={getI18nText(props, I18nKey.DELETE)}
+          />
+        )}
       </Menu>
     );
   }
