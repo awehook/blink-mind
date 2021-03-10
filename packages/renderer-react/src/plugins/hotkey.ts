@@ -24,6 +24,19 @@ export function HotKeyPlugin() {
         e.preventDefault();
       };
       const topicHotKeys = new Map<string, IHotkeyProps>([
+        // [
+        //   HotKeyName.COPY,
+        //   {
+        //     label: 'copy',
+        //     combo: 'mod + c',
+        //     allowInInput: false,
+        //     preventDefault: true,
+        //     stopPropagation: true,
+        //     onKeyDown: (ev) =>{
+        //       console.log(ev)
+        //     }
+        //   }
+        // ],
         [
           HotKeyName.SWAP_UP,
           {

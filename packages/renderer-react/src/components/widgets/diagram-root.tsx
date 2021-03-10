@@ -1,8 +1,10 @@
+import { isTextInputEvent } from '@a-util/util';
 import { OpType } from '@blink-mind/core';
 import { Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import { Tab, TabList, TabPanel, Tabs } from '@slim-ui/react-tabs';
 import '@slim-ui/react-tabs/style/react-tabs.css';
+import { useEffect, useRef } from 'react';
 import * as React from 'react';
 import styled from 'styled-components';
 import Theme from '../../plugins/react/theme';
@@ -44,9 +46,7 @@ export function DiagramRoot(props) {
       });
     }
   };
-  const onCopy = ev => {
-    controller.run('handleCopy', { ...props, ev });
-  };
+
   const model = docModel.currentSheetModel;
 
   const sheetModels = docModel.sheetModels.toArray();
@@ -107,8 +107,31 @@ export function DiagramRoot(props) {
     </TabsContainer>
   );
 
+  const rootRef = useRef<HTMLDivElement>();
+
+  const onCopy = ev => {
+    controller.run('handleCopy', { ...props, ev });
+  };
+
+  const onPaste = ev => {
+    controller.run('handlePaste', { ...props, ev });
+  };
+
+  const onCut = ev => {};
+
+  useEffect(() => {
+    document.addEventListener('copy', onCopy);
+    document.addEventListener('paste', onPaste);
+    document.addEventListener('cut', onCut);
+    return () => {
+      document.removeEventListener('copy', onCopy);
+      document.removeEventListener('paste', onPaste);
+      document.removeEventListener('cut', onCut);
+    };
+  }, []);
+
   return (
-    <Root onCopy={onCopy}>
+    <Root ref={rootRef}>
       {/*<GlobalStyle />*/}
       {controller.run('renderToolbar', { ...props, model })}
       {controller.run('renderDiagramCustomize', props)}

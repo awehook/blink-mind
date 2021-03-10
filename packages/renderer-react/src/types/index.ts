@@ -27,6 +27,7 @@ export const HotKeyName = {
   EDIT_NOTES: 'EDIT_NOTES',
   DELETE_NOTES: 'DELETE_NOTES',
   SET_EDITOR_ROOT: 'SET_EDITOR_ROOT',
+  COPY: 'COPY',
   PASTE: 'PASTE'
 };
 

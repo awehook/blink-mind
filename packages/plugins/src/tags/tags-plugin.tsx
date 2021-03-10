@@ -89,14 +89,14 @@ export function TagsPlugin() {
 
     processTopicExtData(ctx, next) {
       let extData = next();
-      let { topic } = ctx;
+      const { topic } = ctx;
       if (topic.extData[EXT_DATA_KEY_TAGS]) {
         if (!extData.has(EXT_DATA_KEY_TAGS)) {
-          let extDataTags = new ExtDataTags();
+          const extDataTags = new ExtDataTags();
           extData = extData.set(EXT_DATA_KEY_TAGS, extDataTags);
         }
-        let list = List();
-        for (let tag of topic.extData[EXT_DATA_KEY_TAGS]) {
+        const list = List();
+        for (const tag of topic.extData[EXT_DATA_KEY_TAGS]) {
           extData = extData.updateIn([EXT_DATA_KEY_TAGS, 'tags'], tags => {
             return tags.has(tag.name)
               ? tags.updateIn([tag.name, 'topicKeys'], topicKeys =>

@@ -33,7 +33,7 @@
     { "path": "./packages/renderer-react" },
     { "path": "./packages/plugin-json-serializer" },
     { "path": "./packages/plugins" },
-    { "path": "./packages/plugin-topology-diagram" }
+    { "path": "./packages/plugin-topology-diagram" },
   ],
   "include": ["packages/*/src", "stories/"],
   "exclude": ["node_modules", "**/*.spec.ts", "./dist", "**/*.test.ts"]

@@ -175,14 +175,14 @@ export function InsertImagesPlugin() {
 
     processTopicExtData(ctx, next) {
       let extData = next();
-      let { topic } = ctx;
+      const { topic } = ctx;
       if (topic.extData[EXT_DATA_KEY_IMAGES]) {
         if (!extData.has(EXT_DATA_KEY_IMAGES)) {
-          let extDataImages = new ExtDataImages();
+          const extDataImages = new ExtDataImages();
           extData = extData.set(EXT_DATA_KEY_IMAGES, extDataImages);
         }
         let list = List();
-        for (let image of topic.extData[EXT_DATA_KEY_IMAGES]) {
+        for (const image of topic.extData[EXT_DATA_KEY_IMAGES]) {
           extData = extData.updateIn(
             [EXT_DATA_KEY_IMAGES, 'images'],
             images => {

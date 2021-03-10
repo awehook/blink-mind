@@ -138,7 +138,7 @@ export function PastePlugin() {
     },
 
     processTopicExtData(ctx) {
-      let { extData } = ctx;
+      const { extData } = ctx;
       return extData;
     },
 
@@ -153,15 +153,22 @@ export function PastePlugin() {
 
     handleCopy(ctx) {
       const { controller, ev } = ctx;
+      log('handleCopy', ev);
       const model: SheetModel = controller.model;
       if (model.selectedKeys) {
         ev.preventDefault();
         // navigator.clipboard.writeText('test clipboard');
-        ev.nativeEvent.clipboardData.setData(
+        ev.clipboardData.setData(
           'text/bmind',
           controller.run('selectedKeysToClipboardData', ctx)
         );
       }
+    },
+
+    handlePaste(ctx) {
+      const { controller, ev } = ctx;
+      log('handlePaste', ev);
+
     }
   };
 }
