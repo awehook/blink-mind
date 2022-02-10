@@ -48,7 +48,7 @@
     "awesome-typescript-loader": "5.2.1",
     "babel-loader": "^8.0.6",
     "file-loader": "^5.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "7.1.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
